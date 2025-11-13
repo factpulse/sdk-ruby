@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build-and-publish:
     name: Build and publish to RubyGems
@@ -21,6 +25,9 @@ jobs:
 
     - name: Install dependencies
       run: bundle install
+
+    - name: Remove test files (avoid RubyGems 100-char filename limit)
+      run: rm -rf spec/
 
     - name: Build gem
       run: gem build *.gemspec
