@@ -33,13 +33,10 @@ module FactPulse
 
     attr_accessor :numero_engagement
 
-    # Montant HT total
     attr_accessor :montant_ht_total
 
-    # Montant TVA
     attr_accessor :montant_tva
 
-    # Montant TTC total
     attr_accessor :montant_ttc_total
 
     attr_accessor :piece_jointe_principale_id
@@ -93,9 +90,9 @@ module FactPulse
         :'id_structure_cpp' => :'Integer',
         :'code_service' => :'String',
         :'numero_engagement' => :'String',
-        :'montant_ht_total' => :'String',
-        :'montant_tva' => :'String',
-        :'montant_ttc_total' => :'String',
+        :'montant_ht_total' => :'MontantHtTotal1',
+        :'montant_tva' => :'MontantTva1',
+        :'montant_ttc_total' => :'MontantTtcTotal1',
         :'piece_jointe_principale_id' => :'Integer',
         :'piece_jointe_principale_designation' => :'String',
         :'commentaire' => :'String',

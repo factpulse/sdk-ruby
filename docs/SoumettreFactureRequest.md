@@ -11,9 +11,9 @@
 | **id_structure_cpp** | **Integer** | ID Chorus Pro de la structure destinataire |  |
 | **code_service** | **String** |  | [optional] |
 | **numero_engagement** | **String** |  | [optional] |
-| **montant_ht_total** | **String** | Montant HT total |  |
-| **montant_tva** | **String** | Montant TVA |  |
-| **montant_ttc_total** | **String** | Montant TTC total |  |
+| **montant_ht_total** | [**MontantHtTotal1**](MontantHtTotal1.md) |  |  |
+| **montant_tva** | [**MontantTva1**](MontantTva1.md) |  |  |
+| **montant_ttc_total** | [**MontantTtcTotal1**](MontantTtcTotal1.md) |  |  |
 | **piece_jointe_principale_id** | **Integer** |  | [optional] |
 | **piece_jointe_principale_designation** | **String** |  | [optional] |
 | **commentaire** | **String** |  | [optional] |

@@ -73,7 +73,7 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'profil_facturx' => :'String',
+        :'profil_facturx' => :'ProfilAPI',
         :'auto_enrichir' => :'Boolean',
         :'valider' => :'Boolean',
         :'verifier_parametres_destination' => :'Boolean'
@@ -104,8 +104,6 @@ module FactPulse
 
       if attributes.key?(:'profil_facturx')
         self.profil_facturx = attributes[:'profil_facturx']
-      else
-        self.profil_facturx = 'EN16931'
       end
 
       if attributes.key?(:'auto_enrichir')
@@ -139,19 +137,7 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      profil_facturx_validator = EnumAttributeValidator.new('String', ["MINIMUM", "BASIC", "EN16931", "EXTENDED"])
-      return false unless profil_facturx_validator.valid?(@profil_facturx)
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] profil_facturx Object to be assigned
-    def profil_facturx=(profil_facturx)
-      validator = EnumAttributeValidator.new('String', ["MINIMUM", "BASIC", "EN16931", "EXTENDED"])
-      unless validator.valid?(profil_facturx)
-        fail ArgumentError, "invalid value for \"profil_facturx\", must be one of #{validator.allowable_values}."
-      end
-      @profil_facturx = profil_facturx
     end
 
     # Checks equality by comparing each attribute.

@@ -734,7 +734,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-soumettre_facture_request = FactPulse::SoumettreFactureRequest.new({numero_facture: 'numero_facture_example', date_facture: 'date_facture_example', id_structure_cpp: 37, montant_ht_total: 'montant_ht_total_example', montant_tva: 'montant_tva_example', montant_ttc_total: 'montant_ttc_total_example'}) # SoumettreFactureRequest | 
+soumettre_facture_request = FactPulse::SoumettreFactureRequest.new({numero_facture: 'numero_facture_example', date_facture: 'date_facture_example', id_structure_cpp: 37, montant_ht_total: FactPulse::MontantHtTotal1.new, montant_tva: FactPulse::MontantTva1.new, montant_ttc_total: FactPulse::MontantTtcTotal1.new}) # SoumettreFactureRequest | 
 
 begin
   # Soumettre une facture à Chorus Pro

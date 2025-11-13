@@ -6,7 +6,7 @@
 | ---- | ---- | ----------- | ----- |
 | **id_tache** | **String** |  |  |
 | **statut** | **String** |  |  |
-| **resultat** | [**AnyOf**](AnyOf.md) |  | [optional] |
+| **resultat** | **Hash&lt;String, Object&gt;** |  | [optional] |
 
 ## Example
 

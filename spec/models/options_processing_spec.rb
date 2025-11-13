@@ -30,10 +30,6 @@ describe FactPulse::OptionsProcessing do
   describe 'test attribute "profil_facturx"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["MINIMUM", "BASIC", "EN16931", "EXTENDED"])
-      # validator.allowable_values.each do |value|
-      #   expect { instance.profil_facturx = value }.not_to raise_error
-      # end
     end
   end
 

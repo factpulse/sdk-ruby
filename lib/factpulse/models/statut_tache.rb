@@ -46,7 +46,7 @@ module FactPulse
       {
         :'id_tache' => :'String',
         :'statut' => :'String',
-        :'resultat' => :'AnyOf'
+        :'resultat' => :'Hash<String, Object>'
       }
     end
 
@@ -86,7 +86,9 @@ module FactPulse
       end
 
       if attributes.key?(:'resultat')
-        self.resultat = attributes[:'resultat']
+        if (value = attributes[:'resultat']).is_a?(Hash)
+          self.resultat = value
+        end
       end
     end
 
