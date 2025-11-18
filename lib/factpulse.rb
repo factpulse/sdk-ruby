@@ -26,8 +26,6 @@ require 'factpulse/models/body_lister_services_structure_api_v1_chorus_pro_struc
 require 'factpulse/models/body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post'
 require 'factpulse/models/body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post'
 require 'factpulse/models/body_recycler_facture_api_v1_chorus_pro_factures_recycler_post'
-require 'factpulse/models/body_search_siren_metier_api_v1_afnor_directory_siren_search_post'
-require 'factpulse/models/body_search_siret_metier_api_v1_afnor_directory_siret_search_post'
 require 'factpulse/models/body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post'
 require 'factpulse/models/body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post'
 require 'factpulse/models/body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post'
@@ -129,7 +127,6 @@ require 'factpulse/models/validation_error'
 require 'factpulse/models/validation_error_loc_inner'
 
 # APIs
-require 'factpulse/api/afnor_directory_service_mtier_api'
 require 'factpulse/api/afnorpdppa_api'
 require 'factpulse/api/afnorpdppa_directory_service_api'
 require 'factpulse/api/afnorpdppa_flow_service_api'

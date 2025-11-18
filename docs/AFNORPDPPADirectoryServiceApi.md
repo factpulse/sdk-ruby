@@ -38,6 +38,11 @@ Créer une ligne dans l'annuaire
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 
@@ -78,7 +83,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -99,6 +104,11 @@ Créer un code de routage dans l'annuaire
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 
@@ -139,7 +149,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -160,6 +170,11 @@ Supprimer une ligne d'annuaire
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -203,7 +218,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -285,6 +300,11 @@ Obtenir une ligne d'annuaire identifiée par un identifiant d'adressage
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 addressing_identifier = 'addressing_identifier_example' # String | 
@@ -328,7 +348,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -349,6 +369,11 @@ Obtenir une ligne d'annuaire identifiée par son idInstance
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -392,7 +417,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -413,6 +438,11 @@ Obtenir un code de routage identifié par son idInstance
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -456,7 +486,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -477,6 +507,11 @@ Consulter un code de routage identifié par SIRET et identifiant de routage
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 siret = 'siret_example' # String | 
@@ -522,7 +557,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -543,6 +578,11 @@ Retourne les détails d'une entreprise (unité légale) identifiée par son num�
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 siren = 'siren_example' # String | 
@@ -586,7 +626,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -607,6 +647,11 @@ Obtenir une entreprise (unité légale) identifiée par son idInstance
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -650,7 +695,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -671,6 +716,11 @@ Obtenir un établissement identifié par son numéro SIRET
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 siret = 'siret_example' # String | 
@@ -714,7 +764,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -735,6 +785,11 @@ Obtenir un établissement identifié par son idInstance
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -778,7 +833,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -799,6 +854,11 @@ Mettre à jour partiellement une ligne d'annuaire
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -842,7 +902,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -863,6 +923,11 @@ Mettre à jour partiellement un code de routage privé
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -906,7 +971,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -927,6 +992,11 @@ Mettre à jour complètement un code de routage privé
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 id_instance = 'id_instance_example' # String | 
@@ -970,7 +1040,7 @@ end
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -991,6 +1061,11 @@ Rechercher des lignes d'annuaire selon des critères
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 
@@ -1031,7 +1106,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -1052,6 +1127,11 @@ Rechercher des codes de routage selon des critères
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 
@@ -1092,7 +1172,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -1113,6 +1193,11 @@ Recherche multi-critères d'entreprises (unités légales)
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 
@@ -1153,7 +1238,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -1174,6 +1259,11 @@ Recherche multi-critères d'établissements
 ```ruby
 require 'time'
 require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
 
 api_instance = FactPulse::AFNORPDPPADirectoryServiceApi.new
 
@@ -1214,7 +1304,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

@@ -57,7 +57,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post",
@@ -114,7 +114,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post",
@@ -177,7 +177,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete",
@@ -297,7 +297,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get",
@@ -360,7 +360,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get",
@@ -423,7 +423,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get",
@@ -492,7 +492,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get",
@@ -555,7 +555,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get",
@@ -618,7 +618,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get",
@@ -681,7 +681,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get",
@@ -744,7 +744,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get",
@@ -807,7 +807,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch",
@@ -870,7 +870,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch",
@@ -933,7 +933,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put",
@@ -990,7 +990,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post",
@@ -1047,7 +1047,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post",
@@ -1104,7 +1104,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post",
@@ -1161,7 +1161,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post",
