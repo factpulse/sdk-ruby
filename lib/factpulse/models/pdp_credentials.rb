@@ -19,6 +19,8 @@ module FactPulse
     # URL de base du Flow Service AFNOR
     attr_accessor :flow_service_url
 
+    attr_accessor :directory_service_url
+
     # URL du serveur OAuth2
     attr_accessor :token_url
 
@@ -32,6 +34,7 @@ module FactPulse
     def self.attribute_map
       {
         :'flow_service_url' => :'flow_service_url',
+        :'directory_service_url' => :'directory_service_url',
         :'token_url' => :'token_url',
         :'client_id' => :'client_id',
         :'client_secret' => :'client_secret'
@@ -52,6 +55,7 @@ module FactPulse
     def self.openapi_types
       {
         :'flow_service_url' => :'String',
+        :'directory_service_url' => :'String',
         :'token_url' => :'String',
         :'client_id' => :'String',
         :'client_secret' => :'String'
@@ -61,6 +65,7 @@ module FactPulse
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'directory_service_url',
       ])
     end
 
@@ -84,6 +89,10 @@ module FactPulse
         self.flow_service_url = attributes[:'flow_service_url']
       else
         self.flow_service_url = nil
+      end
+
+      if attributes.key?(:'directory_service_url')
+        self.directory_service_url = attributes[:'directory_service_url']
       end
 
       if attributes.key?(:'token_url')
@@ -186,6 +195,7 @@ module FactPulse
       return true if self.equal?(o)
       self.class == o.class &&
           flow_service_url == o.flow_service_url &&
+          directory_service_url == o.directory_service_url &&
           token_url == o.token_url &&
           client_id == o.client_id &&
           client_secret == o.client_secret
@@ -200,7 +210,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [flow_service_url, token_url, client_id, client_secret].hash
+      [flow_service_url, directory_service_url, token_url, client_id, client_secret].hash
     end
 
     # Builds the object from hash
