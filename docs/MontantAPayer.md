@@ -1,4 +1,4 @@
-# FactPulse::Montanttva
+# FactPulse::MontantAPayer
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::Montanttva.new()
+instance = FactPulse::MontantAPayer.new()
 ```
 

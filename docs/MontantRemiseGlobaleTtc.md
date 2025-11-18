@@ -1,4 +1,4 @@
-# FactPulse::Montantbaseht
+# FactPulse::MontantRemiseGlobaleTtc
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::Montantbaseht.new()
+instance = FactPulse::MontantRemiseGlobaleTtc.new()
 ```
 

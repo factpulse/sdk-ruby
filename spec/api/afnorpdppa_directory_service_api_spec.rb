@@ -32,6 +32,40 @@ describe 'AFNORPDPPADirectoryServiceApi' do
     end
   end
 
+  # unit tests for create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post
+  # Creating a directory line
+  # Créer une ligne dans l&#39;annuaire
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post
+  # Create a routing code
+  # Créer un code de routage dans l&#39;annuaire
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete
+  # Delete a directory line
+  # Supprimer une ligne d&#39;annuaire
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for directory_healthcheck_proxy_api_v1_afnor_directory_v1_healthcheck_get
   # Healthcheck Directory Service
   # Vérifier la disponibilité du Directory Service
@@ -43,24 +77,178 @@ describe 'AFNORPDPPADirectoryServiceApi' do
     end
   end
 
-  # unit tests for get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get
-  # Récupérer une entreprise
-  # Récupérer les informations d&#39;une entreprise par son SIREN
-  # @param siren 
+  # unit tests for get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get
+  # Get a directory line
+  # Obtenir une ligne d&#39;annuaire identifiée par un identifiant d&#39;adressage
+  # @param addressing_identifier 
   # @param [Hash] opts the optional parameters
   # @return [Object]
-  describe 'get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get test' do
+  describe 'get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
   end
 
-  # unit tests for search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post
-  # Rechercher des entreprises
-  # Rechercher des entreprises dans l&#39;annuaire AFNOR
+  # unit tests for get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get
+  # Get a directory line
+  # Obtenir une ligne d&#39;annuaire identifiée par son idInstance
+  # @param id_instance 
   # @param [Hash] opts the optional parameters
   # @return [Object]
-  describe 'search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post test' do
+  describe 'get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get
+  # Get a routing code by instance-id
+  # Obtenir un code de routage identifié par son idInstance
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get
+  # Get a routing code by SIRET and routing identifier
+  # Consulter un code de routage identifié par SIRET et identifiant de routage
+  # @param siret 
+  # @param routing_identifier 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get
+  # Consult a siren (legal unit) by SIREN number
+  # Retourne les détails d&#39;une entreprise (unité légale) identifiée par son numéro SIREN
+  # @param siren 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get
+  # Gets a siren (legal unit) by instance ID
+  # Obtenir une entreprise (unité légale) identifiée par son idInstance
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get
+  # Gets a siret (facility) by SIRET number
+  # Obtenir un établissement identifié par son numéro SIRET
+  # @param siret 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get
+  # Gets a siret (facility) by id-instance
+  # Obtenir un établissement identifié par son idInstance
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch
+  # Partially updates a directory line
+  # Mettre à jour partiellement une ligne d&#39;annuaire
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch
+  # Partially update a private routing code
+  # Mettre à jour partiellement un code de routage privé
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put
+  # Completely update a private routing code
+  # Mettre à jour complètement un code de routage privé
+  # @param id_instance 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post
+  # Search for a directory line
+  # Rechercher des lignes d&#39;annuaire selon des critères
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post
+  # Search for a routing code
+  # Rechercher des codes de routage selon des critères
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post
+  # SIREN search (or legal unit)
+  # Recherche multi-critères d&#39;entreprises (unités légales)
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post
+  # Search for a SIRET (facility)
+  # Recherche multi-critères d&#39;établissements
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

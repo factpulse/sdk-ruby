@@ -19,6 +19,183 @@ module FactPulse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Creating a directory line
+    # Créer une ligne dans l'annuaire
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post(opts = {})
+      data, _status_code, _headers = create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post_with_http_info(opts)
+      data
+    end
+
+    # Creating a directory line
+    # Créer une ligne dans l&#39;annuaire
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/directory-line'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create a routing code
+    # Créer un code de routage dans l'annuaire
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post(opts = {})
+      data, _status_code, _headers = create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post_with_http_info(opts)
+      data
+    end
+
+    # Create a routing code
+    # Créer un code de routage dans l&#39;annuaire
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/routing-code'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a directory line
+    # Supprimer une ligne d'annuaire
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete(id_instance, opts = {})
+      data, _status_code, _headers = delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Delete a directory line
+    # Supprimer une ligne d&#39;annuaire
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/directory-line/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Healthcheck Directory Service
     # Vérifier la disponibilité du Directory Service
     # @param [Hash] opts the optional parameters
@@ -76,31 +253,31 @@ module FactPulse
       return data, status_code, headers
     end
 
-    # Récupérer une entreprise
-    # Récupérer les informations d'une entreprise par son SIREN
-    # @param siren [String] 
+    # Get a directory line
+    # Obtenir une ligne d'annuaire identifiée par un identifiant d'adressage
+    # @param addressing_identifier [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get(siren, opts = {})
-      data, _status_code, _headers = get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get_with_http_info(siren, opts)
+    def get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get(addressing_identifier, opts = {})
+      data, _status_code, _headers = get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get_with_http_info(addressing_identifier, opts)
       data
     end
 
-    # Récupérer une entreprise
-    # Récupérer les informations d&#39;une entreprise par son SIREN
-    # @param siren [String] 
+    # Get a directory line
+    # Obtenir une ligne d&#39;annuaire identifiée par un identifiant d&#39;adressage
+    # @param addressing_identifier [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get_with_http_info(siren, opts = {})
+    def get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get_with_http_info(addressing_identifier, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get ...'
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get ...'
       end
-      # verify the required parameter 'siren' is set
-      if @api_client.config.client_side_validation && siren.nil?
-        fail ArgumentError, "Missing the required parameter 'siren' when calling AFNORPDPPADirectoryServiceApi.get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get"
+      # verify the required parameter 'addressing_identifier' is set
+      if @api_client.config.client_side_validation && addressing_identifier.nil?
+        fail ArgumentError, "Missing the required parameter 'addressing_identifier' when calling AFNORPDPPADirectoryServiceApi.get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get"
       end
       # resource path
-      local_var_path = '/api/v1/afnor/directory/v1/companies/{siren}'.sub('{' + 'siren' + '}', CGI.escape(siren.to_s))
+      local_var_path = '/api/v1/afnor/directory/v1/directory-line/code:{addressing_identifier}'.sub('{' + 'addressing_identifier' + '}', CGI.escape(addressing_identifier.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -123,7 +300,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
-        :operation => :"AFNORPDPPADirectoryServiceApi.get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get",
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -134,30 +311,36 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_company_proxy_api_v1_afnor_directory_v1_companies_siren_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
-    # Rechercher des entreprises
-    # Rechercher des entreprises dans l'annuaire AFNOR
+    # Get a directory line
+    # Obtenir une ligne d'annuaire identifiée par son idInstance
+    # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post(opts = {})
-      data, _status_code, _headers = search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post_with_http_info(opts)
+    def get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get(id_instance, opts = {})
+      data, _status_code, _headers = get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get_with_http_info(id_instance, opts)
       data
     end
 
-    # Rechercher des entreprises
-    # Rechercher des entreprises dans l&#39;annuaire AFNOR
+    # Get a directory line
+    # Obtenir une ligne d&#39;annuaire identifiée par son idInstance
+    # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post_with_http_info(opts = {})
+    def get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post ...'
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get"
       end
       # resource path
-      local_var_path = '/api/v1/afnor/directory/v1/companies/search'
+      local_var_path = '/api/v1/afnor/directory/v1/directory-line/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -180,7 +363,637 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
-        :operation => :"AFNORPDPPADirectoryServiceApi.search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post",
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get a routing code by instance-id
+    # Obtenir un code de routage identifié par son idInstance
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get(id_instance, opts = {})
+      data, _status_code, _headers = get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Get a routing code by instance-id
+    # Obtenir un code de routage identifié par son idInstance
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/routing-code/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get a routing code by SIRET and routing identifier
+    # Consulter un code de routage identifié par SIRET et identifiant de routage
+    # @param siret [String] 
+    # @param routing_identifier [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get(siret, routing_identifier, opts = {})
+      data, _status_code, _headers = get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get_with_http_info(siret, routing_identifier, opts)
+      data
+    end
+
+    # Get a routing code by SIRET and routing identifier
+    # Consulter un code de routage identifié par SIRET et identifiant de routage
+    # @param siret [String] 
+    # @param routing_identifier [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get_with_http_info(siret, routing_identifier, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get ...'
+      end
+      # verify the required parameter 'siret' is set
+      if @api_client.config.client_side_validation && siret.nil?
+        fail ArgumentError, "Missing the required parameter 'siret' when calling AFNORPDPPADirectoryServiceApi.get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get"
+      end
+      # verify the required parameter 'routing_identifier' is set
+      if @api_client.config.client_side_validation && routing_identifier.nil?
+        fail ArgumentError, "Missing the required parameter 'routing_identifier' when calling AFNORPDPPADirectoryServiceApi.get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/routing-code/siret:{siret}/code:{routing_identifier}'.sub('{' + 'siret' + '}', CGI.escape(siret.to_s)).sub('{' + 'routing_identifier' + '}', CGI.escape(routing_identifier.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Consult a siren (legal unit) by SIREN number
+    # Retourne les détails d'une entreprise (unité légale) identifiée par son numéro SIREN
+    # @param siren [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get(siren, opts = {})
+      data, _status_code, _headers = get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get_with_http_info(siren, opts)
+      data
+    end
+
+    # Consult a siren (legal unit) by SIREN number
+    # Retourne les détails d&#39;une entreprise (unité légale) identifiée par son numéro SIREN
+    # @param siren [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get_with_http_info(siren, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get ...'
+      end
+      # verify the required parameter 'siren' is set
+      if @api_client.config.client_side_validation && siren.nil?
+        fail ArgumentError, "Missing the required parameter 'siren' when calling AFNORPDPPADirectoryServiceApi.get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/siren/code-insee:{siren}'.sub('{' + 'siren' + '}', CGI.escape(siren.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Gets a siren (legal unit) by instance ID
+    # Obtenir une entreprise (unité légale) identifiée par son idInstance
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get(id_instance, opts = {})
+      data, _status_code, _headers = get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Gets a siren (legal unit) by instance ID
+    # Obtenir une entreprise (unité légale) identifiée par son idInstance
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/siren/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Gets a siret (facility) by SIRET number
+    # Obtenir un établissement identifié par son numéro SIRET
+    # @param siret [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get(siret, opts = {})
+      data, _status_code, _headers = get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get_with_http_info(siret, opts)
+      data
+    end
+
+    # Gets a siret (facility) by SIRET number
+    # Obtenir un établissement identifié par son numéro SIRET
+    # @param siret [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get_with_http_info(siret, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get ...'
+      end
+      # verify the required parameter 'siret' is set
+      if @api_client.config.client_side_validation && siret.nil?
+        fail ArgumentError, "Missing the required parameter 'siret' when calling AFNORPDPPADirectoryServiceApi.get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/siret/code-insee:{siret}'.sub('{' + 'siret' + '}', CGI.escape(siret.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Gets a siret (facility) by id-instance
+    # Obtenir un établissement identifié par son idInstance
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get(id_instance, opts = {})
+      data, _status_code, _headers = get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Gets a siret (facility) by id-instance
+    # Obtenir un établissement identifié par son idInstance
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/siret/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Partially updates a directory line
+    # Mettre à jour partiellement une ligne d'annuaire
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch(id_instance, opts = {})
+      data, _status_code, _headers = patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Partially updates a directory line
+    # Mettre à jour partiellement une ligne d&#39;annuaire
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/directory-line/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Partially update a private routing code
+    # Mettre à jour partiellement un code de routage privé
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch(id_instance, opts = {})
+      data, _status_code, _headers = patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Partially update a private routing code
+    # Mettre à jour partiellement un code de routage privé
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/routing-code/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Completely update a private routing code
+    # Mettre à jour complètement un code de routage privé
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put(id_instance, opts = {})
+      data, _status_code, _headers = put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put_with_http_info(id_instance, opts)
+      data
+    end
+
+    # Completely update a private routing code
+    # Mettre à jour complètement un code de routage privé
+    # @param id_instance [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put_with_http_info(id_instance, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put ...'
+      end
+      # verify the required parameter 'id_instance' is set
+      if @api_client.config.client_side_validation && id_instance.nil?
+        fail ArgumentError, "Missing the required parameter 'id_instance' when calling AFNORPDPPADirectoryServiceApi.put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/routing-code/id-instance:{id_instance}'.sub('{' + 'id_instance' + '}', CGI.escape(id_instance.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search for a directory line
+    # Rechercher des lignes d'annuaire selon des critères
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post(opts = {})
+      data, _status_code, _headers = search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post_with_http_info(opts)
+      data
+    end
+
+    # Search for a directory line
+    # Rechercher des lignes d&#39;annuaire selon des critères
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/directory-line/search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -191,7 +1004,178 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#search_companies_proxy_api_v1_afnor_directory_v1_companies_search_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search for a routing code
+    # Rechercher des codes de routage selon des critères
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post(opts = {})
+      data, _status_code, _headers = search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post_with_http_info(opts)
+      data
+    end
+
+    # Search for a routing code
+    # Rechercher des codes de routage selon des critères
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/routing-code/search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # SIREN search (or legal unit)
+    # Recherche multi-critères d'entreprises (unités légales)
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post(opts = {})
+      data, _status_code, _headers = search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post_with_http_info(opts)
+      data
+    end
+
+    # SIREN search (or legal unit)
+    # Recherche multi-critères d&#39;entreprises (unités légales)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/siren/search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Search for a SIRET (facility)
+    # Recherche multi-critères d'établissements
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post(opts = {})
+      data, _status_code, _headers = search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post_with_http_info(opts)
+      data
+    end
+
+    # Search for a SIRET (facility)
+    # Recherche multi-critères d&#39;établissements
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPADirectoryServiceApi.search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/directory/v1/siret/search'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPADirectoryServiceApi.search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPADirectoryServiceApi#search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

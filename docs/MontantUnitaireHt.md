@@ -1,4 +1,4 @@
-# FactPulse::Montanthttotal
+# FactPulse::MontantUnitaireHt
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::Montanthttotal.new()
+instance = FactPulse::MontantUnitaireHt.new()
 ```
 

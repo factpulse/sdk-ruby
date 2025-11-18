@@ -72,8 +72,8 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'montant_base_ht' => :'Montantbaseht',
-        :'montant_tva' => :'Montanttva',
+        :'montant_base_ht' => :'MontantBaseHt',
+        :'montant_tva' => :'MontantTva',
         :'taux' => :'String',
         :'taux_manuel' => :'Tauxmanuel',
         :'categorie' => :'CategorieTVA'

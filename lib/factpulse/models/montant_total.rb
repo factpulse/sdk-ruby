@@ -56,12 +56,12 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'montant_ht_total' => :'Montanthttotal',
-        :'montant_tva' => :'Montanttva1',
-        :'montant_ttc_total' => :'Montantttctotal',
-        :'montant_a_payer' => :'Montantapayer',
+        :'montant_ht_total' => :'MontantHtTotal',
+        :'montant_tva' => :'MontantTva1',
+        :'montant_ttc_total' => :'MontantTtcTotal',
+        :'montant_a_payer' => :'MontantAPayer',
         :'acompte' => :'MontantTotalAcompte',
-        :'montant_remise_globale_ttc' => :'MontantTotalMontantRemiseGlobaleTtc',
+        :'montant_remise_globale_ttc' => :'MontantRemiseGlobaleTtc',
         :'motif_remise_globale_ttc' => :'String'
       }
     end

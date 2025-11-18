@@ -14,8 +14,8 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Montant de la remise globale TTC.
-  module MontantTotalMontantRemiseGlobaleTtc
+  # Montant à payer.
+  module MontantAPayer
     class << self
       # List of class defined in anyOf (OpenAPI v3)
       def openapi_any_of

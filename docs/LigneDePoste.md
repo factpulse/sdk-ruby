@@ -9,9 +9,9 @@
 | **denomination** | **String** |  |  |
 | **quantite** | [**Quantite**](Quantite.md) |  |  |
 | **unite** | [**Unite**](Unite.md) |  |  |
-| **montant_unitaire_ht** | [**Montantunitaireht**](Montantunitaireht.md) |  |  |
+| **montant_unitaire_ht** | [**MontantUnitaireHt**](MontantUnitaireHt.md) |  |  |
 | **montant_remise_ht** | [**LigneDePosteMontantRemiseHt**](LigneDePosteMontantRemiseHt.md) |  | [optional] |
-| **montant_total_ligne_ht** | [**LigneDePosteMontantTotalLigneHt**](LigneDePosteMontantTotalLigneHt.md) |  | [optional] |
+| **montant_total_ligne_ht** | [**MontantTotalLigneHt**](MontantTotalLigneHt.md) |  | [optional] |
 | **taux_tva** | **String** |  | [optional] |
 | **taux_tva_manuel** | [**LigneDePosteTauxTvaManuel**](LigneDePosteTauxTvaManuel.md) |  | [optional] |
 | **categorie_tva** | [**CategorieTVA**](CategorieTVA.md) |  | [optional] |

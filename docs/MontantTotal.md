@@ -4,12 +4,12 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **montant_ht_total** | [**Montanthttotal**](Montanthttotal.md) |  |  |
-| **montant_tva** | [**Montanttva1**](Montanttva1.md) |  |  |
-| **montant_ttc_total** | [**Montantttctotal**](Montantttctotal.md) |  |  |
-| **montant_a_payer** | [**Montantapayer**](Montantapayer.md) |  |  |
+| **montant_ht_total** | [**MontantHtTotal**](MontantHtTotal.md) |  |  |
+| **montant_tva** | [**MontantTva1**](MontantTva1.md) |  |  |
+| **montant_ttc_total** | [**MontantTtcTotal**](MontantTtcTotal.md) |  |  |
+| **montant_a_payer** | [**MontantAPayer**](MontantAPayer.md) |  |  |
 | **acompte** | [**MontantTotalAcompte**](MontantTotalAcompte.md) |  | [optional] |
-| **montant_remise_globale_ttc** | [**MontantTotalMontantRemiseGlobaleTtc**](MontantTotalMontantRemiseGlobaleTtc.md) |  | [optional] |
+| **montant_remise_globale_ttc** | [**MontantRemiseGlobaleTtc**](MontantRemiseGlobaleTtc.md) |  | [optional] |
 | **motif_remise_globale_ttc** | **String** |  | [optional] |
 
 ## Example

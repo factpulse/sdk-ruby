@@ -14,8 +14,8 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Montant de la TVA pour cette ligne.
-  module Montanttva
+  # Montant de la base HT pour cette ligne de TVA.
+  module MontantBaseHt
     class << self
       # List of class defined in anyOf (OpenAPI v3)
       def openapi_any_of
