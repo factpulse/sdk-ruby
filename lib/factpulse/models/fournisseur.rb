@@ -26,6 +26,8 @@ module FactPulse
 
     attr_accessor :nom
 
+    attr_accessor :siren
+
     attr_accessor :siret
 
     attr_accessor :numero_tva_intra
@@ -42,6 +44,7 @@ module FactPulse
         :'code_coordonnees_bancaires_fournisseur' => :'codeCoordonneesBancairesFournisseur',
         :'id_service_fournisseur' => :'idServiceFournisseur',
         :'nom' => :'nom',
+        :'siren' => :'siren',
         :'siret' => :'siret',
         :'numero_tva_intra' => :'numeroTvaIntra',
         :'iban' => :'iban',
@@ -67,6 +70,7 @@ module FactPulse
         :'code_coordonnees_bancaires_fournisseur' => :'Integer',
         :'id_service_fournisseur' => :'Integer',
         :'nom' => :'String',
+        :'siren' => :'String',
         :'siret' => :'String',
         :'numero_tva_intra' => :'String',
         :'iban' => :'String',
@@ -80,6 +84,7 @@ module FactPulse
         :'code_coordonnees_bancaires_fournisseur',
         :'id_service_fournisseur',
         :'nom',
+        :'siren',
         :'siret',
         :'numero_tva_intra',
         :'iban',
@@ -125,6 +130,10 @@ module FactPulse
 
       if attributes.key?(:'nom')
         self.nom = attributes[:'nom']
+      end
+
+      if attributes.key?(:'siren')
+        self.siren = attributes[:'siren']
       end
 
       if attributes.key?(:'siret')
@@ -199,6 +208,7 @@ module FactPulse
           code_coordonnees_bancaires_fournisseur == o.code_coordonnees_bancaires_fournisseur &&
           id_service_fournisseur == o.id_service_fournisseur &&
           nom == o.nom &&
+          siren == o.siren &&
           siret == o.siret &&
           numero_tva_intra == o.numero_tva_intra &&
           iban == o.iban &&
@@ -214,7 +224,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [adresse_electronique, id_fournisseur, code_coordonnees_bancaires_fournisseur, id_service_fournisseur, nom, siret, numero_tva_intra, iban, adresse_postale].hash
+      [adresse_electronique, id_fournisseur, code_coordonnees_bancaires_fournisseur, id_service_fournisseur, nom, siren, siret, numero_tva_intra, iban, adresse_postale].hash
     end
 
     # Builds the object from hash

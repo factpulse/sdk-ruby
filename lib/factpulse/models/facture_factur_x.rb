@@ -38,6 +38,8 @@ module FactPulse
 
     attr_accessor :lignes_de_tva
 
+    attr_accessor :notes
+
     attr_accessor :commentaire
 
     attr_accessor :id_utilisateur_courant
@@ -80,6 +82,7 @@ module FactPulse
         :'montant_total' => :'montantTotal',
         :'lignes_de_poste' => :'lignesDePoste',
         :'lignes_de_tva' => :'lignesDeTva',
+        :'notes' => :'notes',
         :'commentaire' => :'commentaire',
         :'id_utilisateur_courant' => :'idUtilisateurCourant',
         :'pieces_jointes_complementaires' => :'piecesJointesComplementaires'
@@ -110,6 +113,7 @@ module FactPulse
         :'montant_total' => :'MontantTotal',
         :'lignes_de_poste' => :'Array<LigneDePoste>',
         :'lignes_de_tva' => :'Array<LigneDeTVA>',
+        :'notes' => :'Array<Note>',
         :'commentaire' => :'String',
         :'id_utilisateur_courant' => :'Integer',
         :'pieces_jointes_complementaires' => :'Array<PieceJointeComplementaire>'
@@ -202,6 +206,12 @@ module FactPulse
       if attributes.key?(:'lignes_de_tva')
         if (value = attributes[:'lignes_de_tva']).is_a?(Array)
           self.lignes_de_tva = value
+        end
+      end
+
+      if attributes.key?(:'notes')
+        if (value = attributes[:'notes']).is_a?(Array)
+          self.notes = value
         end
       end
 
@@ -371,6 +381,7 @@ module FactPulse
           montant_total == o.montant_total &&
           lignes_de_poste == o.lignes_de_poste &&
           lignes_de_tva == o.lignes_de_tva &&
+          notes == o.notes &&
           commentaire == o.commentaire &&
           id_utilisateur_courant == o.id_utilisateur_courant &&
           pieces_jointes_complementaires == o.pieces_jointes_complementaires
@@ -385,7 +396,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [numero_facture, date_echeance_paiement, date_facture, mode_depot, destinataire, fournisseur, cadre_de_facturation, references, montant_total, lignes_de_poste, lignes_de_tva, commentaire, id_utilisateur_courant, pieces_jointes_complementaires].hash
+      [numero_facture, date_echeance_paiement, date_facture, mode_depot, destinataire, fournisseur, cadre_de_facturation, references, montant_total, lignes_de_poste, lignes_de_tva, notes, commentaire, id_utilisateur_courant, pieces_jointes_complementaires].hash
     end
 
     # Builds the object from hash

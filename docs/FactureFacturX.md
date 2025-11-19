@@ -15,6 +15,7 @@
 | **montant_total** | [**MontantTotal**](MontantTotal.md) |  |  |
 | **lignes_de_poste** | [**Array&lt;LigneDePoste&gt;**](LigneDePoste.md) |  | [optional] |
 | **lignes_de_tva** | [**Array&lt;LigneDeTVA&gt;**](LigneDeTVA.md) |  | [optional] |
+| **notes** | [**Array&lt;Note&gt;**](Note.md) |  | [optional] |
 | **commentaire** | **String** |  | [optional] |
 | **id_utilisateur_courant** | **Integer** |  | [optional] |
 | **pieces_jointes_complementaires** | [**Array&lt;PieceJointeComplementaire&gt;**](PieceJointeComplementaire.md) |  | [optional] |
@@ -36,6 +37,7 @@ instance = FactPulse::FactureFacturX.new(
   montant_total: null,
   lignes_de_poste: null,
   lignes_de_tva: null,
+  notes: null,
   commentaire: null,
   id_utilisateur_courant: null,
   pieces_jointes_complementaires: null

@@ -9,6 +9,7 @@
 | **code_coordonnees_bancaires_fournisseur** | **Integer** |  | [optional] |
 | **id_service_fournisseur** | **Integer** |  | [optional] |
 | **nom** | **String** |  | [optional] |
+| **siren** | **String** |  | [optional] |
 | **siret** | **String** |  | [optional] |
 | **numero_tva_intra** | **String** |  | [optional] |
 | **iban** | **String** |  | [optional] |
@@ -25,6 +26,7 @@ instance = FactPulse::Fournisseur.new(
   code_coordonnees_bancaires_fournisseur: null,
   id_service_fournisseur: null,
   nom: null,
+  siren: null,
   siret: null,
   numero_tva_intra: null,
   iban: null,

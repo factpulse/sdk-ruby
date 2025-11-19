@@ -14,7 +14,6 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Montant total TTC.
   module MontantTtcTotal
     class << self
       # List of class defined in anyOf (OpenAPI v3)

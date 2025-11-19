@@ -22,6 +22,10 @@ module FactPulse
 
     attr_accessor :nom
 
+    attr_accessor :siren
+
+    attr_accessor :siret
+
     attr_accessor :adresse_postale
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -30,6 +34,8 @@ module FactPulse
         :'adresse_electronique' => :'adresseElectronique',
         :'code_service_executant' => :'codeServiceExecutant',
         :'nom' => :'nom',
+        :'siren' => :'siren',
+        :'siret' => :'siret',
         :'adresse_postale' => :'adressePostale'
       }
     end
@@ -50,6 +56,8 @@ module FactPulse
         :'adresse_electronique' => :'AdresseElectronique',
         :'code_service_executant' => :'String',
         :'nom' => :'String',
+        :'siren' => :'String',
+        :'siret' => :'String',
         :'adresse_postale' => :'AdressePostale'
       }
     end
@@ -59,6 +67,8 @@ module FactPulse
       Set.new([
         :'code_service_executant',
         :'nom',
+        :'siren',
+        :'siret',
         :'adresse_postale'
       ])
     end
@@ -91,6 +101,14 @@ module FactPulse
 
       if attributes.key?(:'nom')
         self.nom = attributes[:'nom']
+      end
+
+      if attributes.key?(:'siren')
+        self.siren = attributes[:'siren']
+      end
+
+      if attributes.key?(:'siret')
+        self.siret = attributes[:'siret']
       end
 
       if attributes.key?(:'adresse_postale')
@@ -136,6 +154,8 @@ module FactPulse
           adresse_electronique == o.adresse_electronique &&
           code_service_executant == o.code_service_executant &&
           nom == o.nom &&
+          siren == o.siren &&
+          siret == o.siret &&
           adresse_postale == o.adresse_postale
     end
 
@@ -148,7 +168,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [adresse_electronique, code_service_executant, nom, adresse_postale].hash
+      [adresse_electronique, code_service_executant, nom, siren, siret, adresse_postale].hash
     end
 
     # Builds the object from hash

@@ -16,16 +16,22 @@ require 'time'
 module FactPulse
   # Contient tous les montants totaux de la facture.
   class MontantTotal < ApiModelBase
+    # Montant total HT.
     attr_accessor :montant_ht_total
 
+    # Montant total de la TVA.
     attr_accessor :montant_tva
 
+    # Montant total TTC.
     attr_accessor :montant_ttc_total
 
+    # Montant à payer.
     attr_accessor :montant_a_payer
 
+    # Acompte versé.
     attr_accessor :acompte
 
+    # Montant de la remise globale TTC.
     attr_accessor :montant_remise_globale_ttc
 
     attr_accessor :motif_remise_globale_ttc
@@ -56,12 +62,12 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'montant_ht_total' => :'MontantHtTotal',
-        :'montant_tva' => :'MontantTvaTotal',
-        :'montant_ttc_total' => :'MontantTtcTotal',
-        :'montant_a_payer' => :'MontantAPayer',
-        :'acompte' => :'MontantTotalAcompte',
-        :'montant_remise_globale_ttc' => :'MontantRemiseGlobaleTtc',
+        :'montant_ht_total' => :'Float',
+        :'montant_tva' => :'Float',
+        :'montant_ttc_total' => :'Float',
+        :'montant_a_payer' => :'Float',
+        :'acompte' => :'Float',
+        :'montant_remise_globale_ttc' => :'Float',
         :'motif_remise_globale_ttc' => :'String'
       }
     end
@@ -70,7 +76,6 @@ module FactPulse
     def self.openapi_nullable
       Set.new([
         :'acompte',
-        :'montant_remise_globale_ttc',
         :'motif_remise_globale_ttc'
       ])
     end
@@ -137,16 +142,46 @@ module FactPulse
         invalid_properties.push('invalid value for "montant_ht_total", montant_ht_total cannot be nil.')
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if @montant_ht_total !~ pattern
+        invalid_properties.push("invalid value for \"montant_ht_total\", must conform to the pattern #{pattern}.")
+      end
+
       if @montant_tva.nil?
         invalid_properties.push('invalid value for "montant_tva", montant_tva cannot be nil.')
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if @montant_tva !~ pattern
+        invalid_properties.push("invalid value for \"montant_tva\", must conform to the pattern #{pattern}.")
       end
 
       if @montant_ttc_total.nil?
         invalid_properties.push('invalid value for "montant_ttc_total", montant_ttc_total cannot be nil.')
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if @montant_ttc_total !~ pattern
+        invalid_properties.push("invalid value for \"montant_ttc_total\", must conform to the pattern #{pattern}.")
+      end
+
       if @montant_a_payer.nil?
         invalid_properties.push('invalid value for "montant_a_payer", montant_a_payer cannot be nil.')
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if @montant_a_payer !~ pattern
+        invalid_properties.push("invalid value for \"montant_a_payer\", must conform to the pattern #{pattern}.")
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if !@acompte.nil? && @acompte !~ pattern
+        invalid_properties.push("invalid value for \"acompte\", must conform to the pattern #{pattern}.")
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if !@montant_remise_globale_ttc.nil? && @montant_remise_globale_ttc !~ pattern
+        invalid_properties.push("invalid value for \"montant_remise_globale_ttc\", must conform to the pattern #{pattern}.")
       end
 
       invalid_properties
@@ -157,9 +192,15 @@ module FactPulse
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @montant_ht_total.nil?
+      return false if @montant_ht_total !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       return false if @montant_tva.nil?
+      return false if @montant_tva !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       return false if @montant_ttc_total.nil?
+      return false if @montant_ttc_total !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       return false if @montant_a_payer.nil?
+      return false if @montant_a_payer !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      return false if !@acompte.nil? && @acompte !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      return false if !@montant_remise_globale_ttc.nil? && @montant_remise_globale_ttc !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       true
     end
 
@@ -168,6 +209,11 @@ module FactPulse
     def montant_ht_total=(montant_ht_total)
       if montant_ht_total.nil?
         fail ArgumentError, 'montant_ht_total cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if montant_ht_total !~ pattern
+        fail ArgumentError, "invalid value for \"montant_ht_total\", must conform to the pattern #{pattern}."
       end
 
       @montant_ht_total = montant_ht_total
@@ -180,6 +226,11 @@ module FactPulse
         fail ArgumentError, 'montant_tva cannot be nil'
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if montant_tva !~ pattern
+        fail ArgumentError, "invalid value for \"montant_tva\", must conform to the pattern #{pattern}."
+      end
+
       @montant_tva = montant_tva
     end
 
@@ -188,6 +239,11 @@ module FactPulse
     def montant_ttc_total=(montant_ttc_total)
       if montant_ttc_total.nil?
         fail ArgumentError, 'montant_ttc_total cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if montant_ttc_total !~ pattern
+        fail ArgumentError, "invalid value for \"montant_ttc_total\", must conform to the pattern #{pattern}."
       end
 
       @montant_ttc_total = montant_ttc_total
@@ -200,7 +256,38 @@ module FactPulse
         fail ArgumentError, 'montant_a_payer cannot be nil'
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if montant_a_payer !~ pattern
+        fail ArgumentError, "invalid value for \"montant_a_payer\", must conform to the pattern #{pattern}."
+      end
+
       @montant_a_payer = montant_a_payer
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] acompte Value to be assigned
+    def acompte=(acompte)
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if !acompte.nil? && acompte !~ pattern
+        fail ArgumentError, "invalid value for \"acompte\", must conform to the pattern #{pattern}."
+      end
+
+      @acompte = acompte
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] montant_remise_globale_ttc Value to be assigned
+    def montant_remise_globale_ttc=(montant_remise_globale_ttc)
+      if montant_remise_globale_ttc.nil?
+        fail ArgumentError, 'montant_remise_globale_ttc cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
+      if montant_remise_globale_ttc !~ pattern
+        fail ArgumentError, "invalid value for \"montant_remise_globale_ttc\", must conform to the pattern #{pattern}."
+      end
+
+      @montant_remise_globale_ttc = montant_remise_globale_ttc
     end
 
     # Checks equality by comparing each attribute.
