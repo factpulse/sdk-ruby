@@ -73,7 +73,7 @@ module FactPulse
     def self.openapi_types
       {
         :'montant_base_ht' => :'MontantBaseHt',
-        :'montant_tva' => :'MontantTva',
+        :'montant_tva' => :'MontantTvaLigne',
         :'taux' => :'String',
         :'taux_manuel' => :'Tauxmanuel',
         :'categorie' => :'CategorieTVA'

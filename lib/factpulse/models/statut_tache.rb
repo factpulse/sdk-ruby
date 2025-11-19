@@ -14,13 +14,36 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Description complète du statut d'une tâche asynchrone.
+  # Description complète du statut d'une tâche asynchrone.  Le champ `statut` indique l'état Celery de la tâche. Quand `statut=\"SUCCESS\"`, consultez `resultat.statut` pour le résultat métier (\"SUCCES\" ou \"ERREUR\").
   class StatutTache < ApiModelBase
     attr_accessor :id_tache
 
+    # Statut Celery de la tâche (PENDING, STARTED, SUCCESS, FAILURE, RETRY)
     attr_accessor :statut
 
     attr_accessor :resultat
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -45,7 +68,7 @@ module FactPulse
     def self.openapi_types
       {
         :'id_tache' => :'String',
-        :'statut' => :'String',
+        :'statut' => :'StatutCelery',
         :'resultat' => :'Hash<String, Object>'
       }
     end

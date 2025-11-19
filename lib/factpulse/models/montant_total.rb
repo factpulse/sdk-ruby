@@ -57,7 +57,7 @@ module FactPulse
     def self.openapi_types
       {
         :'montant_ht_total' => :'MontantHtTotal',
-        :'montant_tva' => :'MontantTva1',
+        :'montant_tva' => :'MontantTvaTotal',
         :'montant_ttc_total' => :'MontantTtcTotal',
         :'montant_a_payer' => :'MontantAPayer',
         :'acompte' => :'MontantTotalAcompte',

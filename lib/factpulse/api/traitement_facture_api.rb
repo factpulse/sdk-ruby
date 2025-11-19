@@ -169,7 +169,7 @@ module FactPulse
     end
 
     # Obtenir le statut d'une tâche de génération
-    # Récupère l'état d'avancement d'une tâche de génération de facture.  ## États possibles  - **PENDING** : Tâche en attente de traitement - **STARTED** : Tâche en cours d'exécution - **SUCCESS** : Tâche terminée (vérifier `resultat.statut` pour le résultat réel) - **FAILURE** : Erreur système lors de l'exécution - **RETRY** : Tentative de ré-exécution en cours  ## Champ resultat  Quand la tâche est terminée (SUCCESS), le champ `resultat` contient : - `statut` : \"SUCCES\" ou \"ERREUR\" - `chemin_fichier` : Chemin du fichier généré (si succès) - `message_erreur` : Détails de l'erreur (si échec)  ## Usage  Appelez cet endpoint en boucle (polling) toutes les 2-3 secondes jusqu'à ce que le statut soit SUCCESS ou FAILURE.
+    # Récupère l'état d'avancement d'une tâche de génération de facture.  ## États possibles  Le champ `statut` utilise l'enum `StatutCelery` avec les valeurs : - **PENDING, STARTED, SUCCESS, FAILURE, RETRY**  Voir la documentation du schéma `StatutCelery` pour les détails.  ## Résultat métier  Quand `statut=\"SUCCESS\"`, le champ `resultat` contient : - `statut` : \"SUCCES\" ou \"ERREUR\" (résultat métier) - `chemin_fichier` : Chemin du fichier généré (si succès) - `message_erreur` : Détails de l'erreur (si échec métier)  ## Usage  Appelez cet endpoint en boucle (polling) toutes les 2-3 secondes jusqu'à ce que `statut` soit `SUCCESS` ou `FAILURE`.
     # @param id_tache [String] 
     # @param [Hash] opts the optional parameters
     # @return [StatutTache]
@@ -179,7 +179,7 @@ module FactPulse
     end
 
     # Obtenir le statut d&#39;une tâche de génération
-    # Récupère l&#39;état d&#39;avancement d&#39;une tâche de génération de facture.  ## États possibles  - **PENDING** : Tâche en attente de traitement - **STARTED** : Tâche en cours d&#39;exécution - **SUCCESS** : Tâche terminée (vérifier &#x60;resultat.statut&#x60; pour le résultat réel) - **FAILURE** : Erreur système lors de l&#39;exécution - **RETRY** : Tentative de ré-exécution en cours  ## Champ resultat  Quand la tâche est terminée (SUCCESS), le champ &#x60;resultat&#x60; contient : - &#x60;statut&#x60; : \&quot;SUCCES\&quot; ou \&quot;ERREUR\&quot; - &#x60;chemin_fichier&#x60; : Chemin du fichier généré (si succès) - &#x60;message_erreur&#x60; : Détails de l&#39;erreur (si échec)  ## Usage  Appelez cet endpoint en boucle (polling) toutes les 2-3 secondes jusqu&#39;à ce que le statut soit SUCCESS ou FAILURE.
+    # Récupère l&#39;état d&#39;avancement d&#39;une tâche de génération de facture.  ## États possibles  Le champ &#x60;statut&#x60; utilise l&#39;enum &#x60;StatutCelery&#x60; avec les valeurs : - **PENDING, STARTED, SUCCESS, FAILURE, RETRY**  Voir la documentation du schéma &#x60;StatutCelery&#x60; pour les détails.  ## Résultat métier  Quand &#x60;statut&#x3D;\&quot;SUCCESS\&quot;&#x60;, le champ &#x60;resultat&#x60; contient : - &#x60;statut&#x60; : \&quot;SUCCES\&quot; ou \&quot;ERREUR\&quot; (résultat métier) - &#x60;chemin_fichier&#x60; : Chemin du fichier généré (si succès) - &#x60;message_erreur&#x60; : Détails de l&#39;erreur (si échec métier)  ## Usage  Appelez cet endpoint en boucle (polling) toutes les 2-3 secondes jusqu&#39;à ce que &#x60;statut&#x60; soit &#x60;SUCCESS&#x60; ou &#x60;FAILURE&#x60;.
     # @param id_tache [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(StatutTache, Integer, Hash)>] StatutTache data, response status code and response headers

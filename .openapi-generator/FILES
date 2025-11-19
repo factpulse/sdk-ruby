@@ -68,6 +68,8 @@ docs/MontantTtcTotal.md
 docs/MontantTtcTotal1.md
 docs/MontantTva.md
 docs/MontantTva1.md
+docs/MontantTvaLigne.md
+docs/MontantTvaTotal.md
 docs/MontantUnitaireHt.md
 docs/ObtenirIdChorusProRequest.md
 docs/ObtenirIdChorusProResponse.md
@@ -97,6 +99,7 @@ docs/SoumettreFactureCompleteRequest.md
 docs/SoumettreFactureCompleteResponse.md
 docs/SoumettreFactureRequest.md
 docs/SoumettreFactureResponse.md
+docs/StatutCelery.md
 docs/StatutFacture.md
 docs/StatutTache.md
 docs/StructureInfo.md
@@ -180,6 +183,8 @@ lib/factpulse/models/montant_ttc_total.rb
 lib/factpulse/models/montant_ttc_total1.rb
 lib/factpulse/models/montant_tva.rb
 lib/factpulse/models/montant_tva1.rb
+lib/factpulse/models/montant_tva_ligne.rb
+lib/factpulse/models/montant_tva_total.rb
 lib/factpulse/models/montant_unitaire_ht.rb
 lib/factpulse/models/obtenir_id_chorus_pro_request.rb
 lib/factpulse/models/obtenir_id_chorus_pro_response.rb
@@ -208,6 +213,7 @@ lib/factpulse/models/soumettre_facture_complete_request.rb
 lib/factpulse/models/soumettre_facture_complete_response.rb
 lib/factpulse/models/soumettre_facture_request.rb
 lib/factpulse/models/soumettre_facture_response.rb
+lib/factpulse/models/statut_celery.rb
 lib/factpulse/models/statut_facture.rb
 lib/factpulse/models/statut_tache.rb
 lib/factpulse/models/structure_info.rb
@@ -282,7 +288,9 @@ spec/models/montant_total_spec.rb
 spec/models/montant_ttc_total1_spec.rb
 spec/models/montant_ttc_total_spec.rb
 spec/models/montant_tva1_spec.rb
+spec/models/montant_tva_ligne_spec.rb
 spec/models/montant_tva_spec.rb
+spec/models/montant_tva_total_spec.rb
 spec/models/montant_unitaire_ht_spec.rb
 spec/models/obtenir_id_chorus_pro_request_spec.rb
 spec/models/obtenir_id_chorus_pro_response_spec.rb
@@ -311,6 +319,7 @@ spec/models/soumettre_facture_complete_request_spec.rb
 spec/models/soumettre_facture_complete_response_spec.rb
 spec/models/soumettre_facture_request_spec.rb
 spec/models/soumettre_facture_response_spec.rb
+spec/models/statut_celery_spec.rb
 spec/models/statut_facture_spec.rb
 spec/models/statut_tache_spec.rb
 spec/models/structure_info_spec.rb

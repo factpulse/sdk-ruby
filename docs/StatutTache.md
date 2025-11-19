@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id_tache** | **String** |  |  |
-| **statut** | **String** |  |  |
+| **statut** | [**StatutCelery**](StatutCelery.md) | Statut Celery de la tâche (PENDING, STARTED, SUCCESS, FAILURE, RETRY) |  |
 | **resultat** | **Hash&lt;String, Object&gt;** |  | [optional] |
 
 ## Example
