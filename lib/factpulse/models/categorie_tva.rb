@@ -15,18 +15,18 @@ require 'time'
 
 module FactPulse
   class CategorieTVA
-    S = "S".freeze
-    Z = "Z".freeze
-    E = "E".freeze
-    AE = "AE".freeze
-    K = "K".freeze
-    G = "G".freeze
-    O = "O".freeze
-    L = "L".freeze
-    M = "M".freeze
+    STANDARD = "S".freeze
+    ZERO = "Z".freeze
+    EXONEREE = "E".freeze
+    AUTO_LIQUIDATION = "AE".freeze
+    INTRA_COMMUNAUTAIRE = "K".freeze
+    EXPORT = "G".freeze
+    HORS_CHAMP = "O".freeze
+    CANARIES = "L".freeze
+    CEUTA_MELILLA = "M".freeze
 
     def self.all_vars
-      @all_vars ||= [S, Z, E, AE, K, G, O, L, M].freeze
+      @all_vars ||= [STANDARD, ZERO, EXONEREE, AUTO_LIQUIDATION, INTRA_COMMUNAUTAIRE, EXPORT, HORS_CHAMP, CANARIES, CEUTA_MELILLA].freeze
     end
 
     # Builds the enum from string

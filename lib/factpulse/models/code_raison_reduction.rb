@@ -15,16 +15,16 @@ require 'time'
 
 module FactPulse
   class CodeRaisonReduction
-    AA = "AA".freeze
-    ABL = "ABL".freeze
-    ADR = "ADR".freeze
-    ADT = "ADT".freeze
-    FC = "FC".freeze
-    FI = "FI".freeze
-    LA = "LA".freeze
+    REMISE_PUBLICITAIRE = "AA".freeze
+    SUPPLEMENT_EMBALLAGE = "ABL".freeze
+    AUTRES_SERVICES = "ADR".freeze
+    ENLEVEMENT = "ADT".freeze
+    COUTS_TRANSPORT = "FC".freeze
+    FRAIS_FINANCIERS = "FI".freeze
+    ETIQUETAGE = "LA".freeze
 
     def self.all_vars
-      @all_vars ||= [AA, ABL, ADR, ADT, FC, FI, LA].freeze
+      @all_vars ||= [REMISE_PUBLICITAIRE, SUPPLEMENT_EMBALLAGE, AUTRES_SERVICES, ENLEVEMENT, COUTS_TRANSPORT, FRAIS_FINANCIERS, ETIQUETAGE].freeze
     end
 
     # Builds the enum from string
