@@ -113,7 +113,7 @@ module FactPulse
         start_time, current_interval = (Time.now.to_f * 1000).to_i, interval_ms.to_f
         loop do
           raise FactPulsePollingTimeout.new(task_id, timeout_ms) if (Time.now.to_f * 1000).to_i - start_time > timeout_ms
-          ensure_authenticated; response = http_get(URI("#{@api_url}/api/facturation/v1/traitement/taches/#{task_id}/statut"))
+          ensure_authenticated; response = http_get(URI("#{@api_url}/api/v1/traitement/taches/#{task_id}/statut"))
           reset_auth and next if response.code == '401'
           data = JSON.parse(response.body)
           return data['resultat'] || {} if data['statut'] == 'SUCCESS'
@@ -126,6 +126,114 @@ module FactPulse
       end
 
       def self.format_montant(m); MontantHelpers.montant(m); end
+
+      # Génère une facture Factur-X à partir d'un dict/hash et d'un PDF source.
+      # Accepte un Hash, un String JSON, ou tout objet avec une méthode to_h/to_hash.
+      # @param facture_data [Hash, String, Object] Données de la facture
+      # @param pdf_source [String, File] Chemin vers le PDF source ou objet File
+      # @param profil [String] Profil Factur-X (MINIMUM, BASIC, EN16931, EXTENDED)
+      # @param format_sortie [String] Format de sortie (pdf, xml, both)
+      # @param sync [Boolean] Mode synchrone (true) ou asynchrone (false)
+      # @param timeout [Integer, nil] Timeout en ms pour le polling
+      # @return [String] Contenu binaire du PDF généré
+      def generer_facturx(facture_data, pdf_source, profil: 'EN16931', format_sortie: 'pdf', sync: true, timeout: nil)
+        # Conversion des données en JSON string
+        json_data = case facture_data
+                    when String then facture_data
+                    when Hash then JSON.generate(facture_data)
+                    else
+                      if facture_data.respond_to?(:to_h)
+                        JSON.generate(facture_data.to_h)
+                      elsif facture_data.respond_to?(:to_hash)
+                        JSON.generate(facture_data.to_hash)
+                      else
+                        raise FactPulseValidationError.new("Type de données non supporté: #{facture_data.class}")
+                      end
+                    end
+
+        # Lecture du PDF source
+        pdf_content = case pdf_source
+                      when String then File.binread(pdf_source)
+                      when File then pdf_source.read
+                      else
+                        if pdf_source.respond_to?(:read)
+                          pdf_source.read
+                        else
+                          raise FactPulseValidationError.new("Type de PDF non supporté: #{pdf_source.class}")
+                        end
+                      end
+        pdf_filename = pdf_source.is_a?(String) ? File.basename(pdf_source) : 'facture.pdf'
+
+        ensure_authenticated
+        uri = URI("#{@api_url}/api/v1/traitement/generer-facture")
+
+        # Construire la requête multipart
+        boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
+        body = []
+
+        # Champ donnees_facture
+        body << "--#{boundary}\r\n"
+        body << "Content-Disposition: form-data; name=\"donnees_facture\"\r\n\r\n"
+        body << "#{json_data}\r\n"
+
+        # Champ profil
+        body << "--#{boundary}\r\n"
+        body << "Content-Disposition: form-data; name=\"profil\"\r\n\r\n"
+        body << "#{profil}\r\n"
+
+        # Champ format_sortie
+        body << "--#{boundary}\r\n"
+        body << "Content-Disposition: form-data; name=\"format_sortie\"\r\n\r\n"
+        body << "#{format_sortie}\r\n"
+
+        # Champ source_pdf (fichier)
+        body << "--#{boundary}\r\n"
+        body << "Content-Disposition: form-data; name=\"source_pdf\"; filename=\"#{pdf_filename}\"\r\n"
+        body << "Content-Type: application/pdf\r\n\r\n"
+        body << pdf_content
+        body << "\r\n"
+
+        body << "--#{boundary}--\r\n"
+        body_str = body.join
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == 'https'
+        http.read_timeout = 120
+
+        request = Net::HTTP::Post.new(uri)
+        request['Authorization'] = "Bearer #{@access_token}"
+        request['Content-Type'] = "multipart/form-data; boundary=#{boundary}"
+        request.body = body_str
+
+        response = http.request(request)
+
+        if response.code == '401'
+          reset_auth
+          ensure_authenticated
+          request['Authorization'] = "Bearer #{@access_token}"
+          response = http.request(request)
+        end
+
+        unless response.is_a?(Net::HTTPSuccess)
+          error_data = JSON.parse(response.body) rescue { 'detail' => response.body }
+          raise FactPulseValidationError.new("Erreur API: #{error_data['detail'] || response.body}")
+        end
+
+        data = JSON.parse(response.body)
+
+        if sync && data['id_tache']
+          result = poll_task(data['id_tache'], timeout: timeout)
+          if result['contenu_b64']
+            require 'base64'
+            return Base64.decode64(result['contenu_b64'])
+          elsif result['contenu_xml']
+            return result['contenu_xml']
+          end
+          raise FactPulseValidationError.new("Résultat inattendu: #{result.keys.join(', ')}")
+        end
+
+        data
+      end
 
       private
       def http_post(uri, payload)
