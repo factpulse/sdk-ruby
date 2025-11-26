@@ -70,8 +70,8 @@ module FactPulse
 
       def self.ligne_de_tva(taux, base_ht, montant_tva, categorie: 'S', motif_exoneration: nil)
         result = {
-          'tauxTva' => montant(taux), 'montantBaseHt' => montant(base_ht),
-          'montantTva' => montant(montant_tva), 'categorieTva' => categorie
+          'tauxManuel' => montant(taux), 'montantBaseHt' => montant(base_ht),
+          'montantTva' => montant(montant_tva), 'categorie' => categorie
         }
         result['motifExoneration'] = motif_exoneration if motif_exoneration
         result
