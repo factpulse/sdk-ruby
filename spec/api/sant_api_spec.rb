@@ -32,6 +32,17 @@ describe 'SantApi' do
     end
   end
 
+  # unit tests for healthcheck_healthcheck_get
+  # Endpoint de healthcheck pour Docker
+  # Endpoint de healthcheck pour Docker et les load balancers.  Utile pour : - Docker healthcheck - Kubernetes liveness/readiness probes - Load balancers (Nginx, HAProxy) - Monitoring de disponibilité - Déploiement zero downtime  Retourne un code 200 si l&#39;API est opérationnelle.
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'healthcheck_healthcheck_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for racine_get
   # Vérifier l&#39;état de l&#39;API
   # Endpoint de health check pour vérifier que l&#39;API répond.  Utile pour : - Monitoring de disponibilité - Tests d&#39;intégration - Load balancers

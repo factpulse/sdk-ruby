@@ -1,4 +1,4 @@
-# FactPulse::FactureEnrichieInfoOutput
+# FactPulse::FactureEnrichieInfo
 
 ## Properties
 
@@ -18,7 +18,7 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::FactureEnrichieInfoOutput.new(
+instance = FactPulse::FactureEnrichieInfo.new(
   numero_facture: null,
   id_emetteur: null,
   id_destinataire: null,

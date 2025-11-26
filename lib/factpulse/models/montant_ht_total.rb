@@ -14,6 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
+  # Montant total HT. (Accepte number, string ou integer)
   module MontantHtTotal
     class << self
       # List of class defined in anyOf (OpenAPI v3)

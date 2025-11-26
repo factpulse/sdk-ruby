@@ -28,15 +28,12 @@ module FactPulse
 
     attr_accessor :montant_unitaire_ht
 
-    # Montant de la remise HT.
     attr_accessor :montant_remise_ht
 
-    # Montant total HT de la ligne (quantité × prix unitaire - remise).
     attr_accessor :montant_total_ligne_ht
 
     attr_accessor :taux_tva
 
-    # Taux de TVA avec valeur manuelle.
     attr_accessor :taux_tva_manuel
 
     attr_accessor :categorie_tva
@@ -111,10 +108,10 @@ module FactPulse
         :'quantite' => :'Quantite',
         :'unite' => :'Unite',
         :'montant_unitaire_ht' => :'MontantUnitaireHt',
-        :'montant_remise_ht' => :'Float',
-        :'montant_total_ligne_ht' => :'Float',
+        :'montant_remise_ht' => :'LigneDePosteMontantRemiseHt',
+        :'montant_total_ligne_ht' => :'MontantTotalLigneHt',
         :'taux_tva' => :'String',
-        :'taux_tva_manuel' => :'Float',
+        :'taux_tva_manuel' => :'LigneDePosteTauxTvaManuel',
         :'categorie_tva' => :'CategorieTVA',
         :'date_debut_periode' => :'String',
         :'date_fin_periode' => :'String',
@@ -250,21 +247,6 @@ module FactPulse
         invalid_properties.push('invalid value for "montant_unitaire_ht", montant_unitaire_ht cannot be nil.')
       end
 
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if !@montant_remise_ht.nil? && @montant_remise_ht !~ pattern
-        invalid_properties.push("invalid value for \"montant_remise_ht\", must conform to the pattern #{pattern}.")
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,10}|(?=[\d.]{1,13}0*$)\d{0,10}\.\d{0,2}0*$)/)
-      if !@montant_total_ligne_ht.nil? && @montant_total_ligne_ht !~ pattern
-        invalid_properties.push("invalid value for \"montant_total_ligne_ht\", must conform to the pattern #{pattern}.")
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if !@taux_tva_manuel.nil? && @taux_tva_manuel !~ pattern
-        invalid_properties.push("invalid value for \"taux_tva_manuel\", must conform to the pattern #{pattern}.")
-      end
-
       invalid_properties
     end
 
@@ -277,9 +259,6 @@ module FactPulse
       return false if @quantite.nil?
       return false if @unite.nil?
       return false if @montant_unitaire_ht.nil?
-      return false if !@montant_remise_ht.nil? && @montant_remise_ht !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      return false if !@montant_total_ligne_ht.nil? && @montant_total_ligne_ht !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,10}|(?=[\d.]{1,13}0*$)\d{0,10}\.\d{0,2}0*$)/)
-      return false if !@taux_tva_manuel.nil? && @taux_tva_manuel !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       true
     end
 
@@ -331,43 +310,6 @@ module FactPulse
       end
 
       @montant_unitaire_ht = montant_unitaire_ht
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] montant_remise_ht Value to be assigned
-    def montant_remise_ht=(montant_remise_ht)
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if !montant_remise_ht.nil? && montant_remise_ht !~ pattern
-        fail ArgumentError, "invalid value for \"montant_remise_ht\", must conform to the pattern #{pattern}."
-      end
-
-      @montant_remise_ht = montant_remise_ht
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] montant_total_ligne_ht Value to be assigned
-    def montant_total_ligne_ht=(montant_total_ligne_ht)
-      if montant_total_ligne_ht.nil?
-        fail ArgumentError, 'montant_total_ligne_ht cannot be nil'
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,10}|(?=[\d.]{1,13}0*$)\d{0,10}\.\d{0,2}0*$)/)
-      if montant_total_ligne_ht !~ pattern
-        fail ArgumentError, "invalid value for \"montant_total_ligne_ht\", must conform to the pattern #{pattern}."
-      end
-
-      @montant_total_ligne_ht = montant_total_ligne_ht
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] taux_tva_manuel Value to be assigned
-    def taux_tva_manuel=(taux_tva_manuel)
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if !taux_tva_manuel.nil? && taux_tva_manuel !~ pattern
-        fail ArgumentError, "invalid value for \"taux_tva_manuel\", must conform to the pattern #{pattern}."
-      end
-
-      @taux_tva_manuel = taux_tva_manuel
     end
 
     # Checks equality by comparing each attribute.

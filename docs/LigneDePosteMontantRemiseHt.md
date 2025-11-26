@@ -1,4 +1,4 @@
-# FactPulse::MontantTva1
+# FactPulse::LigneDePosteMontantRemiseHt
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::MontantTva1.new()
+instance = FactPulse::LigneDePosteMontantRemiseHt.new()
 ```
 

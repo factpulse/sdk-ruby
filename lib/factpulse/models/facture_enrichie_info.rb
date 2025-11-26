@@ -15,7 +15,7 @@ require 'time'
 
 module FactPulse
   # Informations sur la facture enrichie.
-  class FactureEnrichieInfoInput < ApiModelBase
+  class FactureEnrichieInfo < ApiModelBase
     attr_accessor :numero_facture
 
     attr_accessor :id_emetteur
@@ -64,9 +64,9 @@ module FactPulse
         :'id_destinataire' => :'Integer',
         :'nom_emetteur' => :'String',
         :'nom_destinataire' => :'String',
-        :'montant_ht_total' => :'MontantHtTotal',
-        :'montant_tva' => :'MontantTva',
-        :'montant_ttc_total' => :'MontantTtcTotal'
+        :'montant_ht_total' => :'String',
+        :'montant_tva' => :'String',
+        :'montant_ttc_total' => :'String'
       }
     end
 
@@ -82,14 +82,14 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureEnrichieInfoInput` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureEnrichieInfo` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureEnrichieInfoInput`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureEnrichieInfo`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
@@ -160,12 +160,27 @@ module FactPulse
         invalid_properties.push('invalid value for "montant_ht_total", montant_ht_total cannot be nil.')
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if @montant_ht_total !~ pattern
+        invalid_properties.push("invalid value for \"montant_ht_total\", must conform to the pattern #{pattern}.")
+      end
+
       if @montant_tva.nil?
         invalid_properties.push('invalid value for "montant_tva", montant_tva cannot be nil.')
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if @montant_tva !~ pattern
+        invalid_properties.push("invalid value for \"montant_tva\", must conform to the pattern #{pattern}.")
+      end
+
       if @montant_ttc_total.nil?
         invalid_properties.push('invalid value for "montant_ttc_total", montant_ttc_total cannot be nil.')
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if @montant_ttc_total !~ pattern
+        invalid_properties.push("invalid value for \"montant_ttc_total\", must conform to the pattern #{pattern}.")
       end
 
       invalid_properties
@@ -179,8 +194,11 @@ module FactPulse
       return false if @nom_emetteur.nil?
       return false if @nom_destinataire.nil?
       return false if @montant_ht_total.nil?
+      return false if @montant_ht_total !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
       return false if @montant_tva.nil?
+      return false if @montant_tva !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
       return false if @montant_ttc_total.nil?
+      return false if @montant_ttc_total !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
       true
     end
 
@@ -221,6 +239,11 @@ module FactPulse
         fail ArgumentError, 'montant_ht_total cannot be nil'
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if montant_ht_total !~ pattern
+        fail ArgumentError, "invalid value for \"montant_ht_total\", must conform to the pattern #{pattern}."
+      end
+
       @montant_ht_total = montant_ht_total
     end
 
@@ -231,6 +254,11 @@ module FactPulse
         fail ArgumentError, 'montant_tva cannot be nil'
       end
 
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if montant_tva !~ pattern
+        fail ArgumentError, "invalid value for \"montant_tva\", must conform to the pattern #{pattern}."
+      end
+
       @montant_tva = montant_tva
     end
 
@@ -239,6 +267,11 @@ module FactPulse
     def montant_ttc_total=(montant_ttc_total)
       if montant_ttc_total.nil?
         fail ArgumentError, 'montant_ttc_total cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if montant_ttc_total !~ pattern
+        fail ArgumentError, "invalid value for \"montant_ttc_total\", must conform to the pattern #{pattern}."
       end
 
       @montant_ttc_total = montant_ttc_total

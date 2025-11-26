@@ -16,15 +16,12 @@ require 'time'
 module FactPulse
   # Représente une ligne de totalisation par taux de TVA.
   class LigneDeTVA < ApiModelBase
-    # Montant de la base HT pour cette ligne de TVA.
     attr_accessor :montant_base_ht
 
-    # Montant de la TVA pour cette ligne.
     attr_accessor :montant_tva
 
     attr_accessor :taux
 
-    # Taux de TVA avec valeur manuelle.
     attr_accessor :taux_manuel
 
     attr_accessor :categorie
@@ -75,10 +72,10 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'montant_base_ht' => :'Float',
-        :'montant_tva' => :'Float',
+        :'montant_base_ht' => :'MontantBaseHt',
+        :'montant_tva' => :'MontantTvaLigne',
         :'taux' => :'String',
-        :'taux_manuel' => :'Float',
+        :'taux_manuel' => :'Tauxmanuel',
         :'categorie' => :'CategorieTVA'
       }
     end
@@ -141,23 +138,8 @@ module FactPulse
         invalid_properties.push('invalid value for "montant_base_ht", montant_base_ht cannot be nil.')
       end
 
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if @montant_base_ht !~ pattern
-        invalid_properties.push("invalid value for \"montant_base_ht\", must conform to the pattern #{pattern}.")
-      end
-
       if @montant_tva.nil?
         invalid_properties.push('invalid value for "montant_tva", montant_tva cannot be nil.')
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if @montant_tva !~ pattern
-        invalid_properties.push("invalid value for \"montant_tva\", must conform to the pattern #{pattern}.")
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if !@taux_manuel.nil? && @taux_manuel !~ pattern
-        invalid_properties.push("invalid value for \"taux_manuel\", must conform to the pattern #{pattern}.")
       end
 
       invalid_properties
@@ -168,10 +150,7 @@ module FactPulse
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @montant_base_ht.nil?
-      return false if @montant_base_ht !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       return false if @montant_tva.nil?
-      return false if @montant_tva !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      return false if !@taux_manuel.nil? && @taux_manuel !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
       true
     end
 
@@ -180,11 +159,6 @@ module FactPulse
     def montant_base_ht=(montant_base_ht)
       if montant_base_ht.nil?
         fail ArgumentError, 'montant_base_ht cannot be nil'
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if montant_base_ht !~ pattern
-        fail ArgumentError, "invalid value for \"montant_base_ht\", must conform to the pattern #{pattern}."
       end
 
       @montant_base_ht = montant_base_ht
@@ -197,27 +171,7 @@ module FactPulse
         fail ArgumentError, 'montant_tva cannot be nil'
       end
 
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if montant_tva !~ pattern
-        fail ArgumentError, "invalid value for \"montant_tva\", must conform to the pattern #{pattern}."
-      end
-
       @montant_tva = montant_tva
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] taux_manuel Value to be assigned
-    def taux_manuel=(taux_manuel)
-      if taux_manuel.nil?
-        fail ArgumentError, 'taux_manuel cannot be nil'
-      end
-
-      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*(?:\d{0,8}|(?=[\d.]{1,13}0*$)\d{0,8}\.\d{0,4}0*$)/)
-      if taux_manuel !~ pattern
-        fail ArgumentError, "invalid value for \"taux_manuel\", must conform to the pattern #{pattern}."
-      end
-
-      @taux_manuel = taux_manuel
     end
 
     # Checks equality by comparing each attribute.

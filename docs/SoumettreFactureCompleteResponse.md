@@ -8,7 +8,7 @@
 | **destination_type** | **String** | Type de destination |  |
 | **resultat_chorus** | [**ResultatChorusPro**](ResultatChorusPro.md) |  | [optional] |
 | **resultat_afnor** | [**ResultatAFNOR**](ResultatAFNOR.md) |  | [optional] |
-| **facture_enrichie** | [**FactureEnrichieInfoOutput**](FactureEnrichieInfoOutput.md) | Données de la facture enrichie |  |
+| **facture_enrichie** | [**FactureEnrichieInfo**](FactureEnrichieInfo.md) | Données de la facture enrichie |  |
 | **pdf_facturx** | [**PDFFacturXInfo**](PDFFacturXInfo.md) | Informations sur le PDF généré |  |
 | **signature** | [**SignatureInfo**](SignatureInfo.md) |  | [optional] |
 | **pdf_base64** | **String** | PDF Factur-X généré (et signé si demandé) encodé en base64 |  |

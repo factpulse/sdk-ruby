@@ -94,7 +94,7 @@ module FactPulse
         :'destination_type' => :'String',
         :'resultat_chorus' => :'ResultatChorusPro',
         :'resultat_afnor' => :'ResultatAFNOR',
-        :'facture_enrichie' => :'FactureEnrichieInfoOutput',
+        :'facture_enrichie' => :'FactureEnrichieInfo',
         :'pdf_facturx' => :'PDFFacturXInfo',
         :'signature' => :'SignatureInfo',
         :'pdf_base64' => :'String',

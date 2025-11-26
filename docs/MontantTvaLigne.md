@@ -1,4 +1,4 @@
-# FactPulse::MontantTtcTotal1
+# FactPulse::MontantTvaLigne
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::MontantTtcTotal1.new()
+instance = FactPulse::MontantTvaLigne.new()
 ```
 
