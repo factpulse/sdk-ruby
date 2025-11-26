@@ -10,6 +10,37 @@ Generator version: 7.18.0-SNAPSHOT
 
 =end
 
+require 'date'
+require 'time'
+
 module FactPulse
-  VERSION = '2.0.13'
+  class ErrorSource
+    SCHEMATRON = "schematron".freeze
+    PDFA = "pdfa".freeze
+    PYDANTIC = "pydantic".freeze
+    XMP = "xmp".freeze
+    SIGNATURE = "signature".freeze
+    AFNOR = "afnor".freeze
+    CHORUS_PRO = "chorus_pro".freeze
+    SYSTEM = "system".freeze
+
+    def self.all_vars
+      @all_vars ||= [SCHEMATRON, PDFA, PYDANTIC, XMP, SIGNATURE, AFNOR, CHORUS_PRO, SYSTEM].freeze
+    end
+
+    # Builds the enum from string
+    # @param [String] The enum value in the form of the string
+    # @return [String] The enum value
+    def self.build_from_hash(value)
+      new.build_from_hash(value)
+    end
+
+    # Builds the enum from string
+    # @param [String] The enum value in the form of the string
+    # @return [String] The enum value
+    def build_from_hash(value)
+      return value if ErrorSource.all_vars.include?(value)
+      raise "Invalid ENUM value #{value} for class #ErrorSource"
+    end
+  end
 end

@@ -10,6 +10,7 @@ Rakefile
 docs/AFNORPDPPAApi.md
 docs/AFNORPDPPADirectoryServiceApi.md
 docs/AFNORPDPPAFlowServiceApi.md
+docs/APIError.md
 docs/AdresseElectronique.md
 docs/AdressePostale.md
 docs/BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost.md
@@ -41,6 +42,8 @@ docs/Destination.md
 docs/DestinationAFNOR.md
 docs/DestinationChorusPro.md
 docs/DonneesFactureSimplifiees.md
+docs/ErrorLevel.md
+docs/ErrorSource.md
 docs/FactureEnrichieInfo.md
 docs/FactureFacturX.md
 docs/FormatSortie.md
@@ -108,6 +111,7 @@ docs/Unite.md
 docs/Utilisateur.md
 docs/UtilisateurApi.md
 docs/ValidationError.md
+docs/ValidationErrorDetail.md
 docs/ValidationErrorLocInner.md
 factpulse.gemspec
 git_push.sh
@@ -125,6 +129,7 @@ lib/factpulse/api_model_base.rb
 lib/factpulse/configuration.rb
 lib/factpulse/models/adresse_electronique.rb
 lib/factpulse/models/adresse_postale.rb
+lib/factpulse/models/api_error.rb
 lib/factpulse/models/body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post.rb
 lib/factpulse/models/body_completer_facture_api_v1_chorus_pro_factures_completer_post.rb
 lib/factpulse/models/body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get.rb
@@ -153,6 +158,8 @@ lib/factpulse/models/destination.rb
 lib/factpulse/models/destination_afnor.rb
 lib/factpulse/models/destination_chorus_pro.rb
 lib/factpulse/models/donnees_facture_simplifiees.rb
+lib/factpulse/models/error_level.rb
+lib/factpulse/models/error_source.rb
 lib/factpulse/models/facture_enrichie_info.rb
 lib/factpulse/models/facture_factur_x.rb
 lib/factpulse/models/format_sortie.rb
@@ -217,6 +224,7 @@ lib/factpulse/models/type_tva.rb
 lib/factpulse/models/unite.rb
 lib/factpulse/models/utilisateur.rb
 lib/factpulse/models/validation_error.rb
+lib/factpulse/models/validation_error_detail.rb
 lib/factpulse/models/validation_error_loc_inner.rb
 lib/factpulse/version.rb
 spec/api/afnorpdppa_api_spec.rb
@@ -228,6 +236,7 @@ spec/api/traitement_facture_api_spec.rb
 spec/api/utilisateur_api_spec.rb
 spec/models/adresse_electronique_spec.rb
 spec/models/adresse_postale_spec.rb
+spec/models/api_error_spec.rb
 spec/models/body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_spec.rb
 spec/models/body_completer_facture_api_v1_chorus_pro_factures_completer_post_spec.rb
 spec/models/body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_spec.rb
@@ -256,6 +265,8 @@ spec/models/destination_afnor_spec.rb
 spec/models/destination_chorus_pro_spec.rb
 spec/models/destination_spec.rb
 spec/models/donnees_facture_simplifiees_spec.rb
+spec/models/error_level_spec.rb
+spec/models/error_source_spec.rb
 spec/models/facture_enrichie_info_spec.rb
 spec/models/facture_factur_x_spec.rb
 spec/models/format_sortie_spec.rb
@@ -319,6 +330,7 @@ spec/models/type_facture_spec.rb
 spec/models/type_tva_spec.rb
 spec/models/unite_spec.rb
 spec/models/utilisateur_spec.rb
+spec/models/validation_error_detail_spec.rb
 spec/models/validation_error_loc_inner_spec.rb
 spec/models/validation_error_spec.rb
 spec/spec_helper.rb

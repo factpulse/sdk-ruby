@@ -10,6 +10,31 @@ Generator version: 7.18.0-SNAPSHOT
 
 =end
 
+require 'date'
+require 'time'
+
 module FactPulse
-  VERSION = '2.0.13'
+  class ErrorLevel
+    ERROR = "Error".freeze
+    WARNING = "Warning".freeze
+
+    def self.all_vars
+      @all_vars ||= [ERROR, WARNING].freeze
+    end
+
+    # Builds the enum from string
+    # @param [String] The enum value in the form of the string
+    # @return [String] The enum value
+    def self.build_from_hash(value)
+      new.build_from_hash(value)
+    end
+
+    # Builds the enum from string
+    # @param [String] The enum value in the form of the string
+    # @return [String] The enum value
+    def build_from_hash(value)
+      return value if ErrorLevel.all_vars.include?(value)
+      raise "Invalid ENUM value #{value} for class #ErrorLevel"
+    end
+  end
 end
