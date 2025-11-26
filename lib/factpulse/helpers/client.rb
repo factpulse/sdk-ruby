@@ -49,16 +49,21 @@ module FactPulse
       end
 
       def self.ligne_de_poste(numero, denomination, quantite, montant_unitaire_ht, montant_ligne_ht,
-                              taux_tva: '20.00', unite: 'C62', **options)
+                              taux_tva: '20.00', categorie_tva: 'S', unite: 'C62', **options)
         result = {
           'numero' => numero, 'denomination' => denomination,
           'quantite' => montant(quantite), 'montantUnitaireHt' => montant(montant_unitaire_ht),
-          'montantTotalLigneHt' => montant(montant_ligne_ht), 'tauxTva' => montant(taux_tva), 'unite' => unite
+          'montantTotalLigneHt' => montant(montant_ligne_ht), 'tauxTva' => montant(taux_tva),
+          'categorieTva' => categorie_tva, 'unite' => unite
         }
+        result['reference'] = options[:reference] if options[:reference]
         result['montantTvaLigne'] = montant(options[:montant_tva_ligne]) if options[:montant_tva_ligne]
         result['montantRemiseHt'] = montant(options[:montant_remise_ht]) if options[:montant_remise_ht]
-        result['codeRaisonReduction'] = options[:code_raison_remise] if options[:code_raison_remise]
-        result['motifRemise'] = options[:motif_remise] if options[:motif_remise]
+        result['codeRaisonReduction'] = options[:code_raison_reduction] if options[:code_raison_reduction]
+        result['raisonReduction'] = options[:raison_reduction] if options[:raison_reduction]
+        result['motifExoneration'] = options[:motif_exoneration] if options[:motif_exoneration]
+        result['dateDebutPeriode'] = options[:date_debut_periode] if options[:date_debut_periode]
+        result['dateFinPeriode'] = options[:date_fin_periode] if options[:date_fin_periode]
         result['description'] = options[:description] if options[:description]
         result
       end
