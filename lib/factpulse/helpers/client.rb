@@ -86,6 +86,9 @@ module FactPulse
 
       def chorus_credentials_for_api; @chorus_credentials&.to_h; end
       def afnor_credentials_for_api; @afnor_credentials&.to_h; end
+      # Alias plus courts
+      def get_chorus_pro_credentials; chorus_credentials_for_api; end
+      def get_afnor_credentials; afnor_credentials_for_api; end
 
       def ensure_authenticated(force_refresh: false)
         now = (Time.now.to_f * 1000).to_i
