@@ -19,6 +19,63 @@ module FactPulse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Récupérer les credentials AFNOR stockés
+    # Récupère les credentials AFNOR/PDP stockés pour le client_uid du JWT. Cet endpoint est utilisé par le SDK en mode 'stored' pour récupérer les credentials avant de faire l'OAuth AFNOR lui-même.
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def get_afnor_credentials_api_v1_afnor_credentials_get(opts = {})
+      data, _status_code, _headers = get_afnor_credentials_api_v1_afnor_credentials_get_with_http_info(opts)
+      data
+    end
+
+    # Récupérer les credentials AFNOR stockés
+    # Récupère les credentials AFNOR/PDP stockés pour le client_uid du JWT. Cet endpoint est utilisé par le SDK en mode &#39;stored&#39; pour récupérer les credentials avant de faire l&#39;OAuth AFNOR lui-même.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def get_afnor_credentials_api_v1_afnor_credentials_get_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAApi.get_afnor_credentials_api_v1_afnor_credentials_get ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/credentials'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAApi.get_afnor_credentials_api_v1_afnor_credentials_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAApi#get_afnor_credentials_api_v1_afnor_credentials_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Endpoint OAuth2 pour authentification AFNOR
     # Endpoint proxy OAuth2 pour obtenir un token d'accès AFNOR. Fait proxy vers le mock AFNOR (sandbox) ou la vraie PDP selon MOCK_AFNOR_BASE_URL. Cet endpoint est public (pas d'auth Django requise) car il est appelé par le SDK AFNOR.
     # @param [Hash] opts the optional parameters

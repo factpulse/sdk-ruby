@@ -32,6 +32,17 @@ describe 'AFNORPDPPAApi' do
     end
   end
 
+  # unit tests for get_afnor_credentials_api_v1_afnor_credentials_get
+  # Récupérer les credentials AFNOR stockés
+  # Récupère les credentials AFNOR/PDP stockés pour le client_uid du JWT. Cet endpoint est utilisé par le SDK en mode &#39;stored&#39; pour récupérer les credentials avant de faire l&#39;OAuth AFNOR lui-même.
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'get_afnor_credentials_api_v1_afnor_credentials_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for oauth_token_proxy_api_v1_afnor_oauth_token_post
   # Endpoint OAuth2 pour authentification AFNOR
   # Endpoint proxy OAuth2 pour obtenir un token d&#39;accès AFNOR. Fait proxy vers le mock AFNOR (sandbox) ou la vraie PDP selon MOCK_AFNOR_BASE_URL. Cet endpoint est public (pas d&#39;auth Django requise) car il est appelé par le SDK AFNOR.
