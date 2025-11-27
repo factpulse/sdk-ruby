@@ -21,26 +21,26 @@ module FactPulse
     end
     # Ajouter une pièce jointe
     # Ajoute une pièce jointe au compte utilisateur courant.      **Taille max** : 10 Mo par fichier      **Payload exemple** :     ```json     {       \"pieceJointeFichier\": \"JVBERi0xLjQKJeLjz9MKNSAwIG9iago8P...\",       \"pieceJointeNom\": \"bon_commande.pdf\",       \"pieceJointeTypeMime\": \"application/pdf\",       \"pieceJointeExtension\": \"PDF\"     }     ```      **Retour** : L'ID de la pièce jointe (`pieceJointeIdFichier`) à utiliser ensuite dans `/factures/completer`.      **Extensions acceptées** : PDF, JPG, PNG, ZIP, XML, etc.
-    # @param body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post [BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post, opts = {})
-      data, _status_code, _headers = ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post, opts)
+    def ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(request_body, opts = {})
+      data, _status_code, _headers = ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(request_body, opts)
       data
     end
 
     # Ajouter une pièce jointe
     # Ajoute une pièce jointe au compte utilisateur courant.      **Taille max** : 10 Mo par fichier      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;pieceJointeFichier\&quot;: \&quot;JVBERi0xLjQKJeLjz9MKNSAwIG9iago8P...\&quot;,       \&quot;pieceJointeNom\&quot;: \&quot;bon_commande.pdf\&quot;,       \&quot;pieceJointeTypeMime\&quot;: \&quot;application/pdf\&quot;,       \&quot;pieceJointeExtension\&quot;: \&quot;PDF\&quot;     }     &#x60;&#x60;&#x60;      **Retour** : L&#39;ID de la pièce jointe (&#x60;pieceJointeIdFichier&#x60;) à utiliser ensuite dans &#x60;/factures/completer&#x60;.      **Extensions acceptées** : PDF, JPG, PNG, ZIP, XML, etc.
-    # @param body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post [BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post, opts = {})
+    def ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post ...'
       end
-      # verify the required parameter 'body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post' is set
-      if @api_client.config.client_side_validation && body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post' when calling ChorusProApi.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/transverses/ajouter-fichier'
@@ -62,7 +62,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -89,26 +89,26 @@ module FactPulse
 
     # Compléter une facture suspendue (Fournisseur)
     # Complète une facture au statut SUSPENDUE en ajoutant des pièces jointes ou un commentaire.      **Statut requis** : SUSPENDUE      **Actions possibles** :     - Ajouter des pièces jointes (justificatifs, bons de commande, etc.)     - Modifier le commentaire      **Payload exemple** :     ```json     {       \"identifiantFactureCPP\": 12345,       \"commentaire\": \"Voici les justificatifs demandés\",       \"listePiecesJointes\": [         {           \"pieceJointeIdFichier\": 98765,           \"pieceJointeNom\": \"bon_commande.pdf\"         }       ]     }     ```      **Note** : Les pièces jointes doivent d'abord être uploadées via `/transverses/ajouter-fichier`.      **Après complétion** : La facture repasse au statut MISE_A_DISPOSITION.
-    # @param body_completer_facture_api_v1_chorus_pro_factures_completer_post [BodyCompleterFactureApiV1ChorusProFacturesCompleterPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def completer_facture_api_v1_chorus_pro_factures_completer_post(body_completer_facture_api_v1_chorus_pro_factures_completer_post, opts = {})
-      data, _status_code, _headers = completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(body_completer_facture_api_v1_chorus_pro_factures_completer_post, opts)
+    def completer_facture_api_v1_chorus_pro_factures_completer_post(request_body, opts = {})
+      data, _status_code, _headers = completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(request_body, opts)
       data
     end
 
     # Compléter une facture suspendue (Fournisseur)
     # Complète une facture au statut SUSPENDUE en ajoutant des pièces jointes ou un commentaire.      **Statut requis** : SUSPENDUE      **Actions possibles** :     - Ajouter des pièces jointes (justificatifs, bons de commande, etc.)     - Modifier le commentaire      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;identifiantFactureCPP\&quot;: 12345,       \&quot;commentaire\&quot;: \&quot;Voici les justificatifs demandés\&quot;,       \&quot;listePiecesJointes\&quot;: [         {           \&quot;pieceJointeIdFichier\&quot;: 98765,           \&quot;pieceJointeNom\&quot;: \&quot;bon_commande.pdf\&quot;         }       ]     }     &#x60;&#x60;&#x60;      **Note** : Les pièces jointes doivent d&#39;abord être uploadées via &#x60;/transverses/ajouter-fichier&#x60;.      **Après complétion** : La facture repasse au statut MISE_A_DISPOSITION.
-    # @param body_completer_facture_api_v1_chorus_pro_factures_completer_post [BodyCompleterFactureApiV1ChorusProFacturesCompleterPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(body_completer_facture_api_v1_chorus_pro_factures_completer_post, opts = {})
+    def completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.completer_facture_api_v1_chorus_pro_factures_completer_post ...'
       end
-      # verify the required parameter 'body_completer_facture_api_v1_chorus_pro_factures_completer_post' is set
-      if @api_client.config.client_side_validation && body_completer_facture_api_v1_chorus_pro_factures_completer_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_completer_facture_api_v1_chorus_pro_factures_completer_post' when calling ChorusProApi.completer_facture_api_v1_chorus_pro_factures_completer_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.completer_facture_api_v1_chorus_pro_factures_completer_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/completer'
@@ -130,7 +130,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_completer_facture_api_v1_chorus_pro_factures_completer_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -294,31 +294,25 @@ module FactPulse
     # Lister les services d'une structure
     # Récupère la liste des services actifs d'une structure publique.      **Cas d'usage** :     - Lister les services disponibles pour une administration     - Vérifier qu'un code service existe avant de soumettre une facture      **Retour** :     - Liste des services avec leur code, libellé et statut (actif/inactif)
     # @param id_structure_cpp [Integer] 
-    # @param body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get [BodyListerServicesStructureApiV1ChorusProStructuresIdStructureCppServicesGet] 
     # @param [Hash] opts the optional parameters
     # @return [RechercherServicesResponse]
-    def lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get, opts = {})
-      data, _status_code, _headers = lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get, opts)
+    def lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp, opts = {})
+      data, _status_code, _headers = lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp, opts)
       data
     end
 
     # Lister les services d&#39;une structure
     # Récupère la liste des services actifs d&#39;une structure publique.      **Cas d&#39;usage** :     - Lister les services disponibles pour une administration     - Vérifier qu&#39;un code service existe avant de soumettre une facture      **Retour** :     - Liste des services avec leur code, libellé et statut (actif/inactif)
     # @param id_structure_cpp [Integer] 
-    # @param body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get [BodyListerServicesStructureApiV1ChorusProStructuresIdStructureCppServicesGet] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(RechercherServicesResponse, Integer, Hash)>] RechercherServicesResponse data, response status code and response headers
-    def lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get, opts = {})
+    def lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get ...'
       end
       # verify the required parameter 'id_structure_cpp' is set
       if @api_client.config.client_side_validation && id_structure_cpp.nil?
         fail ArgumentError, "Missing the required parameter 'id_structure_cpp' when calling ChorusProApi.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get"
-      end
-      # verify the required parameter 'body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get' is set
-      if @api_client.config.client_side_validation && body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get.nil?
-        fail ArgumentError, "Missing the required parameter 'body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get' when calling ChorusProApi.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/structures/{id_structure_cpp}/services'.sub('{' + 'id_structure_cpp' + '}', CGI.escape(id_structure_cpp.to_s))
@@ -330,17 +324,12 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      # HTTP header 'Content-Type'
-      content_type = @api_client.select_header_content_type(['application/json'])
-      if !content_type.nil?
-          header_params['Content-Type'] = content_type
-      end
 
       # form parameters
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get)
+      post_body = opts[:debug_body]
 
       # return_type
       return_type = opts[:debug_return_type] || 'RechercherServicesResponse'
@@ -435,26 +424,26 @@ module FactPulse
 
     # Rechercher factures reçues (Destinataire)
     # Recherche les factures reçues par le destinataire connecté.      **Filtres** :     - Téléchargée / non téléchargée     - Dates de réception     - Statut (MISE_A_DISPOSITION, SUSPENDUE, etc.)     - Fournisseur      **Indicateur utile** : `factureTelechargeeParDestinataire` permet de savoir si la facture a déjà été téléchargée.
-    # @param body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post [BodyRechercherFacturesDestinataireApiV1ChorusProFacturesRechercherDestinatairePost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post, opts = {})
-      data, _status_code, _headers = rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post, opts)
+    def rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(request_body, opts = {})
+      data, _status_code, _headers = rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(request_body, opts)
       data
     end
 
     # Rechercher factures reçues (Destinataire)
     # Recherche les factures reçues par le destinataire connecté.      **Filtres** :     - Téléchargée / non téléchargée     - Dates de réception     - Statut (MISE_A_DISPOSITION, SUSPENDUE, etc.)     - Fournisseur      **Indicateur utile** : &#x60;factureTelechargeeParDestinataire&#x60; permet de savoir si la facture a déjà été téléchargée.
-    # @param body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post [BodyRechercherFacturesDestinataireApiV1ChorusProFacturesRechercherDestinatairePost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post, opts = {})
+    def rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post ...'
       end
-      # verify the required parameter 'body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post' is set
-      if @api_client.config.client_side_validation && body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post' when calling ChorusProApi.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/rechercher-destinataire'
@@ -476,7 +465,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -503,26 +492,26 @@ module FactPulse
 
     # Rechercher factures émises (Fournisseur)
     # Recherche les factures émises par le fournisseur connecté.      **Filtres disponibles** :     - Numéro de facture     - Dates (début/fin)     - Statut     - Structure destinataire     - Montant      **Cas d'usage** :     - Suivi des factures émises     - Vérification des statuts     - Export pour comptabilité
-    # @param body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post [BodyRechercherFacturesFournisseurApiV1ChorusProFacturesRechercherFournisseurPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post, opts = {})
-      data, _status_code, _headers = rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post, opts)
+    def rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(request_body, opts = {})
+      data, _status_code, _headers = rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(request_body, opts)
       data
     end
 
     # Rechercher factures émises (Fournisseur)
     # Recherche les factures émises par le fournisseur connecté.      **Filtres disponibles** :     - Numéro de facture     - Dates (début/fin)     - Statut     - Structure destinataire     - Montant      **Cas d&#39;usage** :     - Suivi des factures émises     - Vérification des statuts     - Export pour comptabilité
-    # @param body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post [BodyRechercherFacturesFournisseurApiV1ChorusProFacturesRechercherFournisseurPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post, opts = {})
+    def rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post ...'
       end
-      # verify the required parameter 'body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post' is set
-      if @api_client.config.client_side_validation && body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post' when calling ChorusProApi.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/rechercher-fournisseur'
@@ -544,7 +533,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -639,26 +628,26 @@ module FactPulse
 
     # Recycler une facture (Fournisseur)
     # Recycle une facture au statut A_RECYCLER en modifiant les données d'acheminement.      **Statut requis** : A_RECYCLER      **Champs modifiables** :     - Destinataire (`idStructureCPP`)     - Code service     - Numéro d'engagement      **Cas d'usage** :     - Erreur de destinataire     - Changement de service facturation     - Mise à jour du numéro d'engagement      **Payload exemple** :     ```json     {       \"identifiantFactureCPP\": 12345,       \"idStructureCPP\": 67890,       \"codeService\": \"SERVICE_01\",       \"numeroEngagement\": \"ENG2024001\"     }     ```      **Note** : La facture conserve son numéro et ses montants, seuls les champs d'acheminement changent.
-    # @param body_recycler_facture_api_v1_chorus_pro_factures_recycler_post [BodyRecyclerFactureApiV1ChorusProFacturesRecyclerPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def recycler_facture_api_v1_chorus_pro_factures_recycler_post(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post, opts = {})
-      data, _status_code, _headers = recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post, opts)
+    def recycler_facture_api_v1_chorus_pro_factures_recycler_post(request_body, opts = {})
+      data, _status_code, _headers = recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(request_body, opts)
       data
     end
 
     # Recycler une facture (Fournisseur)
     # Recycle une facture au statut A_RECYCLER en modifiant les données d&#39;acheminement.      **Statut requis** : A_RECYCLER      **Champs modifiables** :     - Destinataire (&#x60;idStructureCPP&#x60;)     - Code service     - Numéro d&#39;engagement      **Cas d&#39;usage** :     - Erreur de destinataire     - Changement de service facturation     - Mise à jour du numéro d&#39;engagement      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;identifiantFactureCPP\&quot;: 12345,       \&quot;idStructureCPP\&quot;: 67890,       \&quot;codeService\&quot;: \&quot;SERVICE_01\&quot;,       \&quot;numeroEngagement\&quot;: \&quot;ENG2024001\&quot;     }     &#x60;&#x60;&#x60;      **Note** : La facture conserve son numéro et ses montants, seuls les champs d&#39;acheminement changent.
-    # @param body_recycler_facture_api_v1_chorus_pro_factures_recycler_post [BodyRecyclerFactureApiV1ChorusProFacturesRecyclerPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post, opts = {})
+    def recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.recycler_facture_api_v1_chorus_pro_factures_recycler_post ...'
       end
-      # verify the required parameter 'body_recycler_facture_api_v1_chorus_pro_factures_recycler_post' is set
-      if @api_client.config.client_side_validation && body_recycler_facture_api_v1_chorus_pro_factures_recycler_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_recycler_facture_api_v1_chorus_pro_factures_recycler_post' when calling ChorusProApi.recycler_facture_api_v1_chorus_pro_factures_recycler_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.recycler_facture_api_v1_chorus_pro_factures_recycler_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/recycler'
@@ -680,7 +669,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -775,26 +764,26 @@ module FactPulse
 
     # Télécharger un groupe de factures
     # Télécharge une ou plusieurs factures (max 10 recommandé) avec leurs pièces jointes.      **Formats disponibles** :     - PDF : Fichier PDF uniquement     - XML : Fichier XML uniquement     - ZIP : Archive contenant PDF + XML + pièces jointes      **Taille maximale** : 120 Mo par téléchargement      **Payload exemple** :     ```json     {       \"listeIdentifiantsFactureCPP\": [12345, 12346],       \"inclurePiecesJointes\": true,       \"formatFichier\": \"ZIP\"     }     ```      **Retour** : Le fichier est encodé en base64 dans le champ `fichierBase64`.      **Note** : Le flag `factureTelechargeeParDestinataire` est mis à jour automatiquement.
-    # @param body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post [BodyTelechargerGroupeFacturesApiV1ChorusProFacturesTelechargerGroupePost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post, opts = {})
-      data, _status_code, _headers = telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post, opts)
+    def telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(request_body, opts = {})
+      data, _status_code, _headers = telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(request_body, opts)
       data
     end
 
     # Télécharger un groupe de factures
     # Télécharge une ou plusieurs factures (max 10 recommandé) avec leurs pièces jointes.      **Formats disponibles** :     - PDF : Fichier PDF uniquement     - XML : Fichier XML uniquement     - ZIP : Archive contenant PDF + XML + pièces jointes      **Taille maximale** : 120 Mo par téléchargement      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;listeIdentifiantsFactureCPP\&quot;: [12345, 12346],       \&quot;inclurePiecesJointes\&quot;: true,       \&quot;formatFichier\&quot;: \&quot;ZIP\&quot;     }     &#x60;&#x60;&#x60;      **Retour** : Le fichier est encodé en base64 dans le champ &#x60;fichierBase64&#x60;.      **Note** : Le flag &#x60;factureTelechargeeParDestinataire&#x60; est mis à jour automatiquement.
-    # @param body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post [BodyTelechargerGroupeFacturesApiV1ChorusProFacturesTelechargerGroupePost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post, opts = {})
+    def telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post ...'
       end
-      # verify the required parameter 'body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post' is set
-      if @api_client.config.client_side_validation && body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post' when calling ChorusProApi.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/telecharger-groupe'
@@ -816,7 +805,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -843,26 +832,26 @@ module FactPulse
 
     # Traiter une facture reçue (Destinataire)
     # Change le statut d'une facture reçue.      **Statuts possibles** :     - MISE_A_DISPOSITION : Facture acceptée     - SUSPENDUE : En attente d'informations complémentaires (motif obligatoire)     - REJETEE : Facture refusée (motif obligatoire)     - MANDATEE : Facture mandatée     - MISE_EN_PAIEMENT : Facture en cours de paiement     - COMPTABILISEE : Facture comptabilisée     - MISE_A_DISPOSITION_COMPTABLE : Mise à disposition comptable     - A_RECYCLER : À recycler     - COMPLETEE : Complétée     - SERVICE-FAIT : Service fait     - PRISE_EN_COMPTE_DESTINATAIRE : Prise en compte     - TRANSMISE_MOA : Transmise à la MOA      **Payload exemple** :     ```json     {       \"identifiantFactureCPP\": 12345,       \"nouveauStatut\": \"REJETEE\",       \"motifRejet\": \"Facture en double\",       \"commentaire\": \"Facture déjà reçue sous la référence ABC123\"     }     ```      **Règles** :     - Un motif est **obligatoire** pour SUSPENDUE et REJETEE     - Seuls certains statuts sont autorisés selon le statut actuel de la facture
-    # @param body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post [BodyTraiterFactureRecueApiV1ChorusProFacturesTraiterFactureRecuePost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post, opts = {})
-      data, _status_code, _headers = traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post, opts)
+    def traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(request_body, opts = {})
+      data, _status_code, _headers = traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(request_body, opts)
       data
     end
 
     # Traiter une facture reçue (Destinataire)
     # Change le statut d&#39;une facture reçue.      **Statuts possibles** :     - MISE_A_DISPOSITION : Facture acceptée     - SUSPENDUE : En attente d&#39;informations complémentaires (motif obligatoire)     - REJETEE : Facture refusée (motif obligatoire)     - MANDATEE : Facture mandatée     - MISE_EN_PAIEMENT : Facture en cours de paiement     - COMPTABILISEE : Facture comptabilisée     - MISE_A_DISPOSITION_COMPTABLE : Mise à disposition comptable     - A_RECYCLER : À recycler     - COMPLETEE : Complétée     - SERVICE-FAIT : Service fait     - PRISE_EN_COMPTE_DESTINATAIRE : Prise en compte     - TRANSMISE_MOA : Transmise à la MOA      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;identifiantFactureCPP\&quot;: 12345,       \&quot;nouveauStatut\&quot;: \&quot;REJETEE\&quot;,       \&quot;motifRejet\&quot;: \&quot;Facture en double\&quot;,       \&quot;commentaire\&quot;: \&quot;Facture déjà reçue sous la référence ABC123\&quot;     }     &#x60;&#x60;&#x60;      **Règles** :     - Un motif est **obligatoire** pour SUSPENDUE et REJETEE     - Seuls certains statuts sont autorisés selon le statut actuel de la facture
-    # @param body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post [BodyTraiterFactureRecueApiV1ChorusProFacturesTraiterFactureRecuePost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post, opts = {})
+    def traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post ...'
       end
-      # verify the required parameter 'body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post' is set
-      if @api_client.config.client_side_validation && body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post' when calling ChorusProApi.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/traiter-facture-recue'
@@ -884,7 +873,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -910,27 +899,25 @@ module FactPulse
     end
 
     # Consulter une facture (Valideur)
-    # Consulte facture (valideur).
-    # @param body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post [BodyValideurConsulterFactureApiV1ChorusProFacturesValideurConsulterPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post, opts = {})
-      data, _status_code, _headers = valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post, opts)
+    def valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(request_body, opts = {})
+      data, _status_code, _headers = valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(request_body, opts)
       data
     end
 
     # Consulter une facture (Valideur)
-    # Consulte facture (valideur).
-    # @param body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post [BodyValideurConsulterFactureApiV1ChorusProFacturesValideurConsulterPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post, opts = {})
+    def valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post ...'
       end
-      # verify the required parameter 'body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post' is set
-      if @api_client.config.client_side_validation && body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post' when calling ChorusProApi.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/valideur/consulter'
@@ -952,7 +939,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -979,26 +966,26 @@ module FactPulse
 
     # Rechercher factures à valider (Valideur)
     # Recherche les factures en attente de validation par le valideur connecté.      **Rôle** : Valideur dans le circuit de validation interne.      **Filtres** : Dates, structure, service, etc.
-    # @param body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post [BodyValideurRechercherFacturesApiV1ChorusProFacturesValideurRechercherPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post, opts = {})
-      data, _status_code, _headers = valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post, opts)
+    def valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(request_body, opts = {})
+      data, _status_code, _headers = valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(request_body, opts)
       data
     end
 
     # Rechercher factures à valider (Valideur)
     # Recherche les factures en attente de validation par le valideur connecté.      **Rôle** : Valideur dans le circuit de validation interne.      **Filtres** : Dates, structure, service, etc.
-    # @param body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post [BodyValideurRechercherFacturesApiV1ChorusProFacturesValideurRechercherPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post, opts = {})
+    def valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post ...'
       end
-      # verify the required parameter 'body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post' is set
-      if @api_client.config.client_side_validation && body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post' when calling ChorusProApi.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/valideur/rechercher'
@@ -1020,7 +1007,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'
@@ -1047,26 +1034,26 @@ module FactPulse
 
     # Valider ou refuser une facture (Valideur)
     # Valide ou refuse une facture en attente de validation.      **Actions** :     - Valider : La facture passe au statut suivant du circuit     - Refuser : La facture est rejetée (motif obligatoire)
-    # @param body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post [BodyValideurTraiterFactureApiV1ChorusProFacturesValideurTraiterPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
-    def valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post, opts = {})
-      data, _status_code, _headers = valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post, opts)
+    def valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(request_body, opts = {})
+      data, _status_code, _headers = valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(request_body, opts)
       data
     end
 
     # Valider ou refuser une facture (Valideur)
     # Valide ou refuse une facture en attente de validation.      **Actions** :     - Valider : La facture passe au statut suivant du circuit     - Refuser : La facture est rejetée (motif obligatoire)
-    # @param body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post [BodyValideurTraiterFactureApiV1ChorusProFacturesValideurTraiterPost] 
+    # @param request_body [Hash<String, Object>] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
-    def valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post, opts = {})
+    def valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(request_body, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ChorusProApi.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post ...'
       end
-      # verify the required parameter 'body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post' is set
-      if @api_client.config.client_side_validation && body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post.nil?
-        fail ArgumentError, "Missing the required parameter 'body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post' when calling ChorusProApi.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post"
+      # verify the required parameter 'request_body' is set
+      if @api_client.config.client_side_validation && request_body.nil?
+        fail ArgumentError, "Missing the required parameter 'request_body' when calling ChorusProApi.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post"
       end
       # resource path
       local_var_path = '/api/v1/chorus-pro/factures/valideur/traiter'
@@ -1088,7 +1075,7 @@ module FactPulse
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(request_body)
 
       # return_type
       return_type = opts[:debug_return_type] || 'Object'

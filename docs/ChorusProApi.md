@@ -24,7 +24,7 @@ All URIs are relative to *http://localhost*
 
 ## ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post
 
-> Object ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post)
+> Object ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(request_body)
 
 Ajouter une pièce jointe
 
@@ -42,11 +42,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post = FactPulse::BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Ajouter une pièce jointe
-  result = api_instance.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post)
+  result = api_instance.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post: #{e}"
@@ -57,12 +57,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post)
+> <Array(Object, Integer, Hash)> ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Ajouter une pièce jointe
-  data, status_code, headers = api_instance.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post)
+  data, status_code, headers = api_instance.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -75,7 +75,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post** | [**BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost**](BodyAjouterFichierApiV1ChorusProTransversesAjouterFichierPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -93,7 +93,7 @@ end
 
 ## completer_facture_api_v1_chorus_pro_factures_completer_post
 
-> Object completer_facture_api_v1_chorus_pro_factures_completer_post(body_completer_facture_api_v1_chorus_pro_factures_completer_post)
+> Object completer_facture_api_v1_chorus_pro_factures_completer_post(request_body)
 
 Compléter une facture suspendue (Fournisseur)
 
@@ -111,11 +111,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_completer_facture_api_v1_chorus_pro_factures_completer_post = FactPulse::BodyCompleterFactureApiV1ChorusProFacturesCompleterPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyCompleterFactureApiV1ChorusProFacturesCompleterPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Compléter une facture suspendue (Fournisseur)
-  result = api_instance.completer_facture_api_v1_chorus_pro_factures_completer_post(body_completer_facture_api_v1_chorus_pro_factures_completer_post)
+  result = api_instance.completer_facture_api_v1_chorus_pro_factures_completer_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->completer_facture_api_v1_chorus_pro_factures_completer_post: #{e}"
@@ -126,12 +126,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(body_completer_facture_api_v1_chorus_pro_factures_completer_post)
+> <Array(Object, Integer, Hash)> completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Compléter une facture suspendue (Fournisseur)
-  data, status_code, headers = api_instance.completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(body_completer_facture_api_v1_chorus_pro_factures_completer_post)
+  data, status_code, headers = api_instance.completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -144,7 +144,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_completer_facture_api_v1_chorus_pro_factures_completer_post** | [**BodyCompleterFactureApiV1ChorusProFacturesCompleterPost**](BodyCompleterFactureApiV1ChorusProFacturesCompleterPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -300,7 +300,7 @@ end
 
 ## lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get
 
-> <RechercherServicesResponse> lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get)
+> <RechercherServicesResponse> lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp)
 
 Lister les services d'une structure
 
@@ -319,11 +319,10 @@ end
 
 api_instance = FactPulse::ChorusProApi.new
 id_structure_cpp = 56 # Integer | 
-body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get = FactPulse::BodyListerServicesStructureApiV1ChorusProStructuresIdStructureCppServicesGet.new({user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyListerServicesStructureApiV1ChorusProStructuresIdStructureCppServicesGet | 
 
 begin
   # Lister les services d'une structure
-  result = api_instance.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get)
+  result = api_instance.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get: #{e}"
@@ -334,12 +333,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<RechercherServicesResponse>, Integer, Hash)> lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get)
+> <Array(<RechercherServicesResponse>, Integer, Hash)> lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp)
 
 ```ruby
 begin
   # Lister les services d'une structure
-  data, status_code, headers = api_instance.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp, body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get)
+  data, status_code, headers = api_instance.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info(id_structure_cpp)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <RechercherServicesResponse>
@@ -353,7 +352,6 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id_structure_cpp** | **Integer** |  |  |
-| **body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get** | [**BodyListerServicesStructureApiV1ChorusProStructuresIdStructureCppServicesGet**](BodyListerServicesStructureApiV1ChorusProStructuresIdStructureCppServicesGet.md) |  |  |
 
 ### Return type
 
@@ -365,7 +363,7 @@ end
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 
@@ -440,7 +438,7 @@ end
 
 ## rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post
 
-> Object rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post)
+> Object rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(request_body)
 
 Rechercher factures reçues (Destinataire)
 
@@ -458,11 +456,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post = FactPulse::BodyRechercherFacturesDestinataireApiV1ChorusProFacturesRechercherDestinatairePost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyRechercherFacturesDestinataireApiV1ChorusProFacturesRechercherDestinatairePost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Rechercher factures reçues (Destinataire)
-  result = api_instance.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post)
+  result = api_instance.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post: #{e}"
@@ -473,12 +471,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post)
+> <Array(Object, Integer, Hash)> rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Rechercher factures reçues (Destinataire)
-  data, status_code, headers = api_instance.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post)
+  data, status_code, headers = api_instance.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -491,7 +489,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post** | [**BodyRechercherFacturesDestinataireApiV1ChorusProFacturesRechercherDestinatairePost**](BodyRechercherFacturesDestinataireApiV1ChorusProFacturesRechercherDestinatairePost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -509,7 +507,7 @@ end
 
 ## rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post
 
-> Object rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post)
+> Object rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(request_body)
 
 Rechercher factures émises (Fournisseur)
 
@@ -527,11 +525,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post = FactPulse::BodyRechercherFacturesFournisseurApiV1ChorusProFacturesRechercherFournisseurPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyRechercherFacturesFournisseurApiV1ChorusProFacturesRechercherFournisseurPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Rechercher factures émises (Fournisseur)
-  result = api_instance.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post)
+  result = api_instance.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post: #{e}"
@@ -542,12 +540,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post)
+> <Array(Object, Integer, Hash)> rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Rechercher factures émises (Fournisseur)
-  data, status_code, headers = api_instance.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post)
+  data, status_code, headers = api_instance.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -560,7 +558,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post** | [**BodyRechercherFacturesFournisseurApiV1ChorusProFacturesRechercherFournisseurPost**](BodyRechercherFacturesFournisseurApiV1ChorusProFacturesRechercherFournisseurPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -647,7 +645,7 @@ end
 
 ## recycler_facture_api_v1_chorus_pro_factures_recycler_post
 
-> Object recycler_facture_api_v1_chorus_pro_factures_recycler_post(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post)
+> Object recycler_facture_api_v1_chorus_pro_factures_recycler_post(request_body)
 
 Recycler une facture (Fournisseur)
 
@@ -665,11 +663,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_recycler_facture_api_v1_chorus_pro_factures_recycler_post = FactPulse::BodyRecyclerFactureApiV1ChorusProFacturesRecyclerPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyRecyclerFactureApiV1ChorusProFacturesRecyclerPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Recycler une facture (Fournisseur)
-  result = api_instance.recycler_facture_api_v1_chorus_pro_factures_recycler_post(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post)
+  result = api_instance.recycler_facture_api_v1_chorus_pro_factures_recycler_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->recycler_facture_api_v1_chorus_pro_factures_recycler_post: #{e}"
@@ -680,12 +678,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post)
+> <Array(Object, Integer, Hash)> recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Recycler une facture (Fournisseur)
-  data, status_code, headers = api_instance.recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(body_recycler_facture_api_v1_chorus_pro_factures_recycler_post)
+  data, status_code, headers = api_instance.recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -698,7 +696,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_recycler_facture_api_v1_chorus_pro_factures_recycler_post** | [**BodyRecyclerFactureApiV1ChorusProFacturesRecyclerPost**](BodyRecyclerFactureApiV1ChorusProFacturesRecyclerPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -785,7 +783,7 @@ end
 
 ## telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post
 
-> Object telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post)
+> Object telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(request_body)
 
 Télécharger un groupe de factures
 
@@ -803,11 +801,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post = FactPulse::BodyTelechargerGroupeFacturesApiV1ChorusProFacturesTelechargerGroupePost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyTelechargerGroupeFacturesApiV1ChorusProFacturesTelechargerGroupePost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Télécharger un groupe de factures
-  result = api_instance.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post)
+  result = api_instance.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post: #{e}"
@@ -818,12 +816,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post)
+> <Array(Object, Integer, Hash)> telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Télécharger un groupe de factures
-  data, status_code, headers = api_instance.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post)
+  data, status_code, headers = api_instance.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -836,7 +834,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post** | [**BodyTelechargerGroupeFacturesApiV1ChorusProFacturesTelechargerGroupePost**](BodyTelechargerGroupeFacturesApiV1ChorusProFacturesTelechargerGroupePost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -854,7 +852,7 @@ end
 
 ## traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post
 
-> Object traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post)
+> Object traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(request_body)
 
 Traiter une facture reçue (Destinataire)
 
@@ -872,11 +870,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post = FactPulse::BodyTraiterFactureRecueApiV1ChorusProFacturesTraiterFactureRecuePost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyTraiterFactureRecueApiV1ChorusProFacturesTraiterFactureRecuePost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Traiter une facture reçue (Destinataire)
-  result = api_instance.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post)
+  result = api_instance.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post: #{e}"
@@ -887,12 +885,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post)
+> <Array(Object, Integer, Hash)> traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Traiter une facture reçue (Destinataire)
-  data, status_code, headers = api_instance.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post)
+  data, status_code, headers = api_instance.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -905,7 +903,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post** | [**BodyTraiterFactureRecueApiV1ChorusProFacturesTraiterFactureRecuePost**](BodyTraiterFactureRecueApiV1ChorusProFacturesTraiterFactureRecuePost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -923,11 +921,9 @@ end
 
 ## valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post
 
-> Object valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post)
+> Object valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(request_body)
 
 Consulter une facture (Valideur)
-
-Consulte facture (valideur).
 
 ### Examples
 
@@ -941,11 +937,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post = FactPulse::BodyValideurConsulterFactureApiV1ChorusProFacturesValideurConsulterPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyValideurConsulterFactureApiV1ChorusProFacturesValideurConsulterPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Consulter une facture (Valideur)
-  result = api_instance.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post)
+  result = api_instance.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post: #{e}"
@@ -956,12 +952,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post)
+> <Array(Object, Integer, Hash)> valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Consulter une facture (Valideur)
-  data, status_code, headers = api_instance.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post)
+  data, status_code, headers = api_instance.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -974,7 +970,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post** | [**BodyValideurConsulterFactureApiV1ChorusProFacturesValideurConsulterPost**](BodyValideurConsulterFactureApiV1ChorusProFacturesValideurConsulterPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -992,7 +988,7 @@ end
 
 ## valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post
 
-> Object valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post)
+> Object valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(request_body)
 
 Rechercher factures à valider (Valideur)
 
@@ -1010,11 +1006,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post = FactPulse::BodyValideurRechercherFacturesApiV1ChorusProFacturesValideurRechercherPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyValideurRechercherFacturesApiV1ChorusProFacturesValideurRechercherPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Rechercher factures à valider (Valideur)
-  result = api_instance.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post)
+  result = api_instance.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post: #{e}"
@@ -1025,12 +1021,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post)
+> <Array(Object, Integer, Hash)> valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Rechercher factures à valider (Valideur)
-  data, status_code, headers = api_instance.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post)
+  data, status_code, headers = api_instance.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -1043,7 +1039,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post** | [**BodyValideurRechercherFacturesApiV1ChorusProFacturesValideurRechercherPost**](BodyValideurRechercherFacturesApiV1ChorusProFacturesValideurRechercherPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 
@@ -1061,7 +1057,7 @@ end
 
 ## valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post
 
-> Object valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post)
+> Object valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(request_body)
 
 Valider ou refuser une facture (Valideur)
 
@@ -1079,11 +1075,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post = FactPulse::BodyValideurTraiterFactureApiV1ChorusProFacturesValideurTraiterPost.new({payload: { key: 3.56}, user_info: FactPulse::Utilisateur.new({id: 37, username: 'username_example', email: 'email_example', is_active: false})}) # BodyValideurTraiterFactureApiV1ChorusProFacturesValideurTraiterPost | 
+request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Valider ou refuser une facture (Valideur)
-  result = api_instance.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post)
+  result = api_instance.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(request_body)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post: #{e}"
@@ -1094,12 +1090,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(Object, Integer, Hash)> valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post)
+> <Array(Object, Integer, Hash)> valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(request_body)
 
 ```ruby
 begin
   # Valider ou refuser une facture (Valideur)
-  data, status_code, headers = api_instance.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post)
+  data, status_code, headers = api_instance.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info(request_body)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
@@ -1112,7 +1108,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post** | [**BodyValideurTraiterFactureApiV1ChorusProFacturesValideurTraiterPost**](BodyValideurTraiterFactureApiV1ChorusProFacturesValideurTraiterPost.md) |  |  |
+| **request_body** | [**Hash&lt;String, Object&gt;**](Object.md) |  |  |
 
 ### Return type
 

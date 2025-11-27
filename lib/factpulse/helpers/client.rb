@@ -18,14 +18,18 @@ module FactPulse
     end
 
     # Credentials AFNOR PDP pour le mode Zero-Trust.
-    # Ces credentials sont passés dans chaque requête et ne sont jamais stockés côté serveur.
+    # L'API FactPulse utilise ces credentials pour s'authentifier auprès de la PDP AFNOR.
     class AFNORCredentials
-      attr_reader :client_id, :client_secret, :flow_service_url
-      def initialize(client_id:, client_secret:, flow_service_url:)
-        @client_id, @client_secret, @flow_service_url = client_id, client_secret, flow_service_url
+      attr_reader :flow_service_url, :token_url, :client_id, :client_secret, :directory_service_url
+      def initialize(flow_service_url:, token_url:, client_id:, client_secret:, directory_service_url: nil)
+        @flow_service_url, @token_url = flow_service_url, token_url
+        @client_id, @client_secret, @directory_service_url = client_id, client_secret, directory_service_url
       end
       def to_h
-        { 'client_id' => @client_id, 'client_secret' => @client_secret, 'flow_service_url' => @flow_service_url }
+        result = { 'flow_service_url' => @flow_service_url, 'token_url' => @token_url,
+                   'client_id' => @client_id, 'client_secret' => @client_secret }
+        result['directory_service_url'] = @directory_service_url if @directory_service_url
+        result
       end
     end
 
@@ -48,32 +52,79 @@ module FactPulse
         result
       end
 
-      def self.ligne_de_poste(numero, denomination, quantite, montant_unitaire_ht, montant_ligne_ht,
-                              taux_tva: '20.00', categorie_tva: 'S', unite: 'C62', **options)
+      # Crée une ligne de poste (aligné sur LigneDePoste de models.py).
+      def self.ligne_de_poste(numero, denomination, quantite, montant_unitaire_ht, montant_total_ligne_ht,
+                              taux_tva: '20.00', categorie_tva: 'S', unite: 'FORFAIT', **options)
         result = {
           'numero' => numero, 'denomination' => denomination,
           'quantite' => montant(quantite), 'montantUnitaireHt' => montant(montant_unitaire_ht),
-          'montantTotalLigneHt' => montant(montant_ligne_ht), 'tauxTva' => montant(taux_tva),
+          'montantTotalLigneHt' => montant(montant_total_ligne_ht), 'tauxTva' => montant(taux_tva),
           'categorieTva' => categorie_tva, 'unite' => unite
         }
         result['reference'] = options[:reference] if options[:reference]
-        result['montantTvaLigne'] = montant(options[:montant_tva_ligne]) if options[:montant_tva_ligne]
         result['montantRemiseHt'] = montant(options[:montant_remise_ht]) if options[:montant_remise_ht]
         result['codeRaisonReduction'] = options[:code_raison_reduction] if options[:code_raison_reduction]
         result['raisonReduction'] = options[:raison_reduction] if options[:raison_reduction]
-        result['motifExoneration'] = options[:motif_exoneration] if options[:motif_exoneration]
         result['dateDebutPeriode'] = options[:date_debut_periode] if options[:date_debut_periode]
         result['dateFinPeriode'] = options[:date_fin_periode] if options[:date_fin_periode]
-        result['description'] = options[:description] if options[:description]
         result
       end
 
-      def self.ligne_de_tva(taux, base_ht, montant_tva, categorie: 'S', motif_exoneration: nil)
-        result = {
-          'tauxManuel' => montant(taux), 'montantBaseHt' => montant(base_ht),
+      # Crée une ligne de TVA (aligné sur LigneDeTVA de models.py).
+      def self.ligne_de_tva(taux_manuel, montant_base_ht, montant_tva, categorie: 'S')
+        {
+          'tauxManuel' => montant(taux_manuel), 'montantBaseHt' => montant(montant_base_ht),
           'montantTva' => montant(montant_tva), 'categorie' => categorie
         }
-        result['motifExoneration'] = motif_exoneration if motif_exoneration
+      end
+
+      # Crée une adresse postale pour l'API FactPulse.
+      def self.adresse_postale(ligne1, code_postal, ville, pays: 'FR', ligne2: nil, ligne3: nil)
+        result = { 'ligneUn' => ligne1, 'codePostal' => code_postal, 'nomVille' => ville, 'paysCodeIso' => pays }
+        result['ligneDeux'] = ligne2 if ligne2
+        result['ligneTrois'] = ligne3 if ligne3
+        result
+      end
+
+      # Crée une adresse électronique. scheme_id: "0009"=SIREN, "0225"=SIRET
+      def self.adresse_electronique(identifiant, scheme_id: '0009')
+        { 'identifiant' => identifiant, 'schemeId' => scheme_id }
+      end
+
+      # Calcule le numéro TVA intracommunautaire français depuis un SIREN.
+      def self.calculer_tva_intra(siren)
+        return nil if siren.nil? || siren.length != 9 || !siren.match?(/^\d+$/)
+        cle = (12 + 3 * (siren.to_i % 97)) % 97
+        format('FR%02d%s', cle, siren)
+      end
+
+      # Crée un fournisseur (émetteur) avec auto-calcul SIREN, TVA intracommunautaire et adresses.
+      def self.fournisseur(nom, siret, adresse_ligne1, code_postal, ville, **options)
+        siren = options[:siren] || (siret.length == 14 ? siret[0, 9] : nil)
+        numero_tva_intra = options[:numero_tva_intra] || (siren ? calculer_tva_intra(siren) : nil)
+        result = {
+          'nom' => nom, 'idFournisseur' => options[:id_fournisseur] || 0, 'siret' => siret,
+          'adresseElectronique' => adresse_electronique(siret, scheme_id: '0225'),
+          'adressePostale' => adresse_postale(adresse_ligne1, code_postal, ville, pays: options[:pays] || 'FR', ligne2: options[:adresse_ligne2])
+        }
+        result['siren'] = siren if siren
+        result['numeroTvaIntra'] = numero_tva_intra if numero_tva_intra
+        result['iban'] = options[:iban] if options[:iban]
+        result['idServiceFournisseur'] = options[:code_service] if options[:code_service]
+        result['codeCoordonnesBancairesFournisseur'] = options[:code_coordonnees_bancaires] if options[:code_coordonnees_bancaires]
+        result
+      end
+
+      # Crée un destinataire (client) avec auto-calcul SIREN et adresses.
+      def self.destinataire(nom, siret, adresse_ligne1, code_postal, ville, **options)
+        siren = options[:siren] || (siret.length == 14 ? siret[0, 9] : nil)
+        result = {
+          'nom' => nom, 'siret' => siret,
+          'adresseElectronique' => adresse_electronique(siret, scheme_id: '0225'),
+          'adressePostale' => adresse_postale(adresse_ligne1, code_postal, ville, pays: options[:pays] || 'FR', ligne2: options[:adresse_ligne2])
+        }
+        result['siren'] = siren if siren
+        result['codeServiceExecutant'] = options[:code_service_executant] if options[:code_service_executant]
         result
       end
     end

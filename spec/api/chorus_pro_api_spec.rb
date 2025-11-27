@@ -35,7 +35,7 @@ describe 'ChorusProApi' do
   # unit tests for ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post
   # Ajouter une pièce jointe
   # Ajoute une pièce jointe au compte utilisateur courant.      **Taille max** : 10 Mo par fichier      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;pieceJointeFichier\&quot;: \&quot;JVBERi0xLjQKJeLjz9MKNSAwIG9iago8P...\&quot;,       \&quot;pieceJointeNom\&quot;: \&quot;bon_commande.pdf\&quot;,       \&quot;pieceJointeTypeMime\&quot;: \&quot;application/pdf\&quot;,       \&quot;pieceJointeExtension\&quot;: \&quot;PDF\&quot;     }     &#x60;&#x60;&#x60;      **Retour** : L&#39;ID de la pièce jointe (&#x60;pieceJointeIdFichier&#x60;) à utiliser ensuite dans &#x60;/factures/completer&#x60;.      **Extensions acceptées** : PDF, JPG, PNG, ZIP, XML, etc.
-  # @param body_ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post test' do
@@ -47,7 +47,7 @@ describe 'ChorusProApi' do
   # unit tests for completer_facture_api_v1_chorus_pro_factures_completer_post
   # Compléter une facture suspendue (Fournisseur)
   # Complète une facture au statut SUSPENDUE en ajoutant des pièces jointes ou un commentaire.      **Statut requis** : SUSPENDUE      **Actions possibles** :     - Ajouter des pièces jointes (justificatifs, bons de commande, etc.)     - Modifier le commentaire      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;identifiantFactureCPP\&quot;: 12345,       \&quot;commentaire\&quot;: \&quot;Voici les justificatifs demandés\&quot;,       \&quot;listePiecesJointes\&quot;: [         {           \&quot;pieceJointeIdFichier\&quot;: 98765,           \&quot;pieceJointeNom\&quot;: \&quot;bon_commande.pdf\&quot;         }       ]     }     &#x60;&#x60;&#x60;      **Note** : Les pièces jointes doivent d&#39;abord être uploadées via &#x60;/transverses/ajouter-fichier&#x60;.      **Après complétion** : La facture repasse au statut MISE_A_DISPOSITION.
-  # @param body_completer_facture_api_v1_chorus_pro_factures_completer_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'completer_facture_api_v1_chorus_pro_factures_completer_post test' do
@@ -84,7 +84,6 @@ describe 'ChorusProApi' do
   # Lister les services d&#39;une structure
   # Récupère la liste des services actifs d&#39;une structure publique.      **Cas d&#39;usage** :     - Lister les services disponibles pour une administration     - Vérifier qu&#39;un code service existe avant de soumettre une facture      **Retour** :     - Liste des services avec leur code, libellé et statut (actif/inactif)
   # @param id_structure_cpp 
-  # @param body_lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get 
   # @param [Hash] opts the optional parameters
   # @return [RechercherServicesResponse]
   describe 'lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get test' do
@@ -108,7 +107,7 @@ describe 'ChorusProApi' do
   # unit tests for rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post
   # Rechercher factures reçues (Destinataire)
   # Recherche les factures reçues par le destinataire connecté.      **Filtres** :     - Téléchargée / non téléchargée     - Dates de réception     - Statut (MISE_A_DISPOSITION, SUSPENDUE, etc.)     - Fournisseur      **Indicateur utile** : &#x60;factureTelechargeeParDestinataire&#x60; permet de savoir si la facture a déjà été téléchargée.
-  # @param body_rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post test' do
@@ -120,7 +119,7 @@ describe 'ChorusProApi' do
   # unit tests for rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post
   # Rechercher factures émises (Fournisseur)
   # Recherche les factures émises par le fournisseur connecté.      **Filtres disponibles** :     - Numéro de facture     - Dates (début/fin)     - Statut     - Structure destinataire     - Montant      **Cas d&#39;usage** :     - Suivi des factures émises     - Vérification des statuts     - Export pour comptabilité
-  # @param body_rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post test' do
@@ -144,7 +143,7 @@ describe 'ChorusProApi' do
   # unit tests for recycler_facture_api_v1_chorus_pro_factures_recycler_post
   # Recycler une facture (Fournisseur)
   # Recycle une facture au statut A_RECYCLER en modifiant les données d&#39;acheminement.      **Statut requis** : A_RECYCLER      **Champs modifiables** :     - Destinataire (&#x60;idStructureCPP&#x60;)     - Code service     - Numéro d&#39;engagement      **Cas d&#39;usage** :     - Erreur de destinataire     - Changement de service facturation     - Mise à jour du numéro d&#39;engagement      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;identifiantFactureCPP\&quot;: 12345,       \&quot;idStructureCPP\&quot;: 67890,       \&quot;codeService\&quot;: \&quot;SERVICE_01\&quot;,       \&quot;numeroEngagement\&quot;: \&quot;ENG2024001\&quot;     }     &#x60;&#x60;&#x60;      **Note** : La facture conserve son numéro et ses montants, seuls les champs d&#39;acheminement changent.
-  # @param body_recycler_facture_api_v1_chorus_pro_factures_recycler_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'recycler_facture_api_v1_chorus_pro_factures_recycler_post test' do
@@ -168,7 +167,7 @@ describe 'ChorusProApi' do
   # unit tests for telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post
   # Télécharger un groupe de factures
   # Télécharge une ou plusieurs factures (max 10 recommandé) avec leurs pièces jointes.      **Formats disponibles** :     - PDF : Fichier PDF uniquement     - XML : Fichier XML uniquement     - ZIP : Archive contenant PDF + XML + pièces jointes      **Taille maximale** : 120 Mo par téléchargement      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;listeIdentifiantsFactureCPP\&quot;: [12345, 12346],       \&quot;inclurePiecesJointes\&quot;: true,       \&quot;formatFichier\&quot;: \&quot;ZIP\&quot;     }     &#x60;&#x60;&#x60;      **Retour** : Le fichier est encodé en base64 dans le champ &#x60;fichierBase64&#x60;.      **Note** : Le flag &#x60;factureTelechargeeParDestinataire&#x60; est mis à jour automatiquement.
-  # @param body_telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post test' do
@@ -180,7 +179,7 @@ describe 'ChorusProApi' do
   # unit tests for traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post
   # Traiter une facture reçue (Destinataire)
   # Change le statut d&#39;une facture reçue.      **Statuts possibles** :     - MISE_A_DISPOSITION : Facture acceptée     - SUSPENDUE : En attente d&#39;informations complémentaires (motif obligatoire)     - REJETEE : Facture refusée (motif obligatoire)     - MANDATEE : Facture mandatée     - MISE_EN_PAIEMENT : Facture en cours de paiement     - COMPTABILISEE : Facture comptabilisée     - MISE_A_DISPOSITION_COMPTABLE : Mise à disposition comptable     - A_RECYCLER : À recycler     - COMPLETEE : Complétée     - SERVICE-FAIT : Service fait     - PRISE_EN_COMPTE_DESTINATAIRE : Prise en compte     - TRANSMISE_MOA : Transmise à la MOA      **Payload exemple** :     &#x60;&#x60;&#x60;json     {       \&quot;identifiantFactureCPP\&quot;: 12345,       \&quot;nouveauStatut\&quot;: \&quot;REJETEE\&quot;,       \&quot;motifRejet\&quot;: \&quot;Facture en double\&quot;,       \&quot;commentaire\&quot;: \&quot;Facture déjà reçue sous la référence ABC123\&quot;     }     &#x60;&#x60;&#x60;      **Règles** :     - Un motif est **obligatoire** pour SUSPENDUE et REJETEE     - Seuls certains statuts sont autorisés selon le statut actuel de la facture
-  # @param body_traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post test' do
@@ -191,8 +190,7 @@ describe 'ChorusProApi' do
 
   # unit tests for valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post
   # Consulter une facture (Valideur)
-  # Consulte facture (valideur).
-  # @param body_valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post test' do
@@ -204,7 +202,7 @@ describe 'ChorusProApi' do
   # unit tests for valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post
   # Rechercher factures à valider (Valideur)
   # Recherche les factures en attente de validation par le valideur connecté.      **Rôle** : Valideur dans le circuit de validation interne.      **Filtres** : Dates, structure, service, etc.
-  # @param body_valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post test' do
@@ -216,7 +214,7 @@ describe 'ChorusProApi' do
   # unit tests for valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post
   # Valider ou refuser une facture (Valideur)
   # Valide ou refuse une facture en attente de validation.      **Actions** :     - Valider : La facture passe au statut suivant du circuit     - Refuser : La facture est rejetée (motif obligatoire)
-  # @param body_valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post 
+  # @param request_body 
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post test' do
