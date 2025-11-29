@@ -8,4 +8,4 @@ script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
   - gem build factpulse.gemspec
-  - gem install ./factpulse-2.0.33.gem
+  - gem install ./factpulse-2.0.34.gem

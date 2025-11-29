@@ -364,6 +364,9 @@ module FactPulse
       # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées
       # de la facture vers un format JSON unifié. Supporte Factur-X, CII et UBL.
       #
+      # Note: Cet endpoint utilise l'authentification JWT FactPulse (pas OAuth AFNOR).
+      # Le serveur FactPulse se charge d'appeler la PDP avec les credentials stockés.
+      #
       # @param flow_id [String] Identifiant du flux (UUID)
       # @param include_document [Boolean] Si true, inclut le document en base64
       # @return [Hash] Métadonnées de la facture (fournisseur, montants, dates, etc.)
@@ -373,9 +376,20 @@ module FactPulse
       #   puts "Fournisseur: #{facture['fournisseur']['nom']}"
       #   puts "Montant TTC: #{facture['montant_ttc']} #{facture['devise']}"
       def obtenir_facture_entrante_afnor(flow_id, include_document: false)
-        endpoint = "/flux-entrants/#{flow_id}"
-        endpoint += "?include_document=true" if include_document
-        make_afnor_request('GET', endpoint)
+        ensure_authenticated
+        uri = URI("#{@api_url}/api/v1/afnor/flux-entrants/#{flow_id}")
+        uri.query = "include_document=true" if include_document
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == 'https'
+        http.read_timeout = 60
+
+        request = Net::HTTP::Get.new(uri)
+        request['Authorization'] = "Bearer #{@access_token}"
+
+        response = http.request(request)
+        raise FactPulseValidationError.new("Erreur flux entrant: #{response.code}") unless response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body) rescue {}
       end
 
       # Vérifie la disponibilité du Flow Service AFNOR.
