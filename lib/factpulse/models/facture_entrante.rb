@@ -58,6 +58,12 @@ module FactPulse
 
     attr_accessor :objet_facture
 
+    attr_accessor :document_base64
+
+    attr_accessor :document_content_type
+
+    attr_accessor :document_filename
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -98,7 +104,10 @@ module FactPulse
         :'montant_ttc' => :'montant_ttc',
         :'numero_bon_commande' => :'numero_bon_commande',
         :'reference_contrat' => :'reference_contrat',
-        :'objet_facture' => :'objet_facture'
+        :'objet_facture' => :'objet_facture',
+        :'document_base64' => :'document_base64',
+        :'document_content_type' => :'document_content_type',
+        :'document_filename' => :'document_filename'
       }
     end
 
@@ -130,7 +139,10 @@ module FactPulse
         :'montant_ttc' => :'String',
         :'numero_bon_commande' => :'String',
         :'reference_contrat' => :'String',
-        :'objet_facture' => :'String'
+        :'objet_facture' => :'String',
+        :'document_base64' => :'String',
+        :'document_content_type' => :'String',
+        :'document_filename' => :'String'
       }
     end
 
@@ -142,7 +154,10 @@ module FactPulse
         :'date_reglement',
         :'numero_bon_commande',
         :'reference_contrat',
-        :'objet_facture'
+        :'objet_facture',
+        :'document_base64',
+        :'document_content_type',
+        :'document_filename'
       ])
     end
 
@@ -242,6 +257,18 @@ module FactPulse
 
       if attributes.key?(:'objet_facture')
         self.objet_facture = attributes[:'objet_facture']
+      end
+
+      if attributes.key?(:'document_base64')
+        self.document_base64 = attributes[:'document_base64']
+      end
+
+      if attributes.key?(:'document_content_type')
+        self.document_content_type = attributes[:'document_content_type']
+      end
+
+      if attributes.key?(:'document_filename')
+        self.document_filename = attributes[:'document_filename']
       end
     end
 
@@ -433,7 +460,10 @@ module FactPulse
           montant_ttc == o.montant_ttc &&
           numero_bon_commande == o.numero_bon_commande &&
           reference_contrat == o.reference_contrat &&
-          objet_facture == o.objet_facture
+          objet_facture == o.objet_facture &&
+          document_base64 == o.document_base64 &&
+          document_content_type == o.document_content_type &&
+          document_filename == o.document_filename
     end
 
     # @see the `==` method
@@ -445,7 +475,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [flow_id, format_source, ref_fournisseur, type_document, fournisseur, site_facturation_nom, site_facturation_siret, date_de_piece, date_reglement, devise, montant_ht, montant_tva, montant_ttc, numero_bon_commande, reference_contrat, objet_facture].hash
+      [flow_id, format_source, ref_fournisseur, type_document, fournisseur, site_facturation_nom, site_facturation_siret, date_de_piece, date_reglement, devise, montant_ht, montant_tva, montant_ttc, numero_bon_commande, reference_contrat, objet_facture, document_base64, document_content_type, document_filename].hash
     end
 
     # Builds the object from hash

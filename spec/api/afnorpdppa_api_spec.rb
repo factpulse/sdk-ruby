@@ -48,6 +48,7 @@ describe 'AFNORPDPPAApi' do
   # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
   # @param flow_id 
   # @param [Hash] opts the optional parameters
+  # @option opts [Boolean] :include_document 
   # @return [FactureEntrante]
   describe 'get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get test' do
     it 'should work' do

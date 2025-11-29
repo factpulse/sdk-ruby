@@ -80,6 +80,7 @@ module FactPulse
     # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
     # @param flow_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Boolean] :include_document  (default to false)
     # @return [FactureEntrante]
     def get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id, opts = {})
       data, _status_code, _headers = get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts)
@@ -90,6 +91,7 @@ module FactPulse
     # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
     # @param flow_id [String] 
     # @param [Hash] opts the optional parameters
+    # @option opts [Boolean] :include_document  (default to false)
     # @return [Array<(FactureEntrante, Integer, Hash)>] FactureEntrante data, response status code and response headers
     def get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts = {})
       if @api_client.config.debugging
@@ -104,6 +106,7 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'include_document'] = opts[:'include_document'] if !opts[:'include_document'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

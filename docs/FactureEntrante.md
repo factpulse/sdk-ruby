@@ -20,6 +20,9 @@
 | **numero_bon_commande** | **String** |  | [optional] |
 | **reference_contrat** | **String** |  | [optional] |
 | **objet_facture** | **String** |  | [optional] |
+| **document_base64** | **String** |  | [optional] |
+| **document_content_type** | **String** |  | [optional] |
+| **document_filename** | **String** |  | [optional] |
 
 ## Example
 
@@ -42,7 +45,10 @@ instance = FactPulse::FactureEntrante.new(
   montant_ttc: null,
   numero_bon_commande: null,
   reference_contrat: null,
-  objet_facture: null
+  objet_facture: null,
+  document_base64: null,
+  document_content_type: null,
+  document_filename: null
 )
 ```
 

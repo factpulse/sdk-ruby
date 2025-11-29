@@ -77,7 +77,7 @@ This endpoint does not need any parameter.
 
 ## get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get
 
-> <FactureEntrante> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id)
+> <FactureEntrante> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id, opts)
 
 Récupérer et extraire une facture entrante
 
@@ -96,10 +96,13 @@ end
 
 api_instance = FactPulse::AFNORPDPPAApi.new
 flow_id = 'flow_id_example' # String | 
+opts = {
+  include_document: true # Boolean | 
+}
 
 begin
   # Récupérer et extraire une facture entrante
-  result = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id)
+  result = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get: #{e}"
@@ -110,12 +113,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<FactureEntrante>, Integer, Hash)> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id)
+> <Array(<FactureEntrante>, Integer, Hash)> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts)
 
 ```ruby
 begin
   # Récupérer et extraire une facture entrante
-  data, status_code, headers = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id)
+  data, status_code, headers = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <FactureEntrante>
@@ -129,6 +132,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **flow_id** | **String** |  |  |
+| **include_document** | **Boolean** |  | [optional][default to false] |
 
 ### Return type
 
