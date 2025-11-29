@@ -2,16 +2,15 @@
 
 Client Ruby officiel pour l'API FactPulse - Facturation électronique française.
 
-## 🎯 Fonctionnalités
+## Fonctionnalités
 
 - **Factur-X** : Génération et validation de factures électroniques (profils MINIMUM, BASIC, EN16931, EXTENDED)
 - **Chorus Pro** : Intégration avec la plateforme de facturation publique française
 - **AFNOR PDP/PA** : Soumission de flux conformes à la norme XP Z12-013
 - **Signature électronique** : Signature PDF (PAdES-B-B, PAdES-B-T, PAdES-B-LT)
 - **Client simplifié** : Authentification JWT et polling intégrés via `helpers`
-- **Ruby 2.7+** : Compatible avec les versions modernes de Ruby
 
-## 🚀 Installation
+## Installation
 
 ```bash
 gem install factpulse
@@ -23,9 +22,7 @@ Ou dans votre Gemfile :
 gem 'factpulse'
 ```
 
-## 📖 Démarrage rapide
-
-### Méthode recommandée : Client simplifié avec helpers
+## Démarrage rapide
 
 Le module `helpers` offre une API simplifiée avec authentification et polling automatiques :
 
@@ -33,175 +30,191 @@ Le module `helpers` offre une API simplifiée avec authentification et polling a
 require 'factpulse'
 require 'factpulse/helpers'
 
-# Créer le client (authentification automatique)
-client = Factpulse::Helpers::FactPulseClient.new(
-  email: 'votre_email@example.com',
-  password: 'votre_mot_de_passe'
+include Factpulse::Helpers
+
+# Créer le client
+client = FactPulseClient.new(
+  'votre_email@example.com',
+  'votre_mot_de_passe'
 )
 
-# Données de la facture
+# Construire la facture avec les helpers
 facture_data = {
-  numero_facture: 'FAC-2025-001',
-  date_facture: '2025-01-15',
-  fournisseur: {
-    nom: 'Mon Entreprise SAS',
-    siret: '12345678901234',
-    adresse_postale: {
-      ligne_un: '123 Rue Example',
-      code_postal: '75001',
-      nom_ville: 'Paris',
-      pays_code_iso: 'FR'
-    }
-  },
-  destinataire: {
-    nom: 'Client SARL',
-    siret: '98765432109876',
-    adresse_postale: {
-      ligne_un: '456 Avenue Test',
-      code_postal: '69001',
-      nom_ville: 'Lyon',
-      pays_code_iso: 'FR'
-    }
-  },
-  montant_total: {
-    montant_ht_total: '1000.00',
-    montant_tva: '200.00',
-    montant_ttc_total: '1200.00',
-    montant_a_payer: '1200.00'
-  },
-  lignes_de_poste: [{
-    numero: 1,
-    denomination: 'Prestation de conseil',
-    quantite: '10.00',
-    unite: 'PIECE',
-    montant_unitaire_ht: '100.00'
-  }]
+  numeroFacture: 'FAC-2025-001',
+  dateFacture: '2025-01-15',
+  fournisseur: fournisseur(
+    'Mon Entreprise SAS',
+    '12345678901234',
+    '123 Rue Example',
+    '75001',
+    'Paris'
+  ),
+  destinataire: destinataire(
+    'Client SARL',
+    '98765432109876',
+    '456 Avenue Test',
+    '69001',
+    'Lyon'
+  ),
+  montantTotal: montant_total(1000.00, 200.00, 1200.00, 1200.00),
+  lignesDePoste: [
+    ligne_de_poste(1, 'Prestation de conseil', 10, 100.00, 1000.00)
+  ],
+  lignesDeTva: [
+    ligne_de_tva(1000.00, 200.00)
+  ]
 }
 
-# Lire le PDF source
-pdf_source = File.binread('facture_source.pdf')
+# Générer le PDF Factur-X
+pdf_bytes = client.generer_facturx(facture_data, 'facture_source.pdf', 'EN16931')
 
-# Générer le PDF Factur-X (polling automatique)
-pdf_bytes = client.generer_facturx(
-  facture_data,
-  pdf_source,
-  profil: 'EN16931',
-  format_sortie: 'pdf',
-  sync: true  # Attend le résultat automatiquement
-)
-
-# Sauvegarder
 File.binwrite('facture_facturx.pdf', pdf_bytes)
 ```
 
-### Méthode alternative : SDK brut
+## Helpers disponibles (module Factpulse::Helpers)
 
-Pour un contrôle total, utilisez le SDK généré directement :
+### montant(value)
+
+Convertit une valeur en string formaté pour les montants monétaires.
 
 ```ruby
-require 'factpulse'
-require 'net/http'
-require 'json'
+include Factpulse::Helpers
 
-# 1. Obtenir le token JWT
-uri = URI('https://factpulse.fr/api/token/')
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
-
-request = Net::HTTP::Post.new(uri.path, { 'Content-Type' => 'application/json' })
-request.body = {
-  username: 'votre_email@example.com',
-  password: 'votre_mot_de_passe'
-}.to_json
-
-response = http.request(request)
-token = JSON.parse(response.body)['access']
-
-# 2. Configurer le client
-Factpulse.configure do |config|
-  config.host = 'https://factpulse.fr/api/facturation'
-  config.access_token = token
-end
-
-# 3. Appeler l'API
-api = Factpulse::TraitementFactureApi.new
-response = api.generer_facture_api_v1_traitement_generer_facture_post(
-  facture_data.to_json,
-  'EN16931',
-  'pdf',
-  File.open('facture_source.pdf', 'rb')
-)
-
-# 4. Polling manuel pour récupérer le résultat
-task_id = response.id_tache
-# ... (implémenter le polling)
+montant(1234.5)      # "1234.50"
+montant('1234.56')   # "1234.56"
+montant(nil)         # "0.00"
 ```
 
-## 🔧 Avantages des helpers
+### montant_total(ht, tva, ttc, a_payer, ...)
 
-| Fonctionnalité | SDK brut | helpers |
-|----------------|----------|---------|
-| Authentification | Manuelle | Automatique |
-| Refresh token | Manuel | Automatique |
-| Polling tâches async | Manuel | Automatique (backoff) |
-| Retry sur 401 | Manuel | Automatique |
-
-## 🔑 Options d'authentification
-
-### Client UID (multi-clients)
-
-Si vous gérez plusieurs clients :
+Crée un objet MontantTotal complet.
 
 ```ruby
-client = Factpulse::Helpers::FactPulseClient.new(
-  email: 'votre_email@example.com',
-  password: 'votre_mot_de_passe',
-  client_uid: 'identifiant_client'  # UID du client cible
+total = montant_total(
+  1000.00,        # ht
+  200.00,         # tva
+  1200.00,        # ttc
+  1200.00,        # a_payer
+  50.00,          # remise_ttc (optionnel)
+  'Fidélité',     # motif_remise (optionnel)
+  100.00          # acompte (optionnel)
 )
 ```
 
-### Configuration avancée
+### ligne_de_poste(numero, denomination, quantite, montant_unitaire_ht, montant_total_ligne_ht, ...)
+
+Crée une ligne de facturation.
 
 ```ruby
-client = Factpulse::Helpers::FactPulseClient.new(
-  email: 'votre_email@example.com',
-  password: 'votre_mot_de_passe',
-  api_url: 'https://factpulse.fr',  # URL personnalisée
-  polling_interval: 2.0,  # Intervalle de polling initial (secondes)
-  polling_timeout: 120.0,  # Timeout de polling (secondes)
-  max_retries: 2  # Tentatives en cas de 401
+ligne = ligne_de_poste(
+  1,
+  'Prestation de conseil',
+  5,
+  200.00,
+  1000.00,  # montant_total_ligne_ht requis
+  'S',      # categorie_tva: S, Z, E, AE, K
+  'HEURE',  # unite: FORFAIT, PIECE, HEURE, JOUR...
+  {
+    taux_tva: 'TVA20',        # Ou taux_tva_manuel: '20.00'
+    reference: 'REF-001'
+  }
 )
 ```
 
-## 💡 Formats de montants acceptés
+### ligne_de_tva(montant_base_ht, montant_tva, ...)
 
-L'API accepte plusieurs formats pour les montants :
+Crée une ligne de ventilation TVA.
 
 ```ruby
-# String (recommandé pour la précision)
-montant = '1234.56'
-
-# Float
-montant = 1234.56
-
-# Integer
-montant = 1234
-
-# BigDecimal
-require 'bigdecimal'
-montant = BigDecimal('1234.56')
-
-# Helper de formatage
-montant_formate = Factpulse::Helpers::FactPulseClient.format_montant(1234.5)  # => "1234.50"
+tva = ligne_de_tva(
+  1000.00,    # montant_base_ht
+  200.00,     # montant_tva
+  'S',        # categorie: S, Z, E, AE, K
+  { taux: 'TVA20' }  # Ou taux_manuel: '20.00'
+)
 ```
 
-## 📚 Ressources
+### adresse_postale(ligne1, code_postal, ville, ...)
+
+Crée une adresse postale structurée.
+
+```ruby
+adresse = adresse_postale(
+  '123 Rue de la République',
+  '75001',
+  'Paris',
+  'FR',           # pays (défaut: 'FR')
+  'Bâtiment A'    # ligne2 (optionnel)
+)
+```
+
+### fournisseur(nom, siret, adresse_ligne1, code_postal, ville, options)
+
+Crée un fournisseur complet avec calcul automatique du SIREN et TVA intra.
+
+```ruby
+f = fournisseur(
+  'Ma Société SAS',
+  '12345678901234',
+  '123 Rue Example',
+  '75001',
+  'Paris',
+  { iban: 'FR7630006000011234567890189' }
+)
+# SIREN et TVA intracommunautaire calculés automatiquement
+```
+
+### destinataire(nom, siret, adresse_ligne1, code_postal, ville, options)
+
+Crée un destinataire (client) avec calcul automatique du SIREN.
+
+```ruby
+d = destinataire(
+  'Client SARL',
+  '98765432109876',
+  '456 Avenue Test',
+  '69001',
+  'Lyon'
+)
+```
+
+## Mode Zero-Trust (Chorus Pro / AFNOR)
+
+Pour passer vos propres credentials sans stockage côté serveur :
+
+```ruby
+include Factpulse::Helpers
+
+chorus_creds = ChorusProCredentials.new(
+  'votre_client_id',
+  'votre_client_secret',
+  'votre_login',
+  'votre_password',
+  true  # sandbox
+)
+
+afnor_creds = AFNORCredentials.new(
+  'https://api.pdp.fr/flow/v1',
+  'https://auth.pdp.fr/oauth/token',
+  'votre_client_id',
+  'votre_client_secret'
+)
+
+client = FactPulseClient.new(
+  'votre_email@example.com',
+  'votre_mot_de_passe',
+  nil,  # api_url
+  nil,  # client_uid
+  chorus_creds,
+  afnor_creds
+)
+```
+
+## Ressources
 
 - **Documentation API** : https://factpulse.fr/api/facturation/documentation
-- **Code source** : https://github.com/factpulse/sdk-ruby
-- **Issues** : https://github.com/factpulse/sdk-ruby/issues
 - **Support** : contact@factpulse.fr
 
-## 📄 Licence
+## Licence
 
 MIT License - Copyright (c) 2025 FactPulse
