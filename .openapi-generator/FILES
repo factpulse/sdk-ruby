@@ -34,9 +34,12 @@ docs/DonneesFactureSimplifiees.md
 docs/ErrorLevel.md
 docs/ErrorSource.md
 docs/FactureEnrichieInfo.md
+docs/FactureEntrante.md
 docs/FactureFacturX.md
+docs/FormatFacture.md
 docs/FormatSortie.md
 docs/Fournisseur.md
+docs/FournisseurEntrant.md
 docs/GenerateCertificateRequest.md
 docs/GenerateCertificateResponse.md
 docs/HTTPValidationError.md
@@ -93,6 +96,7 @@ docs/StatutTache.md
 docs/StructureInfo.md
 docs/Tauxmanuel.md
 docs/TraitementFactureApi.md
+docs/TypeDocument.md
 docs/TypeFacture.md
 docs/TypeTVA.md
 docs/Unite.md
@@ -137,9 +141,12 @@ lib/factpulse/models/donnees_facture_simplifiees.rb
 lib/factpulse/models/error_level.rb
 lib/factpulse/models/error_source.rb
 lib/factpulse/models/facture_enrichie_info.rb
+lib/factpulse/models/facture_entrante.rb
 lib/factpulse/models/facture_factur_x.rb
+lib/factpulse/models/format_facture.rb
 lib/factpulse/models/format_sortie.rb
 lib/factpulse/models/fournisseur.rb
+lib/factpulse/models/fournisseur_entrant.rb
 lib/factpulse/models/generate_certificate_request.rb
 lib/factpulse/models/generate_certificate_response.rb
 lib/factpulse/models/http_validation_error.rb
@@ -194,6 +201,7 @@ lib/factpulse/models/statut_facture.rb
 lib/factpulse/models/statut_tache.rb
 lib/factpulse/models/structure_info.rb
 lib/factpulse/models/tauxmanuel.rb
+lib/factpulse/models/type_document.rb
 lib/factpulse/models/type_facture.rb
 lib/factpulse/models/type_tva.rb
 lib/factpulse/models/unite.rb
@@ -231,8 +239,11 @@ spec/models/donnees_facture_simplifiees_spec.rb
 spec/models/error_level_spec.rb
 spec/models/error_source_spec.rb
 spec/models/facture_enrichie_info_spec.rb
+spec/models/facture_entrante_spec.rb
 spec/models/facture_factur_x_spec.rb
+spec/models/format_facture_spec.rb
 spec/models/format_sortie_spec.rb
+spec/models/fournisseur_entrant_spec.rb
 spec/models/fournisseur_spec.rb
 spec/models/generate_certificate_request_spec.rb
 spec/models/generate_certificate_response_spec.rb
@@ -288,6 +299,7 @@ spec/models/statut_facture_spec.rb
 spec/models/statut_tache_spec.rb
 spec/models/structure_info_spec.rb
 spec/models/tauxmanuel_spec.rb
+spec/models/type_document_spec.rb
 spec/models/type_facture_spec.rb
 spec/models/type_tva_spec.rb
 spec/models/unite_spec.rb

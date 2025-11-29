@@ -1,0 +1,492 @@
+=begin
+#API REST FactPulse
+
+# API REST pour la facturation électronique en France : Factur-X, AFNOR PDP/PA, signatures électroniques.  ## 🎯 Fonctionnalités principales  ### 📄 Génération de factures Factur-X - **Formats** : XML seul ou PDF/A-3 avec XML embarqué - **Profils** : MINIMUM, BASIC, EN16931, EXTENDED - **Normes** : EN 16931 (directive UE 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Format simplifié** : Génération à partir de SIRET + auto-enrichissement (API Chorus Pro + Recherche Entreprises)  ### ✅ Validation et conformité - **Validation XML** : Schematron (45 à 210+ règles selon profil) - **Validation PDF** : PDF/A-3, métadonnées XMP Factur-X, signatures électroniques - **VeraPDF** : Validation stricte PDF/A (146+ règles ISO 19005-3) - **Traitement asynchrone** : Support Celery pour validations lourdes (VeraPDF)  ### 📡 Intégration AFNOR PDP/PA (XP Z12-013) - **Soumission de flux** : Envoi de factures vers Plateformes de Dématérialisation Partenaires - **Recherche de flux** : Consultation des factures soumises - **Téléchargement** : Récupération des PDF/A-3 avec XML - **Directory Service** : Recherche d'entreprises (SIREN/SIRET) - **Multi-client** : Support de plusieurs configs PDP par utilisateur (stored credentials ou zero-storage)  ### ✍️ Signature électronique PDF - **Standards** : PAdES-B-B, PAdES-B-T (horodatage RFC 3161), PAdES-B-LT (archivage long terme) - **Niveaux eIDAS** : SES (auto-signé), AdES (CA commerciale), QES (PSCO) - **Validation** : Vérification intégrité cryptographique et certificats - **Génération de certificats** : Certificats X.509 auto-signés pour tests  ### 🔄 Traitement asynchrone - **Celery** : Génération, validation et signature asynchrones - **Polling** : Suivi d'état via `/taches/{id_tache}/statut` - **Pas de timeout** : Idéal pour gros fichiers ou validations lourdes  ## 🔒 Authentification  Toutes les requêtes nécessitent un **token JWT** dans le header Authorization : ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### Comment obtenir un token JWT ?  #### 🔑 Méthode 1 : API `/api/token/` (Recommandée)  **URL :** `https://www.factpulse.fr/api/token/`  Cette méthode est **recommandée** pour l'intégration dans vos applications et workflows CI/CD.  **Prérequis :** Avoir défini un mot de passe sur votre compte  **Pour les utilisateurs inscrits via email/password :** - Vous avez déjà un mot de passe, utilisez-le directement  **Pour les utilisateurs inscrits via OAuth (Google/GitHub) :** - Vous devez d'abord définir un mot de passe sur : https://www.factpulse.fr/accounts/password/set/ - Une fois le mot de passe créé, vous pourrez utiliser l'API  **Exemple de requête :** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\"   }' ```  **Paramètre optionnel `client_uid` :**  Pour sélectionner les credentials d'un client spécifique (PA/PDP, Chorus Pro, certificats de signature), ajoutez `client_uid` :  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  Le `client_uid` sera inclus dans le JWT et permettra à l'API d'utiliser automatiquement : - Les credentials AFNOR/PDP configurés pour ce client - Les credentials Chorus Pro configurés pour ce client - Les certificats de signature électronique configurés pour ce client  **Réponse :** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Token d'accès (validité: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Token de rafraîchissement (validité: 7 jours) } ```  **Avantages :** - ✅ Automatisation complète (CI/CD, scripts) - ✅ Gestion programmatique des tokens - ✅ Support du refresh token pour renouveler automatiquement l'accès - ✅ Intégration facile dans n'importe quel langage/outil  #### 🖥️ Méthode 2 : Génération via Dashboard (Alternative)  **URL :** https://www.factpulse.fr/dashboard/  Cette méthode convient pour des tests rapides ou une utilisation occasionnelle via l'interface graphique.  **Fonctionnement :** - Connectez-vous au dashboard - Utilisez les boutons \"Generate Test Token\" ou \"Generate Production Token\" - Fonctionne pour **tous** les utilisateurs (OAuth et email/password), sans nécessiter de mot de passe  **Types de tokens :** - **Token Test** : Validité 24h, quota 1000 appels/jour (gratuit) - **Token Production** : Validité 7 jours, quota selon votre forfait  **Avantages :** - ✅ Rapide pour tester l'API - ✅ Aucun mot de passe requis - ✅ Interface visuelle simple  **Inconvénients :** - ❌ Nécessite une action manuelle - ❌ Pas de refresh token - ❌ Moins adapté pour l'automatisation  ### 📚 Documentation complète  Pour plus d'informations sur l'authentification et l'utilisation de l'API : https://www.factpulse.fr/documentation-api/     
+
+The version of the OpenAPI document: 1.0.0
+
+Generated by: https://openapi-generator.tech
+Generator version: 7.18.0-SNAPSHOT
+
+=end
+
+require 'date'
+require 'time'
+
+module FactPulse
+  # Facture reçue d'un fournisseur via PDP/PA.  Ce modèle contient les métadonnées essentielles extraites des factures entrantes, quel que soit leur format source (CII, UBL, Factur-X).  Les montants sont en Decimal en Python mais seront sérialisés en string dans le JSON pour préserver la précision monétaire.
+  class FactureEntrante < ApiModelBase
+    attr_accessor :flow_id
+
+    # Format source de la facture
+    attr_accessor :format_source
+
+    # Numéro de facture émis par le fournisseur (BT-1)
+    attr_accessor :ref_fournisseur
+
+    # Type de document (BT-3)
+    attr_accessor :type_document
+
+    # Émetteur de la facture (SellerTradeParty)
+    attr_accessor :fournisseur
+
+    # Nom du destinataire / votre entreprise (BT-44)
+    attr_accessor :site_facturation_nom
+
+    attr_accessor :site_facturation_siret
+
+    # Date de la facture (BT-2) - YYYY-MM-DD
+    attr_accessor :date_de_piece
+
+    attr_accessor :date_reglement
+
+    # Code devise ISO (BT-5)
+    attr_accessor :devise
+
+    # Montant HT total (BT-109)
+    attr_accessor :montant_ht
+
+    # Montant TVA total (BT-110)
+    attr_accessor :montant_tva
+
+    # Montant TTC total (BT-112)
+    attr_accessor :montant_ttc
+
+    attr_accessor :numero_bon_commande
+
+    attr_accessor :reference_contrat
+
+    attr_accessor :objet_facture
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
+    # Attribute mapping from ruby-style variable name to JSON key.
+    def self.attribute_map
+      {
+        :'flow_id' => :'flow_id',
+        :'format_source' => :'format_source',
+        :'ref_fournisseur' => :'ref_fournisseur',
+        :'type_document' => :'type_document',
+        :'fournisseur' => :'fournisseur',
+        :'site_facturation_nom' => :'site_facturation_nom',
+        :'site_facturation_siret' => :'site_facturation_siret',
+        :'date_de_piece' => :'date_de_piece',
+        :'date_reglement' => :'date_reglement',
+        :'devise' => :'devise',
+        :'montant_ht' => :'montant_ht',
+        :'montant_tva' => :'montant_tva',
+        :'montant_ttc' => :'montant_ttc',
+        :'numero_bon_commande' => :'numero_bon_commande',
+        :'reference_contrat' => :'reference_contrat',
+        :'objet_facture' => :'objet_facture'
+      }
+    end
+
+    # Returns attribute mapping this model knows about
+    def self.acceptable_attribute_map
+      attribute_map
+    end
+
+    # Returns all the JSON keys this model knows about
+    def self.acceptable_attributes
+      acceptable_attribute_map.values
+    end
+
+    # Attribute type mapping.
+    def self.openapi_types
+      {
+        :'flow_id' => :'String',
+        :'format_source' => :'FormatFacture',
+        :'ref_fournisseur' => :'String',
+        :'type_document' => :'TypeDocument',
+        :'fournisseur' => :'FournisseurEntrant',
+        :'site_facturation_nom' => :'String',
+        :'site_facturation_siret' => :'String',
+        :'date_de_piece' => :'String',
+        :'date_reglement' => :'String',
+        :'devise' => :'String',
+        :'montant_ht' => :'String',
+        :'montant_tva' => :'String',
+        :'montant_ttc' => :'String',
+        :'numero_bon_commande' => :'String',
+        :'reference_contrat' => :'String',
+        :'objet_facture' => :'String'
+      }
+    end
+
+    # List of attributes with nullable: true
+    def self.openapi_nullable
+      Set.new([
+        :'flow_id',
+        :'site_facturation_siret',
+        :'date_reglement',
+        :'numero_bon_commande',
+        :'reference_contrat',
+        :'objet_facture'
+      ])
+    end
+
+    # Initializes the object
+    # @param [Hash] attributes Model attributes in the form of hash
+    def initialize(attributes = {})
+      if (!attributes.is_a?(Hash))
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureEntrante` initialize method"
+      end
+
+      # check to see if the attribute exists and convert string to symbol for hash key
+      acceptable_attribute_map = self.class.acceptable_attribute_map
+      attributes = attributes.each_with_object({}) { |(k, v), h|
+        if (!acceptable_attribute_map.key?(k.to_sym))
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureEntrante`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+        end
+        h[k.to_sym] = v
+      }
+
+      if attributes.key?(:'flow_id')
+        self.flow_id = attributes[:'flow_id']
+      end
+
+      if attributes.key?(:'format_source')
+        self.format_source = attributes[:'format_source']
+      else
+        self.format_source = nil
+      end
+
+      if attributes.key?(:'ref_fournisseur')
+        self.ref_fournisseur = attributes[:'ref_fournisseur']
+      else
+        self.ref_fournisseur = nil
+      end
+
+      if attributes.key?(:'type_document')
+        self.type_document = attributes[:'type_document']
+      end
+
+      if attributes.key?(:'fournisseur')
+        self.fournisseur = attributes[:'fournisseur']
+      else
+        self.fournisseur = nil
+      end
+
+      if attributes.key?(:'site_facturation_nom')
+        self.site_facturation_nom = attributes[:'site_facturation_nom']
+      else
+        self.site_facturation_nom = nil
+      end
+
+      if attributes.key?(:'site_facturation_siret')
+        self.site_facturation_siret = attributes[:'site_facturation_siret']
+      end
+
+      if attributes.key?(:'date_de_piece')
+        self.date_de_piece = attributes[:'date_de_piece']
+      else
+        self.date_de_piece = nil
+      end
+
+      if attributes.key?(:'date_reglement')
+        self.date_reglement = attributes[:'date_reglement']
+      end
+
+      if attributes.key?(:'devise')
+        self.devise = attributes[:'devise']
+      else
+        self.devise = 'EUR'
+      end
+
+      if attributes.key?(:'montant_ht')
+        self.montant_ht = attributes[:'montant_ht']
+      else
+        self.montant_ht = nil
+      end
+
+      if attributes.key?(:'montant_tva')
+        self.montant_tva = attributes[:'montant_tva']
+      else
+        self.montant_tva = nil
+      end
+
+      if attributes.key?(:'montant_ttc')
+        self.montant_ttc = attributes[:'montant_ttc']
+      else
+        self.montant_ttc = nil
+      end
+
+      if attributes.key?(:'numero_bon_commande')
+        self.numero_bon_commande = attributes[:'numero_bon_commande']
+      end
+
+      if attributes.key?(:'reference_contrat')
+        self.reference_contrat = attributes[:'reference_contrat']
+      end
+
+      if attributes.key?(:'objet_facture')
+        self.objet_facture = attributes[:'objet_facture']
+      end
+    end
+
+    # Show invalid properties with the reasons. Usually used together with valid?
+    # @return Array for valid properties with the reasons
+    def list_invalid_properties
+      warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
+      invalid_properties = Array.new
+      if @format_source.nil?
+        invalid_properties.push('invalid value for "format_source", format_source cannot be nil.')
+      end
+
+      if @ref_fournisseur.nil?
+        invalid_properties.push('invalid value for "ref_fournisseur", ref_fournisseur cannot be nil.')
+      end
+
+      if @fournisseur.nil?
+        invalid_properties.push('invalid value for "fournisseur", fournisseur cannot be nil.')
+      end
+
+      if @site_facturation_nom.nil?
+        invalid_properties.push('invalid value for "site_facturation_nom", site_facturation_nom cannot be nil.')
+      end
+
+      if @date_de_piece.nil?
+        invalid_properties.push('invalid value for "date_de_piece", date_de_piece cannot be nil.')
+      end
+
+      if @montant_ht.nil?
+        invalid_properties.push('invalid value for "montant_ht", montant_ht cannot be nil.')
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if @montant_ht !~ pattern
+        invalid_properties.push("invalid value for \"montant_ht\", must conform to the pattern #{pattern}.")
+      end
+
+      if @montant_tva.nil?
+        invalid_properties.push('invalid value for "montant_tva", montant_tva cannot be nil.')
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if @montant_tva !~ pattern
+        invalid_properties.push("invalid value for \"montant_tva\", must conform to the pattern #{pattern}.")
+      end
+
+      if @montant_ttc.nil?
+        invalid_properties.push('invalid value for "montant_ttc", montant_ttc cannot be nil.')
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if @montant_ttc !~ pattern
+        invalid_properties.push("invalid value for \"montant_ttc\", must conform to the pattern #{pattern}.")
+      end
+
+      invalid_properties
+    end
+
+    # Check to see if the all the properties in the model are valid
+    # @return true if the model is valid
+    def valid?
+      warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @format_source.nil?
+      return false if @ref_fournisseur.nil?
+      return false if @fournisseur.nil?
+      return false if @site_facturation_nom.nil?
+      return false if @date_de_piece.nil?
+      return false if @montant_ht.nil?
+      return false if @montant_ht !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      return false if @montant_tva.nil?
+      return false if @montant_tva !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      return false if @montant_ttc.nil?
+      return false if @montant_ttc !~ Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] format_source Value to be assigned
+    def format_source=(format_source)
+      if format_source.nil?
+        fail ArgumentError, 'format_source cannot be nil'
+      end
+
+      @format_source = format_source
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] ref_fournisseur Value to be assigned
+    def ref_fournisseur=(ref_fournisseur)
+      if ref_fournisseur.nil?
+        fail ArgumentError, 'ref_fournisseur cannot be nil'
+      end
+
+      @ref_fournisseur = ref_fournisseur
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] fournisseur Value to be assigned
+    def fournisseur=(fournisseur)
+      if fournisseur.nil?
+        fail ArgumentError, 'fournisseur cannot be nil'
+      end
+
+      @fournisseur = fournisseur
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] site_facturation_nom Value to be assigned
+    def site_facturation_nom=(site_facturation_nom)
+      if site_facturation_nom.nil?
+        fail ArgumentError, 'site_facturation_nom cannot be nil'
+      end
+
+      @site_facturation_nom = site_facturation_nom
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] date_de_piece Value to be assigned
+    def date_de_piece=(date_de_piece)
+      if date_de_piece.nil?
+        fail ArgumentError, 'date_de_piece cannot be nil'
+      end
+
+      @date_de_piece = date_de_piece
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] montant_ht Value to be assigned
+    def montant_ht=(montant_ht)
+      if montant_ht.nil?
+        fail ArgumentError, 'montant_ht cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if montant_ht !~ pattern
+        fail ArgumentError, "invalid value for \"montant_ht\", must conform to the pattern #{pattern}."
+      end
+
+      @montant_ht = montant_ht
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] montant_tva Value to be assigned
+    def montant_tva=(montant_tva)
+      if montant_tva.nil?
+        fail ArgumentError, 'montant_tva cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if montant_tva !~ pattern
+        fail ArgumentError, "invalid value for \"montant_tva\", must conform to the pattern #{pattern}."
+      end
+
+      @montant_tva = montant_tva
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] montant_ttc Value to be assigned
+    def montant_ttc=(montant_ttc)
+      if montant_ttc.nil?
+        fail ArgumentError, 'montant_ttc cannot be nil'
+      end
+
+      pattern = Regexp.new(/^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$/)
+      if montant_ttc !~ pattern
+        fail ArgumentError, "invalid value for \"montant_ttc\", must conform to the pattern #{pattern}."
+      end
+
+      @montant_ttc = montant_ttc
+    end
+
+    # Checks equality by comparing each attribute.
+    # @param [Object] Object to be compared
+    def ==(o)
+      return true if self.equal?(o)
+      self.class == o.class &&
+          flow_id == o.flow_id &&
+          format_source == o.format_source &&
+          ref_fournisseur == o.ref_fournisseur &&
+          type_document == o.type_document &&
+          fournisseur == o.fournisseur &&
+          site_facturation_nom == o.site_facturation_nom &&
+          site_facturation_siret == o.site_facturation_siret &&
+          date_de_piece == o.date_de_piece &&
+          date_reglement == o.date_reglement &&
+          devise == o.devise &&
+          montant_ht == o.montant_ht &&
+          montant_tva == o.montant_tva &&
+          montant_ttc == o.montant_ttc &&
+          numero_bon_commande == o.numero_bon_commande &&
+          reference_contrat == o.reference_contrat &&
+          objet_facture == o.objet_facture
+    end
+
+    # @see the `==` method
+    # @param [Object] Object to be compared
+    def eql?(o)
+      self == o
+    end
+
+    # Calculates hash code according to all attributes.
+    # @return [Integer] Hash code
+    def hash
+      [flow_id, format_source, ref_fournisseur, type_document, fournisseur, site_facturation_nom, site_facturation_siret, date_de_piece, date_reglement, devise, montant_ht, montant_tva, montant_ttc, numero_bon_commande, reference_contrat, objet_facture].hash
+    end
+
+    # Builds the object from hash
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @return [Object] Returns the model itself
+    def self.build_from_hash(attributes)
+      return nil unless attributes.is_a?(Hash)
+      attributes = attributes.transform_keys(&:to_sym)
+      transformed_hash = {}
+      openapi_types.each_pair do |key, type|
+        if attributes.key?(attribute_map[key]) && attributes[attribute_map[key]].nil?
+          transformed_hash["#{key}"] = nil
+        elsif type =~ /\AArray<(.*)>/i
+          # check to ensure the input is an array given that the attribute
+          # is documented as an array but the input is not
+          if attributes[attribute_map[key]].is_a?(Array)
+            transformed_hash["#{key}"] = attributes[attribute_map[key]].map { |v| _deserialize($1, v) }
+          end
+        elsif !attributes[attribute_map[key]].nil?
+          transformed_hash["#{key}"] = _deserialize(type, attributes[attribute_map[key]])
+        end
+      end
+      new(transformed_hash)
+    end
+
+    # Returns the object in the form of hash
+    # @return [Hash] Returns the object in the form of hash
+    def to_hash
+      hash = {}
+      self.class.attribute_map.each_pair do |attr, param|
+        value = self.send(attr)
+        if value.nil?
+          is_nullable = self.class.openapi_nullable.include?(attr)
+          next if !is_nullable || (is_nullable && !instance_variable_defined?(:"@#{attr}"))
+        end
+
+        hash[param] = _to_hash(value)
+      end
+      hash
+    end
+
+  end
+
+end

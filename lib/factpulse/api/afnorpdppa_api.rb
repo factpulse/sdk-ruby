@@ -76,6 +76,69 @@ module FactPulse
       return data, status_code, headers
     end
 
+    # Récupérer et extraire une facture entrante
+    # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
+    # @param flow_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [FactureEntrante]
+    def get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id, opts = {})
+      data, _status_code, _headers = get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts)
+      data
+    end
+
+    # Récupérer et extraire une facture entrante
+    # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
+    # @param flow_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(FactureEntrante, Integer, Hash)>] FactureEntrante data, response status code and response headers
+    def get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAApi.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get ...'
+      end
+      # verify the required parameter 'flow_id' is set
+      if @api_client.config.client_side_validation && flow_id.nil?
+        fail ArgumentError, "Missing the required parameter 'flow_id' when calling AFNORPDPPAApi.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/flux-entrants/{flow_id}'.sub('{' + 'flow_id' + '}', CGI.escape(flow_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'FactureEntrante'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAApi.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAApi#get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Endpoint OAuth2 pour authentification AFNOR
     # Endpoint proxy OAuth2 pour obtenir un token d'accès AFNOR. Fait proxy vers le mock AFNOR (sandbox) ou la vraie PDP selon MOCK_AFNOR_BASE_URL. Cet endpoint est public (pas d'auth Django requise) car il est appelé par le SDK AFNOR.
     # @param [Hash] opts the optional parameters

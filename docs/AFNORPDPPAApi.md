@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**get_afnor_credentials_api_v1_afnor_credentials_get**](AFNORPDPPAApi.md#get_afnor_credentials_api_v1_afnor_credentials_get) | **GET** /api/v1/afnor/credentials | Récupérer les credentials AFNOR stockés |
+| [**get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get**](AFNORPDPPAApi.md#get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get) | **GET** /api/v1/afnor/flux-entrants/{flow_id} | Récupérer et extraire une facture entrante |
 | [**oauth_token_proxy_api_v1_afnor_oauth_token_post**](AFNORPDPPAApi.md#oauth_token_proxy_api_v1_afnor_oauth_token_post) | **POST** /api/v1/afnor/oauth/token | Endpoint OAuth2 pour authentification AFNOR |
 
 
@@ -63,6 +64,75 @@ This endpoint does not need any parameter.
 ### Return type
 
 **Object**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get
+
+> <FactureEntrante> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id)
+
+Récupérer et extraire une facture entrante
+
+Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::AFNORPDPPAApi.new
+flow_id = 'flow_id_example' # String | 
+
+begin
+  # Récupérer et extraire une facture entrante
+  result = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get: #{e}"
+end
+```
+
+#### Using the get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<FactureEntrante>, Integer, Hash)> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id)
+
+```ruby
+begin
+  # Récupérer et extraire une facture entrante
+  data, status_code, headers = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <FactureEntrante>
+rescue FactPulse::ApiError => e
+  puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **flow_id** | **String** |  |  |
+
+### Return type
+
+[**FactureEntrante**](FactureEntrante.md)
 
 ### Authorization
 
