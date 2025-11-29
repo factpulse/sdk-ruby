@@ -360,6 +360,24 @@ module FactPulse
         result['_raw'] || ''
       end
 
+      # Récupère les métadonnées JSON d'un flux entrant (facture fournisseur).
+      # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées
+      # de la facture vers un format JSON unifié. Supporte Factur-X, CII et UBL.
+      #
+      # @param flow_id [String] Identifiant du flux (UUID)
+      # @param include_document [Boolean] Si true, inclut le document en base64
+      # @return [Hash] Métadonnées de la facture (fournisseur, montants, dates, etc.)
+      #
+      # @example
+      #   facture = client.obtenir_facture_entrante_afnor("550e8400-...")
+      #   puts "Fournisseur: #{facture['fournisseur']['nom']}"
+      #   puts "Montant TTC: #{facture['montant_ttc']} #{facture['devise']}"
+      def obtenir_facture_entrante_afnor(flow_id, include_document: false)
+        endpoint = "/flux-entrants/#{flow_id}"
+        endpoint += "?include_document=true" if include_document
+        make_afnor_request('GET', endpoint)
+      end
+
       # Vérifie la disponibilité du Flow Service AFNOR.
       def healthcheck_afnor
         make_afnor_request('GET', '/flow/v1/healthcheck')
