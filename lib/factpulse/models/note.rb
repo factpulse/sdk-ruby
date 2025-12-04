@@ -16,15 +16,15 @@ require 'time'
 module FactPulse
   # Note de facture (IncludedNote en Factur-X).  Les notes obligatoires pour BR-FR-05 sont : - PMT : Indemnité forfaitaire pour frais de recouvrement - PMD : Pénalités de retard - AAB : Escompte pour paiement anticipé
   class Note < ApiModelBase
-    attr_accessor :subject_code
+    attr_accessor :code_sujet
 
-    attr_accessor :content
+    attr_accessor :contenu
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'subject_code' => :'subjectCode',
-        :'content' => :'content'
+        :'code_sujet' => :'codeSujet',
+        :'contenu' => :'contenu'
       }
     end
 
@@ -41,15 +41,15 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'subject_code' => :'String',
-        :'content' => :'String'
+        :'code_sujet' => :'String',
+        :'contenu' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'subject_code',
+        :'code_sujet',
       ])
     end
 
@@ -69,14 +69,14 @@ module FactPulse
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'subject_code')
-        self.subject_code = attributes[:'subject_code']
+      if attributes.key?(:'code_sujet')
+        self.code_sujet = attributes[:'code_sujet']
       end
 
-      if attributes.key?(:'content')
-        self.content = attributes[:'content']
+      if attributes.key?(:'contenu')
+        self.contenu = attributes[:'contenu']
       else
-        self.content = nil
+        self.contenu = nil
       end
     end
 
@@ -85,8 +85,8 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @content.nil?
-        invalid_properties.push('invalid value for "content", content cannot be nil.')
+      if @contenu.nil?
+        invalid_properties.push('invalid value for "contenu", contenu cannot be nil.')
       end
 
       invalid_properties
@@ -96,18 +96,18 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @content.nil?
+      return false if @contenu.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] content Value to be assigned
-    def content=(content)
-      if content.nil?
-        fail ArgumentError, 'content cannot be nil'
+    # @param [Object] contenu Value to be assigned
+    def contenu=(contenu)
+      if contenu.nil?
+        fail ArgumentError, 'contenu cannot be nil'
       end
 
-      @content = content
+      @contenu = contenu
     end
 
     # Checks equality by comparing each attribute.
@@ -115,8 +115,8 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          subject_code == o.subject_code &&
-          content == o.content
+          code_sujet == o.code_sujet &&
+          contenu == o.contenu
     end
 
     # @see the `==` method
@@ -128,7 +128,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [subject_code, content].hash
+      [code_sujet, contenu].hash
     end
 
     # Builds the object from hash

@@ -27,13 +27,13 @@ describe FactPulse::Note do
     end
   end
 
-  describe 'test attribute "subject_code"' do
+  describe 'test attribute "code_sujet"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
   end
 
-  describe 'test attribute "content"' do
+  describe 'test attribute "contenu"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

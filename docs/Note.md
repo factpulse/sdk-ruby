@@ -4,8 +4,8 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **subject_code** | **String** |  | [optional] |
-| **content** | **String** |  |  |
+| **code_sujet** | **String** |  | [optional] |
+| **contenu** | **String** |  |  |
 
 ## Example
 
@@ -13,8 +13,8 @@
 require 'factpulse'
 
 instance = FactPulse::Note.new(
-  subject_code: null,
-  content: null
+  code_sujet: null,
+  contenu: null
 )
 ```
 
