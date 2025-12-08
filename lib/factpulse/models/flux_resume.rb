@@ -14,45 +14,35 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Définit le cadre de facturation.  - code_cadre_facturation: Code Chorus Pro (A1, A2, A9, A12) - utilisé pour B2G - nature_operation: Nature de l'opération (B1, S1, M1, etc.) - prioritaire pour Factur-X  Si nature_operation est fourni, il sera utilisé directement dans le XML Factur-X (BT-23). Sinon, le code sera déduit de code_cadre_facturation via un mapping automatique.  Exemple:     >>> cadre = CadreDeFacturation(     ...     code_cadre_facturation=CodeCadreFacturation.A1_FACTURE_FOURNISSEUR,     ...     nature_operation=NatureOperation.BIENS  # Force B1 au lieu de S1     ... )
-  class CadreDeFacturation < ApiModelBase
-    attr_accessor :code_cadre_facturation
+  # Résumé d'un flux dans les résultats de recherche
+  class FluxResume < ApiModelBase
+    attr_accessor :flow_id
 
-    attr_accessor :nature_operation
+    attr_accessor :tracking_id
 
-    attr_accessor :code_service_valideur
+    attr_accessor :nom
 
-    attr_accessor :code_structure_valideur
+    attr_accessor :type_flux
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
+    attr_accessor :direction_flux
 
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
+    attr_accessor :statut_acquittement
 
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :date_creation
+
+    attr_accessor :date_maj
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'code_cadre_facturation' => :'codeCadreFacturation',
-        :'nature_operation' => :'natureOperation',
-        :'code_service_valideur' => :'codeServiceValideur',
-        :'code_structure_valideur' => :'codeStructureValideur'
+        :'flow_id' => :'flow_id',
+        :'tracking_id' => :'tracking_id',
+        :'nom' => :'nom',
+        :'type_flux' => :'type_flux',
+        :'direction_flux' => :'direction_flux',
+        :'statut_acquittement' => :'statut_acquittement',
+        :'date_creation' => :'date_creation',
+        :'date_maj' => :'date_maj'
       }
     end
 
@@ -69,19 +59,26 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'code_cadre_facturation' => :'CodeCadreFacturation',
-        :'nature_operation' => :'NatureOperation',
-        :'code_service_valideur' => :'String',
-        :'code_structure_valideur' => :'String'
+        :'flow_id' => :'String',
+        :'tracking_id' => :'String',
+        :'nom' => :'String',
+        :'type_flux' => :'String',
+        :'direction_flux' => :'String',
+        :'statut_acquittement' => :'String',
+        :'date_creation' => :'String',
+        :'date_maj' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'nature_operation',
-        :'code_service_valideur',
-        :'code_structure_valideur'
+        :'tracking_id',
+        :'type_flux',
+        :'direction_flux',
+        :'statut_acquittement',
+        :'date_creation',
+        :'date_maj'
       ])
     end
 
@@ -89,34 +86,52 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::CadreDeFacturation` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FluxResume` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::CadreDeFacturation`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FluxResume`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'code_cadre_facturation')
-        self.code_cadre_facturation = attributes[:'code_cadre_facturation']
+      if attributes.key?(:'flow_id')
+        self.flow_id = attributes[:'flow_id']
       else
-        self.code_cadre_facturation = nil
+        self.flow_id = nil
       end
 
-      if attributes.key?(:'nature_operation')
-        self.nature_operation = attributes[:'nature_operation']
+      if attributes.key?(:'tracking_id')
+        self.tracking_id = attributes[:'tracking_id']
       end
 
-      if attributes.key?(:'code_service_valideur')
-        self.code_service_valideur = attributes[:'code_service_valideur']
+      if attributes.key?(:'nom')
+        self.nom = attributes[:'nom']
+      else
+        self.nom = nil
       end
 
-      if attributes.key?(:'code_structure_valideur')
-        self.code_structure_valideur = attributes[:'code_structure_valideur']
+      if attributes.key?(:'type_flux')
+        self.type_flux = attributes[:'type_flux']
+      end
+
+      if attributes.key?(:'direction_flux')
+        self.direction_flux = attributes[:'direction_flux']
+      end
+
+      if attributes.key?(:'statut_acquittement')
+        self.statut_acquittement = attributes[:'statut_acquittement']
+      end
+
+      if attributes.key?(:'date_creation')
+        self.date_creation = attributes[:'date_creation']
+      end
+
+      if attributes.key?(:'date_maj')
+        self.date_maj = attributes[:'date_maj']
       end
     end
 
@@ -125,8 +140,12 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @code_cadre_facturation.nil?
-        invalid_properties.push('invalid value for "code_cadre_facturation", code_cadre_facturation cannot be nil.')
+      if @flow_id.nil?
+        invalid_properties.push('invalid value for "flow_id", flow_id cannot be nil.')
+      end
+
+      if @nom.nil?
+        invalid_properties.push('invalid value for "nom", nom cannot be nil.')
       end
 
       invalid_properties
@@ -136,18 +155,29 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @code_cadre_facturation.nil?
+      return false if @flow_id.nil?
+      return false if @nom.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] code_cadre_facturation Value to be assigned
-    def code_cadre_facturation=(code_cadre_facturation)
-      if code_cadre_facturation.nil?
-        fail ArgumentError, 'code_cadre_facturation cannot be nil'
+    # @param [Object] flow_id Value to be assigned
+    def flow_id=(flow_id)
+      if flow_id.nil?
+        fail ArgumentError, 'flow_id cannot be nil'
       end
 
-      @code_cadre_facturation = code_cadre_facturation
+      @flow_id = flow_id
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] nom Value to be assigned
+    def nom=(nom)
+      if nom.nil?
+        fail ArgumentError, 'nom cannot be nil'
+      end
+
+      @nom = nom
     end
 
     # Checks equality by comparing each attribute.
@@ -155,10 +185,14 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          code_cadre_facturation == o.code_cadre_facturation &&
-          nature_operation == o.nature_operation &&
-          code_service_valideur == o.code_service_valideur &&
-          code_structure_valideur == o.code_structure_valideur
+          flow_id == o.flow_id &&
+          tracking_id == o.tracking_id &&
+          nom == o.nom &&
+          type_flux == o.type_flux &&
+          direction_flux == o.direction_flux &&
+          statut_acquittement == o.statut_acquittement &&
+          date_creation == o.date_creation &&
+          date_maj == o.date_maj
     end
 
     # @see the `==` method
@@ -170,7 +204,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [code_cadre_facturation, nature_operation, code_service_valideur, code_structure_valideur].hash
+      [flow_id, tracking_id, nom, type_flux, direction_flux, statut_acquittement, date_creation, date_maj].hash
     end
 
     # Builds the object from hash

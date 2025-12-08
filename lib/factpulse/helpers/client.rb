@@ -169,8 +169,9 @@ module FactPulse
           data = JSON.parse(response.body)
           return data['resultat'] || {} if data['statut'] == 'SUCCESS'
           if data['statut'] == 'FAILURE'
+            # Format AFNOR: errorMessage, details
             r = data['resultat'] || {}
-            raise FactPulseValidationError.new("Task #{task_id} failed: #{r['message_erreur'] || '?'}", (r['erreurs'] || []).map { |e| ValidationErrorDetail.from_hash(e) })
+            raise FactPulseValidationError.new("Task #{task_id} failed: #{r['errorMessage'] || '?'}", (r['details'] || []).map { |e| ValidationErrorDetail.from_hash(e) })
           end
           sleep(current_interval / 1000.0); current_interval = [current_interval * 1.5, 10000].min
         end

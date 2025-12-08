@@ -14,15 +14,24 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Définit le cadre de facturation.  - code_cadre_facturation: Code Chorus Pro (A1, A2, A9, A12) - utilisé pour B2G - nature_operation: Nature de l'opération (B1, S1, M1, etc.) - prioritaire pour Factur-X  Si nature_operation est fourni, il sera utilisé directement dans le XML Factur-X (BT-23). Sinon, le code sera déduit de code_cadre_facturation via un mapping automatique.  Exemple:     >>> cadre = CadreDeFacturation(     ...     code_cadre_facturation=CodeCadreFacturation.A1_FACTURE_FOURNISSEUR,     ...     nature_operation=NatureOperation.BIENS  # Force B1 au lieu de S1     ... )
-  class CadreDeFacturation < ApiModelBase
-    attr_accessor :code_cadre_facturation
+  # Note obligatoire détectée avec localisation et comparaison XML/PDF.
+  class NoteObligatoireSchema < ApiModelBase
+    # Code sujet (PMT, PMD, AAB)
+    attr_accessor :code_sujet
 
-    attr_accessor :nature_operation
+    # Libellé (ex: Indemnité recouvrement)
+    attr_accessor :label
 
-    attr_accessor :code_service_valideur
+    attr_accessor :valeur_pdf
 
-    attr_accessor :code_structure_valideur
+    attr_accessor :valeur_xml
+
+    # Statut de conformité (CONFORME si XML trouvé dans PDF)
+    attr_accessor :statut
+
+    attr_accessor :message
+
+    attr_accessor :bbox
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -49,10 +58,13 @@ module FactPulse
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'code_cadre_facturation' => :'codeCadreFacturation',
-        :'nature_operation' => :'natureOperation',
-        :'code_service_valideur' => :'codeServiceValideur',
-        :'code_structure_valideur' => :'codeStructureValideur'
+        :'code_sujet' => :'code_sujet',
+        :'label' => :'label',
+        :'valeur_pdf' => :'valeur_pdf',
+        :'valeur_xml' => :'valeur_xml',
+        :'statut' => :'statut',
+        :'message' => :'message',
+        :'bbox' => :'bbox'
       }
     end
 
@@ -69,19 +81,23 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'code_cadre_facturation' => :'CodeCadreFacturation',
-        :'nature_operation' => :'NatureOperation',
-        :'code_service_valideur' => :'String',
-        :'code_structure_valideur' => :'String'
+        :'code_sujet' => :'String',
+        :'label' => :'String',
+        :'valeur_pdf' => :'String',
+        :'valeur_xml' => :'String',
+        :'statut' => :'StatutChampAPI',
+        :'message' => :'String',
+        :'bbox' => :'BoundingBoxSchema'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'nature_operation',
-        :'code_service_valideur',
-        :'code_structure_valideur'
+        :'valeur_pdf',
+        :'valeur_xml',
+        :'message',
+        :'bbox'
       ])
     end
 
@@ -89,34 +105,48 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::CadreDeFacturation` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::NoteObligatoireSchema` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::CadreDeFacturation`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::NoteObligatoireSchema`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'code_cadre_facturation')
-        self.code_cadre_facturation = attributes[:'code_cadre_facturation']
+      if attributes.key?(:'code_sujet')
+        self.code_sujet = attributes[:'code_sujet']
       else
-        self.code_cadre_facturation = nil
+        self.code_sujet = nil
       end
 
-      if attributes.key?(:'nature_operation')
-        self.nature_operation = attributes[:'nature_operation']
+      if attributes.key?(:'label')
+        self.label = attributes[:'label']
+      else
+        self.label = nil
       end
 
-      if attributes.key?(:'code_service_valideur')
-        self.code_service_valideur = attributes[:'code_service_valideur']
+      if attributes.key?(:'valeur_pdf')
+        self.valeur_pdf = attributes[:'valeur_pdf']
       end
 
-      if attributes.key?(:'code_structure_valideur')
-        self.code_structure_valideur = attributes[:'code_structure_valideur']
+      if attributes.key?(:'valeur_xml')
+        self.valeur_xml = attributes[:'valeur_xml']
+      end
+
+      if attributes.key?(:'statut')
+        self.statut = attributes[:'statut']
+      end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      end
+
+      if attributes.key?(:'bbox')
+        self.bbox = attributes[:'bbox']
       end
     end
 
@@ -125,8 +155,12 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @code_cadre_facturation.nil?
-        invalid_properties.push('invalid value for "code_cadre_facturation", code_cadre_facturation cannot be nil.')
+      if @code_sujet.nil?
+        invalid_properties.push('invalid value for "code_sujet", code_sujet cannot be nil.')
+      end
+
+      if @label.nil?
+        invalid_properties.push('invalid value for "label", label cannot be nil.')
       end
 
       invalid_properties
@@ -136,18 +170,29 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @code_cadre_facturation.nil?
+      return false if @code_sujet.nil?
+      return false if @label.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] code_cadre_facturation Value to be assigned
-    def code_cadre_facturation=(code_cadre_facturation)
-      if code_cadre_facturation.nil?
-        fail ArgumentError, 'code_cadre_facturation cannot be nil'
+    # @param [Object] code_sujet Value to be assigned
+    def code_sujet=(code_sujet)
+      if code_sujet.nil?
+        fail ArgumentError, 'code_sujet cannot be nil'
       end
 
-      @code_cadre_facturation = code_cadre_facturation
+      @code_sujet = code_sujet
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] label Value to be assigned
+    def label=(label)
+      if label.nil?
+        fail ArgumentError, 'label cannot be nil'
+      end
+
+      @label = label
     end
 
     # Checks equality by comparing each attribute.
@@ -155,10 +200,13 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          code_cadre_facturation == o.code_cadre_facturation &&
-          nature_operation == o.nature_operation &&
-          code_service_valideur == o.code_service_valideur &&
-          code_structure_valideur == o.code_structure_valideur
+          code_sujet == o.code_sujet &&
+          label == o.label &&
+          valeur_pdf == o.valeur_pdf &&
+          valeur_xml == o.valeur_xml &&
+          statut == o.statut &&
+          message == o.message &&
+          bbox == o.bbox
     end
 
     # @see the `==` method
@@ -170,7 +218,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [code_cadre_facturation, nature_operation, code_service_valideur, code_structure_valideur].hash
+      [code_sujet, label, valeur_pdf, valeur_xml, statut, message, bbox].hash
     end
 
     # Builds the object from hash

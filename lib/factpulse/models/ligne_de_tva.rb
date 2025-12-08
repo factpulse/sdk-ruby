@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Représente une ligne de totalisation par taux de TVA.
+  # Représente une ligne de totalisation par taux de TVA.  Pour les exonérations (catégories E, AE, K, G, O), les champs `motif_exoneration` et `code_vatex` sont requis selon EN16931.
   class LigneDeTVA < ApiModelBase
     attr_accessor :montant_base_ht
 
@@ -25,6 +25,10 @@ module FactPulse
     attr_accessor :taux_manuel
 
     attr_accessor :categorie
+
+    attr_accessor :motif_exoneration
+
+    attr_accessor :code_vatex
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -55,7 +59,9 @@ module FactPulse
         :'montant_tva' => :'montantTva',
         :'taux' => :'taux',
         :'taux_manuel' => :'tauxManuel',
-        :'categorie' => :'categorie'
+        :'categorie' => :'categorie',
+        :'motif_exoneration' => :'motifExoneration',
+        :'code_vatex' => :'codeVatex'
       }
     end
 
@@ -76,7 +82,9 @@ module FactPulse
         :'montant_tva' => :'MontantTvaLigne',
         :'taux' => :'String',
         :'taux_manuel' => :'Tauxmanuel',
-        :'categorie' => :'CategorieTVA'
+        :'categorie' => :'CategorieTVA',
+        :'motif_exoneration' => :'String',
+        :'code_vatex' => :'String'
       }
     end
 
@@ -84,7 +92,9 @@ module FactPulse
     def self.openapi_nullable
       Set.new([
         :'taux',
-        :'categorie'
+        :'categorie',
+        :'motif_exoneration',
+        :'code_vatex'
       ])
     end
 
@@ -126,6 +136,14 @@ module FactPulse
 
       if attributes.key?(:'categorie')
         self.categorie = attributes[:'categorie']
+      end
+
+      if attributes.key?(:'motif_exoneration')
+        self.motif_exoneration = attributes[:'motif_exoneration']
+      end
+
+      if attributes.key?(:'code_vatex')
+        self.code_vatex = attributes[:'code_vatex']
       end
     end
 
@@ -183,7 +201,9 @@ module FactPulse
           montant_tva == o.montant_tva &&
           taux == o.taux &&
           taux_manuel == o.taux_manuel &&
-          categorie == o.categorie
+          categorie == o.categorie &&
+          motif_exoneration == o.motif_exoneration &&
+          code_vatex == o.code_vatex
     end
 
     # @see the `==` method
@@ -195,7 +215,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [montant_base_ht, montant_tva, taux, taux_manuel, categorie].hash
+      [montant_base_ht, montant_tva, taux, taux_manuel, categorie, motif_exoneration, code_vatex].hash
     end
 
     # Builds the object from hash

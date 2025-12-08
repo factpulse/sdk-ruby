@@ -14,45 +14,27 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Définit le cadre de facturation.  - code_cadre_facturation: Code Chorus Pro (A1, A2, A9, A12) - utilisé pour B2G - nature_operation: Nature de l'opération (B1, S1, M1, etc.) - prioritaire pour Factur-X  Si nature_operation est fourni, il sera utilisé directement dans le XML Factur-X (BT-23). Sinon, le code sera déduit de code_cadre_facturation via un mapping automatique.  Exemple:     >>> cadre = CadreDeFacturation(     ...     code_cadre_facturation=CodeCadreFacturation.A1_FACTURE_FOURNISSEUR,     ...     nature_operation=NatureOperation.BIENS  # Force B1 au lieu de S1     ... )
-  class CadreDeFacturation < ApiModelBase
-    attr_accessor :code_cadre_facturation
+  # Réponse d'une recherche de flux
+  class ReponseRechercheFlux < ApiModelBase
+    # Nombre total de résultats
+    attr_accessor :total
 
-    attr_accessor :nature_operation
+    # Décalage appliqué
+    attr_accessor :offset
 
-    attr_accessor :code_service_valideur
+    # Limite de résultats
+    attr_accessor :limit
 
-    attr_accessor :code_structure_valideur
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    # Liste des flux trouvés
+    attr_accessor :resultats
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'code_cadre_facturation' => :'codeCadreFacturation',
-        :'nature_operation' => :'natureOperation',
-        :'code_service_valideur' => :'codeServiceValideur',
-        :'code_structure_valideur' => :'codeStructureValideur'
+        :'total' => :'total',
+        :'offset' => :'offset',
+        :'limit' => :'limit',
+        :'resultats' => :'resultats'
       }
     end
 
@@ -69,19 +51,16 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'code_cadre_facturation' => :'CodeCadreFacturation',
-        :'nature_operation' => :'NatureOperation',
-        :'code_service_valideur' => :'String',
-        :'code_structure_valideur' => :'String'
+        :'total' => :'Integer',
+        :'offset' => :'Integer',
+        :'limit' => :'Integer',
+        :'resultats' => :'Array<FluxResume>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'nature_operation',
-        :'code_service_valideur',
-        :'code_structure_valideur'
       ])
     end
 
@@ -89,34 +68,42 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::CadreDeFacturation` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::ReponseRechercheFlux` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::CadreDeFacturation`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::ReponseRechercheFlux`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'code_cadre_facturation')
-        self.code_cadre_facturation = attributes[:'code_cadre_facturation']
+      if attributes.key?(:'total')
+        self.total = attributes[:'total']
       else
-        self.code_cadre_facturation = nil
+        self.total = nil
       end
 
-      if attributes.key?(:'nature_operation')
-        self.nature_operation = attributes[:'nature_operation']
+      if attributes.key?(:'offset')
+        self.offset = attributes[:'offset']
+      else
+        self.offset = nil
       end
 
-      if attributes.key?(:'code_service_valideur')
-        self.code_service_valideur = attributes[:'code_service_valideur']
+      if attributes.key?(:'limit')
+        self.limit = attributes[:'limit']
+      else
+        self.limit = nil
       end
 
-      if attributes.key?(:'code_structure_valideur')
-        self.code_structure_valideur = attributes[:'code_structure_valideur']
+      if attributes.key?(:'resultats')
+        if (value = attributes[:'resultats']).is_a?(Array)
+          self.resultats = value
+        end
+      else
+        self.resultats = nil
       end
     end
 
@@ -125,8 +112,20 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @code_cadre_facturation.nil?
-        invalid_properties.push('invalid value for "code_cadre_facturation", code_cadre_facturation cannot be nil.')
+      if @total.nil?
+        invalid_properties.push('invalid value for "total", total cannot be nil.')
+      end
+
+      if @offset.nil?
+        invalid_properties.push('invalid value for "offset", offset cannot be nil.')
+      end
+
+      if @limit.nil?
+        invalid_properties.push('invalid value for "limit", limit cannot be nil.')
+      end
+
+      if @resultats.nil?
+        invalid_properties.push('invalid value for "resultats", resultats cannot be nil.')
       end
 
       invalid_properties
@@ -136,18 +135,51 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @code_cadre_facturation.nil?
+      return false if @total.nil?
+      return false if @offset.nil?
+      return false if @limit.nil?
+      return false if @resultats.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] code_cadre_facturation Value to be assigned
-    def code_cadre_facturation=(code_cadre_facturation)
-      if code_cadre_facturation.nil?
-        fail ArgumentError, 'code_cadre_facturation cannot be nil'
+    # @param [Object] total Value to be assigned
+    def total=(total)
+      if total.nil?
+        fail ArgumentError, 'total cannot be nil'
       end
 
-      @code_cadre_facturation = code_cadre_facturation
+      @total = total
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] offset Value to be assigned
+    def offset=(offset)
+      if offset.nil?
+        fail ArgumentError, 'offset cannot be nil'
+      end
+
+      @offset = offset
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] limit Value to be assigned
+    def limit=(limit)
+      if limit.nil?
+        fail ArgumentError, 'limit cannot be nil'
+      end
+
+      @limit = limit
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] resultats Value to be assigned
+    def resultats=(resultats)
+      if resultats.nil?
+        fail ArgumentError, 'resultats cannot be nil'
+      end
+
+      @resultats = resultats
     end
 
     # Checks equality by comparing each attribute.
@@ -155,10 +187,10 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          code_cadre_facturation == o.code_cadre_facturation &&
-          nature_operation == o.nature_operation &&
-          code_service_valideur == o.code_service_valideur &&
-          code_structure_valideur == o.code_structure_valideur
+          total == o.total &&
+          offset == o.offset &&
+          limit == o.limit &&
+          resultats == o.resultats
     end
 
     # @see the `==` method
@@ -170,7 +202,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [code_cadre_facturation, nature_operation, code_service_valideur, code_structure_valideur].hash
+      [total, offset, limit, resultats].hash
     end
 
     # Builds the object from hash

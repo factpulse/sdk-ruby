@@ -9,6 +9,8 @@
 | **taux** | **String** |  | [optional] |
 | **taux_manuel** | [**Tauxmanuel**](Tauxmanuel.md) |  | [optional] |
 | **categorie** | [**CategorieTVA**](CategorieTVA.md) |  | [optional] |
+| **motif_exoneration** | **String** |  | [optional] |
+| **code_vatex** | **String** |  | [optional] |
 
 ## Example
 
@@ -20,7 +22,9 @@ instance = FactPulse::LigneDeTVA.new(
   montant_tva: null,
   taux: null,
   taux_manuel: null,
-  categorie: null
+  categorie: null,
+  motif_exoneration: null,
+  code_vatex: null
 )
 ```
 

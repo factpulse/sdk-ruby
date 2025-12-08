@@ -14,45 +14,39 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Définit le cadre de facturation.  - code_cadre_facturation: Code Chorus Pro (A1, A2, A9, A12) - utilisé pour B2G - nature_operation: Nature de l'opération (B1, S1, M1, etc.) - prioritaire pour Factur-X  Si nature_operation est fourni, il sera utilisé directement dans le XML Factur-X (BT-23). Sinon, le code sera déduit de code_cadre_facturation via un mapping automatique.  Exemple:     >>> cadre = CadreDeFacturation(     ...     code_cadre_facturation=CodeCadreFacturation.A1_FACTURE_FOURNISSEUR,     ...     nature_operation=NatureOperation.BIENS  # Force B1 au lieu de S1     ... )
-  class CadreDeFacturation < ApiModelBase
-    attr_accessor :code_cadre_facturation
+  # Coordonnées d'une zone rectangulaire dans le PDF.  Les coordonnées sont en points PDF (1 point = 1/72 pouce). L'origine (0,0) est en bas à gauche de la page.
+  class BoundingBoxSchema < ApiModelBase
+    # Coordonnée X gauche
+    attr_accessor :x0
 
-    attr_accessor :nature_operation
+    # Coordonnée Y bas
+    attr_accessor :y0
 
-    attr_accessor :code_service_valideur
+    # Coordonnée X droite
+    attr_accessor :x1
 
-    attr_accessor :code_structure_valideur
+    # Coordonnée Y haut
+    attr_accessor :y1
 
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
+    # Numéro de page (0-indexed)
+    attr_accessor :page
 
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
+    # Largeur de la zone
+    attr_accessor :width
 
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    # Hauteur de la zone
+    attr_accessor :height
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'code_cadre_facturation' => :'codeCadreFacturation',
-        :'nature_operation' => :'natureOperation',
-        :'code_service_valideur' => :'codeServiceValideur',
-        :'code_structure_valideur' => :'codeStructureValideur'
+        :'x0' => :'x0',
+        :'y0' => :'y0',
+        :'x1' => :'x1',
+        :'y1' => :'y1',
+        :'page' => :'page',
+        :'width' => :'width',
+        :'height' => :'height'
       }
     end
 
@@ -69,19 +63,19 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'code_cadre_facturation' => :'CodeCadreFacturation',
-        :'nature_operation' => :'NatureOperation',
-        :'code_service_valideur' => :'String',
-        :'code_structure_valideur' => :'String'
+        :'x0' => :'Float',
+        :'y0' => :'Float',
+        :'x1' => :'Float',
+        :'y1' => :'Float',
+        :'page' => :'Integer',
+        :'width' => :'Float',
+        :'height' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'nature_operation',
-        :'code_service_valideur',
-        :'code_structure_valideur'
       ])
     end
 
@@ -89,34 +83,58 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::CadreDeFacturation` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::BoundingBoxSchema` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::CadreDeFacturation`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::BoundingBoxSchema`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'code_cadre_facturation')
-        self.code_cadre_facturation = attributes[:'code_cadre_facturation']
+      if attributes.key?(:'x0')
+        self.x0 = attributes[:'x0']
       else
-        self.code_cadre_facturation = nil
+        self.x0 = nil
       end
 
-      if attributes.key?(:'nature_operation')
-        self.nature_operation = attributes[:'nature_operation']
+      if attributes.key?(:'y0')
+        self.y0 = attributes[:'y0']
+      else
+        self.y0 = nil
       end
 
-      if attributes.key?(:'code_service_valideur')
-        self.code_service_valideur = attributes[:'code_service_valideur']
+      if attributes.key?(:'x1')
+        self.x1 = attributes[:'x1']
+      else
+        self.x1 = nil
       end
 
-      if attributes.key?(:'code_structure_valideur')
-        self.code_structure_valideur = attributes[:'code_structure_valideur']
+      if attributes.key?(:'y1')
+        self.y1 = attributes[:'y1']
+      else
+        self.y1 = nil
+      end
+
+      if attributes.key?(:'page')
+        self.page = attributes[:'page']
+      else
+        self.page = 0
+      end
+
+      if attributes.key?(:'width')
+        self.width = attributes[:'width']
+      else
+        self.width = nil
+      end
+
+      if attributes.key?(:'height')
+        self.height = attributes[:'height']
+      else
+        self.height = nil
       end
     end
 
@@ -125,8 +143,32 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @code_cadre_facturation.nil?
-        invalid_properties.push('invalid value for "code_cadre_facturation", code_cadre_facturation cannot be nil.')
+      if @x0.nil?
+        invalid_properties.push('invalid value for "x0", x0 cannot be nil.')
+      end
+
+      if @y0.nil?
+        invalid_properties.push('invalid value for "y0", y0 cannot be nil.')
+      end
+
+      if @x1.nil?
+        invalid_properties.push('invalid value for "x1", x1 cannot be nil.')
+      end
+
+      if @y1.nil?
+        invalid_properties.push('invalid value for "y1", y1 cannot be nil.')
+      end
+
+      if !@page.nil? && @page < 0
+        invalid_properties.push('invalid value for "page", must be greater than or equal to 0.')
+      end
+
+      if @width.nil?
+        invalid_properties.push('invalid value for "width", width cannot be nil.')
+      end
+
+      if @height.nil?
+        invalid_properties.push('invalid value for "height", height cannot be nil.')
       end
 
       invalid_properties
@@ -136,18 +178,88 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @code_cadre_facturation.nil?
+      return false if @x0.nil?
+      return false if @y0.nil?
+      return false if @x1.nil?
+      return false if @y1.nil?
+      return false if !@page.nil? && @page < 0
+      return false if @width.nil?
+      return false if @height.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] code_cadre_facturation Value to be assigned
-    def code_cadre_facturation=(code_cadre_facturation)
-      if code_cadre_facturation.nil?
-        fail ArgumentError, 'code_cadre_facturation cannot be nil'
+    # @param [Object] x0 Value to be assigned
+    def x0=(x0)
+      if x0.nil?
+        fail ArgumentError, 'x0 cannot be nil'
       end
 
-      @code_cadre_facturation = code_cadre_facturation
+      @x0 = x0
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] y0 Value to be assigned
+    def y0=(y0)
+      if y0.nil?
+        fail ArgumentError, 'y0 cannot be nil'
+      end
+
+      @y0 = y0
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] x1 Value to be assigned
+    def x1=(x1)
+      if x1.nil?
+        fail ArgumentError, 'x1 cannot be nil'
+      end
+
+      @x1 = x1
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] y1 Value to be assigned
+    def y1=(y1)
+      if y1.nil?
+        fail ArgumentError, 'y1 cannot be nil'
+      end
+
+      @y1 = y1
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] page Value to be assigned
+    def page=(page)
+      if page.nil?
+        fail ArgumentError, 'page cannot be nil'
+      end
+
+      if page < 0
+        fail ArgumentError, 'invalid value for "page", must be greater than or equal to 0.'
+      end
+
+      @page = page
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] width Value to be assigned
+    def width=(width)
+      if width.nil?
+        fail ArgumentError, 'width cannot be nil'
+      end
+
+      @width = width
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] height Value to be assigned
+    def height=(height)
+      if height.nil?
+        fail ArgumentError, 'height cannot be nil'
+      end
+
+      @height = height
     end
 
     # Checks equality by comparing each attribute.
@@ -155,10 +267,13 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          code_cadre_facturation == o.code_cadre_facturation &&
-          nature_operation == o.nature_operation &&
-          code_service_valideur == o.code_service_valideur &&
-          code_structure_valideur == o.code_structure_valideur
+          x0 == o.x0 &&
+          y0 == o.y0 &&
+          x1 == o.x1 &&
+          y1 == o.y1 &&
+          page == o.page &&
+          width == o.width &&
+          height == o.height
     end
 
     # @see the `==` method
@@ -170,7 +285,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [code_cadre_facturation, nature_operation, code_service_valideur, code_structure_valideur].hash
+      [x0, y0, x1, y1, page, width, height].hash
     end
 
     # Builds the object from hash

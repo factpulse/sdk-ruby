@@ -14,45 +14,23 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Définit le cadre de facturation.  - code_cadre_facturation: Code Chorus Pro (A1, A2, A9, A12) - utilisé pour B2G - nature_operation: Nature de l'opération (B1, S1, M1, etc.) - prioritaire pour Factur-X  Si nature_operation est fourni, il sera utilisé directement dans le XML Factur-X (BT-23). Sinon, le code sera déduit de code_cadre_facturation via un mapping automatique.  Exemple:     >>> cadre = CadreDeFacturation(     ...     code_cadre_facturation=CodeCadreFacturation.A1_FACTURE_FOURNISSEUR,     ...     nature_operation=NatureOperation.BIENS  # Force B1 au lieu de S1     ... )
-  class CadreDeFacturation < ApiModelBase
-    attr_accessor :code_cadre_facturation
+  # Réponse du healthcheck des services AFNOR
+  class ReponseHealthcheckAFNOR < ApiModelBase
+    # État du Flow Service API
+    attr_accessor :flow_service_ok
 
-    attr_accessor :nature_operation
+    # État du Directory Service API
+    attr_accessor :directory_service_ok
 
-    attr_accessor :code_service_valideur
-
-    attr_accessor :code_structure_valideur
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    # Message descriptif de l'état
+    attr_accessor :message
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'code_cadre_facturation' => :'codeCadreFacturation',
-        :'nature_operation' => :'natureOperation',
-        :'code_service_valideur' => :'codeServiceValideur',
-        :'code_structure_valideur' => :'codeStructureValideur'
+        :'flow_service_ok' => :'flow_service_ok',
+        :'directory_service_ok' => :'directory_service_ok',
+        :'message' => :'message'
       }
     end
 
@@ -69,19 +47,15 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'code_cadre_facturation' => :'CodeCadreFacturation',
-        :'nature_operation' => :'NatureOperation',
-        :'code_service_valideur' => :'String',
-        :'code_structure_valideur' => :'String'
+        :'flow_service_ok' => :'Boolean',
+        :'directory_service_ok' => :'Boolean',
+        :'message' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'nature_operation',
-        :'code_service_valideur',
-        :'code_structure_valideur'
       ])
     end
 
@@ -89,34 +63,34 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::CadreDeFacturation` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::ReponseHealthcheckAFNOR` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::CadreDeFacturation`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::ReponseHealthcheckAFNOR`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'code_cadre_facturation')
-        self.code_cadre_facturation = attributes[:'code_cadre_facturation']
+      if attributes.key?(:'flow_service_ok')
+        self.flow_service_ok = attributes[:'flow_service_ok']
       else
-        self.code_cadre_facturation = nil
+        self.flow_service_ok = nil
       end
 
-      if attributes.key?(:'nature_operation')
-        self.nature_operation = attributes[:'nature_operation']
+      if attributes.key?(:'directory_service_ok')
+        self.directory_service_ok = attributes[:'directory_service_ok']
+      else
+        self.directory_service_ok = nil
       end
 
-      if attributes.key?(:'code_service_valideur')
-        self.code_service_valideur = attributes[:'code_service_valideur']
-      end
-
-      if attributes.key?(:'code_structure_valideur')
-        self.code_structure_valideur = attributes[:'code_structure_valideur']
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      else
+        self.message = nil
       end
     end
 
@@ -125,8 +99,16 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @code_cadre_facturation.nil?
-        invalid_properties.push('invalid value for "code_cadre_facturation", code_cadre_facturation cannot be nil.')
+      if @flow_service_ok.nil?
+        invalid_properties.push('invalid value for "flow_service_ok", flow_service_ok cannot be nil.')
+      end
+
+      if @directory_service_ok.nil?
+        invalid_properties.push('invalid value for "directory_service_ok", directory_service_ok cannot be nil.')
+      end
+
+      if @message.nil?
+        invalid_properties.push('invalid value for "message", message cannot be nil.')
       end
 
       invalid_properties
@@ -136,18 +118,40 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @code_cadre_facturation.nil?
+      return false if @flow_service_ok.nil?
+      return false if @directory_service_ok.nil?
+      return false if @message.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] code_cadre_facturation Value to be assigned
-    def code_cadre_facturation=(code_cadre_facturation)
-      if code_cadre_facturation.nil?
-        fail ArgumentError, 'code_cadre_facturation cannot be nil'
+    # @param [Object] flow_service_ok Value to be assigned
+    def flow_service_ok=(flow_service_ok)
+      if flow_service_ok.nil?
+        fail ArgumentError, 'flow_service_ok cannot be nil'
       end
 
-      @code_cadre_facturation = code_cadre_facturation
+      @flow_service_ok = flow_service_ok
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] directory_service_ok Value to be assigned
+    def directory_service_ok=(directory_service_ok)
+      if directory_service_ok.nil?
+        fail ArgumentError, 'directory_service_ok cannot be nil'
+      end
+
+      @directory_service_ok = directory_service_ok
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] message Value to be assigned
+    def message=(message)
+      if message.nil?
+        fail ArgumentError, 'message cannot be nil'
+      end
+
+      @message = message
     end
 
     # Checks equality by comparing each attribute.
@@ -155,10 +159,9 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          code_cadre_facturation == o.code_cadre_facturation &&
-          nature_operation == o.nature_operation &&
-          code_service_valideur == o.code_service_valideur &&
-          code_structure_valideur == o.code_structure_valideur
+          flow_service_ok == o.flow_service_ok &&
+          directory_service_ok == o.directory_service_ok &&
+          message == o.message
     end
 
     # @see the `==` method
@@ -170,7 +173,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [code_cadre_facturation, nature_operation, code_service_valideur, code_structure_valideur].hash
+      [flow_service_ok, directory_service_ok, message].hash
     end
 
     # Builds the object from hash

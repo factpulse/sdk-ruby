@@ -5,6 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **code_cadre_facturation** | [**CodeCadreFacturation**](CodeCadreFacturation.md) |  |  |
+| **nature_operation** | [**NatureOperation**](NatureOperation.md) |  | [optional] |
 | **code_service_valideur** | **String** |  | [optional] |
 | **code_structure_valideur** | **String** |  | [optional] |
 
@@ -15,6 +16,7 @@ require 'factpulse'
 
 instance = FactPulse::CadreDeFacturation.new(
   code_cadre_facturation: null,
+  nature_operation: null,
   code_service_valideur: null,
   code_structure_valideur: null
 )
