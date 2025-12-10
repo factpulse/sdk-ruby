@@ -227,8 +227,37 @@ module FactPulse
         end
 
         unless response.is_a?(Net::HTTPSuccess)
-          error_data = JSON.parse(response.body) rescue { 'detail' => response.body }
-          raise FactPulseValidationError.new("Erreur API: #{error_data['detail'] || response.body}")
+          # Extraire les détails d'erreur du corps de la réponse
+          error_msg = "Erreur API (#{response.code})"
+          errors = []
+
+          begin
+            error_data = JSON.parse(response.body)
+            # Format FastAPI/Pydantic: {"detail": [{"loc": [...], "msg": "...", "type": "..."}]}
+            if error_data['detail'].is_a?(Array)
+              error_msg = 'Erreur de validation'
+              error_data['detail'].each do |err|
+                next unless err.is_a?(Hash)
+                loc = (err['loc'] || []).map(&:to_s).join(' -> ')
+                errors << ValidationErrorDetail.new(
+                  level: 'ERROR',
+                  item: loc,
+                  reason: err['msg'] || err.to_s,
+                  source: 'validation',
+                  code: err['type']
+                )
+              end
+            elsif error_data['detail'].is_a?(String)
+              error_msg = error_data['detail']
+            elsif error_data['errorMessage']
+              error_msg = error_data['errorMessage']
+            end
+          rescue JSON::ParserError
+            error_msg = "Erreur API (#{response.code}): #{response.body}"
+          end
+
+          warn "Erreur API #{response.code}: #{response.body}"
+          raise FactPulseValidationError.new(error_msg, errors)
         end
 
         data = JSON.parse(response.body)
