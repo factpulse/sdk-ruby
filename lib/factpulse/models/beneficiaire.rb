@@ -14,29 +14,30 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Informations sur le destinataire de la facture (le client).
-  class Destinataire < ApiModelBase
-    attr_accessor :adresse_electronique
-
-    attr_accessor :code_service_executant
-
+  # Informations sur le bénéficiaire du paiement (BG-10 / PayeeTradeParty).  Le bénéficiaire est la partie qui reçoit le paiement. Ce bloc est utilisé uniquement si le bénéficiaire est différent du vendeur (fournisseur).  **Cas d'usage principal** : Affacturage (factoring) Quand une facture est affacturée, le factor (société d'affacturage) devient le bénéficiaire du paiement à la place du fournisseur.  **Business Terms (EN16931)** : - BT-59 : Nom du bénéficiaire (obligatoire) - BT-60 : Identifiant du bénéficiaire (SIRET avec schemeID 0009) - BT-61 : Identifiant légal du bénéficiaire (SIREN avec schemeID 0002)  **Référence** : docs/guide_affacturage.md
+  class Beneficiaire < ApiModelBase
+    # Nom du bénéficiaire (BT-59). Obligatoire.
     attr_accessor :nom
-
-    attr_accessor :siren
 
     attr_accessor :siret
 
-    attr_accessor :adresse_postale
+    attr_accessor :siren
+
+    attr_accessor :adresse_electronique
+
+    attr_accessor :iban
+
+    attr_accessor :bic
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'adresse_electronique' => :'adresseElectronique',
-        :'code_service_executant' => :'codeServiceExecutant',
         :'nom' => :'nom',
-        :'siren' => :'siren',
         :'siret' => :'siret',
-        :'adresse_postale' => :'adressePostale'
+        :'siren' => :'siren',
+        :'adresse_electronique' => :'adresseElectronique',
+        :'iban' => :'iban',
+        :'bic' => :'bic'
       }
     end
 
@@ -53,24 +54,23 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'adresse_electronique' => :'AdresseElectronique',
-        :'code_service_executant' => :'String',
         :'nom' => :'String',
-        :'siren' => :'String',
         :'siret' => :'String',
-        :'adresse_postale' => :'AdressePostale'
+        :'siren' => :'String',
+        :'adresse_electronique' => :'AdresseElectronique',
+        :'iban' => :'String',
+        :'bic' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'adresse_electronique',
-        :'code_service_executant',
-        :'nom',
-        :'siren',
         :'siret',
-        :'adresse_postale'
+        :'siren',
+        :'adresse_electronique',
+        :'iban',
+        :'bic'
       ])
     end
 
@@ -78,42 +78,42 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::Destinataire` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::Beneficiaire` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::Destinataire`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::Beneficiaire`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'adresse_electronique')
-        self.adresse_electronique = attributes[:'adresse_electronique']
-      else
-        self.adresse_electronique = nil
-      end
-
-      if attributes.key?(:'code_service_executant')
-        self.code_service_executant = attributes[:'code_service_executant']
-      end
-
       if attributes.key?(:'nom')
         self.nom = attributes[:'nom']
-      end
-
-      if attributes.key?(:'siren')
-        self.siren = attributes[:'siren']
+      else
+        self.nom = nil
       end
 
       if attributes.key?(:'siret')
         self.siret = attributes[:'siret']
       end
 
-      if attributes.key?(:'adresse_postale')
-        self.adresse_postale = attributes[:'adresse_postale']
+      if attributes.key?(:'siren')
+        self.siren = attributes[:'siren']
+      end
+
+      if attributes.key?(:'adresse_electronique')
+        self.adresse_electronique = attributes[:'adresse_electronique']
+      end
+
+      if attributes.key?(:'iban')
+        self.iban = attributes[:'iban']
+      end
+
+      if attributes.key?(:'bic')
+        self.bic = attributes[:'bic']
       end
     end
 
@@ -122,6 +122,24 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @nom.nil?
+        invalid_properties.push('invalid value for "nom", nom cannot be nil.')
+      end
+
+      if @nom.to_s.length < 1
+        invalid_properties.push('invalid value for "nom", the character length must be greater than or equal to 1.')
+      end
+
+      pattern = Regexp.new(/^\d{14}$/)
+      if !@siret.nil? && @siret !~ pattern
+        invalid_properties.push("invalid value for \"siret\", must conform to the pattern #{pattern}.")
+      end
+
+      pattern = Regexp.new(/^\d{9}$/)
+      if !@siren.nil? && @siren !~ pattern
+        invalid_properties.push("invalid value for \"siren\", must conform to the pattern #{pattern}.")
+      end
+
       invalid_properties
     end
 
@@ -129,7 +147,47 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @nom.nil?
+      return false if @nom.to_s.length < 1
+      return false if !@siret.nil? && @siret !~ Regexp.new(/^\d{14}$/)
+      return false if !@siren.nil? && @siren !~ Regexp.new(/^\d{9}$/)
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] nom Value to be assigned
+    def nom=(nom)
+      if nom.nil?
+        fail ArgumentError, 'nom cannot be nil'
+      end
+
+      if nom.to_s.length < 1
+        fail ArgumentError, 'invalid value for "nom", the character length must be greater than or equal to 1.'
+      end
+
+      @nom = nom
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] siret Value to be assigned
+    def siret=(siret)
+      pattern = Regexp.new(/^\d{14}$/)
+      if !siret.nil? && siret !~ pattern
+        fail ArgumentError, "invalid value for \"siret\", must conform to the pattern #{pattern}."
+      end
+
+      @siret = siret
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] siren Value to be assigned
+    def siren=(siren)
+      pattern = Regexp.new(/^\d{9}$/)
+      if !siren.nil? && siren !~ pattern
+        fail ArgumentError, "invalid value for \"siren\", must conform to the pattern #{pattern}."
+      end
+
+      @siren = siren
     end
 
     # Checks equality by comparing each attribute.
@@ -137,12 +195,12 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          adresse_electronique == o.adresse_electronique &&
-          code_service_executant == o.code_service_executant &&
           nom == o.nom &&
-          siren == o.siren &&
           siret == o.siret &&
-          adresse_postale == o.adresse_postale
+          siren == o.siren &&
+          adresse_electronique == o.adresse_electronique &&
+          iban == o.iban &&
+          bic == o.bic
     end
 
     # @see the `==` method
@@ -154,7 +212,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [adresse_electronique, code_service_executant, nom, siren, siret, adresse_postale].hash
+      [nom, siret, siren, adresse_electronique, iban, bic].hash
     end
 
     # Builds the object from hash

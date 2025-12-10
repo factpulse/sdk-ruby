@@ -46,6 +46,8 @@ module FactPulse
 
     attr_accessor :pieces_jointes_complementaires
 
+    attr_accessor :beneficiaire
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -85,7 +87,8 @@ module FactPulse
         :'notes' => :'notes',
         :'commentaire' => :'commentaire',
         :'id_utilisateur_courant' => :'idUtilisateurCourant',
-        :'pieces_jointes_complementaires' => :'piecesJointesComplementaires'
+        :'pieces_jointes_complementaires' => :'piecesJointesComplementaires',
+        :'beneficiaire' => :'beneficiaire'
       }
     end
 
@@ -116,7 +119,8 @@ module FactPulse
         :'notes' => :'Array<Note>',
         :'commentaire' => :'String',
         :'id_utilisateur_courant' => :'Integer',
-        :'pieces_jointes_complementaires' => :'Array<PieceJointeComplementaire>'
+        :'pieces_jointes_complementaires' => :'Array<PieceJointeComplementaire>',
+        :'beneficiaire' => :'Beneficiaire'
       }
     end
 
@@ -125,7 +129,8 @@ module FactPulse
       Set.new([
         :'commentaire',
         :'id_utilisateur_courant',
-        :'pieces_jointes_complementaires'
+        :'pieces_jointes_complementaires',
+        :'beneficiaire'
       ])
     end
 
@@ -227,6 +232,10 @@ module FactPulse
         if (value = attributes[:'pieces_jointes_complementaires']).is_a?(Array)
           self.pieces_jointes_complementaires = value
         end
+      end
+
+      if attributes.key?(:'beneficiaire')
+        self.beneficiaire = attributes[:'beneficiaire']
       end
     end
 
@@ -384,7 +393,8 @@ module FactPulse
           notes == o.notes &&
           commentaire == o.commentaire &&
           id_utilisateur_courant == o.id_utilisateur_courant &&
-          pieces_jointes_complementaires == o.pieces_jointes_complementaires
+          pieces_jointes_complementaires == o.pieces_jointes_complementaires &&
+          beneficiaire == o.beneficiaire
     end
 
     # @see the `==` method
@@ -396,7 +406,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [numero_facture, date_echeance_paiement, date_facture, mode_depot, destinataire, fournisseur, cadre_de_facturation, references, montant_total, lignes_de_poste, lignes_de_tva, notes, commentaire, id_utilisateur_courant, pieces_jointes_complementaires].hash
+      [numero_facture, date_echeance_paiement, date_facture, mode_depot, destinataire, fournisseur, cadre_de_facturation, references, montant_total, lignes_de_poste, lignes_de_tva, notes, commentaire, id_utilisateur_courant, pieces_jointes_complementaires, beneficiaire].hash
     end
 
     # Builds the object from hash

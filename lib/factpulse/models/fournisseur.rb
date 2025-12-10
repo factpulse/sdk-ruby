@@ -81,6 +81,7 @@ module FactPulse
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'adresse_electronique',
         :'code_coordonnees_bancaires_fournisseur',
         :'id_service_fournisseur',
         :'nom',
@@ -158,10 +159,6 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @adresse_electronique.nil?
-        invalid_properties.push('invalid value for "adresse_electronique", adresse_electronique cannot be nil.')
-      end
-
       if @id_fournisseur.nil?
         invalid_properties.push('invalid value for "id_fournisseur", id_fournisseur cannot be nil.')
       end
@@ -173,19 +170,8 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @adresse_electronique.nil?
       return false if @id_fournisseur.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] adresse_electronique Value to be assigned
-    def adresse_electronique=(adresse_electronique)
-      if adresse_electronique.nil?
-        fail ArgumentError, 'adresse_electronique cannot be nil'
-      end
-
-      @adresse_electronique = adresse_electronique
     end
 
     # Custom attribute writer method with validation

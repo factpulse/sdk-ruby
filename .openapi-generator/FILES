@@ -13,6 +13,7 @@ docs/AFNORPDPPAFlowServiceApi.md
 docs/APIError.md
 docs/AdresseElectronique.md
 docs/AdressePostale.md
+docs/Beneficiaire.md
 docs/BoundingBoxSchema.md
 docs/CadreDeFacturation.md
 docs/CategorieTVA.md
@@ -142,6 +143,7 @@ lib/factpulse/configuration.rb
 lib/factpulse/models/adresse_electronique.rb
 lib/factpulse/models/adresse_postale.rb
 lib/factpulse/models/api_error.rb
+lib/factpulse/models/beneficiaire.rb
 lib/factpulse/models/bounding_box_schema.rb
 lib/factpulse/models/cadre_de_facturation.rb
 lib/factpulse/models/categorie_tva.rb
@@ -260,6 +262,7 @@ spec/api/vrification_pdfxml_api_spec.rb
 spec/models/adresse_electronique_spec.rb
 spec/models/adresse_postale_spec.rb
 spec/models/api_error_spec.rb
+spec/models/beneficiaire_spec.rb
 spec/models/bounding_box_schema_spec.rb
 spec/models/cadre_de_facturation_spec.rb
 spec/models/categorie_tva_spec.rb

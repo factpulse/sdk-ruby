@@ -127,6 +127,39 @@ module FactPulse
         result['codeServiceExecutant'] = options[:code_service_executant] if options[:code_service_executant]
         result
       end
+
+      # Crée un bénéficiaire (factor) pour l'affacturage.
+      #
+      # Le bénéficiaire (BG-10 / PayeeTradeParty) est utilisé lorsque le paiement
+      # doit être effectué à un tiers différent du fournisseur, typiquement un
+      # factor (société d'affacturage).
+      #
+      # Pour les factures affacturées, il faut aussi:
+      # - Utiliser un type de document affacturé (393, 396, 501, 502, 472, 473)
+      # - Ajouter une note ACC avec la mention de subrogation
+      # - L'IBAN du bénéficiaire sera utilisé pour le paiement
+      #
+      # @param nom [String] Raison sociale du factor (BT-59)
+      # @param options [Hash] Options: :siret (BT-60), :siren (BT-61), :iban, :bic
+      # @return [Hash] Dict prêt à être utilisé dans une facture affacturée
+      #
+      # @example
+      #   factor = beneficiaire('FACTOR SAS',
+      #     siret: '30000000700033',
+      #     iban: 'FR76 3000 4000 0500 0012 3456 789'
+      #   )
+      def self.beneficiaire(nom, **options)
+        # Auto-calcul SIREN depuis SIRET
+        siret = options[:siret]
+        siren = options[:siren] || (siret && siret.length == 14 ? siret[0, 9] : nil)
+
+        result = { 'nom' => nom }
+        result['siret'] = siret if siret
+        result['siren'] = siren if siren
+        result['iban'] = options[:iban] if options[:iban]
+        result['bic'] = options[:bic] if options[:bic]
+        result
+      end
     end
 
     class FactPulseClient

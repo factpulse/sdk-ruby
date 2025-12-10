@@ -19,6 +19,7 @@
 | **commentaire** | **String** |  | [optional] |
 | **id_utilisateur_courant** | **Integer** |  | [optional] |
 | **pieces_jointes_complementaires** | [**Array&lt;PieceJointeComplementaire&gt;**](PieceJointeComplementaire.md) |  | [optional] |
+| **beneficiaire** | [**Beneficiaire**](Beneficiaire.md) |  | [optional] |
 
 ## Example
 
@@ -40,7 +41,8 @@ instance = FactPulse::FactureFacturX.new(
   notes: null,
   commentaire: null,
   id_utilisateur_courant: null,
-  pieces_jointes_complementaires: null
+  pieces_jointes_complementaires: null,
+  beneficiaire: null
 )
 ```
 
