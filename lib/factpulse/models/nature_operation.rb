@@ -16,36 +16,22 @@ require 'time'
 module FactPulse
   class NatureOperation
     B1 = "B1".freeze
-    B12 = "B1".freeze
     S1 = "S1".freeze
-    S12 = "S1".freeze
     M1 = "M1".freeze
-    M12 = "M1".freeze
     B2 = "B2".freeze
-    B22 = "B2".freeze
     S2 = "S2".freeze
-    S22 = "S2".freeze
     M2 = "M2".freeze
-    M22 = "M2".freeze
     B4 = "B4".freeze
-    B42 = "B4".freeze
     S4 = "S4".freeze
-    S42 = "S4".freeze
     M4 = "M4".freeze
-    M42 = "M4".freeze
     S3 = "S3".freeze
-    S32 = "S3".freeze
     S5 = "S5".freeze
-    S52 = "S5".freeze
     S6 = "S6".freeze
-    S62 = "S6".freeze
     B7 = "B7".freeze
-    B72 = "B7".freeze
     S7 = "S7".freeze
-    S72 = "S7".freeze
 
     def self.all_vars
-      @all_vars ||= [B1, B12, S1, S12, M1, M12, B2, B22, S2, S22, M2, M22, B4, B42, S4, S42, M4, M42, S3, S32, S5, S52, S6, S62, B7, B72, S7, S72].freeze
+      @all_vars ||= [B1, S1, M1, B2, S2, M2, B4, S4, M4, S3, S5, S6, B7, S7].freeze
     end
 
     # Builds the enum from string
