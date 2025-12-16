@@ -546,16 +546,22 @@ module FactPulse
       # =========================================================================
 
       # Valide un PDF Factur-X.
-      def valider_pdf_facturx(pdf_path, profil: 'EN16931')
+      # @param pdf_path [String] Chemin vers le fichier PDF
+      # @param profil [String, nil] Profil Factur-X (MINIMUM, BASIC, EN16931, EXTENDED). Si nil, auto-détecté.
+      # @param use_verapdf [Boolean] Active la validation stricte PDF/A avec VeraPDF (défaut: false)
+      def valider_pdf_facturx(pdf_path, profil: nil, use_verapdf: false)
         ensure_authenticated
         uri = URI("#{@api_url}/api/v1/traitement/valider-pdf-facturx")
         pdf_content = File.binread(pdf_path)
 
-        boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
-        body = build_multipart_body(boundary, [
+        parts = [
           { name: 'fichier_pdf', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' },
-          { name: 'profil', content: profil }
-        ])
+          { name: 'use_verapdf', content: use_verapdf.to_s }
+        ]
+        parts << { name: 'profil', content: profil } if profil
+
+        boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
+        body = build_multipart_body(boundary, parts)
 
         response = http_multipart_post(uri, body, boundary)
         raise FactPulseValidationError.new("Validation error: #{response.code}") unless response.is_a?(Net::HTTPSuccess)

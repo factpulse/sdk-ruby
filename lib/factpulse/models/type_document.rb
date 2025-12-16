@@ -15,14 +15,14 @@ require 'time'
 
 module FactPulse
   class TypeDocument
-    N380 = "380".freeze
-    N381 = "381".freeze
-    N384 = "384".freeze
-    N386 = "386".freeze
-    N389 = "389".freeze
+    FACTURE = "380".freeze
+    AVOIR = "381".freeze
+    FACTURE_RECTIFICATIVE = "384".freeze
+    ACOMPTE = "386".freeze
+    AUTOFACTURATION = "389".freeze
 
     def self.all_vars
-      @all_vars ||= [N380, N381, N384, N386, N389].freeze
+      @all_vars ||= [FACTURE, AVOIR, FACTURE_RECTIFICATIVE, ACOMPTE, AUTOFACTURATION].freeze
     end
 
     # Builds the enum from string
