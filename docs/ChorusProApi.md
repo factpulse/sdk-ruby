@@ -732,7 +732,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ChorusProApi.new
-submit_invoice_request = FactPulse::SubmitInvoiceRequest.new({invoice_number: 'invoice_number_example', invoice_date: 'invoice_date_example', structure_id: 37, total_net_amount: FactPulse::TotalNetAmount.new, vat_amount: FactPulse::VatAmount.new, total_gross_amount: FactPulse::TotalGrossAmount.new}) # SubmitInvoiceRequest | 
+submit_invoice_request = FactPulse::SubmitInvoiceRequest.new({invoice_number: 'invoice_number_example', invoice_date: 'invoice_date_example', structure_id: 37, total_net_amount: FactPulse::SubmitNetAmount.new, vat_amount: FactPulse::SubmitVatAmount.new, total_gross_amount: FactPulse::SubmitGrossAmount.new}) # SubmitInvoiceRequest | 
 
 begin
   # Submit an invoice to Chorus Pro

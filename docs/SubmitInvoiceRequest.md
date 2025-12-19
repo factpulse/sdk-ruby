@@ -11,9 +11,9 @@
 | **structure_id** | **Integer** | Chorus Pro recipient structure ID |  |
 | **service_code** | **String** |  | [optional] |
 | **engagement_number** | **String** |  | [optional] |
-| **total_net_amount** | [**TotalNetAmount**](TotalNetAmount.md) |  |  |
-| **vat_amount** | [**VatAmount**](VatAmount.md) |  |  |
-| **total_gross_amount** | [**TotalGrossAmount**](TotalGrossAmount.md) |  |  |
+| **total_net_amount** | [**SubmitNetAmount**](SubmitNetAmount.md) |  |  |
+| **vat_amount** | [**SubmitVatAmount**](SubmitVatAmount.md) |  |  |
+| **total_gross_amount** | [**SubmitGrossAmount**](SubmitGrossAmount.md) |  |  |
 | **main_attachment_id** | **Integer** |  | [optional] |
 | **main_attachment_label** | **String** |  | [optional] |
 | **comment** | **String** |  | [optional] |

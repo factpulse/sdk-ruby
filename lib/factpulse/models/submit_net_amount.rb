@@ -14,8 +14,8 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # VAT amount for this line. (Accepte number, string ou integer)
-  module VATAmount
+  # Total net amount
+  module SubmitNetAmount
     class << self
       # List of class defined in anyOf (OpenAPI v3)
       def openapi_any_of

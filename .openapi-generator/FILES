@@ -100,8 +100,11 @@ docs/SubmitCompleteInvoiceRequest.md
 docs/SubmitCompleteInvoiceResponse.md
 docs/SubmitFlowRequest.md
 docs/SubmitFlowResponse.md
+docs/SubmitGrossAmount.md
 docs/SubmitInvoiceRequest.md
 docs/SubmitInvoiceResponse.md
+docs/SubmitNetAmount.md
+docs/SubmitVatAmount.md
 docs/SupplementaryAttachment.md
 docs/Supplier.md
 docs/TaskResponse.md
@@ -122,7 +125,6 @@ docs/ValidationErrorDetail.md
 docs/ValidationErrorLocInner.md
 docs/ValidationErrorResponse.md
 docs/ValidationSuccessResponse.md
-docs/VatAmount.md
 docs/VerificationSuccessResponse.md
 docs/VerifiedFieldSchema.md
 factpulse.gemspec
@@ -226,8 +228,11 @@ lib/factpulse/models/submit_complete_invoice_request.rb
 lib/factpulse/models/submit_complete_invoice_response.rb
 lib/factpulse/models/submit_flow_request.rb
 lib/factpulse/models/submit_flow_response.rb
+lib/factpulse/models/submit_gross_amount.rb
 lib/factpulse/models/submit_invoice_request.rb
 lib/factpulse/models/submit_invoice_response.rb
+lib/factpulse/models/submit_net_amount.rb
+lib/factpulse/models/submit_vat_amount.rb
 lib/factpulse/models/supplementary_attachment.rb
 lib/factpulse/models/supplier.rb
 lib/factpulse/models/task_response.rb
@@ -244,7 +249,6 @@ lib/factpulse/models/validation_error_loc_inner.rb
 lib/factpulse/models/validation_error_response.rb
 lib/factpulse/models/validation_success_response.rb
 lib/factpulse/models/vat_accounting_code.rb
-lib/factpulse/models/vat_amount.rb
 lib/factpulse/models/vat_amount.rb
 lib/factpulse/models/vat_category.rb
 lib/factpulse/models/vat_line.rb
@@ -345,8 +349,11 @@ spec/models/submit_complete_invoice_request_spec.rb
 spec/models/submit_complete_invoice_response_spec.rb
 spec/models/submit_flow_request_spec.rb
 spec/models/submit_flow_response_spec.rb
+spec/models/submit_gross_amount_spec.rb
 spec/models/submit_invoice_request_spec.rb
 spec/models/submit_invoice_response_spec.rb
+spec/models/submit_net_amount_spec.rb
+spec/models/submit_vat_amount_spec.rb
 spec/models/supplementary_attachment_spec.rb
 spec/models/supplier_spec.rb
 spec/models/task_response_spec.rb

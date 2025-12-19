@@ -1,4 +1,4 @@
-# FactPulse::VatAmount
+# FactPulse::SubmitVatAmount
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::VatAmount.new()
+instance = FactPulse::SubmitVatAmount.new()
 ```
 
