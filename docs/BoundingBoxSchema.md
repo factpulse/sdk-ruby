@@ -4,13 +4,13 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **x0** | **Float** | Coordonnée X gauche |  |
-| **y0** | **Float** | Coordonnée Y bas |  |
-| **x1** | **Float** | Coordonnée X droite |  |
-| **y1** | **Float** | Coordonnée Y haut |  |
-| **page** | **Integer** | Numéro de page (0-indexed) | [optional][default to 0] |
-| **width** | **Float** | Largeur de la zone |  |
-| **height** | **Float** | Hauteur de la zone |  |
+| **x0** | **Float** | Left X coordinate |  |
+| **y0** | **Float** | Bottom Y coordinate |  |
+| **x1** | **Float** | Right X coordinate |  |
+| **y1** | **Float** | Top Y coordinate |  |
+| **page** | **Integer** | Page number (0-indexed) | [optional][default to 0] |
+| **width** | **Float** | Area width |  |
+| **height** | **Float** | Area height |  |
 
 ## Example
 

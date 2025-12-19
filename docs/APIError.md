@@ -4,8 +4,8 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **error_code** | **String** | Code alphanumérique identifiant précisément l&#39;erreur |  |
-| **error_message** | **String** | Message décrivant l&#39;erreur (non destiné à l&#39;utilisateur final) |  |
+| **error_code** | **String** | Alphanumeric code precisely identifying the error |  |
+| **error_message** | **String** | Message describing the error (not intended for end user) |  |
 | **details** | [**Array&lt;ValidationErrorDetail&gt;**](ValidationErrorDetail.md) |  | [optional] |
 
 ## Example

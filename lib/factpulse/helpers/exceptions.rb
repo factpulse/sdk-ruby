@@ -5,7 +5,7 @@ module FactPulse
     class FactPulseAuthError < FactPulseError; end
     class FactPulsePollingTimeout < FactPulseError
       attr_reader :task_id, :timeout
-      def initialize(task_id, timeout); @task_id, @timeout = task_id, timeout; super("Timeout (#{timeout}ms) pour #{task_id}"); end
+      def initialize(task_id, timeout); @task_id, @timeout = task_id, timeout; super("Timeout (#{timeout}ms) for #{task_id}"); end
     end
     class ValidationErrorDetail
       attr_accessor :level, :item, :reason, :source, :code
@@ -15,7 +15,7 @@ module FactPulse
     end
     class FactPulseValidationError < FactPulseError
       attr_reader :errors
-      def initialize(msg, errors = []); @errors = errors; super(errors.empty? ? msg : "#{msg}\n\nDétails:\n#{errors.map{|e| "  - #{e}"}.join("\n")}"); end
+      def initialize(msg, errors = []); @errors = errors; super(errors.empty? ? msg : "#{msg}\n\nDetails:\n#{errors.map{|e| "  - #{e}"}.join("\n")}"); end
     end
   end
 end

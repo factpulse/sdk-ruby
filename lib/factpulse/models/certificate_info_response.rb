@@ -1,7 +1,7 @@
 =begin
-#API REST FactPulse
+#FactPulse REST API
 
-# API REST pour la facturation électronique en France : Factur-X, AFNOR PDP/PA, signatures électroniques.  ## 🎯 Fonctionnalités principales  ### 📄 Génération de factures Factur-X - **Formats** : XML seul ou PDF/A-3 avec XML embarqué - **Profils** : MINIMUM, BASIC, EN16931, EXTENDED - **Normes** : EN 16931 (directive UE 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Format simplifié** : Génération à partir de SIRET + auto-enrichissement (API Chorus Pro + Recherche Entreprises)  ### ✅ Validation et conformité - **Validation XML** : Schematron (45 à 210+ règles selon profil) - **Validation PDF** : PDF/A-3, métadonnées XMP Factur-X, signatures électroniques - **VeraPDF** : Validation stricte PDF/A (146+ règles ISO 19005-3) - **Traitement asynchrone** : Support Celery pour validations lourdes (VeraPDF)  ### 📡 Intégration AFNOR PDP/PA (XP Z12-013) - **Soumission de flux** : Envoi de factures vers Plateformes de Dématérialisation Partenaires - **Recherche de flux** : Consultation des factures soumises - **Téléchargement** : Récupération des PDF/A-3 avec XML - **Directory Service** : Recherche d'entreprises (SIREN/SIRET) - **Multi-client** : Support de plusieurs configs PDP par utilisateur (stored credentials ou zero-storage)  ### ✍️ Signature électronique PDF - **Standards** : PAdES-B-B, PAdES-B-T (horodatage RFC 3161), PAdES-B-LT (archivage long terme) - **Niveaux eIDAS** : SES (auto-signé), AdES (CA commerciale), QES (PSCO) - **Validation** : Vérification intégrité cryptographique et certificats - **Génération de certificats** : Certificats X.509 auto-signés pour tests  ### 🔄 Traitement asynchrone - **Celery** : Génération, validation et signature asynchrones - **Polling** : Suivi d'état via `/taches/{id_tache}/statut` - **Pas de timeout** : Idéal pour gros fichiers ou validations lourdes  ## 🔒 Authentification  Toutes les requêtes nécessitent un **token JWT** dans le header Authorization : ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### Comment obtenir un token JWT ?  #### 🔑 Méthode 1 : API `/api/token/` (Recommandée)  **URL :** `https://www.factpulse.fr/api/token/`  Cette méthode est **recommandée** pour l'intégration dans vos applications et workflows CI/CD.  **Prérequis :** Avoir défini un mot de passe sur votre compte  **Pour les utilisateurs inscrits via email/password :** - Vous avez déjà un mot de passe, utilisez-le directement  **Pour les utilisateurs inscrits via OAuth (Google/GitHub) :** - Vous devez d'abord définir un mot de passe sur : https://www.factpulse.fr/accounts/password/set/ - Une fois le mot de passe créé, vous pourrez utiliser l'API  **Exemple de requête :** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\"   }' ```  **Paramètre optionnel `client_uid` :**  Pour sélectionner les credentials d'un client spécifique (PA/PDP, Chorus Pro, certificats de signature), ajoutez `client_uid` :  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  Le `client_uid` sera inclus dans le JWT et permettra à l'API d'utiliser automatiquement : - Les credentials AFNOR/PDP configurés pour ce client - Les credentials Chorus Pro configurés pour ce client - Les certificats de signature électronique configurés pour ce client  **Réponse :** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Token d'accès (validité: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Token de rafraîchissement (validité: 7 jours) } ```  **Avantages :** - ✅ Automatisation complète (CI/CD, scripts) - ✅ Gestion programmatique des tokens - ✅ Support du refresh token pour renouveler automatiquement l'accès - ✅ Intégration facile dans n'importe quel langage/outil  #### 🖥️ Méthode 2 : Génération via Dashboard (Alternative)  **URL :** https://www.factpulse.fr/dashboard/  Cette méthode convient pour des tests rapides ou une utilisation occasionnelle via l'interface graphique.  **Fonctionnement :** - Connectez-vous au dashboard - Utilisez les boutons \"Generate Test Token\" ou \"Generate Production Token\" - Fonctionne pour **tous** les utilisateurs (OAuth et email/password), sans nécessiter de mot de passe  **Types de tokens :** - **Token Test** : Validité 24h, quota 1000 appels/jour (gratuit) - **Token Production** : Validité 7 jours, quota selon votre forfait  **Avantages :** - ✅ Rapide pour tester l'API - ✅ Aucun mot de passe requis - ✅ Interface visuelle simple  **Inconvénients :** - ❌ Nécessite une action manuelle - ❌ Pas de refresh token - ❌ Moins adapté pour l'automatisation  ### 📚 Documentation complète  Pour plus d'informations sur l'authentification et l'utilisation de l'API : https://www.factpulse.fr/documentation-api/     
+# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X Invoice Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Validation and Compliance - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata, electronic signatures - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules) - **Asynchronous Processing**: Celery support for heavy validations (VeraPDF)  ### 📡 AFNOR PDP/PA Integration (XP Z12-013) - **Flow Submission**: Send invoices to Partner Dematerialization Platforms - **Flow Search**: View submitted invoices - **Download**: Retrieve PDF/A-3 with XML - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user (stored credentials or zero-storage)  ### ✍️ PDF Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification - **Certificate Generation**: Self-signed X.509 certificates for testing  ### 🔄 Asynchronous Processing - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **No timeout**: Ideal for large files or heavy validations  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://www.factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://www.factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://www.factpulse.fr/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://www.factpulse.fr/documentation-api/     
 
 The version of the OpenAPI document: 1.0.0
 
@@ -14,58 +14,58 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Informations sur un certificat généré.
+  # Information about a generated certificate.
   class CertificateInfoResponse < ApiModelBase
     # Common Name
     attr_accessor :cn
 
-    # Organisation
-    attr_accessor :organisation
+    # Organization
+    attr_accessor :organization
 
-    # Code pays
-    attr_accessor :pays
+    # Country code
+    attr_accessor :country
 
-    # Ville
-    attr_accessor :ville
+    # City
+    attr_accessor :city
 
-    # Province
-    attr_accessor :province
+    # State/Province
+    attr_accessor :state
 
     attr_accessor :email
 
-    # Sujet complet (RFC4514)
-    attr_accessor :sujet
+    # Full subject (RFC4514)
+    attr_accessor :subject
 
-    # Émetteur (auto-signé = même que sujet)
-    attr_accessor :emetteur
+    # Issuer (self-signed = same as subject)
+    attr_accessor :issuer
 
-    # Numéro de série du certificat
-    attr_accessor :numero_serie
+    # Certificate serial number
+    attr_accessor :serial_number
 
-    # Date de début de validité (ISO 8601)
-    attr_accessor :valide_du
+    # Validity start date (ISO 8601)
+    attr_accessor :valid_from
 
-    # Date de fin de validité (ISO 8601)
-    attr_accessor :valide_au
+    # Validity end date (ISO 8601)
+    attr_accessor :valid_to
 
-    # Algorithme de signature
-    attr_accessor :algorithme
+    # Signature algorithm
+    attr_accessor :algorithm
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'cn' => :'cn',
-        :'organisation' => :'organisation',
-        :'pays' => :'pays',
-        :'ville' => :'ville',
-        :'province' => :'province',
+        :'organization' => :'organization',
+        :'country' => :'country',
+        :'city' => :'city',
+        :'state' => :'state',
         :'email' => :'email',
-        :'sujet' => :'sujet',
-        :'emetteur' => :'emetteur',
-        :'numero_serie' => :'numero_serie',
-        :'valide_du' => :'valide_du',
-        :'valide_au' => :'valide_au',
-        :'algorithme' => :'algorithme'
+        :'subject' => :'subject',
+        :'issuer' => :'issuer',
+        :'serial_number' => :'serialNumber',
+        :'valid_from' => :'validFrom',
+        :'valid_to' => :'validTo',
+        :'algorithm' => :'algorithm'
       }
     end
 
@@ -83,17 +83,17 @@ module FactPulse
     def self.openapi_types
       {
         :'cn' => :'String',
-        :'organisation' => :'String',
-        :'pays' => :'String',
-        :'ville' => :'String',
-        :'province' => :'String',
+        :'organization' => :'String',
+        :'country' => :'String',
+        :'city' => :'String',
+        :'state' => :'String',
         :'email' => :'String',
-        :'sujet' => :'String',
-        :'emetteur' => :'String',
-        :'numero_serie' => :'Integer',
-        :'valide_du' => :'String',
-        :'valide_au' => :'String',
-        :'algorithme' => :'String'
+        :'subject' => :'String',
+        :'issuer' => :'String',
+        :'serial_number' => :'Integer',
+        :'valid_from' => :'String',
+        :'valid_to' => :'String',
+        :'algorithm' => :'String'
       }
     end
 
@@ -126,68 +126,68 @@ module FactPulse
         self.cn = nil
       end
 
-      if attributes.key?(:'organisation')
-        self.organisation = attributes[:'organisation']
+      if attributes.key?(:'organization')
+        self.organization = attributes[:'organization']
       else
-        self.organisation = nil
+        self.organization = nil
       end
 
-      if attributes.key?(:'pays')
-        self.pays = attributes[:'pays']
+      if attributes.key?(:'country')
+        self.country = attributes[:'country']
       else
-        self.pays = nil
+        self.country = nil
       end
 
-      if attributes.key?(:'ville')
-        self.ville = attributes[:'ville']
+      if attributes.key?(:'city')
+        self.city = attributes[:'city']
       else
-        self.ville = nil
+        self.city = nil
       end
 
-      if attributes.key?(:'province')
-        self.province = attributes[:'province']
+      if attributes.key?(:'state')
+        self.state = attributes[:'state']
       else
-        self.province = nil
+        self.state = nil
       end
 
       if attributes.key?(:'email')
         self.email = attributes[:'email']
       end
 
-      if attributes.key?(:'sujet')
-        self.sujet = attributes[:'sujet']
+      if attributes.key?(:'subject')
+        self.subject = attributes[:'subject']
       else
-        self.sujet = nil
+        self.subject = nil
       end
 
-      if attributes.key?(:'emetteur')
-        self.emetteur = attributes[:'emetteur']
+      if attributes.key?(:'issuer')
+        self.issuer = attributes[:'issuer']
       else
-        self.emetteur = nil
+        self.issuer = nil
       end
 
-      if attributes.key?(:'numero_serie')
-        self.numero_serie = attributes[:'numero_serie']
+      if attributes.key?(:'serial_number')
+        self.serial_number = attributes[:'serial_number']
       else
-        self.numero_serie = nil
+        self.serial_number = nil
       end
 
-      if attributes.key?(:'valide_du')
-        self.valide_du = attributes[:'valide_du']
+      if attributes.key?(:'valid_from')
+        self.valid_from = attributes[:'valid_from']
       else
-        self.valide_du = nil
+        self.valid_from = nil
       end
 
-      if attributes.key?(:'valide_au')
-        self.valide_au = attributes[:'valide_au']
+      if attributes.key?(:'valid_to')
+        self.valid_to = attributes[:'valid_to']
       else
-        self.valide_au = nil
+        self.valid_to = nil
       end
 
-      if attributes.key?(:'algorithme')
-        self.algorithme = attributes[:'algorithme']
+      if attributes.key?(:'algorithm')
+        self.algorithm = attributes[:'algorithm']
       else
-        self.algorithme = nil
+        self.algorithm = nil
       end
     end
 
@@ -200,44 +200,44 @@ module FactPulse
         invalid_properties.push('invalid value for "cn", cn cannot be nil.')
       end
 
-      if @organisation.nil?
-        invalid_properties.push('invalid value for "organisation", organisation cannot be nil.')
+      if @organization.nil?
+        invalid_properties.push('invalid value for "organization", organization cannot be nil.')
       end
 
-      if @pays.nil?
-        invalid_properties.push('invalid value for "pays", pays cannot be nil.')
+      if @country.nil?
+        invalid_properties.push('invalid value for "country", country cannot be nil.')
       end
 
-      if @ville.nil?
-        invalid_properties.push('invalid value for "ville", ville cannot be nil.')
+      if @city.nil?
+        invalid_properties.push('invalid value for "city", city cannot be nil.')
       end
 
-      if @province.nil?
-        invalid_properties.push('invalid value for "province", province cannot be nil.')
+      if @state.nil?
+        invalid_properties.push('invalid value for "state", state cannot be nil.')
       end
 
-      if @sujet.nil?
-        invalid_properties.push('invalid value for "sujet", sujet cannot be nil.')
+      if @subject.nil?
+        invalid_properties.push('invalid value for "subject", subject cannot be nil.')
       end
 
-      if @emetteur.nil?
-        invalid_properties.push('invalid value for "emetteur", emetteur cannot be nil.')
+      if @issuer.nil?
+        invalid_properties.push('invalid value for "issuer", issuer cannot be nil.')
       end
 
-      if @numero_serie.nil?
-        invalid_properties.push('invalid value for "numero_serie", numero_serie cannot be nil.')
+      if @serial_number.nil?
+        invalid_properties.push('invalid value for "serial_number", serial_number cannot be nil.')
       end
 
-      if @valide_du.nil?
-        invalid_properties.push('invalid value for "valide_du", valide_du cannot be nil.')
+      if @valid_from.nil?
+        invalid_properties.push('invalid value for "valid_from", valid_from cannot be nil.')
       end
 
-      if @valide_au.nil?
-        invalid_properties.push('invalid value for "valide_au", valide_au cannot be nil.')
+      if @valid_to.nil?
+        invalid_properties.push('invalid value for "valid_to", valid_to cannot be nil.')
       end
 
-      if @algorithme.nil?
-        invalid_properties.push('invalid value for "algorithme", algorithme cannot be nil.')
+      if @algorithm.nil?
+        invalid_properties.push('invalid value for "algorithm", algorithm cannot be nil.')
       end
 
       invalid_properties
@@ -248,16 +248,16 @@ module FactPulse
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @cn.nil?
-      return false if @organisation.nil?
-      return false if @pays.nil?
-      return false if @ville.nil?
-      return false if @province.nil?
-      return false if @sujet.nil?
-      return false if @emetteur.nil?
-      return false if @numero_serie.nil?
-      return false if @valide_du.nil?
-      return false if @valide_au.nil?
-      return false if @algorithme.nil?
+      return false if @organization.nil?
+      return false if @country.nil?
+      return false if @city.nil?
+      return false if @state.nil?
+      return false if @subject.nil?
+      return false if @issuer.nil?
+      return false if @serial_number.nil?
+      return false if @valid_from.nil?
+      return false if @valid_to.nil?
+      return false if @algorithm.nil?
       true
     end
 
@@ -272,103 +272,103 @@ module FactPulse
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] organisation Value to be assigned
-    def organisation=(organisation)
-      if organisation.nil?
-        fail ArgumentError, 'organisation cannot be nil'
+    # @param [Object] organization Value to be assigned
+    def organization=(organization)
+      if organization.nil?
+        fail ArgumentError, 'organization cannot be nil'
       end
 
-      @organisation = organisation
+      @organization = organization
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] pays Value to be assigned
-    def pays=(pays)
-      if pays.nil?
-        fail ArgumentError, 'pays cannot be nil'
+    # @param [Object] country Value to be assigned
+    def country=(country)
+      if country.nil?
+        fail ArgumentError, 'country cannot be nil'
       end
 
-      @pays = pays
+      @country = country
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] ville Value to be assigned
-    def ville=(ville)
-      if ville.nil?
-        fail ArgumentError, 'ville cannot be nil'
+    # @param [Object] city Value to be assigned
+    def city=(city)
+      if city.nil?
+        fail ArgumentError, 'city cannot be nil'
       end
 
-      @ville = ville
+      @city = city
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] province Value to be assigned
-    def province=(province)
-      if province.nil?
-        fail ArgumentError, 'province cannot be nil'
+    # @param [Object] state Value to be assigned
+    def state=(state)
+      if state.nil?
+        fail ArgumentError, 'state cannot be nil'
       end
 
-      @province = province
+      @state = state
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] sujet Value to be assigned
-    def sujet=(sujet)
-      if sujet.nil?
-        fail ArgumentError, 'sujet cannot be nil'
+    # @param [Object] subject Value to be assigned
+    def subject=(subject)
+      if subject.nil?
+        fail ArgumentError, 'subject cannot be nil'
       end
 
-      @sujet = sujet
+      @subject = subject
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] emetteur Value to be assigned
-    def emetteur=(emetteur)
-      if emetteur.nil?
-        fail ArgumentError, 'emetteur cannot be nil'
+    # @param [Object] issuer Value to be assigned
+    def issuer=(issuer)
+      if issuer.nil?
+        fail ArgumentError, 'issuer cannot be nil'
       end
 
-      @emetteur = emetteur
+      @issuer = issuer
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] numero_serie Value to be assigned
-    def numero_serie=(numero_serie)
-      if numero_serie.nil?
-        fail ArgumentError, 'numero_serie cannot be nil'
+    # @param [Object] serial_number Value to be assigned
+    def serial_number=(serial_number)
+      if serial_number.nil?
+        fail ArgumentError, 'serial_number cannot be nil'
       end
 
-      @numero_serie = numero_serie
+      @serial_number = serial_number
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] valide_du Value to be assigned
-    def valide_du=(valide_du)
-      if valide_du.nil?
-        fail ArgumentError, 'valide_du cannot be nil'
+    # @param [Object] valid_from Value to be assigned
+    def valid_from=(valid_from)
+      if valid_from.nil?
+        fail ArgumentError, 'valid_from cannot be nil'
       end
 
-      @valide_du = valide_du
+      @valid_from = valid_from
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] valide_au Value to be assigned
-    def valide_au=(valide_au)
-      if valide_au.nil?
-        fail ArgumentError, 'valide_au cannot be nil'
+    # @param [Object] valid_to Value to be assigned
+    def valid_to=(valid_to)
+      if valid_to.nil?
+        fail ArgumentError, 'valid_to cannot be nil'
       end
 
-      @valide_au = valide_au
+      @valid_to = valid_to
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] algorithme Value to be assigned
-    def algorithme=(algorithme)
-      if algorithme.nil?
-        fail ArgumentError, 'algorithme cannot be nil'
+    # @param [Object] algorithm Value to be assigned
+    def algorithm=(algorithm)
+      if algorithm.nil?
+        fail ArgumentError, 'algorithm cannot be nil'
       end
 
-      @algorithme = algorithme
+      @algorithm = algorithm
     end
 
     # Checks equality by comparing each attribute.
@@ -377,17 +377,17 @@ module FactPulse
       return true if self.equal?(o)
       self.class == o.class &&
           cn == o.cn &&
-          organisation == o.organisation &&
-          pays == o.pays &&
-          ville == o.ville &&
-          province == o.province &&
+          organization == o.organization &&
+          country == o.country &&
+          city == o.city &&
+          state == o.state &&
           email == o.email &&
-          sujet == o.sujet &&
-          emetteur == o.emetteur &&
-          numero_serie == o.numero_serie &&
-          valide_du == o.valide_du &&
-          valide_au == o.valide_au &&
-          algorithme == o.algorithme
+          subject == o.subject &&
+          issuer == o.issuer &&
+          serial_number == o.serial_number &&
+          valid_from == o.valid_from &&
+          valid_to == o.valid_to &&
+          algorithm == o.algorithm
     end
 
     # @see the `==` method
@@ -399,7 +399,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [cn, organisation, pays, ville, province, email, sujet, emetteur, numero_serie, valide_du, valide_au, algorithme].hash
+      [cn, organization, country, city, state, email, subject, issuer, serial_number, valid_from, valid_to, algorithm].hash
     end
 
     # Builds the object from hash

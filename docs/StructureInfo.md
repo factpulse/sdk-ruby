@@ -4,11 +4,11 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id_structure_cpp** | **Integer** | ID Chorus Pro de la structure |  |
-| **identifiant_structure** | **String** | Identifiant (SIRET, SIREN) |  |
-| **designation_structure** | **String** | Nom de la structure |  |
-| **type_identifiant_structure** | **String** | Type d&#39;identifiant |  |
-| **statut** | **String** | Statut (ACTIVE, INACTIVE) |  |
+| **structure_id** | **Integer** | Chorus Pro structure ID |  |
+| **structure_identifier** | **String** | Identifier (SIRET, SIREN) |  |
+| **structure_name** | **String** | Structure name |  |
+| **structure_identifier_type** | **String** | Identifier type |  |
+| **status** | **String** | Status (ACTIVE, INACTIVE) |  |
 
 ## Example
 
@@ -16,11 +16,11 @@
 require 'factpulse'
 
 instance = FactPulse::StructureInfo.new(
-  id_structure_cpp: null,
-  identifiant_structure: null,
-  designation_structure: null,
-  type_identifiant_structure: null,
-  statut: null
+  structure_id: null,
+  structure_identifier: null,
+  structure_name: null,
+  structure_identifier_type: null,
+  status: null
 )
 ```
 

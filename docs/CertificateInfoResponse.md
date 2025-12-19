@@ -5,17 +5,17 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **cn** | **String** | Common Name |  |
-| **organisation** | **String** | Organisation |  |
-| **pays** | **String** | Code pays |  |
-| **ville** | **String** | Ville |  |
-| **province** | **String** | Province |  |
+| **organization** | **String** | Organization |  |
+| **country** | **String** | Country code |  |
+| **city** | **String** | City |  |
+| **state** | **String** | State/Province |  |
 | **email** | **String** |  | [optional] |
-| **sujet** | **String** | Sujet complet (RFC4514) |  |
-| **emetteur** | **String** | Émetteur (auto-signé &#x3D; même que sujet) |  |
-| **numero_serie** | **Integer** | Numéro de série du certificat |  |
-| **valide_du** | **String** | Date de début de validité (ISO 8601) |  |
-| **valide_au** | **String** | Date de fin de validité (ISO 8601) |  |
-| **algorithme** | **String** | Algorithme de signature |  |
+| **subject** | **String** | Full subject (RFC4514) |  |
+| **issuer** | **String** | Issuer (self-signed &#x3D; same as subject) |  |
+| **serial_number** | **Integer** | Certificate serial number |  |
+| **valid_from** | **String** | Validity start date (ISO 8601) |  |
+| **valid_to** | **String** | Validity end date (ISO 8601) |  |
+| **algorithm** | **String** | Signature algorithm |  |
 
 ## Example
 
@@ -24,17 +24,17 @@ require 'factpulse'
 
 instance = FactPulse::CertificateInfoResponse.new(
   cn: Test Signature Client XYZ,
-  organisation: Client XYZ SARL,
-  pays: FR,
-  ville: Lyon,
-  province: Rhône-Alpes,
+  organization: Client XYZ SARL,
+  country: FR,
+  city: Lyon,
+  state: Rhone-Alpes,
   email: null,
-  sujet: CN&#x3D;Test Signature Client XYZ,O&#x3D;Client XYZ SARL,L&#x3D;Lyon,ST&#x3D;Rhône-Alpes,C&#x3D;FR,
-  emetteur: CN&#x3D;Test Signature Client XYZ,O&#x3D;Client XYZ SARL,L&#x3D;Lyon,ST&#x3D;Rhône-Alpes,C&#x3D;FR,
-  numero_serie: 123456789,
-  valide_du: 2025-01-07T12:00:00+00:00,
-  valide_au: 2026-01-07T12:00:00+00:00,
-  algorithme: sha256WithRSAEncryption
+  subject: CN&#x3D;Test Signature Client XYZ,O&#x3D;Client XYZ SARL,L&#x3D;Lyon,ST&#x3D;Rhone-Alpes,C&#x3D;FR,
+  issuer: CN&#x3D;Test Signature Client XYZ,O&#x3D;Client XYZ SARL,L&#x3D;Lyon,ST&#x3D;Rhone-Alpes,C&#x3D;FR,
+  serial_number: 123456789,
+  valid_from: 2025-01-07T12:00:00+00:00,
+  valid_to: 2026-01-07T12:00:00+00:00,
+  algorithm: sha256WithRSAEncryption
 )
 ```
 

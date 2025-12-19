@@ -3,8 +3,8 @@ require 'net/http'; require 'json'; require 'base64'; require 'uri'; require 'se
 
 module FactPulse
   module Helpers
-    # Credentials Chorus Pro pour le mode Zero-Trust.
-    # Ces credentials sont passés dans chaque requête et ne sont jamais stockés côté serveur.
+    # Chorus Pro credentials for Zero-Trust mode.
+    # These credentials are passed in each request and are never stored server-side.
     class ChorusProCredentials
       attr_reader :piste_client_id, :piste_client_secret, :chorus_pro_login, :chorus_pro_password, :sandbox
       def initialize(piste_client_id:, piste_client_secret:, chorus_pro_login:, chorus_pro_password:, sandbox: true)
@@ -17,8 +17,8 @@ module FactPulse
       end
     end
 
-    # Credentials AFNOR PDP pour le mode Zero-Trust.
-    # L'API FactPulse utilise ces credentials pour s'authentifier auprès de la PDP AFNOR.
+    # AFNOR PDP credentials for Zero-Trust mode.
+    # The FactPulse API uses these credentials to authenticate with the AFNOR PDP.
     class AFNORCredentials
       attr_reader :flow_service_url, :token_url, :client_id, :client_secret, :directory_service_url
       def initialize(flow_service_url:, token_url:, client_id:, client_secret:, directory_service_url: nil)
@@ -33,127 +33,127 @@ module FactPulse
       end
     end
 
-    # Helpers pour créer des montants totaux simplifiés.
-    module MontantHelpers
-      def self.montant(value)
+    # Helpers for creating simplified total amounts.
+    module AmountHelpers
+      def self.amount(value)
         return '0.00' if value.nil?
         return format('%.2f', value) if value.is_a?(Numeric)
         value.is_a?(String) ? value : '0.00'
       end
 
-      def self.montant_total(ht, tva, ttc, a_payer, remise_ttc: nil, motif_remise: nil, acompte: nil)
+      def self.invoice_totals(excl_tax, vat, incl_tax, amount_due, discount_incl_tax: nil, discount_reason: nil, prepayment: nil)
         result = {
-          'montantHtTotal' => montant(ht), 'montantTva' => montant(tva),
-          'montantTtcTotal' => montant(ttc), 'montantAPayer' => montant(a_payer)
+          'totalExclTax' => amount(excl_tax), 'vatAmount' => amount(vat),
+          'totalInclTax' => amount(incl_tax), 'amountDue' => amount(amount_due)
         }
-        result['montantRemiseGlobaleTtc'] = montant(remise_ttc) if remise_ttc
-        result['motifRemiseGlobaleTtc'] = motif_remise if motif_remise
-        result['acompte'] = montant(acompte) if acompte
+        result['globalDiscountInclTax'] = amount(discount_incl_tax) if discount_incl_tax
+        result['globalDiscountReason'] = discount_reason if discount_reason
+        result['prepayment'] = amount(prepayment) if prepayment
         result
       end
 
-      # Crée une ligne de poste (aligné sur LigneDePoste de models.py).
-      def self.ligne_de_poste(numero, denomination, quantite, montant_unitaire_ht, montant_total_ligne_ht,
-                              taux_tva: '20.00', categorie_tva: 'S', unite: 'FORFAIT', **options)
+      # Creates an invoice line (aligned with InvoiceLine in models.py).
+      def self.invoice_line(number, description, quantity, unit_price_excl_tax, line_total_excl_tax,
+                            vat_rate: '20.00', vat_category: 'S', unit: 'LUMP_SUM', **options)
         result = {
-          'numero' => numero, 'denomination' => denomination,
-          'quantite' => montant(quantite), 'montantUnitaireHt' => montant(montant_unitaire_ht),
-          'montantTotalLigneHt' => montant(montant_total_ligne_ht), 'tauxTvaManuel' => montant(taux_tva),
-          'categorieTva' => categorie_tva, 'unite' => unite
+          'number' => number, 'description' => description,
+          'quantity' => amount(quantity), 'unitPriceExclTax' => amount(unit_price_excl_tax),
+          'lineTotalExclTax' => amount(line_total_excl_tax), 'vatRateManual' => amount(vat_rate),
+          'vatCategory' => vat_category, 'unit' => unit
         }
         result['reference'] = options[:reference] if options[:reference]
-        result['montantRemiseHt'] = montant(options[:montant_remise_ht]) if options[:montant_remise_ht]
-        result['codeRaisonReduction'] = options[:code_raison_reduction] if options[:code_raison_reduction]
-        result['raisonReduction'] = options[:raison_reduction] if options[:raison_reduction]
-        result['dateDebutPeriode'] = options[:date_debut_periode] if options[:date_debut_periode]
-        result['dateFinPeriode'] = options[:date_fin_periode] if options[:date_fin_periode]
+        result['discountExclTax'] = amount(options[:discount_excl_tax]) if options[:discount_excl_tax]
+        result['discountReasonCode'] = options[:discount_reason_code] if options[:discount_reason_code]
+        result['discountReason'] = options[:discount_reason] if options[:discount_reason]
+        result['periodStartDate'] = options[:period_start_date] if options[:period_start_date]
+        result['periodEndDate'] = options[:period_end_date] if options[:period_end_date]
         result
       end
 
-      # Crée une ligne de TVA (aligné sur LigneDeTVA de models.py).
-      def self.ligne_de_tva(taux_manuel, montant_base_ht, montant_tva, categorie: 'S')
+      # Creates a VAT line (aligned with VatLine in models.py).
+      def self.vat_line(rate_manual, base_amount_excl_tax, vat_amount, category: 'S')
         {
-          'tauxManuel' => montant(taux_manuel), 'montantBaseHt' => montant(montant_base_ht),
-          'montantTva' => montant(montant_tva), 'categorie' => categorie
+          'rateManual' => amount(rate_manual), 'baseAmountExclTax' => amount(base_amount_excl_tax),
+          'vatAmount' => amount(vat_amount), 'category' => category
         }
       end
 
-      # Crée une adresse postale pour l'API FactPulse.
-      def self.adresse_postale(ligne1, code_postal, ville, pays: 'FR', ligne2: nil, ligne3: nil)
-        result = { 'ligneUn' => ligne1, 'codePostal' => code_postal, 'nomVille' => ville, 'paysCodeIso' => pays }
-        result['ligneDeux'] = ligne2 if ligne2
-        result['ligneTrois'] = ligne3 if ligne3
+      # Creates a postal address for the FactPulse API.
+      def self.postal_address(line1, postal_code, city, country: 'FR', line2: nil, line3: nil)
+        result = { 'line1' => line1, 'postalCode' => postal_code, 'city' => city, 'countryCode' => country }
+        result['line2'] = line2 if line2
+        result['line3'] = line3 if line3
         result
       end
 
-      # Crée une adresse électronique. scheme_id: "0009"=SIREN, "0225"=SIRET
-      def self.adresse_electronique(identifiant, scheme_id: '0009')
-        { 'identifiant' => identifiant, 'schemeId' => scheme_id }
+      # Creates an electronic address. scheme_id: "0009"=SIREN, "0225"=SIRET
+      def self.electronic_address(identifier, scheme_id: '0009')
+        { 'identifier' => identifier, 'schemeId' => scheme_id }
       end
 
-      # Calcule le numéro TVA intracommunautaire français depuis un SIREN.
-      def self.calculer_tva_intra(siren)
+      # Computes the French intra-community VAT number from a SIREN.
+      def self.compute_vat_intra(siren)
         return nil if siren.nil? || siren.length != 9 || !siren.match?(/^\d+$/)
         cle = (12 + 3 * (siren.to_i % 97)) % 97
         format('FR%02d%s', cle, siren)
       end
 
-      # Crée un fournisseur (émetteur) avec auto-calcul SIREN, TVA intracommunautaire et adresses.
-      def self.fournisseur(nom, siret, adresse_ligne1, code_postal, ville, **options)
+      # Creates a supplier (issuer) with auto-computed SIREN, intra-EU VAT number and addresses.
+      def self.supplier(name, siret, address_line1, postal_code, city, **options)
         siren = options[:siren] || (siret.length == 14 ? siret[0, 9] : nil)
-        numero_tva_intra = options[:numero_tva_intra] || (siren ? calculer_tva_intra(siren) : nil)
+        vat_intra = options[:vat_intra] || (siren ? compute_vat_intra(siren) : nil)
         result = {
-          'nom' => nom, 'idFournisseur' => options[:id_fournisseur] || 0, 'siret' => siret,
-          'adresseElectronique' => adresse_electronique(siret, scheme_id: '0225'),
-          'adressePostale' => adresse_postale(adresse_ligne1, code_postal, ville, pays: options[:pays] || 'FR', ligne2: options[:adresse_ligne2])
+          'name' => name, 'supplierId' => options[:supplier_id] || 0, 'siret' => siret,
+          'electronicAddress' => electronic_address(siret, scheme_id: '0225'),
+          'postalAddress' => postal_address(address_line1, postal_code, city, country: options[:country] || 'FR', line2: options[:address_line2])
         }
         result['siren'] = siren if siren
-        result['numeroTvaIntra'] = numero_tva_intra if numero_tva_intra
+        result['vatIntra'] = vat_intra if vat_intra
         result['iban'] = options[:iban] if options[:iban]
-        result['idServiceFournisseur'] = options[:code_service] if options[:code_service]
-        result['codeCoordonneeBancairesFournisseur'] = options[:code_coordonnees_bancaires] if options[:code_coordonnees_bancaires]
+        result['supplierServiceId'] = options[:service_code] if options[:service_code]
+        result['supplierBankCoordinatesCode'] = options[:bank_coordinates_code] if options[:bank_coordinates_code]
         result
       end
 
-      # Crée un destinataire (client) avec auto-calcul SIREN et adresses.
-      def self.destinataire(nom, siret, adresse_ligne1, code_postal, ville, **options)
+      # Creates a recipient (customer) with auto-computed SIREN and addresses.
+      def self.recipient(name, siret, address_line1, postal_code, city, **options)
         siren = options[:siren] || (siret.length == 14 ? siret[0, 9] : nil)
         result = {
-          'nom' => nom, 'siret' => siret,
-          'adresseElectronique' => adresse_electronique(siret, scheme_id: '0225'),
-          'adressePostale' => adresse_postale(adresse_ligne1, code_postal, ville, pays: options[:pays] || 'FR', ligne2: options[:adresse_ligne2])
+          'name' => name, 'siret' => siret,
+          'electronicAddress' => electronic_address(siret, scheme_id: '0225'),
+          'postalAddress' => postal_address(address_line1, postal_code, city, country: options[:country] || 'FR', line2: options[:address_line2])
         }
         result['siren'] = siren if siren
-        result['codeServiceExecutant'] = options[:code_service_executant] if options[:code_service_executant]
+        result['executingServiceCode'] = options[:executing_service_code] if options[:executing_service_code]
         result
       end
 
-      # Crée un bénéficiaire (factor) pour l'affacturage.
+      # Creates a beneficiary (factor) for factoring.
       #
-      # Le bénéficiaire (BG-10 / PayeeTradeParty) est utilisé lorsque le paiement
-      # doit être effectué à un tiers différent du fournisseur, typiquement un
-      # factor (société d'affacturage).
+      # The beneficiary (BG-10 / PayeeTradeParty) is used when payment
+      # must be made to a third party different from the supplier, typically
+      # a factor (factoring company).
       #
-      # Pour les factures affacturées, il faut aussi:
-      # - Utiliser un type de document affacturé (393, 396, 501, 502, 472, 473)
-      # - Ajouter une note ACC avec la mention de subrogation
-      # - L'IBAN du bénéficiaire sera utilisé pour le paiement
+      # For factored invoices, you also need to:
+      # - Use a factored document type (393, 396, 501, 502, 472, 473)
+      # - Add an ACC note with the subrogation mention
+      # - The beneficiary's IBAN will be used for payment
       #
-      # @param nom [String] Raison sociale du factor (BT-59)
+      # @param name [String] Factor's business name (BT-59)
       # @param options [Hash] Options: :siret (BT-60), :siren (BT-61), :iban, :bic
-      # @return [Hash] Dict prêt à être utilisé dans une facture affacturée
+      # @return [Hash] Dict ready to be used in a factored invoice
       #
       # @example
-      #   factor = beneficiaire('FACTOR SAS',
+      #   factor = beneficiary('FACTOR SAS',
       #     siret: '30000000700033',
       #     iban: 'FR76 3000 4000 0500 0012 3456 789'
       #   )
-      def self.beneficiaire(nom, **options)
-        # Auto-calcul SIREN depuis SIRET
+      def self.beneficiary(name, **options)
+        # Auto-compute SIREN from SIRET
         siret = options[:siret]
         siren = options[:siren] || (siret && siret.length == 14 ? siret[0, 9] : nil)
 
-        result = { 'nom' => nom }
+        result = { 'name' => name }
         result['siret'] = siret if siret
         result['siren'] = siren if siren
         result['iban'] = options[:iban] if options[:iban]
@@ -175,7 +175,7 @@ module FactPulse
 
       def chorus_credentials_for_api; @chorus_credentials&.to_h; end
       def afnor_credentials_for_api; @afnor_credentials&.to_h; end
-      # Alias plus courts
+      # Shorter aliases
       def get_chorus_pro_credentials; chorus_credentials_for_api; end
       def get_afnor_credentials; afnor_credentials_for_api; end
 
@@ -197,7 +197,7 @@ module FactPulse
         start_time, current_interval = (Time.now.to_f * 1000).to_i, interval_ms.to_f
         loop do
           raise FactPulsePollingTimeout.new(task_id, timeout_ms) if (Time.now.to_f * 1000).to_i - start_time > timeout_ms
-          ensure_authenticated; response = http_get(URI("#{@api_url}/api/v1/traitement/taches/#{task_id}/statut"))
+          ensure_authenticated; response = http_get(URI("#{@api_url}/api/v1/processing/tasks/#{task_id}/status"))
           reset_auth and next if response.code == '401'
           data = JSON.parse(response.body)
           return data['resultat'] || {} if data['statut'] == 'SUCCESS'
@@ -210,25 +210,25 @@ module FactPulse
         end
       end
 
-      def self.format_montant(m); MontantHelpers.montant(m); end
+      def self.format_amount(m); AmountHelpers.amount(m); end
 
-      # Génère une facture Factur-X à partir d'un dict/hash et d'un PDF source.
-      def generer_facturx(facture_data, pdf_source, profil: 'EN16931', format_sortie: 'pdf', sync: true, timeout: nil)
-        # Conversion des données en JSON string
-        json_data = case facture_data
-                    when String then facture_data
-                    when Hash then JSON.generate(facture_data)
+      # Generates a Factur-X invoice from a dict/hash and a source PDF.
+      def generate_facturx(invoice_data, pdf_source, profile: 'EN16931', output_format: 'pdf', sync: true, timeout: nil)
+        # Convert data to JSON string
+        json_data = case invoice_data
+                    when String then invoice_data
+                    when Hash then JSON.generate(invoice_data)
                     else
-                      if facture_data.respond_to?(:to_h)
-                        JSON.generate(facture_data.to_h)
-                      elsif facture_data.respond_to?(:to_hash)
-                        JSON.generate(facture_data.to_hash)
+                      if invoice_data.respond_to?(:to_h)
+                        JSON.generate(invoice_data.to_h)
+                      elsif invoice_data.respond_to?(:to_hash)
+                        JSON.generate(invoice_data.to_hash)
                       else
-                        raise FactPulseValidationError.new("Type de données non supporté: #{facture_data.class}")
+                        raise FactPulseValidationError.new("Unsupported data type: #{invoice_data.class}")
                       end
                     end
 
-        # Lecture du PDF source
+        # Read source PDF
         pdf_content = case pdf_source
                       when String then File.binread(pdf_source)
                       when File then pdf_source.read
@@ -236,20 +236,20 @@ module FactPulse
                         if pdf_source.respond_to?(:read)
                           pdf_source.read
                         else
-                          raise FactPulseValidationError.new("Type de PDF non supporté: #{pdf_source.class}")
+                          raise FactPulseValidationError.new("Unsupported PDF type: #{pdf_source.class}")
                         end
                       end
-        pdf_filename = pdf_source.is_a?(String) ? File.basename(pdf_source) : 'facture.pdf'
+        pdf_filename = pdf_source.is_a?(String) ? File.basename(pdf_source) : 'invoice.pdf'
 
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/traitement/generer-facture")
+        uri = URI("#{@api_url}/api/v1/processing/generate-invoice")
 
-        # Construire la requête multipart
+        # Build multipart request
         boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
         body = build_multipart_body(boundary, [
-          { name: 'donnees_facture', content: json_data },
-          { name: 'profil', content: profil },
-          { name: 'format_sortie', content: format_sortie },
+          { name: 'invoice_data', content: json_data },
+          { name: 'profile', content: profile },
+          { name: 'output_format', content: output_format },
           { name: 'source_pdf', content: pdf_content, filename: pdf_filename, content_type: 'application/pdf' }
         ])
 
@@ -260,15 +260,15 @@ module FactPulse
         end
 
         unless response.is_a?(Net::HTTPSuccess)
-          # Extraire les détails d'erreur du corps de la réponse
-          error_msg = "Erreur API (#{response.code})"
+          # Extract error details from response body
+          error_msg = "API Error (#{response.code})"
           errors = []
 
           begin
             error_data = JSON.parse(response.body)
             # Format FastAPI/Pydantic: {"detail": [{"loc": [...], "msg": "...", "type": "..."}]}
             if error_data['detail'].is_a?(Array)
-              error_msg = 'Erreur de validation'
+              error_msg = 'Validation error'
               error_data['detail'].each do |err|
                 next unless err.is_a?(Hash)
                 loc = (err['loc'] || []).map(&:to_s).join(' -> ')
@@ -286,30 +286,30 @@ module FactPulse
               error_msg = error_data['errorMessage']
             end
           rescue JSON::ParserError
-            error_msg = "Erreur API (#{response.code}): #{response.body}"
+            error_msg = "API Error (#{response.code}): #{response.body}"
           end
 
-          warn "Erreur API #{response.code}: #{response.body}"
+          warn "API Error #{response.code}: #{response.body}"
           raise FactPulseValidationError.new(error_msg, errors)
         end
 
         data = JSON.parse(response.body)
 
-        if sync && data['id_tache']
-          result = poll_task(data['id_tache'], timeout: timeout)
+        if sync && data['task_id']
+          result = poll_task(data['task_id'], timeout: timeout)
           if result['contenu_b64']
             return Base64.decode64(result['contenu_b64'])
           elsif result['contenu_xml']
             return result['contenu_xml']
           end
-          raise FactPulseValidationError.new("Résultat inattendu: #{result.keys.join(', ')}")
+          raise FactPulseValidationError.new("Unexpected result: #{result.keys.join(', ')}")
         end
 
         data
       end
 
       # =========================================================================
-      # AFNOR PDP - Authentication et helpers internes
+      # AFNOR PDP - Authentication and internal helpers
       # =========================================================================
 
       private def get_afnor_credentials_internal
@@ -385,8 +385,8 @@ module FactPulse
 
       # ==================== AFNOR Flow Service ====================
 
-      # Soumet une facture à une PDP via l'API AFNOR.
-      def soumettre_facture_afnor(pdf_path, flow_name, **options)
+      # Submits an invoice to a PDP via the AFNOR API.
+      def submit_invoice_afnor(pdf_path, flow_name, **options)
         pdf_content = File.binread(pdf_path)
         sha256 = Digest::SHA256.hexdigest(pdf_content)
 
@@ -404,8 +404,8 @@ module FactPulse
         ])
       end
 
-      # Recherche des flux de facturation AFNOR.
-      def rechercher_flux_afnor(**criteria)
+      # Searches for AFNOR invoicing flows.
+      def search_flows_afnor(**criteria)
         search_body = {
           'offset' => criteria[:offset] || 0,
           'limit' => criteria[:limit] || 25,
@@ -417,30 +417,30 @@ module FactPulse
         make_afnor_request('POST', '/flow/v1/flows/search', json_data: search_body)
       end
 
-      # Télécharge le fichier PDF d'un flux AFNOR.
-      def telecharger_flux_afnor(flow_id)
+      # Downloads the PDF file of an AFNOR flow.
+      def download_flow_afnor(flow_id)
         result = make_afnor_request('GET', "/flow/v1/flows/#{flow_id}")
         result['_raw'] || ''
       end
 
-      # Récupère les métadonnées JSON d'un flux entrant (facture fournisseur).
-      # Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées
-      # de la facture vers un format JSON unifié. Supporte Factur-X, CII et UBL.
+      # Retrieves JSON metadata of an incoming flow (supplier invoice).
+      # Downloads an incoming flow from the AFNOR PDP and extracts invoice
+      # metadata into a unified JSON format. Supports Factur-X, CII and UBL.
       #
-      # Note: Cet endpoint utilise l'authentification JWT FactPulse (pas OAuth AFNOR).
-      # Le serveur FactPulse se charge d'appeler la PDP avec les credentials stockés.
+      # Note: This endpoint uses FactPulse JWT authentication (not AFNOR OAuth).
+      # The FactPulse server handles calling the PDP with stored credentials.
       #
-      # @param flow_id [String] Identifiant du flux (UUID)
-      # @param include_document [Boolean] Si true, inclut le document en base64
-      # @return [Hash] Métadonnées de la facture (fournisseur, montants, dates, etc.)
+      # @param flow_id [String] Flow identifier (UUID)
+      # @param include_document [Boolean] If true, includes the document in base64
+      # @return [Hash] Invoice metadata (supplier, amounts, dates, etc.)
       #
       # @example
-      #   facture = client.obtenir_facture_entrante_afnor("550e8400-...")
-      #   puts "Fournisseur: #{facture['fournisseur']['nom']}"
-      #   puts "Montant TTC: #{facture['montant_ttc']} #{facture['devise']}"
-      def obtenir_facture_entrante_afnor(flow_id, include_document: false)
+      #   invoice = client.get_incoming_invoice_afnor("550e8400-...")
+      #   puts "Supplier: #{invoice['supplier']['name']}"
+      #   puts "Total incl. tax: #{invoice['total_incl_tax']} #{invoice['currency']}"
+      def get_incoming_invoice_afnor(flow_id, include_document: false)
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/afnor/flux-entrants/#{flow_id}")
+        uri = URI("#{@api_url}/api/v1/afnor/incoming-flows/#{flow_id}")
         uri.query = "include_document=true" if include_document
 
         http = Net::HTTP.new(uri.host, uri.port)
@@ -451,29 +451,29 @@ module FactPulse
         request['Authorization'] = "Bearer #{@access_token}"
 
         response = http.request(request)
-        raise FactPulseValidationError.new("Erreur flux entrant: #{response.code}") unless response.is_a?(Net::HTTPSuccess)
+        raise FactPulseValidationError.new("Incoming flow error: #{response.code}") unless response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body) rescue {}
       end
 
-      # Vérifie la disponibilité du Flow Service AFNOR.
+      # Checks the availability of the AFNOR Flow Service.
       def healthcheck_afnor
         make_afnor_request('GET', '/flow/v1/healthcheck')
       end
 
       # ==================== AFNOR Directory ====================
 
-      # Recherche une entreprise par SIRET dans l'annuaire AFNOR.
-      def rechercher_siret_afnor(siret)
+      # Searches for a company by SIRET in the AFNOR directory.
+      def search_siret_afnor(siret)
         make_afnor_request('GET', "/directory/siret/#{siret}")
       end
 
-      # Recherche une entreprise par SIREN dans l'annuaire AFNOR.
-      def rechercher_siren_afnor(siren)
+      # Searches for a company by SIREN in the AFNOR directory.
+      def search_siren_afnor(siren)
         make_afnor_request('GET', "/directory/siren/#{siren}")
       end
 
-      # Liste les codes de routage disponibles pour un SIREN.
-      def lister_codes_routage_afnor(siren)
+      # Lists available routing codes for a SIREN.
+      def list_routing_codes_afnor(siren)
         make_afnor_request('GET', "/directory/siren/#{siren}/routing-codes")
       end
 
@@ -506,7 +506,7 @@ module FactPulse
         JSON.parse(response.body) rescue {}
       end
 
-      # Recherche des structures sur Chorus Pro.
+      # Searches for structures on Chorus Pro.
       def rechercher_structure_chorus(identifiant_structure: nil, raison_sociale: nil, type_identifiant: 'SIRET', restreindre_privees: true)
         body = { 'restreindre_structures_privees' => restreindre_privees }
         body['identifiant_structure'] = identifiant_structure if identifiant_structure
@@ -516,27 +516,27 @@ module FactPulse
         make_chorus_request('POST', '/structures/rechercher', body)
       end
 
-      # Consulte les détails d'une structure Chorus Pro.
+      # Gets the details of a Chorus Pro structure.
       def consulter_structure_chorus(id_structure_cpp)
         make_chorus_request('POST', '/structures/consulter', { 'id_structure_cpp' => id_structure_cpp })
       end
 
-      # Obtient l'ID Chorus Pro d'une structure depuis son SIRET.
+      # Gets the Chorus Pro ID of a structure from its SIRET.
       def obtenir_id_chorus_depuis_siret(siret, type_identifiant: 'SIRET')
         make_chorus_request('POST', '/structures/obtenir-id-depuis-siret', { 'siret' => siret, 'type_identifiant' => type_identifiant })
       end
 
-      # Liste les services d'une structure Chorus Pro.
+      # Lists the services of a Chorus Pro structure.
       def lister_services_structure_chorus(id_structure_cpp)
         make_chorus_request('GET', "/structures/#{id_structure_cpp}/services")
       end
 
-      # Soumet une facture à Chorus Pro.
+      # Submits an invoice to Chorus Pro.
       def soumettre_facture_chorus(facture_data)
         make_chorus_request('POST', '/factures/soumettre', facture_data)
       end
 
-      # Consulte le statut d'une facture Chorus Pro.
+      # Gets the status of a Chorus Pro invoice.
       def consulter_facture_chorus(identifiant_facture_cpp)
         make_chorus_request('POST', '/factures/consulter', { 'identifiant_facture_cpp' => identifiant_facture_cpp })
       end
@@ -545,20 +545,20 @@ module FactPulse
       # Validation
       # =========================================================================
 
-      # Valide un PDF Factur-X.
-      # @param pdf_path [String] Chemin vers le fichier PDF
-      # @param profil [String, nil] Profil Factur-X (MINIMUM, BASIC, EN16931, EXTENDED). Si nil, auto-détecté.
-      # @param use_verapdf [Boolean] Active la validation stricte PDF/A avec VeraPDF (défaut: false)
-      def valider_pdf_facturx(pdf_path, profil: nil, use_verapdf: false)
+      # Validates a Factur-X PDF.
+      # @param pdf_path [String] Path to the PDF file
+      # @param profile [String, nil] Factur-X profile (MINIMUM, BASIC, EN16931, EXTENDED). If nil, auto-detected.
+      # @param use_verapdf [Boolean] Enable strict PDF/A validation with VeraPDF (default: false)
+      def validate_facturx_pdf(pdf_path, profile: nil, use_verapdf: false)
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/traitement/valider-pdf-facturx")
+        uri = URI("#{@api_url}/api/v1/processing/validate-facturx-pdf")
         pdf_content = File.binread(pdf_path)
 
         parts = [
-          { name: 'fichier_pdf', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' },
+          { name: 'pdf_file', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' },
           { name: 'use_verapdf', content: use_verapdf.to_s }
         ]
-        parts << { name: 'profil', content: profil } if profil
+        parts << { name: 'profile', content: profile } if profile
 
         boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
         body = build_multipart_body(boundary, parts)
@@ -568,15 +568,15 @@ module FactPulse
         JSON.parse(response.body) rescue {}
       end
 
-      # Valide un XML Factur-X.
-      def valider_xml_facturx(xml_content, profil: 'EN16931')
+      # Validates a Factur-X XML.
+      def validate_facturx_xml(xml_content, profile: 'EN16931')
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/traitement/valider-xml")
+        uri = URI("#{@api_url}/api/v1/processing/validate-xml")
 
         boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
         body = build_multipart_body(boundary, [
-          { name: 'fichier_xml', content: xml_content, filename: 'facture.xml', content_type: 'application/xml' },
-          { name: 'profil', content: profil }
+          { name: 'xml_file', content: xml_content, filename: 'invoice.xml', content_type: 'application/xml' },
+          { name: 'profile', content: profile }
         ])
 
         response = http_multipart_post(uri, body, boundary)
@@ -584,15 +584,15 @@ module FactPulse
         JSON.parse(response.body) rescue {}
       end
 
-      # Valide la signature d'un PDF signé.
-      def valider_signature_pdf(pdf_path)
+      # Validates the signature of a signed PDF.
+      def validate_pdf_signature(pdf_path)
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/traitement/valider-signature-pdf")
+        uri = URI("#{@api_url}/api/v1/processing/validate-pdf-signature")
         pdf_content = File.binread(pdf_path)
 
         boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
         body = build_multipart_body(boundary, [
-          { name: 'fichier_pdf', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' }
+          { name: 'pdf_file', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' }
         ])
 
         response = http_multipart_post(uri, body, boundary)
@@ -604,19 +604,19 @@ module FactPulse
       # Signature
       # =========================================================================
 
-      # Signe un PDF avec le certificat configuré côté serveur.
-      def signer_pdf(pdf_path, **options)
+      # Signs a PDF with the server-configured certificate.
+      def sign_pdf(pdf_path, **options)
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/traitement/signer-pdf")
+        uri = URI("#{@api_url}/api/v1/processing/sign-pdf")
         pdf_content = File.binread(pdf_path)
 
         parts = [
-          { name: 'fichier_pdf', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' },
+          { name: 'pdf_file', content: pdf_content, filename: File.basename(pdf_path), content_type: 'application/pdf' },
           { name: 'use_pades_lt', content: (options[:use_pades_lt] ? 'true' : 'false') },
           { name: 'use_timestamp', content: (options.key?(:use_timestamp) ? (options[:use_timestamp] ? 'true' : 'false') : 'true') }
         ]
-        parts << { name: 'raison', content: options[:raison] } if options[:raison]
-        parts << { name: 'localisation', content: options[:localisation] } if options[:localisation]
+        parts << { name: 'reason', content: options[:reason] } if options[:reason]
+        parts << { name: 'location', content: options[:location] } if options[:location]
         parts << { name: 'contact', content: options[:contact] } if options[:contact]
 
         boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
@@ -630,16 +630,16 @@ module FactPulse
         Base64.decode64(result['pdf_signe_base64'])
       end
 
-      # Génère un certificat de test (NON PRODUCTION).
-      def generer_certificat_test(**options)
+      # Generates a test certificate (NOT FOR PRODUCTION).
+      def generate_test_certificate(**options)
         ensure_authenticated
-        uri = URI("#{@api_url}/api/v1/traitement/generer-certificat-test")
+        uri = URI("#{@api_url}/api/v1/processing/generate-test-certificate")
         body = {
           'cn' => options[:cn] || 'Test Organisation',
           'organisation' => options[:organisation] || 'Test Organisation',
           'email' => options[:email] || 'test@example.com',
-          'duree_jours' => options[:duree_jours] || 365,
-          'taille_cle' => options[:taille_cle] || 2048
+          'validity_days' => options[:validity_days] || 365,
+          'key_size' => options[:key_size] || 2048
         }
 
         response = http_post_json(uri, body)
@@ -651,21 +651,21 @@ module FactPulse
       # Workflow complet
       # =========================================================================
 
-      # Génère un PDF Factur-X complet avec validation, signature et soumission optionnelles.
-      def generer_facturx_complet(facture, pdf_source_path, **options)
-        profil = options[:profil] || 'EN16931'
-        valider = options.fetch(:valider, true)
-        signer = options.fetch(:signer, false)
-        soumettre_afnor = options.fetch(:soumettre_afnor, false)
+      # Generates a complete Factur-X PDF with optional validation, signature and submission.
+      def generate_complete_facturx(invoice, pdf_source_path, **options)
+        profile = options[:profile] || 'EN16931'
+        validate = options.fetch(:validate, true)
+        sign = options.fetch(:sign, false)
+        submit_afnor = options.fetch(:submit_afnor, false)
         timeout = options[:timeout] || 120000
 
         result = {}
 
-        # 1. Génération
-        pdf_bytes = generer_facturx(facture, pdf_source_path, profil: profil, format_sortie: 'pdf', sync: true, timeout: timeout)
+        # 1. Generation
+        pdf_bytes = generate_facturx(invoice, pdf_source_path, profile: profile, output_format: 'pdf', sync: true, timeout: timeout)
         result[:pdf_bytes] = pdf_bytes
 
-        # Créer un fichier temporaire pour les opérations suivantes
+        # Create a temporary file for subsequent operations
         temp_file = Tempfile.new(['facturx_', '.pdf'])
         begin
           temp_file.binmode
@@ -673,10 +673,10 @@ module FactPulse
           temp_file.flush
 
           # 2. Validation
-          if valider
-            validation = valider_pdf_facturx(temp_file.path, profil: profil)
+          if validate
+            validation = validate_facturx_pdf(temp_file.path, profile: profile)
             result[:validation] = validation
-            unless validation['est_conforme']
+            unless validation['is_compliant']
               if options[:output_path]
                 File.binwrite(options[:output_path], pdf_bytes)
                 result[:pdf_path] = options[:output_path]
@@ -686,25 +686,25 @@ module FactPulse
           end
 
           # 3. Signature
-          if signer
-            pdf_bytes = signer_pdf(temp_file.path, **options)
+          if sign
+            pdf_bytes = sign_pdf(temp_file.path, **options)
             result[:pdf_bytes] = pdf_bytes
-            result[:signature] = { 'signe' => true }
+            result[:signature] = { 'signed' => true }
             temp_file.rewind
             temp_file.write(pdf_bytes)
             temp_file.flush
           end
 
-          # 4. Soumission AFNOR
-          if soumettre_afnor
-            numero_facture = facture['numeroFacture'] || facture['numero_facture'] || 'FACTURE'
-            flow_name = options[:afnor_flow_name] || "Facture #{numero_facture}"
-            tracking_id = options[:afnor_tracking_id] || numero_facture
-            afnor_result = soumettre_facture_afnor(temp_file.path, flow_name, tracking_id: tracking_id)
+          # 4. AFNOR submission
+          if submit_afnor
+            invoice_number = invoice['invoiceNumber'] || invoice['invoice_number'] || 'INVOICE'
+            flow_name = options[:afnor_flow_name] || "Invoice #{invoice_number}"
+            tracking_id = options[:afnor_tracking_id] || invoice_number
+            afnor_result = submit_invoice_afnor(temp_file.path, flow_name, tracking_id: tracking_id)
             result[:afnor] = afnor_result
           end
 
-          # Sauvegarde finale
+          # Final save
           if options[:output_path]
             File.binwrite(options[:output_path], pdf_bytes)
             result[:pdf_path] = options[:output_path]

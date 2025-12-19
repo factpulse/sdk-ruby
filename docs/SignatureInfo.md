@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **signe** | **Boolean** | Le PDF a été signé |  |
+| **signed** | **Boolean** | PDF was signed |  |
 | **cn** | **String** |  | [optional] |
 | **expiration** | **String** |  | [optional] |
 
@@ -14,7 +14,7 @@
 require 'factpulse'
 
 instance = FactPulse::SignatureInfo.new(
-  signe: null,
+  signed: null,
   cn: null,
   expiration: null
 )

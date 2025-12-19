@@ -4,11 +4,11 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **flow_service_url** | **String** | URL de base du Flow Service AFNOR |  |
+| **flow_service_url** | **String** | Base URL of the AFNOR Flow Service |  |
 | **directory_service_url** | **String** |  | [optional] |
-| **token_url** | **String** | URL du serveur OAuth2 |  |
-| **client_id** | **String** | Client ID OAuth2 |  |
-| **client_secret** | **String** | Client Secret OAuth2 (sensible) |  |
+| **token_url** | **String** | OAuth2 server URL |  |
+| **client_id** | **String** | OAuth2 Client ID |  |
+| **client_secret** | **String** | OAuth2 Client Secret (sensitive) |  |
 
 ## Example
 

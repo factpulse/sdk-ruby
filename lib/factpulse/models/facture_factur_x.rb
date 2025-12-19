@@ -1,7 +1,7 @@
 =begin
-#API REST FactPulse
+#FactPulse REST API
 
-# API REST pour la facturation électronique en France : Factur-X, AFNOR PDP/PA, signatures électroniques.  ## 🎯 Fonctionnalités principales  ### 📄 Génération de factures Factur-X - **Formats** : XML seul ou PDF/A-3 avec XML embarqué - **Profils** : MINIMUM, BASIC, EN16931, EXTENDED - **Normes** : EN 16931 (directive UE 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Format simplifié** : Génération à partir de SIRET + auto-enrichissement (API Chorus Pro + Recherche Entreprises)  ### ✅ Validation et conformité - **Validation XML** : Schematron (45 à 210+ règles selon profil) - **Validation PDF** : PDF/A-3, métadonnées XMP Factur-X, signatures électroniques - **VeraPDF** : Validation stricte PDF/A (146+ règles ISO 19005-3) - **Traitement asynchrone** : Support Celery pour validations lourdes (VeraPDF)  ### 📡 Intégration AFNOR PDP/PA (XP Z12-013) - **Soumission de flux** : Envoi de factures vers Plateformes de Dématérialisation Partenaires - **Recherche de flux** : Consultation des factures soumises - **Téléchargement** : Récupération des PDF/A-3 avec XML - **Directory Service** : Recherche d'entreprises (SIREN/SIRET) - **Multi-client** : Support de plusieurs configs PDP par utilisateur (stored credentials ou zero-storage)  ### ✍️ Signature électronique PDF - **Standards** : PAdES-B-B, PAdES-B-T (horodatage RFC 3161), PAdES-B-LT (archivage long terme) - **Niveaux eIDAS** : SES (auto-signé), AdES (CA commerciale), QES (PSCO) - **Validation** : Vérification intégrité cryptographique et certificats - **Génération de certificats** : Certificats X.509 auto-signés pour tests  ### 🔄 Traitement asynchrone - **Celery** : Génération, validation et signature asynchrones - **Polling** : Suivi d'état via `/taches/{id_tache}/statut` - **Pas de timeout** : Idéal pour gros fichiers ou validations lourdes  ## 🔒 Authentification  Toutes les requêtes nécessitent un **token JWT** dans le header Authorization : ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### Comment obtenir un token JWT ?  #### 🔑 Méthode 1 : API `/api/token/` (Recommandée)  **URL :** `https://www.factpulse.fr/api/token/`  Cette méthode est **recommandée** pour l'intégration dans vos applications et workflows CI/CD.  **Prérequis :** Avoir défini un mot de passe sur votre compte  **Pour les utilisateurs inscrits via email/password :** - Vous avez déjà un mot de passe, utilisez-le directement  **Pour les utilisateurs inscrits via OAuth (Google/GitHub) :** - Vous devez d'abord définir un mot de passe sur : https://www.factpulse.fr/accounts/password/set/ - Une fois le mot de passe créé, vous pourrez utiliser l'API  **Exemple de requête :** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\"   }' ```  **Paramètre optionnel `client_uid` :**  Pour sélectionner les credentials d'un client spécifique (PA/PDP, Chorus Pro, certificats de signature), ajoutez `client_uid` :  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  Le `client_uid` sera inclus dans le JWT et permettra à l'API d'utiliser automatiquement : - Les credentials AFNOR/PDP configurés pour ce client - Les credentials Chorus Pro configurés pour ce client - Les certificats de signature électronique configurés pour ce client  **Réponse :** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Token d'accès (validité: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Token de rafraîchissement (validité: 7 jours) } ```  **Avantages :** - ✅ Automatisation complète (CI/CD, scripts) - ✅ Gestion programmatique des tokens - ✅ Support du refresh token pour renouveler automatiquement l'accès - ✅ Intégration facile dans n'importe quel langage/outil  #### 🖥️ Méthode 2 : Génération via Dashboard (Alternative)  **URL :** https://www.factpulse.fr/dashboard/  Cette méthode convient pour des tests rapides ou une utilisation occasionnelle via l'interface graphique.  **Fonctionnement :** - Connectez-vous au dashboard - Utilisez les boutons \"Generate Test Token\" ou \"Generate Production Token\" - Fonctionne pour **tous** les utilisateurs (OAuth et email/password), sans nécessiter de mot de passe  **Types de tokens :** - **Token Test** : Validité 24h, quota 1000 appels/jour (gratuit) - **Token Production** : Validité 7 jours, quota selon votre forfait  **Avantages :** - ✅ Rapide pour tester l'API - ✅ Aucun mot de passe requis - ✅ Interface visuelle simple  **Inconvénients :** - ❌ Nécessite une action manuelle - ❌ Pas de refresh token - ❌ Moins adapté pour l'automatisation  ### 📚 Documentation complète  Pour plus d'informations sur l'authentification et l'utilisation de l'API : https://www.factpulse.fr/documentation-api/     
+# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X Invoice Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Validation and Compliance - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata, electronic signatures - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules) - **Asynchronous Processing**: Celery support for heavy validations (VeraPDF)  ### 📡 AFNOR PDP/PA Integration (XP Z12-013) - **Flow Submission**: Send invoices to Partner Dematerialization Platforms - **Flow Search**: View submitted invoices - **Download**: Retrieve PDF/A-3 with XML - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user (stored credentials or zero-storage)  ### ✍️ PDF Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification - **Certificate Generation**: Self-signed X.509 certificates for testing  ### 🔄 Asynchronous Processing - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **No timeout**: Ideal for large files or heavy validations  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://www.factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://www.factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://www.factpulse.fr/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://www.factpulse.fr/documentation-api/     
 
 The version of the OpenAPI document: 1.0.0
 
@@ -14,39 +14,39 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Modèle de données pour une facture destinée à être convertie en Factur-X.
+  # Data model for an invoice to be converted to Factur-X.
   class FactureFacturX < ApiModelBase
-    attr_accessor :numero_facture
+    attr_accessor :invoice_number
 
-    attr_accessor :date_echeance_paiement
+    attr_accessor :payment_due_date
 
-    attr_accessor :date_facture
+    attr_accessor :invoice_date
 
-    attr_accessor :mode_depot
+    attr_accessor :submission_mode
 
-    attr_accessor :destinataire
+    attr_accessor :recipient
 
-    attr_accessor :fournisseur
+    attr_accessor :supplier
 
-    attr_accessor :cadre_de_facturation
+    attr_accessor :invoicing_framework
 
     attr_accessor :references
 
-    attr_accessor :montant_total
+    attr_accessor :totals
 
-    attr_accessor :lignes_de_poste
+    attr_accessor :invoice_lines
 
-    attr_accessor :lignes_de_tva
+    attr_accessor :vat_lines
 
     attr_accessor :notes
 
-    attr_accessor :commentaire
+    attr_accessor :comment
 
-    attr_accessor :id_utilisateur_courant
+    attr_accessor :current_user_id
 
-    attr_accessor :pieces_jointes_complementaires
+    attr_accessor :supplementary_attachments
 
-    attr_accessor :beneficiaire
+    attr_accessor :payee
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -73,22 +73,22 @@ module FactPulse
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'numero_facture' => :'numeroFacture',
-        :'date_echeance_paiement' => :'dateEcheancePaiement',
-        :'date_facture' => :'dateFacture',
-        :'mode_depot' => :'modeDepot',
-        :'destinataire' => :'destinataire',
-        :'fournisseur' => :'fournisseur',
-        :'cadre_de_facturation' => :'cadreDeFacturation',
+        :'invoice_number' => :'invoice_number',
+        :'payment_due_date' => :'payment_due_date',
+        :'invoice_date' => :'invoice_date',
+        :'submission_mode' => :'submission_mode',
+        :'recipient' => :'recipient',
+        :'supplier' => :'supplier',
+        :'invoicing_framework' => :'invoicing_framework',
         :'references' => :'references',
-        :'montant_total' => :'montantTotal',
-        :'lignes_de_poste' => :'lignesDePoste',
-        :'lignes_de_tva' => :'lignesDeTva',
+        :'totals' => :'totals',
+        :'invoice_lines' => :'invoice_lines',
+        :'vat_lines' => :'vat_lines',
         :'notes' => :'notes',
-        :'commentaire' => :'commentaire',
-        :'id_utilisateur_courant' => :'idUtilisateurCourant',
-        :'pieces_jointes_complementaires' => :'piecesJointesComplementaires',
-        :'beneficiaire' => :'beneficiaire'
+        :'comment' => :'comment',
+        :'current_user_id' => :'current_user_id',
+        :'supplementary_attachments' => :'supplementary_attachments',
+        :'payee' => :'payee'
       }
     end
 
@@ -105,32 +105,32 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'numero_facture' => :'String',
-        :'date_echeance_paiement' => :'String',
-        :'date_facture' => :'String',
-        :'mode_depot' => :'ModeDepot',
-        :'destinataire' => :'Destinataire',
-        :'fournisseur' => :'Fournisseur',
-        :'cadre_de_facturation' => :'CadreDeFacturation',
-        :'references' => :'References',
-        :'montant_total' => :'MontantTotal',
-        :'lignes_de_poste' => :'Array<LigneDePoste>',
-        :'lignes_de_tva' => :'Array<LigneDeTVA>',
-        :'notes' => :'Array<Note>',
-        :'commentaire' => :'String',
-        :'id_utilisateur_courant' => :'Integer',
-        :'pieces_jointes_complementaires' => :'Array<PieceJointeComplementaire>',
-        :'beneficiaire' => :'Beneficiaire'
+        :'invoice_number' => :'String',
+        :'payment_due_date' => :'String',
+        :'invoice_date' => :'String',
+        :'submission_mode' => :'SubmissionMode',
+        :'recipient' => :'Recipient',
+        :'supplier' => :'Supplier',
+        :'invoicing_framework' => :'InvoicingFramework',
+        :'references' => :'InvoiceReferences',
+        :'totals' => :'InvoiceTotals',
+        :'invoice_lines' => :'Array<InvoiceLine>',
+        :'vat_lines' => :'Array<VATLine>',
+        :'notes' => :'Array<InvoiceNote>',
+        :'comment' => :'String',
+        :'current_user_id' => :'Integer',
+        :'supplementary_attachments' => :'Array<SupplementaryAttachment>',
+        :'payee' => :'Payee'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'commentaire',
-        :'id_utilisateur_courant',
-        :'pieces_jointes_complementaires',
-        :'beneficiaire'
+        :'comment',
+        :'current_user_id',
+        :'supplementary_attachments',
+        :'payee'
       ])
     end
 
@@ -150,44 +150,44 @@ module FactPulse
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'numero_facture')
-        self.numero_facture = attributes[:'numero_facture']
+      if attributes.key?(:'invoice_number')
+        self.invoice_number = attributes[:'invoice_number']
       else
-        self.numero_facture = nil
+        self.invoice_number = nil
       end
 
-      if attributes.key?(:'date_echeance_paiement')
-        self.date_echeance_paiement = attributes[:'date_echeance_paiement']
+      if attributes.key?(:'payment_due_date')
+        self.payment_due_date = attributes[:'payment_due_date']
       else
-        self.date_echeance_paiement = nil
+        self.payment_due_date = nil
       end
 
-      if attributes.key?(:'date_facture')
-        self.date_facture = attributes[:'date_facture']
+      if attributes.key?(:'invoice_date')
+        self.invoice_date = attributes[:'invoice_date']
       end
 
-      if attributes.key?(:'mode_depot')
-        self.mode_depot = attributes[:'mode_depot']
+      if attributes.key?(:'submission_mode')
+        self.submission_mode = attributes[:'submission_mode']
       else
-        self.mode_depot = nil
+        self.submission_mode = nil
       end
 
-      if attributes.key?(:'destinataire')
-        self.destinataire = attributes[:'destinataire']
+      if attributes.key?(:'recipient')
+        self.recipient = attributes[:'recipient']
       else
-        self.destinataire = nil
+        self.recipient = nil
       end
 
-      if attributes.key?(:'fournisseur')
-        self.fournisseur = attributes[:'fournisseur']
+      if attributes.key?(:'supplier')
+        self.supplier = attributes[:'supplier']
       else
-        self.fournisseur = nil
+        self.supplier = nil
       end
 
-      if attributes.key?(:'cadre_de_facturation')
-        self.cadre_de_facturation = attributes[:'cadre_de_facturation']
+      if attributes.key?(:'invoicing_framework')
+        self.invoicing_framework = attributes[:'invoicing_framework']
       else
-        self.cadre_de_facturation = nil
+        self.invoicing_framework = nil
       end
 
       if attributes.key?(:'references')
@@ -196,21 +196,21 @@ module FactPulse
         self.references = nil
       end
 
-      if attributes.key?(:'montant_total')
-        self.montant_total = attributes[:'montant_total']
+      if attributes.key?(:'totals')
+        self.totals = attributes[:'totals']
       else
-        self.montant_total = nil
+        self.totals = nil
       end
 
-      if attributes.key?(:'lignes_de_poste')
-        if (value = attributes[:'lignes_de_poste']).is_a?(Array)
-          self.lignes_de_poste = value
+      if attributes.key?(:'invoice_lines')
+        if (value = attributes[:'invoice_lines']).is_a?(Array)
+          self.invoice_lines = value
         end
       end
 
-      if attributes.key?(:'lignes_de_tva')
-        if (value = attributes[:'lignes_de_tva']).is_a?(Array)
-          self.lignes_de_tva = value
+      if attributes.key?(:'vat_lines')
+        if (value = attributes[:'vat_lines']).is_a?(Array)
+          self.vat_lines = value
         end
       end
 
@@ -220,22 +220,22 @@ module FactPulse
         end
       end
 
-      if attributes.key?(:'commentaire')
-        self.commentaire = attributes[:'commentaire']
+      if attributes.key?(:'comment')
+        self.comment = attributes[:'comment']
       end
 
-      if attributes.key?(:'id_utilisateur_courant')
-        self.id_utilisateur_courant = attributes[:'id_utilisateur_courant']
+      if attributes.key?(:'current_user_id')
+        self.current_user_id = attributes[:'current_user_id']
       end
 
-      if attributes.key?(:'pieces_jointes_complementaires')
-        if (value = attributes[:'pieces_jointes_complementaires']).is_a?(Array)
-          self.pieces_jointes_complementaires = value
+      if attributes.key?(:'supplementary_attachments')
+        if (value = attributes[:'supplementary_attachments']).is_a?(Array)
+          self.supplementary_attachments = value
         end
       end
 
-      if attributes.key?(:'beneficiaire')
-        self.beneficiaire = attributes[:'beneficiaire']
+      if attributes.key?(:'payee')
+        self.payee = attributes[:'payee']
       end
     end
 
@@ -244,36 +244,36 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @numero_facture.nil?
-        invalid_properties.push('invalid value for "numero_facture", numero_facture cannot be nil.')
+      if @invoice_number.nil?
+        invalid_properties.push('invalid value for "invoice_number", invoice_number cannot be nil.')
       end
 
-      if @date_echeance_paiement.nil?
-        invalid_properties.push('invalid value for "date_echeance_paiement", date_echeance_paiement cannot be nil.')
+      if @payment_due_date.nil?
+        invalid_properties.push('invalid value for "payment_due_date", payment_due_date cannot be nil.')
       end
 
-      if @mode_depot.nil?
-        invalid_properties.push('invalid value for "mode_depot", mode_depot cannot be nil.')
+      if @submission_mode.nil?
+        invalid_properties.push('invalid value for "submission_mode", submission_mode cannot be nil.')
       end
 
-      if @destinataire.nil?
-        invalid_properties.push('invalid value for "destinataire", destinataire cannot be nil.')
+      if @recipient.nil?
+        invalid_properties.push('invalid value for "recipient", recipient cannot be nil.')
       end
 
-      if @fournisseur.nil?
-        invalid_properties.push('invalid value for "fournisseur", fournisseur cannot be nil.')
+      if @supplier.nil?
+        invalid_properties.push('invalid value for "supplier", supplier cannot be nil.')
       end
 
-      if @cadre_de_facturation.nil?
-        invalid_properties.push('invalid value for "cadre_de_facturation", cadre_de_facturation cannot be nil.')
+      if @invoicing_framework.nil?
+        invalid_properties.push('invalid value for "invoicing_framework", invoicing_framework cannot be nil.')
       end
 
       if @references.nil?
         invalid_properties.push('invalid value for "references", references cannot be nil.')
       end
 
-      if @montant_total.nil?
-        invalid_properties.push('invalid value for "montant_total", montant_total cannot be nil.')
+      if @totals.nil?
+        invalid_properties.push('invalid value for "totals", totals cannot be nil.')
       end
 
       invalid_properties
@@ -283,75 +283,75 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @numero_facture.nil?
-      return false if @date_echeance_paiement.nil?
-      return false if @mode_depot.nil?
-      return false if @destinataire.nil?
-      return false if @fournisseur.nil?
-      return false if @cadre_de_facturation.nil?
+      return false if @invoice_number.nil?
+      return false if @payment_due_date.nil?
+      return false if @submission_mode.nil?
+      return false if @recipient.nil?
+      return false if @supplier.nil?
+      return false if @invoicing_framework.nil?
       return false if @references.nil?
-      return false if @montant_total.nil?
+      return false if @totals.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] numero_facture Value to be assigned
-    def numero_facture=(numero_facture)
-      if numero_facture.nil?
-        fail ArgumentError, 'numero_facture cannot be nil'
+    # @param [Object] invoice_number Value to be assigned
+    def invoice_number=(invoice_number)
+      if invoice_number.nil?
+        fail ArgumentError, 'invoice_number cannot be nil'
       end
 
-      @numero_facture = numero_facture
+      @invoice_number = invoice_number
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] date_echeance_paiement Value to be assigned
-    def date_echeance_paiement=(date_echeance_paiement)
-      if date_echeance_paiement.nil?
-        fail ArgumentError, 'date_echeance_paiement cannot be nil'
+    # @param [Object] payment_due_date Value to be assigned
+    def payment_due_date=(payment_due_date)
+      if payment_due_date.nil?
+        fail ArgumentError, 'payment_due_date cannot be nil'
       end
 
-      @date_echeance_paiement = date_echeance_paiement
+      @payment_due_date = payment_due_date
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] mode_depot Value to be assigned
-    def mode_depot=(mode_depot)
-      if mode_depot.nil?
-        fail ArgumentError, 'mode_depot cannot be nil'
+    # @param [Object] submission_mode Value to be assigned
+    def submission_mode=(submission_mode)
+      if submission_mode.nil?
+        fail ArgumentError, 'submission_mode cannot be nil'
       end
 
-      @mode_depot = mode_depot
+      @submission_mode = submission_mode
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] destinataire Value to be assigned
-    def destinataire=(destinataire)
-      if destinataire.nil?
-        fail ArgumentError, 'destinataire cannot be nil'
+    # @param [Object] recipient Value to be assigned
+    def recipient=(recipient)
+      if recipient.nil?
+        fail ArgumentError, 'recipient cannot be nil'
       end
 
-      @destinataire = destinataire
+      @recipient = recipient
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] fournisseur Value to be assigned
-    def fournisseur=(fournisseur)
-      if fournisseur.nil?
-        fail ArgumentError, 'fournisseur cannot be nil'
+    # @param [Object] supplier Value to be assigned
+    def supplier=(supplier)
+      if supplier.nil?
+        fail ArgumentError, 'supplier cannot be nil'
       end
 
-      @fournisseur = fournisseur
+      @supplier = supplier
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] cadre_de_facturation Value to be assigned
-    def cadre_de_facturation=(cadre_de_facturation)
-      if cadre_de_facturation.nil?
-        fail ArgumentError, 'cadre_de_facturation cannot be nil'
+    # @param [Object] invoicing_framework Value to be assigned
+    def invoicing_framework=(invoicing_framework)
+      if invoicing_framework.nil?
+        fail ArgumentError, 'invoicing_framework cannot be nil'
       end
 
-      @cadre_de_facturation = cadre_de_facturation
+      @invoicing_framework = invoicing_framework
     end
 
     # Custom attribute writer method with validation
@@ -365,13 +365,13 @@ module FactPulse
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] montant_total Value to be assigned
-    def montant_total=(montant_total)
-      if montant_total.nil?
-        fail ArgumentError, 'montant_total cannot be nil'
+    # @param [Object] totals Value to be assigned
+    def totals=(totals)
+      if totals.nil?
+        fail ArgumentError, 'totals cannot be nil'
       end
 
-      @montant_total = montant_total
+      @totals = totals
     end
 
     # Checks equality by comparing each attribute.
@@ -379,22 +379,22 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          numero_facture == o.numero_facture &&
-          date_echeance_paiement == o.date_echeance_paiement &&
-          date_facture == o.date_facture &&
-          mode_depot == o.mode_depot &&
-          destinataire == o.destinataire &&
-          fournisseur == o.fournisseur &&
-          cadre_de_facturation == o.cadre_de_facturation &&
+          invoice_number == o.invoice_number &&
+          payment_due_date == o.payment_due_date &&
+          invoice_date == o.invoice_date &&
+          submission_mode == o.submission_mode &&
+          recipient == o.recipient &&
+          supplier == o.supplier &&
+          invoicing_framework == o.invoicing_framework &&
           references == o.references &&
-          montant_total == o.montant_total &&
-          lignes_de_poste == o.lignes_de_poste &&
-          lignes_de_tva == o.lignes_de_tva &&
+          totals == o.totals &&
+          invoice_lines == o.invoice_lines &&
+          vat_lines == o.vat_lines &&
           notes == o.notes &&
-          commentaire == o.commentaire &&
-          id_utilisateur_courant == o.id_utilisateur_courant &&
-          pieces_jointes_complementaires == o.pieces_jointes_complementaires &&
-          beneficiaire == o.beneficiaire
+          comment == o.comment &&
+          current_user_id == o.current_user_id &&
+          supplementary_attachments == o.supplementary_attachments &&
+          payee == o.payee
     end
 
     # @see the `==` method
@@ -406,7 +406,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [numero_facture, date_echeance_paiement, date_facture, mode_depot, destinataire, fournisseur, cadre_de_facturation, references, montant_total, lignes_de_poste, lignes_de_tva, notes, commentaire, id_utilisateur_courant, pieces_jointes_complementaires, beneficiaire].hash
+      [invoice_number, payment_due_date, invoice_date, submission_mode, recipient, supplier, invoicing_framework, references, totals, invoice_lines, vat_lines, notes, comment, current_user_id, supplementary_attachments, payee].hash
     end
 
     # Builds the object from hash

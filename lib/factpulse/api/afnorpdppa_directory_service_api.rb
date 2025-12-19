@@ -1,7 +1,7 @@
 =begin
-#API REST FactPulse
+#FactPulse REST API
 
-# API REST pour la facturation électronique en France : Factur-X, AFNOR PDP/PA, signatures électroniques.  ## 🎯 Fonctionnalités principales  ### 📄 Génération de factures Factur-X - **Formats** : XML seul ou PDF/A-3 avec XML embarqué - **Profils** : MINIMUM, BASIC, EN16931, EXTENDED - **Normes** : EN 16931 (directive UE 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Format simplifié** : Génération à partir de SIRET + auto-enrichissement (API Chorus Pro + Recherche Entreprises)  ### ✅ Validation et conformité - **Validation XML** : Schematron (45 à 210+ règles selon profil) - **Validation PDF** : PDF/A-3, métadonnées XMP Factur-X, signatures électroniques - **VeraPDF** : Validation stricte PDF/A (146+ règles ISO 19005-3) - **Traitement asynchrone** : Support Celery pour validations lourdes (VeraPDF)  ### 📡 Intégration AFNOR PDP/PA (XP Z12-013) - **Soumission de flux** : Envoi de factures vers Plateformes de Dématérialisation Partenaires - **Recherche de flux** : Consultation des factures soumises - **Téléchargement** : Récupération des PDF/A-3 avec XML - **Directory Service** : Recherche d'entreprises (SIREN/SIRET) - **Multi-client** : Support de plusieurs configs PDP par utilisateur (stored credentials ou zero-storage)  ### ✍️ Signature électronique PDF - **Standards** : PAdES-B-B, PAdES-B-T (horodatage RFC 3161), PAdES-B-LT (archivage long terme) - **Niveaux eIDAS** : SES (auto-signé), AdES (CA commerciale), QES (PSCO) - **Validation** : Vérification intégrité cryptographique et certificats - **Génération de certificats** : Certificats X.509 auto-signés pour tests  ### 🔄 Traitement asynchrone - **Celery** : Génération, validation et signature asynchrones - **Polling** : Suivi d'état via `/taches/{id_tache}/statut` - **Pas de timeout** : Idéal pour gros fichiers ou validations lourdes  ## 🔒 Authentification  Toutes les requêtes nécessitent un **token JWT** dans le header Authorization : ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### Comment obtenir un token JWT ?  #### 🔑 Méthode 1 : API `/api/token/` (Recommandée)  **URL :** `https://www.factpulse.fr/api/token/`  Cette méthode est **recommandée** pour l'intégration dans vos applications et workflows CI/CD.  **Prérequis :** Avoir défini un mot de passe sur votre compte  **Pour les utilisateurs inscrits via email/password :** - Vous avez déjà un mot de passe, utilisez-le directement  **Pour les utilisateurs inscrits via OAuth (Google/GitHub) :** - Vous devez d'abord définir un mot de passe sur : https://www.factpulse.fr/accounts/password/set/ - Une fois le mot de passe créé, vous pourrez utiliser l'API  **Exemple de requête :** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\"   }' ```  **Paramètre optionnel `client_uid` :**  Pour sélectionner les credentials d'un client spécifique (PA/PDP, Chorus Pro, certificats de signature), ajoutez `client_uid` :  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"votre_email@example.com\",     \"password\": \"votre_mot_de_passe\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  Le `client_uid` sera inclus dans le JWT et permettra à l'API d'utiliser automatiquement : - Les credentials AFNOR/PDP configurés pour ce client - Les credentials Chorus Pro configurés pour ce client - Les certificats de signature électronique configurés pour ce client  **Réponse :** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Token d'accès (validité: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Token de rafraîchissement (validité: 7 jours) } ```  **Avantages :** - ✅ Automatisation complète (CI/CD, scripts) - ✅ Gestion programmatique des tokens - ✅ Support du refresh token pour renouveler automatiquement l'accès - ✅ Intégration facile dans n'importe quel langage/outil  #### 🖥️ Méthode 2 : Génération via Dashboard (Alternative)  **URL :** https://www.factpulse.fr/dashboard/  Cette méthode convient pour des tests rapides ou une utilisation occasionnelle via l'interface graphique.  **Fonctionnement :** - Connectez-vous au dashboard - Utilisez les boutons \"Generate Test Token\" ou \"Generate Production Token\" - Fonctionne pour **tous** les utilisateurs (OAuth et email/password), sans nécessiter de mot de passe  **Types de tokens :** - **Token Test** : Validité 24h, quota 1000 appels/jour (gratuit) - **Token Production** : Validité 7 jours, quota selon votre forfait  **Avantages :** - ✅ Rapide pour tester l'API - ✅ Aucun mot de passe requis - ✅ Interface visuelle simple  **Inconvénients :** - ❌ Nécessite une action manuelle - ❌ Pas de refresh token - ❌ Moins adapté pour l'automatisation  ### 📚 Documentation complète  Pour plus d'informations sur l'authentification et l'utilisation de l'API : https://www.factpulse.fr/documentation-api/     
+# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X Invoice Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Validation and Compliance - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata, electronic signatures - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules) - **Asynchronous Processing**: Celery support for heavy validations (VeraPDF)  ### 📡 AFNOR PDP/PA Integration (XP Z12-013) - **Flow Submission**: Send invoices to Partner Dematerialization Platforms - **Flow Search**: View submitted invoices - **Download**: Retrieve PDF/A-3 with XML - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user (stored credentials or zero-storage)  ### ✍️ PDF Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification - **Certificate Generation**: Self-signed X.509 certificates for testing  ### 🔄 Asynchronous Processing - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **No timeout**: Ideal for large files or heavy validations  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://www.factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://www.factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://www.factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://www.factpulse.fr/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://www.factpulse.fr/documentation-api/     
 
 The version of the OpenAPI document: 1.0.0
 
@@ -20,7 +20,7 @@ module FactPulse
       @api_client = api_client
     end
     # Creating a directory line
-    # Créer une ligne dans l'annuaire
+    # Create a line in the directory
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post(opts = {})
@@ -29,7 +29,7 @@ module FactPulse
     end
 
     # Creating a directory line
-    # Créer une ligne dans l&#39;annuaire
+    # Create a line in the directory
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post_with_http_info(opts = {})
@@ -77,7 +77,7 @@ module FactPulse
     end
 
     # Create a routing code
-    # Créer un code de routage dans l'annuaire
+    # Create a routing code in the directory
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post(opts = {})
@@ -86,7 +86,7 @@ module FactPulse
     end
 
     # Create a routing code
-    # Créer un code de routage dans l&#39;annuaire
+    # Create a routing code in the directory
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post_with_http_info(opts = {})
@@ -134,7 +134,7 @@ module FactPulse
     end
 
     # Delete a directory line
-    # Supprimer une ligne d'annuaire
+    # Delete a directory line
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -144,7 +144,7 @@ module FactPulse
     end
 
     # Delete a directory line
-    # Supprimer une ligne d&#39;annuaire
+    # Delete a directory line
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -197,7 +197,7 @@ module FactPulse
     end
 
     # Healthcheck Directory Service
-    # Vérifier la disponibilité du Directory Service
+    # Check Directory Service availability
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def directory_healthcheck_proxy_api_v1_afnor_directory_v1_healthcheck_get(opts = {})
@@ -206,7 +206,7 @@ module FactPulse
     end
 
     # Healthcheck Directory Service
-    # Vérifier la disponibilité du Directory Service
+    # Check Directory Service availability
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def directory_healthcheck_proxy_api_v1_afnor_directory_v1_healthcheck_get_with_http_info(opts = {})
@@ -254,7 +254,7 @@ module FactPulse
     end
 
     # Get a directory line
-    # Obtenir une ligne d'annuaire identifiée par un identifiant d'adressage
+    # Get a directory line identified by an addressing identifier
     # @param addressing_identifier [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -264,7 +264,7 @@ module FactPulse
     end
 
     # Get a directory line
-    # Obtenir une ligne d&#39;annuaire identifiée par un identifiant d&#39;adressage
+    # Get a directory line identified by an addressing identifier
     # @param addressing_identifier [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -317,7 +317,7 @@ module FactPulse
     end
 
     # Get a directory line
-    # Obtenir une ligne d'annuaire identifiée par son idInstance
+    # Get a directory line identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -327,7 +327,7 @@ module FactPulse
     end
 
     # Get a directory line
-    # Obtenir une ligne d&#39;annuaire identifiée par son idInstance
+    # Get a directory line identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -380,7 +380,7 @@ module FactPulse
     end
 
     # Get a routing code by instance-id
-    # Obtenir un code de routage identifié par son idInstance
+    # Get a routing code identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -390,7 +390,7 @@ module FactPulse
     end
 
     # Get a routing code by instance-id
-    # Obtenir un code de routage identifié par son idInstance
+    # Get a routing code identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -443,7 +443,7 @@ module FactPulse
     end
 
     # Get a routing code by SIRET and routing identifier
-    # Consulter un code de routage identifié par SIRET et identifiant de routage
+    # Consult a routing code identified by SIRET and routing identifier
     # @param siret [String] 
     # @param routing_identifier [String] 
     # @param [Hash] opts the optional parameters
@@ -454,7 +454,7 @@ module FactPulse
     end
 
     # Get a routing code by SIRET and routing identifier
-    # Consulter un code de routage identifié par SIRET et identifiant de routage
+    # Consult a routing code identified by SIRET and routing identifier
     # @param siret [String] 
     # @param routing_identifier [String] 
     # @param [Hash] opts the optional parameters
@@ -512,7 +512,7 @@ module FactPulse
     end
 
     # Consult a siren (legal unit) by SIREN number
-    # Retourne les détails d'une entreprise (unité légale) identifiée par son numéro SIREN
+    # Returns details of a company (legal unit) identified by its SIREN number
     # @param siren [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -522,7 +522,7 @@ module FactPulse
     end
 
     # Consult a siren (legal unit) by SIREN number
-    # Retourne les détails d&#39;une entreprise (unité légale) identifiée par son numéro SIREN
+    # Returns details of a company (legal unit) identified by its SIREN number
     # @param siren [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -575,7 +575,7 @@ module FactPulse
     end
 
     # Gets a siren (legal unit) by instance ID
-    # Obtenir une entreprise (unité légale) identifiée par son idInstance
+    # Get a company (legal unit) identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -585,7 +585,7 @@ module FactPulse
     end
 
     # Gets a siren (legal unit) by instance ID
-    # Obtenir une entreprise (unité légale) identifiée par son idInstance
+    # Get a company (legal unit) identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -638,7 +638,7 @@ module FactPulse
     end
 
     # Gets a siret (facility) by SIRET number
-    # Obtenir un établissement identifié par son numéro SIRET
+    # Get an establishment identified by its SIRET number
     # @param siret [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -648,7 +648,7 @@ module FactPulse
     end
 
     # Gets a siret (facility) by SIRET number
-    # Obtenir un établissement identifié par son numéro SIRET
+    # Get an establishment identified by its SIRET number
     # @param siret [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -701,7 +701,7 @@ module FactPulse
     end
 
     # Gets a siret (facility) by id-instance
-    # Obtenir un établissement identifié par son idInstance
+    # Get an establishment identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -711,7 +711,7 @@ module FactPulse
     end
 
     # Gets a siret (facility) by id-instance
-    # Obtenir un établissement identifié par son idInstance
+    # Get an establishment identified by its idInstance
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -764,7 +764,7 @@ module FactPulse
     end
 
     # Partially updates a directory line
-    # Mettre à jour partiellement une ligne d'annuaire
+    # Partially update a directory line
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -774,7 +774,7 @@ module FactPulse
     end
 
     # Partially updates a directory line
-    # Mettre à jour partiellement une ligne d&#39;annuaire
+    # Partially update a directory line
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -827,7 +827,7 @@ module FactPulse
     end
 
     # Partially update a private routing code
-    # Mettre à jour partiellement un code de routage privé
+    # Partially update a private routing code
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -837,7 +837,7 @@ module FactPulse
     end
 
     # Partially update a private routing code
-    # Mettre à jour partiellement un code de routage privé
+    # Partially update a private routing code
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -890,7 +890,7 @@ module FactPulse
     end
 
     # Completely update a private routing code
-    # Mettre à jour complètement un code de routage privé
+    # Completely update a private routing code
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -900,7 +900,7 @@ module FactPulse
     end
 
     # Completely update a private routing code
-    # Mettre à jour complètement un code de routage privé
+    # Completely update a private routing code
     # @param id_instance [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
@@ -953,7 +953,7 @@ module FactPulse
     end
 
     # Search for a directory line
-    # Rechercher des lignes d'annuaire selon des critères
+    # Search for directory lines by criteria
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post(opts = {})
@@ -962,7 +962,7 @@ module FactPulse
     end
 
     # Search for a directory line
-    # Rechercher des lignes d&#39;annuaire selon des critères
+    # Search for directory lines by criteria
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post_with_http_info(opts = {})
@@ -1010,7 +1010,7 @@ module FactPulse
     end
 
     # Search for a routing code
-    # Rechercher des codes de routage selon des critères
+    # Search for routing codes by criteria
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post(opts = {})
@@ -1019,7 +1019,7 @@ module FactPulse
     end
 
     # Search for a routing code
-    # Rechercher des codes de routage selon des critères
+    # Search for routing codes by criteria
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post_with_http_info(opts = {})
@@ -1067,7 +1067,7 @@ module FactPulse
     end
 
     # SIREN search (or legal unit)
-    # Recherche multi-critères d'entreprises (unités légales)
+    # Multi-criteria search for companies (legal units)
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post(opts = {})
@@ -1076,7 +1076,7 @@ module FactPulse
     end
 
     # SIREN search (or legal unit)
-    # Recherche multi-critères d&#39;entreprises (unités légales)
+    # Multi-criteria search for companies (legal units)
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post_with_http_info(opts = {})
@@ -1124,7 +1124,7 @@ module FactPulse
     end
 
     # Search for a SIRET (facility)
-    # Recherche multi-critères d'établissements
+    # Multi-criteria search for establishments
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post(opts = {})
@@ -1133,7 +1133,7 @@ module FactPulse
     end
 
     # Search for a SIRET (facility)
-    # Recherche multi-critères d&#39;établissements
+    # Multi-criteria search for establishments
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post_with_http_info(opts = {})

@@ -4,22 +4,22 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **numero_facture** | **String** |  |  |
-| **date_echeance_paiement** | **String** |  |  |
-| **date_facture** | **String** |  | [optional] |
-| **mode_depot** | [**ModeDepot**](ModeDepot.md) |  |  |
-| **destinataire** | [**Destinataire**](Destinataire.md) |  |  |
-| **fournisseur** | [**Fournisseur**](Fournisseur.md) |  |  |
-| **cadre_de_facturation** | [**CadreDeFacturation**](CadreDeFacturation.md) |  |  |
-| **references** | [**References**](References.md) |  |  |
-| **montant_total** | [**MontantTotal**](MontantTotal.md) |  |  |
-| **lignes_de_poste** | [**Array&lt;LigneDePoste&gt;**](LigneDePoste.md) |  | [optional] |
-| **lignes_de_tva** | [**Array&lt;LigneDeTVA&gt;**](LigneDeTVA.md) |  | [optional] |
-| **notes** | [**Array&lt;Note&gt;**](Note.md) |  | [optional] |
-| **commentaire** | **String** |  | [optional] |
-| **id_utilisateur_courant** | **Integer** |  | [optional] |
-| **pieces_jointes_complementaires** | [**Array&lt;PieceJointeComplementaire&gt;**](PieceJointeComplementaire.md) |  | [optional] |
-| **beneficiaire** | [**Beneficiaire**](Beneficiaire.md) |  | [optional] |
+| **invoice_number** | **String** |  |  |
+| **payment_due_date** | **String** |  |  |
+| **invoice_date** | **String** |  | [optional] |
+| **submission_mode** | [**SubmissionMode**](SubmissionMode.md) |  |  |
+| **recipient** | [**Recipient**](Recipient.md) |  |  |
+| **supplier** | [**Supplier**](Supplier.md) |  |  |
+| **invoicing_framework** | [**InvoicingFramework**](InvoicingFramework.md) |  |  |
+| **references** | [**InvoiceReferences**](InvoiceReferences.md) |  |  |
+| **totals** | [**InvoiceTotals**](InvoiceTotals.md) |  |  |
+| **invoice_lines** | [**Array&lt;InvoiceLine&gt;**](InvoiceLine.md) |  | [optional] |
+| **vat_lines** | [**Array&lt;VATLine&gt;**](VATLine.md) |  | [optional] |
+| **notes** | [**Array&lt;InvoiceNote&gt;**](InvoiceNote.md) |  | [optional] |
+| **comment** | **String** |  | [optional] |
+| **current_user_id** | **Integer** |  | [optional] |
+| **supplementary_attachments** | [**Array&lt;SupplementaryAttachment&gt;**](SupplementaryAttachment.md) |  | [optional] |
+| **payee** | [**Payee**](Payee.md) |  | [optional] |
 
 ## Example
 
@@ -27,22 +27,22 @@
 require 'factpulse'
 
 instance = FactPulse::FactureFacturX.new(
-  numero_facture: null,
-  date_echeance_paiement: null,
-  date_facture: null,
-  mode_depot: null,
-  destinataire: null,
-  fournisseur: null,
-  cadre_de_facturation: null,
+  invoice_number: null,
+  payment_due_date: null,
+  invoice_date: null,
+  submission_mode: null,
+  recipient: null,
+  supplier: null,
+  invoicing_framework: null,
   references: null,
-  montant_total: null,
-  lignes_de_poste: null,
-  lignes_de_tva: null,
+  totals: null,
+  invoice_lines: null,
+  vat_lines: null,
   notes: null,
-  commentaire: null,
-  id_utilisateur_courant: null,
-  pieces_jointes_complementaires: null,
-  beneficiaire: null
+  comment: null,
+  current_user_id: null,
+  supplementary_attachments: null,
+  payee: null
 )
 ```
 

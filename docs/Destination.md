@@ -14,8 +14,8 @@ require 'factpulse'
 FactPulse::Destination.openapi_one_of
 # =>
 # [
-#   :'DestinationAFNOR',
-#   :'DestinationChorusPro'
+#   :'AFNORDestination',
+#   :'ChorusProDestination'
 # ]
 ```
 
@@ -44,8 +44,8 @@ require 'factpulse'
 FactPulse::Destination.openapi_discriminator_mapping
 # =>
 # {
-#   :'afnor' => :'DestinationAFNOR',
-#   :'chorus_pro' => :'DestinationChorusPro'
+#   :'afnor' => :'AFNORDestination',
+#   :'chorus_pro' => :'ChorusProDestination'
 # }
 ```
 
@@ -59,7 +59,7 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 require 'factpulse'
 
 FactPulse::Destination.build(data)
-# => #<DestinationAFNOR:0x00007fdd4aab02a0>
+# => #<AFNORDestination:0x00007fdd4aab02a0>
 
 FactPulse::Destination.build(data_that_doesnt_match)
 # => nil
@@ -73,7 +73,7 @@ FactPulse::Destination.build(data_that_doesnt_match)
 
 #### Return type
 
-- `DestinationAFNOR`
-- `DestinationChorusPro`
+- `AFNORDestination`
+- `ChorusProDestination`
 - `nil` (if no type matches)
 

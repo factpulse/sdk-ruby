@@ -4,19 +4,19 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get**](AFNORPDPPAFlowServiceApi.md#download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get) | **GET** /api/v1/afnor/flow/v1/flows/{flowId} | Télécharger un flux |
+| [**download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get**](AFNORPDPPAFlowServiceApi.md#download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get) | **GET** /api/v1/afnor/flow/v1/flows/{flowId} | Download a flow |
 | [**flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get**](AFNORPDPPAFlowServiceApi.md#flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get) | **GET** /api/v1/afnor/flow/v1/healthcheck | Healthcheck Flow Service |
-| [**search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post**](AFNORPDPPAFlowServiceApi.md#search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post) | **POST** /api/v1/afnor/flow/v1/flows/search | Rechercher des flux |
-| [**submit_flow_proxy_api_v1_afnor_flow_v1_flows_post**](AFNORPDPPAFlowServiceApi.md#submit_flow_proxy_api_v1_afnor_flow_v1_flows_post) | **POST** /api/v1/afnor/flow/v1/flows | Soumettre un flux de facturation |
+| [**search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post**](AFNORPDPPAFlowServiceApi.md#search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post) | **POST** /api/v1/afnor/flow/v1/flows/search | Search flows |
+| [**submit_flow_proxy_api_v1_afnor_flow_v1_flows_post**](AFNORPDPPAFlowServiceApi.md#submit_flow_proxy_api_v1_afnor_flow_v1_flows_post) | **POST** /api/v1/afnor/flow/v1/flows | Submit an invoicing flow |
 
 
 ## download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get
 
 > Object download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get(flow_id)
 
-Télécharger un flux
+Download a flow
 
-Télécharger le fichier PDF/A-3 d'un flux de facturation (utilise le client_uid du JWT)
+Download the PDF/A-3 file of an invoicing flow (uses JWT client_uid)
 
 ### Examples
 
@@ -28,7 +28,7 @@ api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
 flow_id = 'flow_id_example' # String | 
 
 begin
-  # Télécharger un flux
+  # Download a flow
   result = api_instance.download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get(flow_id)
   p result
 rescue FactPulse::ApiError => e
@@ -44,7 +44,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Télécharger un flux
+  # Download a flow
   data, status_code, headers = api_instance.download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get_with_http_info(flow_id)
   p status_code # => 2xx
   p headers # => { ... }
@@ -80,7 +80,7 @@ No authorization required
 
 Healthcheck Flow Service
 
-Vérifier la disponibilité du Flow Service
+Check Flow Service availability
 
 ### Examples
 
@@ -139,9 +139,9 @@ No authorization required
 
 > Object search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post
 
-Rechercher des flux
+Search flows
 
-Rechercher des flux de facturation selon des critères (utilise le client_uid du JWT)
+Search invoicing flows by criteria (uses JWT client_uid)
 
 ### Examples
 
@@ -152,7 +152,7 @@ require 'factpulse'
 api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
 
 begin
-  # Rechercher des flux
+  # Search flows
   result = api_instance.search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post
   p result
 rescue FactPulse::ApiError => e
@@ -168,7 +168,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Rechercher des flux
+  # Search flows
   data, status_code, headers = api_instance.search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -200,9 +200,9 @@ No authorization required
 
 > Object submit_flow_proxy_api_v1_afnor_flow_v1_flows_post
 
-Soumettre un flux de facturation
+Submit an invoicing flow
 
-Soumet une facture électronique à une Plateforme de Dématérialisation Partenaire (PDP) conformément à la norme AFNOR XP Z12-013
+Submits an electronic invoice to a Partner Dematerialization Platform (PDP) in compliance with the AFNOR XP Z12-013 standard
 
 ### Examples
 
@@ -213,7 +213,7 @@ require 'factpulse'
 api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
 
 begin
-  # Soumettre un flux de facturation
+  # Submit an invoicing flow
   result = api_instance.submit_flow_proxy_api_v1_afnor_flow_v1_flows_post
   p result
 rescue FactPulse::ApiError => e
@@ -229,7 +229,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Soumettre un flux de facturation
+  # Submit an invoicing flow
   data, status_code, headers = api_instance.submit_flow_proxy_api_v1_afnor_flow_v1_flows_post_with_http_info
   p status_code # => 2xx
   p headers # => { ... }

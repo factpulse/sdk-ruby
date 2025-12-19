@@ -4,18 +4,18 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**get_afnor_credentials_api_v1_afnor_credentials_get**](AFNORPDPPAApi.md#get_afnor_credentials_api_v1_afnor_credentials_get) | **GET** /api/v1/afnor/credentials | Récupérer les credentials AFNOR stockés |
-| [**get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get**](AFNORPDPPAApi.md#get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get) | **GET** /api/v1/afnor/flux-entrants/{flow_id} | Récupérer et extraire une facture entrante |
-| [**oauth_token_proxy_api_v1_afnor_oauth_token_post**](AFNORPDPPAApi.md#oauth_token_proxy_api_v1_afnor_oauth_token_post) | **POST** /api/v1/afnor/oauth/token | Endpoint OAuth2 pour authentification AFNOR |
+| [**get_afnor_credentials_api_v1_afnor_credentials_get**](AFNORPDPPAApi.md#get_afnor_credentials_api_v1_afnor_credentials_get) | **GET** /api/v1/afnor/credentials | Retrieve stored AFNOR credentials |
+| [**get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get**](AFNORPDPPAApi.md#get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get) | **GET** /api/v1/afnor/incoming-flows/{flow_id} | Retrieve and extract an incoming invoice |
+| [**oauth_token_proxy_api_v1_afnor_oauth_token_post**](AFNORPDPPAApi.md#oauth_token_proxy_api_v1_afnor_oauth_token_post) | **POST** /api/v1/afnor/oauth/token | OAuth2 endpoint for AFNOR authentication |
 
 
 ## get_afnor_credentials_api_v1_afnor_credentials_get
 
 > Object get_afnor_credentials_api_v1_afnor_credentials_get
 
-Récupérer les credentials AFNOR stockés
+Retrieve stored AFNOR credentials
 
-Récupère les credentials AFNOR/PDP stockés pour le client_uid du JWT. Cet endpoint est utilisé par le SDK en mode 'stored' pour récupérer les credentials avant de faire l'OAuth AFNOR lui-même.
+Retrieves stored AFNOR/PDP credentials for the JWT's client_uid. This endpoint is used by the SDK in 'stored' mode to retrieve credentials before performing AFNOR OAuth itself.
 
 ### Examples
 
@@ -31,7 +31,7 @@ end
 api_instance = FactPulse::AFNORPDPPAApi.new
 
 begin
-  # Récupérer les credentials AFNOR stockés
+  # Retrieve stored AFNOR credentials
   result = api_instance.get_afnor_credentials_api_v1_afnor_credentials_get
   p result
 rescue FactPulse::ApiError => e
@@ -47,7 +47,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Récupérer les credentials AFNOR stockés
+  # Retrieve stored AFNOR credentials
   data, status_code, headers = api_instance.get_afnor_credentials_api_v1_afnor_credentials_get_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -75,13 +75,13 @@ This endpoint does not need any parameter.
 - **Accept**: application/json
 
 
-## get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get
+## get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get
 
-> <FactureEntrante> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id, opts)
+> <IncomingInvoice> get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get(flow_id, opts)
 
-Récupérer et extraire une facture entrante
+Retrieve and extract an incoming invoice
 
-Télécharge un flux entrant depuis la PDP AFNOR et extrait les métadonnées de la facture vers un format JSON unifié. Supporte les formats Factur-X, CII et UBL.
+Downloads an incoming flow from the AFNOR PDP and extracts invoice metadata into a unified JSON format. Supports Factur-X, CII, and UBL formats.
 
 ### Examples
 
@@ -101,29 +101,29 @@ opts = {
 }
 
 begin
-  # Récupérer et extraire une facture entrante
-  result = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get(flow_id, opts)
+  # Retrieve and extract an incoming invoice
+  result = api_instance.get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get(flow_id, opts)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get: #{e}"
+  puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get: #{e}"
 end
 ```
 
-#### Using the get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info variant
+#### Using the get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info variant
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<FactureEntrante>, Integer, Hash)> get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts)
+> <Array(<IncomingInvoice>, Integer, Hash)> get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info(flow_id, opts)
 
 ```ruby
 begin
-  # Récupérer et extraire une facture entrante
-  data, status_code, headers = api_instance.get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info(flow_id, opts)
+  # Retrieve and extract an incoming invoice
+  data, status_code, headers = api_instance.get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info(flow_id, opts)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <FactureEntrante>
+  p data # => <IncomingInvoice>
 rescue FactPulse::ApiError => e
-  puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_flux_entrants_flow_id_get_with_http_info: #{e}"
+  puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info: #{e}"
 end
 ```
 
@@ -136,7 +136,7 @@ end
 
 ### Return type
 
-[**FactureEntrante**](FactureEntrante.md)
+[**IncomingInvoice**](IncomingInvoice.md)
 
 ### Authorization
 
@@ -152,9 +152,9 @@ end
 
 > Object oauth_token_proxy_api_v1_afnor_oauth_token_post
 
-Endpoint OAuth2 pour authentification AFNOR
+OAuth2 endpoint for AFNOR authentication
 
-Endpoint proxy OAuth2 pour obtenir un token d'accès AFNOR. Fait proxy vers le mock AFNOR (sandbox) ou la vraie PDP selon MOCK_AFNOR_BASE_URL. Cet endpoint est public (pas d'auth Django requise) car il est appelé par le SDK AFNOR.
+OAuth2 proxy endpoint to obtain an AFNOR access token. Proxies to AFNOR mock (sandbox) or real PDP depending on MOCK_AFNOR_BASE_URL. This endpoint is public (no Django auth required) as it is called by the AFNOR SDK.
 
 ### Examples
 
@@ -165,7 +165,7 @@ require 'factpulse'
 api_instance = FactPulse::AFNORPDPPAApi.new
 
 begin
-  # Endpoint OAuth2 pour authentification AFNOR
+  # OAuth2 endpoint for AFNOR authentication
   result = api_instance.oauth_token_proxy_api_v1_afnor_oauth_token_post
   p result
 rescue FactPulse::ApiError => e
@@ -181,7 +181,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Endpoint OAuth2 pour authentification AFNOR
+  # OAuth2 endpoint for AFNOR authentication
   data, status_code, headers = api_instance.oauth_token_proxy_api_v1_afnor_oauth_token_post_with_http_info
   p status_code # => 2xx
   p headers # => { ... }

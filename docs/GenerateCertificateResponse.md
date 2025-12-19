@@ -4,12 +4,12 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **status** | **String** | Statut de l&#39;opération | [optional][default to &#39;success&#39;] |
-| **certificat_pem** | **String** | Certificat X.509 au format PEM |  |
-| **cle_privee_pem** | **String** | Clé privée RSA au format PEM |  |
+| **status** | **String** | Operation status | [optional][default to &#39;success&#39;] |
+| **certificate_pem** | **String** | X.509 certificate in PEM format |  |
+| **private_key_pem** | **String** | RSA private key in PEM format |  |
 | **pkcs12_base64** | **String** |  | [optional] |
-| **info** | [**CertificateInfoResponse**](CertificateInfoResponse.md) | Informations sur le certificat généré |  |
-| **avertissement** | **String** | Avertissement sur l&#39;utilisation du certificat | [optional][default to &#39;⚠️ Ce certificat est AUTO-SIGNÉ et destiné uniquement aux TESTS. Ne PAS utiliser en production. Niveau eIDAS : SES (Simple Electronic Signature)&#39;] |
+| **info** | [**CertificateInfoResponse**](CertificateInfoResponse.md) | Generated certificate information |  |
+| **warning** | **String** | Warning about certificate usage | [optional][default to &#39;WARNING: This certificate is SELF-SIGNED and intended for TESTING only. DO NOT use in production. eIDAS level: SES (Simple Electronic Signature)&#39;] |
 
 ## Example
 
@@ -18,15 +18,15 @@ require 'factpulse'
 
 instance = FactPulse::GenerateCertificateResponse.new(
   status: success,
-  certificat_pem: -----BEGIN CERTIFICATE-----
+  certificate_pem: -----BEGIN CERTIFICATE-----
 MIID...
 -----END CERTIFICATE-----,
-  cle_privee_pem: -----BEGIN PRIVATE KEY-----
+  private_key_pem: -----BEGIN PRIVATE KEY-----
 MIIE...
 -----END PRIVATE KEY-----,
   pkcs12_base64: null,
   info: null,
-  avertissement: null
+  warning: null
 )
 ```
 

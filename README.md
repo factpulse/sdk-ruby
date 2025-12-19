@@ -1,14 +1,14 @@
 # FactPulse SDK Ruby
 
-Client Ruby officiel pour l'API FactPulse - Facturation électronique française.
+Official Ruby client for the FactPulse API - French electronic invoicing.
 
-## Fonctionnalités
+## Features
 
-- **Factur-X** : Génération et validation de factures électroniques (profils MINIMUM, BASIC, EN16931, EXTENDED)
-- **Chorus Pro** : Intégration avec la plateforme de facturation publique française
-- **AFNOR PDP/PA** : Soumission de flux conformes à la norme XP Z12-013
-- **Signature électronique** : Signature PDF (PAdES-B-B, PAdES-B-T, PAdES-B-LT)
-- **Client simplifié** : Authentification JWT et polling intégrés via `helpers`
+- **Factur-X**: Generation and validation of electronic invoices (MINIMUM, BASIC, EN16931, EXTENDED profiles)
+- **Chorus Pro**: Integration with the French public sector invoicing platform
+- **AFNOR PDP/PA**: Submission of flows compliant with the XP Z12-013 standard
+- **Electronic signature**: PDF signature (PAdES-B-B, PAdES-B-T, PAdES-B-LT)
+- **Simplified client**: JWT authentication and integrated polling via `helpers`
 
 ## Installation
 
@@ -16,15 +16,15 @@ Client Ruby officiel pour l'API FactPulse - Facturation électronique française
 gem install factpulse
 ```
 
-Ou dans votre Gemfile :
+Or in your Gemfile:
 
 ```ruby
 gem 'factpulse'
 ```
 
-## Démarrage rapide
+## Quick Start
 
-Le module `helpers` offre une API simplifiée avec authentification et polling automatiques :
+The `helpers` module provides a simplified API with automatic authentication and polling:
 
 ```ruby
 require 'factpulse'
@@ -32,177 +32,177 @@ require 'factpulse/helpers'
 
 include Factpulse::Helpers
 
-# Créer le client
+# Create the client
 client = FactPulseClient.new(
-  'votre_email@example.com',
-  'votre_mot_de_passe'
+  'your_email@example.com',
+  'your_password'
 )
 
-# Construire la facture avec les helpers
-facture_data = {
-  numeroFacture: 'FAC-2025-001',
-  dateFacture: '2025-01-15',
-  fournisseur: fournisseur(
-    'Mon Entreprise SAS',
+# Build the invoice with helpers
+invoice_data = {
+  number: 'INV-2025-001',
+  date: '2025-01-15',
+  supplier: supplier(
+    'My Company SAS',
     '12345678901234',
-    '123 Rue Example',
+    '123 Example Street',
     '75001',
     'Paris'
   ),
-  destinataire: destinataire(
+  recipient: recipient(
     'Client SARL',
     '98765432109876',
-    '456 Avenue Test',
+    '456 Test Avenue',
     '69001',
     'Lyon'
   ),
-  montantTotal: montant_total(1000.00, 200.00, 1200.00, 1200.00),
-  lignesDePoste: [
-    ligne_de_poste(1, 'Prestation de conseil', 10, 100.00, 1000.00)
+  total_amount: total_amount(1000.00, 200.00, 1200.00, 1200.00),
+  lines: [
+    invoice_line(1, 'Consulting services', 10, 100.00, 1000.00)
   ],
-  lignesDeTva: [
-    ligne_de_tva(1000.00, 200.00)
+  vat_lines: [
+    vat_line(1000.00, 200.00)
   ]
 }
 
-# Générer le PDF Factur-X
-pdf_bytes = client.generer_facturx(facture_data, 'facture_source.pdf', 'EN16931')
+# Generate the Factur-X PDF
+pdf_bytes = client.generate_facturx(invoice_data, 'source_invoice.pdf', 'EN16931')
 
-File.binwrite('facture_facturx.pdf', pdf_bytes)
+File.binwrite('invoice_facturx.pdf', pdf_bytes)
 ```
 
-## Helpers disponibles (module Factpulse::Helpers)
+## Available Helpers (Factpulse::Helpers module)
 
-### montant(value)
+### amount(value)
 
-Convertit une valeur en string formaté pour les montants monétaires.
+Converts a value to a formatted string for monetary amounts.
 
 ```ruby
 include Factpulse::Helpers
 
-montant(1234.5)      # "1234.50"
-montant('1234.56')   # "1234.56"
-montant(nil)         # "0.00"
+amount(1234.5)      # "1234.50"
+amount('1234.56')   # "1234.56"
+amount(nil)         # "0.00"
 ```
 
-### montant_total(ht, tva, ttc, a_payer, ...)
+### total_amount(excluding_tax, vat, including_tax, due, ...)
 
-Crée un objet MontantTotal complet.
+Creates a complete TotalAmount object.
 
 ```ruby
-total = montant_total(
-  1000.00,        # ht
-  200.00,         # tva
-  1200.00,        # ttc
-  1200.00,        # a_payer
-  50.00,          # remise_ttc (optionnel)
-  'Fidélité',     # motif_remise (optionnel)
-  100.00          # acompte (optionnel)
+total = total_amount(
+  1000.00,                  # excluding_tax
+  200.00,                   # vat
+  1200.00,                  # including_tax
+  1200.00,                  # due
+  50.00,                    # discount_including_tax (optional)
+  'Loyalty discount',       # discount_reason (optional)
+  100.00                    # prepayment (optional)
 )
 ```
 
-### ligne_de_poste(numero, denomination, quantite, montant_unitaire_ht, montant_total_ligne_ht, ...)
+### invoice_line(number, description, quantity, unit_price, line_total, ...)
 
-Crée une ligne de facturation.
+Creates an invoice line.
 
 ```ruby
-ligne = ligne_de_poste(
+line = invoice_line(
   1,
-  'Prestation de conseil',
+  'Consulting services',
   5,
   200.00,
-  1000.00,  # montant_total_ligne_ht requis
-  'S',      # categorie_tva: S, Z, E, AE, K
-  'HEURE',  # unite: FORFAIT, PIECE, HEURE, JOUR...
+  1000.00,  # line_total required
+  'S',      # vat_category: S, Z, E, AE, K
+  'HOUR',   # unit: FIXED, PIECE, HOUR, DAY...
   {
-    taux_tva: 'TVA20',        # Ou taux_tva_manuel: '20.00'
+    vat_rate: 'VAT20',        # Or manual_vat_rate: '20.00'
     reference: 'REF-001'
   }
 )
 ```
 
-### ligne_de_tva(montant_base_ht, montant_tva, ...)
+### vat_line(base_excluding_tax, vat_amount, ...)
 
-Crée une ligne de ventilation TVA.
+Creates a VAT breakdown line.
 
 ```ruby
-tva = ligne_de_tva(
-  1000.00,    # montant_base_ht
-  200.00,     # montant_tva
-  'S',        # categorie: S, Z, E, AE, K
-  { taux: 'TVA20' }  # Ou taux_manuel: '20.00'
+vat = vat_line(
+  1000.00,    # base_excluding_tax
+  200.00,     # vat_amount
+  'S',        # category: S, Z, E, AE, K
+  { rate: 'VAT20' }  # Or manual_rate: '20.00'
 )
 ```
 
-### adresse_postale(ligne1, code_postal, ville, ...)
+### postal_address(line1, postal_code, city, ...)
 
-Crée une adresse postale structurée.
+Creates a structured postal address.
 
 ```ruby
-adresse = adresse_postale(
-  '123 Rue de la République',
+address = postal_address(
+  '123 Republic Street',
   '75001',
   'Paris',
-  'FR',           # pays (défaut: 'FR')
-  'Bâtiment A'    # ligne2 (optionnel)
+  'FR',           # country (default: 'FR')
+  'Building A'    # line2 (optional)
 )
 ```
 
-### fournisseur(nom, siret, adresse_ligne1, code_postal, ville, options)
+### supplier(name, siret, address_line1, postal_code, city, options)
 
-Crée un fournisseur complet avec calcul automatique du SIREN et TVA intra.
+Creates a complete supplier with automatic calculation of SIREN and intra-community VAT.
 
 ```ruby
-f = fournisseur(
-  'Ma Société SAS',
+s = supplier(
+  'My Company SAS',
   '12345678901234',
-  '123 Rue Example',
+  '123 Example Street',
   '75001',
   'Paris',
   { iban: 'FR7630006000011234567890189' }
 )
-# SIREN et TVA intracommunautaire calculés automatiquement
+# SIREN and intra-community VAT automatically calculated
 ```
 
-### destinataire(nom, siret, adresse_ligne1, code_postal, ville, options)
+### recipient(name, siret, address_line1, postal_code, city, options)
 
-Crée un destinataire (client) avec calcul automatique du SIREN.
+Creates a recipient (customer) with automatic calculation of SIREN.
 
 ```ruby
-d = destinataire(
+r = recipient(
   'Client SARL',
   '98765432109876',
-  '456 Avenue Test',
+  '456 Test Avenue',
   '69001',
   'Lyon'
 )
 ```
 
-## Mode Zero-Trust (Chorus Pro / AFNOR)
+## Zero-Trust Mode (Chorus Pro / AFNOR)
 
-Pour passer vos propres credentials sans stockage côté serveur :
+To pass your own credentials without server-side storage:
 
 ```ruby
 include Factpulse::Helpers
 
 chorus_creds = ChorusProCredentials.new(
-  'votre_client_id',
-  'votre_client_secret',
-  'votre_login',
-  'votre_password',
+  'your_client_id',
+  'your_client_secret',
+  'your_login',
+  'your_password',
   true  # sandbox
 )
 
 afnor_creds = AFNORCredentials.new(
   'https://api.pdp.fr/flow/v1',
   'https://auth.pdp.fr/oauth/token',
-  'votre_client_id',
-  'votre_client_secret'
+  'your_client_id',
+  'your_client_secret'
 )
 
 client = FactPulseClient.new(
-  'votre_email@example.com',
-  'votre_mot_de_passe',
+  'your_email@example.com',
+  'your_password',
   nil,  # api_url
   nil,  # client_uid
   chorus_creds,
@@ -210,11 +210,11 @@ client = FactPulseClient.new(
 )
 ```
 
-## Ressources
+## Resources
 
-- **Documentation API** : https://factpulse.fr/api/facturation/documentation
-- **Support** : contact@factpulse.fr
+- **API Documentation**: https://factpulse.fr/api/facturation/documentation
+- **Support**: contact@factpulse.fr
 
-## Licence
+## License
 
 MIT License - Copyright (c) 2025 FactPulse
