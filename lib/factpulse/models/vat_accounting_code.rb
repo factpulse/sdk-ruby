@@ -19,13 +19,9 @@ module FactPulse
     TVA_SUR_ENCAISSEMENT = "TVA_SUR_ENCAISSEMENT".freeze
     EXONERATION = "EXONERATION".freeze
     SANS_TVA = "SANS_TVA".freeze
-    TVA_SUR_DEBIT2 = "TVA_SUR_DEBIT".freeze
-    TVA_SUR_ENCAISSEMENT2 = "TVA_SUR_ENCAISSEMENT".freeze
-    EXONERATION2 = "EXONERATION".freeze
-    SANS_TVA2 = "SANS_TVA".freeze
 
     def self.all_vars
-      @all_vars ||= [TVA_SUR_DEBIT, TVA_SUR_ENCAISSEMENT, EXONERATION, SANS_TVA, TVA_SUR_DEBIT2, TVA_SUR_ENCAISSEMENT2, EXONERATION2, SANS_TVA2].freeze
+      @all_vars ||= [TVA_SUR_DEBIT, TVA_SUR_ENCAISSEMENT, EXONERATION, SANS_TVA].freeze
     end
 
     # Builds the enum from string

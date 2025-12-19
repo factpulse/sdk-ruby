@@ -1,4 +1,4 @@
-# FactPulse::FactureFacturX
+# FactPulse::FacturXInvoice
 
 ## Properties
 
@@ -26,7 +26,7 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::FactureFacturX.new(
+instance = FactPulse::FacturXInvoice.new(
   invoice_number: null,
   payment_due_date: null,
   invoice_date: null,

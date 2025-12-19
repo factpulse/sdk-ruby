@@ -18,12 +18,9 @@ module FactPulse
     SAISIE_API = "SAISIE_API".freeze
     DEPOT_PDF_API = "DEPOT_PDF_API".freeze
     DEPOT_PDF_SIGNE_API = "DEPOT_PDF_SIGNE_API".freeze
-    SAISIE_API2 = "SAISIE_API".freeze
-    DEPOT_PDF_API2 = "DEPOT_PDF_API".freeze
-    DEPOT_PDF_SIGNE_API2 = "DEPOT_PDF_SIGNE_API".freeze
 
     def self.all_vars
-      @all_vars ||= [SAISIE_API, DEPOT_PDF_API, DEPOT_PDF_SIGNE_API, SAISIE_API2, DEPOT_PDF_API2, DEPOT_PDF_SIGNE_API2].freeze
+      @all_vars ||= [SAISIE_API, DEPOT_PDF_API, DEPOT_PDF_SIGNE_API].freeze
     end
 
     # Builds the enum from string

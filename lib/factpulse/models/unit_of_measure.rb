@@ -21,15 +21,9 @@ module FactPulse
     KILOGRAMME = "KILOGRAMME".freeze
     LITRE = "LITRE".freeze
     FORFAIT = "FORFAIT".freeze
-    PIECE2 = "PIECE".freeze
-    HEURE2 = "HEURE".freeze
-    JOUR2 = "JOUR".freeze
-    KILOGRAMME2 = "KILOGRAMME".freeze
-    LITRE2 = "LITRE".freeze
-    FORFAIT2 = "FORFAIT".freeze
 
     def self.all_vars
-      @all_vars ||= [PIECE, HEURE, JOUR, KILOGRAMME, LITRE, FORFAIT, PIECE2, HEURE2, JOUR2, KILOGRAMME2, LITRE2, FORFAIT2].freeze
+      @all_vars ||= [PIECE, HEURE, JOUR, KILOGRAMME, LITRE, FORFAIT].freeze
     end
 
     # Builds the enum from string
