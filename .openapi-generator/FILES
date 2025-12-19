@@ -19,6 +19,7 @@ docs/APIProfile.md
 docs/AcknowledgmentStatus.md
 docs/AllowanceReasonCode.md
 docs/AmountDue.md
+docs/AsyncTaskStatus.md
 docs/BoundingBoxSchema.md
 docs/CeleryStatus.md
 docs/CertificateInfoResponse.md
@@ -108,7 +109,6 @@ docs/SubmitVatAmount.md
 docs/SupplementaryAttachment.md
 docs/Supplier.md
 docs/TaskResponse.md
-docs/TaskStatus.md
 docs/TaxableAmount.md
 docs/TotalGrossAmount.md
 docs/TotalNetAmount.md
@@ -151,6 +151,7 @@ lib/factpulse/models/allowance_reason_code.rb
 lib/factpulse/models/amount_due.rb
 lib/factpulse/models/api_error.rb
 lib/factpulse/models/api_profile.rb
+lib/factpulse/models/async_task_status.rb
 lib/factpulse/models/bounding_box_schema.rb
 lib/factpulse/models/celery_status.rb
 lib/factpulse/models/certificate_info_response.rb
@@ -236,7 +237,6 @@ lib/factpulse/models/submit_vat_amount.rb
 lib/factpulse/models/supplementary_attachment.rb
 lib/factpulse/models/supplier.rb
 lib/factpulse/models/task_response.rb
-lib/factpulse/models/task_status.rb
 lib/factpulse/models/taxable_amount.rb
 lib/factpulse/models/total_gross_amount.rb
 lib/factpulse/models/total_net_amount.rb
@@ -272,6 +272,7 @@ spec/models/allowance_reason_code_spec.rb
 spec/models/amount_due_spec.rb
 spec/models/api_error_spec.rb
 spec/models/api_profile_spec.rb
+spec/models/async_task_status_spec.rb
 spec/models/bounding_box_schema_spec.rb
 spec/models/celery_status_spec.rb
 spec/models/certificate_info_response_spec.rb
@@ -357,7 +358,6 @@ spec/models/submit_vat_amount_spec.rb
 spec/models/supplementary_attachment_spec.rb
 spec/models/supplier_spec.rb
 spec/models/task_response_spec.rb
-spec/models/task_status_spec.rb
 spec/models/taxable_amount_spec.rb
 spec/models/total_gross_amount_spec.rb
 spec/models/total_net_amount_spec.rb

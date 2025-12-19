@@ -167,7 +167,7 @@ end
 
 ## get_task_status_api_v1_processing_tasks_task_id_status_get
 
-> <TaskStatus> get_task_status_api_v1_processing_tasks_task_id_status_get(task_id)
+> <AsyncTaskStatus> get_task_status_api_v1_processing_tasks_task_id_status_get(task_id)
 
 Get task generation status
 
@@ -200,7 +200,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TaskStatus>, Integer, Hash)> get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info(task_id)
+> <Array(<AsyncTaskStatus>, Integer, Hash)> get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info(task_id)
 
 ```ruby
 begin
@@ -208,7 +208,7 @@ begin
   data, status_code, headers = api_instance.get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info(task_id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <TaskStatus>
+  p data # => <AsyncTaskStatus>
 rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info: #{e}"
 end
@@ -222,7 +222,7 @@ end
 
 ### Return type
 
-[**TaskStatus**](TaskStatus.md)
+[**AsyncTaskStatus**](AsyncTaskStatus.md)
 
 ### Authorization
 

@@ -37,7 +37,7 @@ describe 'PDFXMLVerificationApi' do
   # Retrieves the status and result of an asynchronous verification task.  **Possible statuses:** - &#x60;PENDING&#x60;: Task waiting in queue - &#x60;STARTED&#x60;: Task currently running - &#x60;SUCCESS&#x60;: Task completed successfully (see &#x60;result&#x60;) - &#x60;FAILURE&#x60;: System error (unhandled exception)  **Note:** The &#x60;result.status&#x60; field can be \&quot;SUCCESS\&quot; or \&quot;ERROR\&quot; independently of Celery status (which will always be SUCCESS if the task ran).
   # @param task_id 
   # @param [Hash] opts the optional parameters
-  # @return [TaskStatus]
+  # @return [AsyncTaskStatus]
   describe 'get_verification_status_api_v1_verification_verify_async_task_id_status_get test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
@@ -49,7 +49,7 @@ describe 'PDFXMLVerificationApi' do
   # Retrieves the status and result of an asynchronous verification task.  **Possible statuses:** - &#x60;PENDING&#x60;: Task waiting in queue - &#x60;STARTED&#x60;: Task currently running - &#x60;SUCCESS&#x60;: Task completed successfully (see &#x60;result&#x60;) - &#x60;FAILURE&#x60;: System error (unhandled exception)  **Note:** The &#x60;result.status&#x60; field can be \&quot;SUCCESS\&quot; or \&quot;ERROR\&quot; independently of Celery status (which will always be SUCCESS if the task ran).
   # @param task_id 
   # @param [Hash] opts the optional parameters
-  # @return [TaskStatus]
+  # @return [AsyncTaskStatus]
   describe 'get_verification_status_api_v1_verification_verify_async_task_id_status_get_0 test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/

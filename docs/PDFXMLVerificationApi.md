@@ -14,7 +14,7 @@ All URIs are relative to *http://localhost*
 
 ## get_verification_status_api_v1_verification_verify_async_task_id_status_get
 
-> <TaskStatus> get_verification_status_api_v1_verification_verify_async_task_id_status_get(task_id)
+> <AsyncTaskStatus> get_verification_status_api_v1_verification_verify_async_task_id_status_get(task_id)
 
 Get status of an asynchronous verification
 
@@ -47,7 +47,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TaskStatus>, Integer, Hash)> get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info(task_id)
+> <Array(<AsyncTaskStatus>, Integer, Hash)> get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info(task_id)
 
 ```ruby
 begin
@@ -55,7 +55,7 @@ begin
   data, status_code, headers = api_instance.get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info(task_id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <TaskStatus>
+  p data # => <AsyncTaskStatus>
 rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info: #{e}"
 end
@@ -69,7 +69,7 @@ end
 
 ### Return type
 
-[**TaskStatus**](TaskStatus.md)
+[**AsyncTaskStatus**](AsyncTaskStatus.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ end
 
 ## get_verification_status_api_v1_verification_verify_async_task_id_status_get_0
 
-> <TaskStatus> get_verification_status_api_v1_verification_verify_async_task_id_status_get_0(task_id)
+> <AsyncTaskStatus> get_verification_status_api_v1_verification_verify_async_task_id_status_get_0(task_id)
 
 Get status of an asynchronous verification
 
@@ -116,7 +116,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<TaskStatus>, Integer, Hash)> get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info(task_id)
+> <Array(<AsyncTaskStatus>, Integer, Hash)> get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info(task_id)
 
 ```ruby
 begin
@@ -124,7 +124,7 @@ begin
   data, status_code, headers = api_instance.get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info(task_id)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <TaskStatus>
+  p data # => <AsyncTaskStatus>
 rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info: #{e}"
 end
@@ -138,7 +138,7 @@ end
 
 ### Return type
 
-[**TaskStatus**](TaskStatus.md)
+[**AsyncTaskStatus**](AsyncTaskStatus.md)
 
 ### Authorization
 

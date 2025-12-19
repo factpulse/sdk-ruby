@@ -172,7 +172,7 @@ module FactPulse
     # Retrieves the progress status of an invoice generation task.  ## Possible states  The `status` field uses the `CeleryStatus` enum with values: - **PENDING, STARTED, SUCCESS, FAILURE, RETRY**  See the `CeleryStatus` schema documentation for details.  ## Business result  When `status=\"SUCCESS\"`, the `result` field contains: - `status`: \"SUCCESS\" or \"ERROR\" (business result) - `content_b64`: Base64 encoded content (if success) - `errorCode`, `errorMessage`, `details`: AFNOR format (if business error)  ## Usage  Poll this endpoint every 2-3 seconds until `status` is `SUCCESS` or `FAILURE`.
     # @param task_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [TaskStatus]
+    # @return [AsyncTaskStatus]
     def get_task_status_api_v1_processing_tasks_task_id_status_get(task_id, opts = {})
       data, _status_code, _headers = get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info(task_id, opts)
       data
@@ -182,7 +182,7 @@ module FactPulse
     # Retrieves the progress status of an invoice generation task.  ## Possible states  The &#x60;status&#x60; field uses the &#x60;CeleryStatus&#x60; enum with values: - **PENDING, STARTED, SUCCESS, FAILURE, RETRY**  See the &#x60;CeleryStatus&#x60; schema documentation for details.  ## Business result  When &#x60;status&#x3D;\&quot;SUCCESS\&quot;&#x60;, the &#x60;result&#x60; field contains: - &#x60;status&#x60;: \&quot;SUCCESS\&quot; or \&quot;ERROR\&quot; (business result) - &#x60;content_b64&#x60;: Base64 encoded content (if success) - &#x60;errorCode&#x60;, &#x60;errorMessage&#x60;, &#x60;details&#x60;: AFNOR format (if business error)  ## Usage  Poll this endpoint every 2-3 seconds until &#x60;status&#x60; is &#x60;SUCCESS&#x60; or &#x60;FAILURE&#x60;.
     # @param task_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(TaskStatus, Integer, Hash)>] TaskStatus data, response status code and response headers
+    # @return [Array<(AsyncTaskStatus, Integer, Hash)>] AsyncTaskStatus data, response status code and response headers
     def get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info(task_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: InvoiceProcessingApi.get_task_status_api_v1_processing_tasks_task_id_status_get ...'
@@ -209,7 +209,7 @@ module FactPulse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'TaskStatus'
+      return_type = opts[:debug_return_type] || 'AsyncTaskStatus'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']

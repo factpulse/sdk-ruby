@@ -1,4 +1,4 @@
-# FactPulse::TaskStatus
+# FactPulse::AsyncTaskStatus
 
 ## Properties
 
@@ -13,7 +13,7 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::TaskStatus.new(
+instance = FactPulse::AsyncTaskStatus.new(
   task_id: null,
   status: null,
   result: null

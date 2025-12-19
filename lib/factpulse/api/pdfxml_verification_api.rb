@@ -23,7 +23,7 @@ module FactPulse
     # Retrieves the status and result of an asynchronous verification task.  **Possible statuses:** - `PENDING`: Task waiting in queue - `STARTED`: Task currently running - `SUCCESS`: Task completed successfully (see `result`) - `FAILURE`: System error (unhandled exception)  **Note:** The `result.status` field can be \"SUCCESS\" or \"ERROR\" independently of Celery status (which will always be SUCCESS if the task ran).
     # @param task_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [TaskStatus]
+    # @return [AsyncTaskStatus]
     def get_verification_status_api_v1_verification_verify_async_task_id_status_get(task_id, opts = {})
       data, _status_code, _headers = get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info(task_id, opts)
       data
@@ -33,7 +33,7 @@ module FactPulse
     # Retrieves the status and result of an asynchronous verification task.  **Possible statuses:** - &#x60;PENDING&#x60;: Task waiting in queue - &#x60;STARTED&#x60;: Task currently running - &#x60;SUCCESS&#x60;: Task completed successfully (see &#x60;result&#x60;) - &#x60;FAILURE&#x60;: System error (unhandled exception)  **Note:** The &#x60;result.status&#x60; field can be \&quot;SUCCESS\&quot; or \&quot;ERROR\&quot; independently of Celery status (which will always be SUCCESS if the task ran).
     # @param task_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(TaskStatus, Integer, Hash)>] TaskStatus data, response status code and response headers
+    # @return [Array<(AsyncTaskStatus, Integer, Hash)>] AsyncTaskStatus data, response status code and response headers
     def get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info(task_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PDFXMLVerificationApi.get_verification_status_api_v1_verification_verify_async_task_id_status_get ...'
@@ -60,7 +60,7 @@ module FactPulse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'TaskStatus'
+      return_type = opts[:debug_return_type] || 'AsyncTaskStatus'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
@@ -86,7 +86,7 @@ module FactPulse
     # Retrieves the status and result of an asynchronous verification task.  **Possible statuses:** - `PENDING`: Task waiting in queue - `STARTED`: Task currently running - `SUCCESS`: Task completed successfully (see `result`) - `FAILURE`: System error (unhandled exception)  **Note:** The `result.status` field can be \"SUCCESS\" or \"ERROR\" independently of Celery status (which will always be SUCCESS if the task ran).
     # @param task_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [TaskStatus]
+    # @return [AsyncTaskStatus]
     def get_verification_status_api_v1_verification_verify_async_task_id_status_get_0(task_id, opts = {})
       data, _status_code, _headers = get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info(task_id, opts)
       data
@@ -96,7 +96,7 @@ module FactPulse
     # Retrieves the status and result of an asynchronous verification task.  **Possible statuses:** - &#x60;PENDING&#x60;: Task waiting in queue - &#x60;STARTED&#x60;: Task currently running - &#x60;SUCCESS&#x60;: Task completed successfully (see &#x60;result&#x60;) - &#x60;FAILURE&#x60;: System error (unhandled exception)  **Note:** The &#x60;result.status&#x60; field can be \&quot;SUCCESS\&quot; or \&quot;ERROR\&quot; independently of Celery status (which will always be SUCCESS if the task ran).
     # @param task_id [String] 
     # @param [Hash] opts the optional parameters
-    # @return [Array<(TaskStatus, Integer, Hash)>] TaskStatus data, response status code and response headers
+    # @return [Array<(AsyncTaskStatus, Integer, Hash)>] AsyncTaskStatus data, response status code and response headers
     def get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info(task_id, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PDFXMLVerificationApi.get_verification_status_api_v1_verification_verify_async_task_id_status_get_0 ...'
@@ -123,7 +123,7 @@ module FactPulse
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'TaskStatus'
+      return_type = opts[:debug_return_type] || 'AsyncTaskStatus'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
