@@ -1,4 +1,4 @@
-# FactPulse::DocumentType
+# FactPulse::BaseAmount
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::DocumentType.new()
+instance = FactPulse::BaseAmount.new()
 ```
 

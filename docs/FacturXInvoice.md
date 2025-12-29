@@ -20,6 +20,20 @@
 | **current_user_id** | **Integer** |  | [optional] |
 | **supplementary_attachments** | [**Array&lt;SupplementaryAttachment&gt;**](SupplementaryAttachment.md) |  | [optional] |
 | **payee** | [**Payee**](Payee.md) |  | [optional] |
+| **delivery_party** | [**DeliveryParty**](DeliveryParty.md) |  | [optional] |
+| **tax_representative** | [**TaxRepresentative**](TaxRepresentative.md) |  | [optional] |
+| **delivery_date** | **String** |  | [optional] |
+| **billing_period_start** | **String** |  | [optional] |
+| **billing_period_end** | **String** |  | [optional] |
+| **payment_reference** | **String** |  | [optional] |
+| **creditor_reference_id** | **String** |  | [optional] |
+| **direct_debit_mandate_id** | **String** |  | [optional] |
+| **debtor_iban** | **String** |  | [optional] |
+| **payment_terms** | **String** |  | [optional] |
+| **allowances_charges** | [**Array&lt;AllowanceCharge&gt;**](AllowanceCharge.md) |  | [optional] |
+| **additional_documents** | [**Array&lt;AdditionalDocument&gt;**](AdditionalDocument.md) |  | [optional] |
+| **buyer_accounting_reference** | **String** |  | [optional] |
+| **payment_card** | [**PaymentCard**](PaymentCard.md) |  | [optional] |
 
 ## Example
 
@@ -42,7 +56,21 @@ instance = FactPulse::FacturXInvoice.new(
   comment: null,
   current_user_id: null,
   supplementary_attachments: null,
-  payee: null
+  payee: null,
+  delivery_party: null,
+  tax_representative: null,
+  delivery_date: null,
+  billing_period_start: null,
+  billing_period_end: null,
+  payment_reference: null,
+  creditor_reference_id: null,
+  direct_debit_mandate_id: null,
+  debtor_iban: null,
+  payment_terms: null,
+  allowances_charges: null,
+  additional_documents: null,
+  buyer_accounting_reference: null,
+  payment_card: null
 )
 ```
 

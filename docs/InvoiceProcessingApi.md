@@ -39,7 +39,7 @@ end
 api_instance = FactPulse::InvoiceProcessingApi.new
 invoice_data = 'invoice_data_example' # String | Invoice data in JSON format.              Two formats accepted:             1. **Classic format**: Complete FactureFacturX structure (all fields)             2. **Simplified format** (🆕 P0.1): Minimal structure with auto-enrichment              Format is detected automatically!             
 opts = {
-  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED.
+  profile: FactPulse::FacturXProfile::MINIMUM, # FacturXProfile | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED.
   output_format: FactPulse::OutputFormat::XML, # OutputFormat | Output format: 'xml' (XML only) or 'pdf' (Factur-X PDF with embedded XML).
   auto_enrich: true, # Boolean | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only)
   source_pdf: File.new('/path/to/some/file') # File | 
@@ -77,7 +77,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **invoice_data** | **String** | Invoice data in JSON format.              Two formats accepted:             1. **Classic format**: Complete FactureFacturX structure (all fields)             2. **Simplified format** (🆕 P0.1): Minimal structure with auto-enrichment              Format is detected automatically!              |  |
-| **profile** | [**APIProfile**](APIProfile.md) | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED. | [optional] |
+| **profile** | [**FacturXProfile**](FacturXProfile.md) | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED. | [optional] |
 | **output_format** | [**OutputFormat**](OutputFormat.md) | Output format: &#39;xml&#39; (XML only) or &#39;pdf&#39; (Factur-X PDF with embedded XML). | [optional] |
 | **auto_enrich** | **Boolean** | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only) | [optional][default to true] |
 | **source_pdf** | **File** |  | [optional] |
@@ -560,7 +560,7 @@ end
 api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to validate (.pdf format).
 opts = {
-  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | 
+  profile: FactPulse::FacturXProfile::MINIMUM, # FacturXProfile | 
   use_verapdf: true # Boolean | Enable strict PDF/A validation with VeraPDF (recommended for production). If False, uses basic metadata validation.
 }
 
@@ -596,7 +596,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **pdf_file** | **File** | Factur-X PDF file to validate (.pdf format). |  |
-| **profile** | [**APIProfile**](APIProfile.md) |  | [optional] |
+| **profile** | [**FacturXProfile**](FacturXProfile.md) |  | [optional] |
 | **use_verapdf** | **Boolean** | Enable strict PDF/A validation with VeraPDF (recommended for production). If False, uses basic metadata validation. | [optional][default to false] |
 
 ### Return type
@@ -635,7 +635,7 @@ end
 api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to validate (.pdf format).
 opts = {
-  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | 
+  profile: FactPulse::FacturXProfile::MINIMUM, # FacturXProfile | 
   use_verapdf: true # Boolean | Enable strict PDF/A validation with VeraPDF (recommended for production). May take several seconds.
 }
 
@@ -671,7 +671,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **pdf_file** | **File** | Factur-X PDF file to validate (.pdf format). |  |
-| **profile** | [**APIProfile**](APIProfile.md) |  | [optional] |
+| **profile** | [**FacturXProfile**](FacturXProfile.md) |  | [optional] |
 | **use_verapdf** | **Boolean** | Enable strict PDF/A validation with VeraPDF (recommended for production). May take several seconds. | [optional][default to false] |
 
 ### Return type
@@ -779,7 +779,7 @@ end
 api_instance = FactPulse::InvoiceProcessingApi.new
 xml_file = File.new('/path/to/some/file') # File | Factur-X XML file to validate (.xml format).
 opts = {
-  profile: FactPulse::APIProfile::MINIMUM # APIProfile | Validation profile (MINIMUM, BASIC, EN16931, EXTENDED).
+  profile: FactPulse::FacturXProfile::MINIMUM # FacturXProfile | Validation profile (MINIMUM, BASIC, EN16931, EXTENDED).
 }
 
 begin
@@ -814,7 +814,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **xml_file** | **File** | Factur-X XML file to validate (.xml format). |  |
-| **profile** | [**APIProfile**](APIProfile.md) | Validation profile (MINIMUM, BASIC, EN16931, EXTENDED). | [optional] |
+| **profile** | [**FacturXProfile**](FacturXProfile.md) | Validation profile (MINIMUM, BASIC, EN16931, EXTENDED). | [optional] |
 
 ### Return type
 

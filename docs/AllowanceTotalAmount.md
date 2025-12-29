@@ -1,4 +1,4 @@
-# FactPulse::APIProfile
+# FactPulse::AllowanceTotalAmount
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::APIProfile.new()
+instance = FactPulse::AllowanceTotalAmount.new()
 ```
 

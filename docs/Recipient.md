@@ -9,7 +9,10 @@
 | **name** | **String** |  | [optional] |
 | **siren** | **String** |  | [optional] |
 | **siret** | **String** |  | [optional] |
+| **vat_number** | **String** |  | [optional] |
 | **postal_address** | [**PostalAddress**](PostalAddress.md) |  | [optional] |
+| **contact** | [**Contact**](Contact.md) |  | [optional] |
+| **global_ids** | [**Array&lt;ElectronicAddress&gt;**](ElectronicAddress.md) |  | [optional] |
 
 ## Example
 
@@ -22,7 +25,10 @@ instance = FactPulse::Recipient.new(
   name: null,
   siren: null,
   siret: null,
-  postal_address: null
+  vat_number: null,
+  postal_address: null,
+  contact: null,
+  global_ids: null
 )
 ```
 

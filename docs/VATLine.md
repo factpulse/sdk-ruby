@@ -9,6 +9,7 @@
 | **rate** | **String** |  | [optional] |
 | **manual_rate** | [**ManualRate**](ManualRate.md) |  | [optional] |
 | **category** | [**VATCategory**](VATCategory.md) |  | [optional] |
+| **due_date_type_code** | [**VATPointDateCode**](VATPointDateCode.md) |  | [optional] |
 | **exemption_reason** | **String** |  | [optional] |
 | **vatex_code** | **String** |  | [optional] |
 
@@ -23,6 +24,7 @@ instance = FactPulse::VATLine.new(
   rate: null,
   manual_rate: null,
   category: null,
+  due_date_type_code: null,
   exemption_reason: null,
   vatex_code: null
 )
