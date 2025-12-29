@@ -73,7 +73,7 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'facturx_profile' => :'FacturXProfile',
+        :'facturx_profile' => :'APIProfile',
         :'auto_enrich' => :'Boolean',
         :'validate_xml' => :'Boolean',
         :'verify_destination_parameters' => :'Boolean'

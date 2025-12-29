@@ -15,6 +15,7 @@ docs/AFNORPDPPADirectoryServiceApi.md
 docs/AFNORPDPPAFlowServiceApi.md
 docs/AFNORResult.md
 docs/APIError.md
+docs/APIProfile.md
 docs/AcknowledgmentStatus.md
 docs/AdditionalDocument.md
 docs/AllowanceCharge.md
@@ -48,7 +49,6 @@ docs/ErrorSource.md
 docs/ExtractionInfo.md
 docs/FacturXInvoice.md
 docs/FacturXPDFInfo.md
-docs/FacturXProfile.md
 docs/FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md
 docs/FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.md
 docs/FieldStatus.md
@@ -186,6 +186,7 @@ lib/factpulse/models/allowance_total_amount.rb
 lib/factpulse/models/amount.rb
 lib/factpulse/models/amount_due.rb
 lib/factpulse/models/api_error.rb
+lib/factpulse/models/api_profile.rb
 lib/factpulse/models/async_task_status.rb
 lib/factpulse/models/base_amount.rb
 lib/factpulse/models/bounding_box_schema.rb
@@ -209,7 +210,6 @@ lib/factpulse/models/error_level.rb
 lib/factpulse/models/error_source.rb
 lib/factpulse/models/extraction_info.rb
 lib/factpulse/models/factur_x_invoice.rb
-lib/factpulse/models/factur_x_profile.rb
 lib/factpulse/models/factur_xpdf_info.rb
 lib/factpulse/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials.rb
 lib/factpulse/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials.rb
@@ -338,6 +338,7 @@ spec/models/allowance_total_amount_spec.rb
 spec/models/amount_due_spec.rb
 spec/models/amount_spec.rb
 spec/models/api_error_spec.rb
+spec/models/api_profile_spec.rb
 spec/models/async_task_status_spec.rb
 spec/models/base_amount_spec.rb
 spec/models/bounding_box_schema_spec.rb
@@ -361,7 +362,6 @@ spec/models/error_level_spec.rb
 spec/models/error_source_spec.rb
 spec/models/extraction_info_spec.rb
 spec/models/factur_x_invoice_spec.rb
-spec/models/factur_x_profile_spec.rb
 spec/models/factur_xpdf_info_spec.rb
 spec/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials_spec.rb
 spec/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials_spec.rb

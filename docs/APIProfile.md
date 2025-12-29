@@ -1,4 +1,4 @@
-# FactPulse::FacturXProfile
+# FactPulse::APIProfile
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::FacturXProfile.new()
+instance = FactPulse::APIProfile.new()
 ```
 
