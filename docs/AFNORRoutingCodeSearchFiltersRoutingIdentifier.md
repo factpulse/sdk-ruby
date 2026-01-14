@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeSearchFiltersRoutingIdentifier
+# FactPulse::AFNORRoutingCodeSearchFiltersRoutingIdentifier
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeSearchFiltersRoutingIdentifier.new(
+instance = FactPulse::AFNORRoutingCodeSearchFiltersRoutingIdentifier.new(
   op: null,
   value: dcsc456sdcsdcs556
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::ProcessingRule
+# FactPulse::ProcessingRule
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ProcessingRule.new()
+instance = FactPulse::ProcessingRule.new()
 ```
 

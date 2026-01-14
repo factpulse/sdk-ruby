@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORContainsOperator
+# FactPulse::AFNORContainsOperator
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORContainsOperator.new()
+instance = FactPulse::AFNORContainsOperator.new()
 ```
 

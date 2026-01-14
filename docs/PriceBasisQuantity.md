@@ -1,4 +1,4 @@
-# OpenapiClient::PriceBasisQuantity
+# FactPulse::PriceBasisQuantity
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PriceBasisQuantity.new()
+instance = FactPulse::PriceBasisQuantity.new()
 ```
 

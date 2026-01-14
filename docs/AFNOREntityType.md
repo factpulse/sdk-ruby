@@ -1,4 +1,4 @@
-# OpenapiClient::AFNOREntityType
+# FactPulse::AFNOREntityType
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNOREntityType.new()
+instance = FactPulse::AFNOREntityType.new()
 ```
 

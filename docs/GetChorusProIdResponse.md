@@ -1,4 +1,4 @@
-# OpenapiClient::GetChorusProIdResponse
+# FactPulse::GetChorusProIdResponse
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::GetChorusProIdResponse.new(
+instance = FactPulse::GetChorusProIdResponse.new(
   structure_id: null,
   structure_identifier: null,
   structure_name: null,

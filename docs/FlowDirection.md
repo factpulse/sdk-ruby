@@ -1,4 +1,4 @@
-# OpenapiClient::FlowDirection
+# FactPulse::FlowDirection
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FlowDirection.new()
+instance = FactPulse::FlowDirection.new()
 ```
 

@@ -1,4 +1,4 @@
-# OpenapiClient::AllowanceReasonCode
+# FactPulse::AllowanceReasonCode
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AllowanceReasonCode.new()
+instance = FactPulse::AllowanceReasonCode.new()
 ```
 

@@ -1,4 +1,4 @@
-# OpenapiClient::SignatureInfoAPI
+# FactPulse::SignatureInfoAPI
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SignatureInfoAPI.new(
+instance = FactPulse::SignatureInfoAPI.new(
   field_name: null,
   signer: null,
   signing_date: null,

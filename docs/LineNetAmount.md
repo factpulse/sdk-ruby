@@ -1,4 +1,4 @@
-# OpenapiClient::LineNetAmount
+# FactPulse::LineNetAmount
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::LineNetAmount.new()
+instance = FactPulse::LineNetAmount.new()
 ```
 

@@ -1,4 +1,4 @@
-# OpenapiClient::DeliveryParty
+# FactPulse::DeliveryParty
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::DeliveryParty.new(
+instance = FactPulse::DeliveryParty.new(
   id: null,
   global_id: null,
   name: null,

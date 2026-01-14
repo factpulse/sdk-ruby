@@ -1,4 +1,4 @@
-# OpenapiClient::InvoiceTotals
+# FactPulse::InvoiceTotals
 
 ## Properties
 
@@ -19,9 +19,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoiceTotals.new(
+instance = FactPulse::InvoiceTotals.new(
   line_total_amount: null,
   allowance_total_amount: null,
   charge_total_amount: null,

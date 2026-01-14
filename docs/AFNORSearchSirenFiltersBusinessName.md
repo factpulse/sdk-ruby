@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSirenFiltersBusinessName
+# FactPulse::AFNORSearchSirenFiltersBusinessName
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSirenFiltersBusinessName.new(
+instance = FactPulse::AFNORSearchSirenFiltersBusinessName.new(
   op: null,
   value: Boulangerie Pascale
 )

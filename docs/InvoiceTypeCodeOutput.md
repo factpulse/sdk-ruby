@@ -1,4 +1,4 @@
-# OpenapiClient::InvoiceTypeCodeOutput
+# FactPulse::InvoiceTypeCodeOutput
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoiceTypeCodeOutput.new()
+instance = FactPulse::InvoiceTypeCodeOutput.new()
 ```
 

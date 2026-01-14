@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchFlowFilters
+# FactPulse::AFNORSearchFlowFilters
 
 ## Properties
 
@@ -15,9 +15,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchFlowFilters.new(
+instance = FactPulse::AFNORSearchFlowFilters.new(
   updated_after: null,
   updated_before: null,
   processing_rule: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORHealthCheckResponse
+# FactPulse::AFNORHealthCheckResponse
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORHealthCheckResponse.new(
+instance = FactPulse::AFNORHealthCheckResponse.new(
   flow_service_ok: null,
   directory_service_ok: null,
   message: null

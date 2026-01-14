@@ -1,4 +1,4 @@
-# OpenapiClient::InvoiceProcessingApi
+# FactPulse::InvoiceProcessingApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -29,18 +29,18 @@ Generates an electronic invoice in Factur-X format compliant with European stand
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 invoice_data = 'invoice_data_example' # String | Invoice data in JSON format.              Two formats accepted:             1. **Classic format**: Complete FacturXInvoice structure (all fields)             2. **Simplified format** (🆕 P0.1): Minimal structure with auto-enrichment              Format is detected automatically!             
 opts = {
-  profile: OpenapiClient::APIProfile::MINIMUM, # APIProfile | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED.
-  output_format: OpenapiClient::OutputFormat::XML, # OutputFormat | Output format: 'xml' (XML only) or 'pdf' (Factur-X PDF with embedded XML).
+  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED.
+  output_format: FactPulse::OutputFormat::XML, # OutputFormat | Output format: 'xml' (XML only) or 'pdf' (Factur-X PDF with embedded XML).
   auto_enrich: true, # Boolean | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only)
   source_pdf: File.new('/path/to/some/file'), # File | 
   callback_url: 'callback_url_example', # String | 
@@ -52,7 +52,7 @@ begin
   # Generate a Factur-X invoice
   result = api_instance.generate_invoice_api_v1_processing_generate_invoice_post(invoice_data, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->generate_invoice_api_v1_processing_generate_invoice_post: #{e}"
 end
 ```
@@ -70,7 +70,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaskResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->generate_invoice_api_v1_processing_generate_invoice_post_with_http_info: #{e}"
 end
 ```
@@ -114,21 +114,21 @@ Generates a self-signed X.509 certificate for PDF electronic signature testing. 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
-generate_certificate_request = OpenapiClient::GenerateCertificateRequest.new # GenerateCertificateRequest | 
+api_instance = FactPulse::InvoiceProcessingApi.new
+generate_certificate_request = FactPulse::GenerateCertificateRequest.new # GenerateCertificateRequest | 
 
 begin
   # Generate a self-signed X.509 test certificate
   result = api_instance.generate_test_certificate_api_v1_processing_generate_test_certificate_post(generate_certificate_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->generate_test_certificate_api_v1_processing_generate_test_certificate_post: #{e}"
 end
 ```
@@ -146,7 +146,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GenerateCertificateResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->generate_test_certificate_api_v1_processing_generate_test_certificate_post_with_http_info: #{e}"
 end
 ```
@@ -183,21 +183,21 @@ Retrieves the progress status of an invoice generation task.  ## Possible states
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 task_id = 'task_id_example' # String | Celery task ID returned by async endpoints (UUID format)
 
 begin
   # Get task generation status
   result = api_instance.get_task_status_api_v1_processing_tasks_task_id_status_get(task_id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->get_task_status_api_v1_processing_tasks_task_id_status_get: #{e}"
 end
 ```
@@ -215,7 +215,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <AsyncTaskStatus>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->get_task_status_api_v1_processing_tasks_task_id_status_get_with_http_info: #{e}"
 end
 ```
@@ -252,14 +252,14 @@ Signs an uploaded PDF with the electronic certificate configured for the client 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | PDF file to sign (will be processed and returned signed in base64)
 opts = {
   reason: 'reason_example', # String | 
@@ -274,7 +274,7 @@ begin
   # Sign a PDF with client's certificate (PAdES-B-LT)
   result = api_instance.sign_pdf_api_v1_processing_sign_pdf_post(pdf_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->sign_pdf_api_v1_processing_sign_pdf_post: #{e}"
 end
 ```
@@ -292,7 +292,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->sign_pdf_api_v1_processing_sign_pdf_post_with_http_info: #{e}"
 end
 ```
@@ -335,14 +335,14 @@ Signs an uploaded PDF asynchronously via a Celery task.      **Difference with /
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | PDF file to sign (processed asynchronously)
 opts = {
   callback_url: 'callback_url_example', # String | 
@@ -359,7 +359,7 @@ begin
   # Sign a PDF asynchronously (Celery)
   result = api_instance.sign_pdf_async_api_v1_processing_sign_pdf_async_post(pdf_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->sign_pdf_async_api_v1_processing_sign_pdf_async_post: #{e}"
 end
 ```
@@ -377,7 +377,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->sign_pdf_async_api_v1_processing_sign_pdf_async_post_with_http_info: #{e}"
 end
 ```
@@ -422,21 +422,21 @@ Unified endpoint to submit a complete invoice to different destinations.      **
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
-submit_complete_invoice_request = OpenapiClient::SubmitCompleteInvoiceRequest.new({invoice_data: OpenapiClient::SimplifiedInvoiceData.new({number: 'number_example', supplier: { key: 3.56}, recipient: { key: 3.56}, lines: [{ key: 3.56}]}), source_pdf: 'source_pdf_example', destination: OpenapiClient::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
+api_instance = FactPulse::InvoiceProcessingApi.new
+submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::SimplifiedInvoiceData.new({number: 'number_example', supplier: { key: 3.56}, recipient: { key: 3.56}, lines: [{ key: 3.56}]}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
 
 begin
   # Submit a complete invoice (generation + signature + submission)
   result = api_instance.submit_complete_invoice_api_v1_processing_invoices_submit_complete_post(submit_complete_invoice_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->submit_complete_invoice_api_v1_processing_invoices_submit_complete_post: #{e}"
 end
 ```
@@ -454,7 +454,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCompleteInvoiceResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->submit_complete_invoice_api_v1_processing_invoices_submit_complete_post_with_http_info: #{e}"
 end
 ```
@@ -491,15 +491,15 @@ Asynchronous version of the `/invoices/submit-complete` endpoint using Celery fo
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
-submit_complete_invoice_request = OpenapiClient::SubmitCompleteInvoiceRequest.new({invoice_data: OpenapiClient::SimplifiedInvoiceData.new({number: 'number_example', supplier: { key: 3.56}, recipient: { key: 3.56}, lines: [{ key: 3.56}]}), source_pdf: 'source_pdf_example', destination: OpenapiClient::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
+api_instance = FactPulse::InvoiceProcessingApi.new
+submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::SimplifiedInvoiceData.new({number: 'number_example', supplier: { key: 3.56}, recipient: { key: 3.56}, lines: [{ key: 3.56}]}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
 opts = {
   callback_url: 'callback_url_example', # String | Webhook URL for async notification when submission completes.
   webhook_mode: 'webhook_mode_example' # String | Webhook content delivery: 'inline' (base64 in payload) or 'download_url' (temporary URL, 1h TTL)
@@ -509,7 +509,7 @@ begin
   # Submit a complete invoice (asynchronous with Celery)
   result = api_instance.submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post(submit_complete_invoice_request, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post: #{e}"
 end
 ```
@@ -527,7 +527,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaskResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post_with_http_info: #{e}"
 end
 ```
@@ -566,17 +566,17 @@ Validates a complete Factur-X PDF according to European and French standards.  #
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to validate (.pdf format).
 opts = {
-  profile: OpenapiClient::APIProfile::MINIMUM, # APIProfile | 
+  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | 
   use_verapdf: true, # Boolean | Enable strict PDF/A validation with VeraPDF (recommended for production). If False, uses basic metadata validation.
   skip_br_fr: true # Boolean | 
 }
@@ -585,7 +585,7 @@ begin
   # Validate a complete Factur-X PDF
   result = api_instance.validate_facturx_pdf_api_v1_processing_validate_facturx_pdf_post(pdf_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_facturx_pdf_api_v1_processing_validate_facturx_pdf_post: #{e}"
 end
 ```
@@ -603,7 +603,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PDFValidationResultAPI>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_facturx_pdf_api_v1_processing_validate_facturx_pdf_post_with_http_info: #{e}"
 end
 ```
@@ -643,17 +643,17 @@ Validates a Factur-X PDF asynchronously with polling system.  ## How it works  1
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to validate (.pdf format).
 opts = {
-  profile: OpenapiClient::APIProfile::MINIMUM, # APIProfile | 
+  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | 
   use_verapdf: true, # Boolean | Enable strict PDF/A validation with VeraPDF (recommended for production). May take several seconds.
   callback_url: 'callback_url_example', # String | 
   webhook_mode: 'webhook_mode_example' # String | Webhook content delivery: 'inline' (base64 in payload) or 'download_url' (temporary URL, 1h TTL)
@@ -663,7 +663,7 @@ begin
   # Validate a Factur-X PDF (asynchronous with polling)
   result = api_instance.validate_facturx_pdf_async_api_v1_processing_validate_facturx_async_post(pdf_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_facturx_pdf_async_api_v1_processing_validate_facturx_async_post: #{e}"
 end
 ```
@@ -681,7 +681,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaskResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_facturx_pdf_async_api_v1_processing_validate_facturx_async_post_with_http_info: #{e}"
 end
 ```
@@ -722,21 +722,21 @@ Validates electronic signatures present in an uploaded PDF.      **Verifications
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 pdf_file = File.new('/path/to/some/file') # File | PDF file to validate (will be analyzed to detect and validate signatures)
 
 begin
   # Validate electronic signatures of a PDF
   result = api_instance.validate_pdf_signature_endpoint_api_v1_processing_validate_pdf_signature_post(pdf_file)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_pdf_signature_endpoint_api_v1_processing_validate_pdf_signature_post: #{e}"
 end
 ```
@@ -754,7 +754,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_pdf_signature_endpoint_api_v1_processing_validate_pdf_signature_post_with_http_info: #{e}"
 end
 ```
@@ -791,17 +791,17 @@ Validates a Factur-X XML file against Schematron business rules according to EN 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::InvoiceProcessingApi.new
+api_instance = FactPulse::InvoiceProcessingApi.new
 xml_file = File.new('/path/to/some/file') # File | Factur-X XML file to validate (.xml format).
 opts = {
-  profile: OpenapiClient::APIProfile::MINIMUM, # APIProfile | Validation profile (MINIMUM, BASIC, EN16931, EXTENDED).
+  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | Validation profile (MINIMUM, BASIC, EN16931, EXTENDED).
   skip_br_fr: true # Boolean | 
 }
 
@@ -809,7 +809,7 @@ begin
   # Validate an existing Factur-X XML
   result = api_instance.validate_xml_api_v1_processing_validate_xml_post(xml_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_xml_api_v1_processing_validate_xml_post: #{e}"
 end
 ```
@@ -827,7 +827,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ValidationSuccessResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling InvoiceProcessingApi->validate_xml_api_v1_processing_validate_xml_post_with_http_info: #{e}"
 end
 ```

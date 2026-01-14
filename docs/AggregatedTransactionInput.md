@@ -1,4 +1,4 @@
-# OpenapiClient::AggregatedTransactionInput
+# FactPulse::AggregatedTransactionInput
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AggregatedTransactionInput.new(
+instance = FactPulse::AggregatedTransactionInput.new(
   date: 2025-01-15,
   category_code: null,
   currency: null,

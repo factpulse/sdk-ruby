@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSiretFiltersCountrySubdivision
+# FactPulse::AFNORSearchSiretFiltersCountrySubdivision
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSiretFiltersCountrySubdivision.new(
+instance = FactPulse::AFNORSearchSiretFiltersCountrySubdivision.new(
   op: null,
   value: Bretagne
 )

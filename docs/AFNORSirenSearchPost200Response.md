@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSirenSearchPost200Response
+# FactPulse::AFNORSirenSearchPost200Response
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSirenSearchPost200Response.new(
+instance = FactPulse::AFNORSirenSearchPost200Response.new(
   search: null,
   total_number_of_results: 1500,
   results: null

@@ -1,4 +1,4 @@
-# OpenapiClient::SimplifiedInvoiceData
+# FactPulse::SimplifiedInvoiceData
 
 ## Properties
 
@@ -13,7 +13,7 @@
 | **comment** | **String** |  | [optional] |
 | **purchase_order_reference** | **String** |  | [optional] |
 | **contract_reference** | **String** |  | [optional] |
-| **invoice_type** | [**InvoiceTypeCode**](InvoiceTypeCode.md) | Document type (UNTDID 1001). Default: 380 (Invoice). | [optional] |
+| **invoice_type** | [**FactureElectroniqueModelsInvoiceTypeCode**](FactureElectroniqueModelsInvoiceTypeCode.md) | Document type (UNTDID 1001). Default: 380 (Invoice). | [optional] |
 | **preceding_invoice_reference** | **String** |  | [optional] |
 | **operation_nature** | [**OperationNature**](OperationNature.md) |  | [optional] |
 | **invoicing_framework** | [**InvoicingFrameworkCode**](InvoicingFrameworkCode.md) |  | [optional] |
@@ -21,9 +21,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SimplifiedInvoiceData.new(
+instance = FactPulse::SimplifiedInvoiceData.new(
   number: null,
   supplier: null,
   recipient: null,

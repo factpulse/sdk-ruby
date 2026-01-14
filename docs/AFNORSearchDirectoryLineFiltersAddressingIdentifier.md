@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchDirectoryLineFiltersAddressingIdentifier
+# FactPulse::AFNORSearchDirectoryLineFiltersAddressingIdentifier
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchDirectoryLineFiltersAddressingIdentifier.new(
+instance = FactPulse::AFNORSearchDirectoryLineFiltersAddressingIdentifier.new(
   op: null,
   value: dcsc456sdcsdcs556
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSirenFiltersEntityType
+# FactPulse::AFNORSearchSirenFiltersEntityType
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSirenFiltersEntityType.new(
+instance = FactPulse::AFNORSearchSirenFiltersEntityType.new(
   op: null,
   value: null
 )

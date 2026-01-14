@@ -1,4 +1,4 @@
-# OpenapiClient::ProcessingOptions
+# FactPulse::ProcessingOptions
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ProcessingOptions.new(
+instance = FactPulse::ProcessingOptions.new(
   facturx_profile: null,
   auto_enrich: null,
   validate_xml: null,

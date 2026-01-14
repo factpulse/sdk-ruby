@@ -1,4 +1,4 @@
-# OpenapiClient::EnrichedInvoiceInfo
+# FactPulse::EnrichedInvoiceInfo
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::EnrichedInvoiceInfo.new(
+instance = FactPulse::EnrichedInvoiceInfo.new(
   invoice_number: null,
   supplier_id: null,
   recipient_id: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeSearchSortingInner
+# FactPulse::AFNORRoutingCodeSearchSortingInner
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeSearchSortingInner.new(
+instance = FactPulse::AFNORRoutingCodeSearchSortingInner.new(
   field: null,
   order: null
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::Supplier
+# FactPulse::Supplier
 
 ## Properties
 
@@ -26,9 +26,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::Supplier.new(
+instance = FactPulse::Supplier.new(
   electronic_address: null,
   supplier_id: null,
   private_id: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::HealthApi
+# FactPulse::HealthApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -20,15 +20,15 @@ Healthcheck endpoint for Docker and load balancers.  Useful for: - Docker health
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::HealthApi.new
+api_instance = FactPulse::HealthApi.new
 
 begin
   # Docker healthcheck endpoint
   result = api_instance.healthcheck_healthcheck_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling HealthApi->healthcheck_healthcheck_get: #{e}"
 end
 ```
@@ -46,7 +46,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling HealthApi->healthcheck_healthcheck_get_with_http_info: #{e}"
 end
 ```
@@ -81,15 +81,15 @@ Health check endpoint to verify the API is responding.  Useful for: - Availabili
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::HealthApi.new
+api_instance = FactPulse::HealthApi.new
 
 begin
   # Check API status
   result = api_instance.root_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling HealthApi->root_get: #{e}"
 end
 ```
@@ -107,7 +107,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling HealthApi->root_get_with_http_info: #{e}"
 end
 ```

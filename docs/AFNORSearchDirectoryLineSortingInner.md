@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchDirectoryLineSortingInner
+# FactPulse::AFNORSearchDirectoryLineSortingInner
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchDirectoryLineSortingInner.new(
+instance = FactPulse::AFNORSearchDirectoryLineSortingInner.new(
   field: null,
   sorting_order: null
 )

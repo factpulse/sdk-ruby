@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORCreateRoutingCodeBody
+# FactPulse::AFNORCreateRoutingCodeBody
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORCreateRoutingCodeBody.new(
+instance = FactPulse::AFNORCreateRoutingCodeBody.new(
   facility_nature: null,
   routing_identifier: dcsc456sdcsdcs556,
   siret: 70204275500240,

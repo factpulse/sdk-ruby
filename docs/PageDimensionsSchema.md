@@ -1,4 +1,4 @@
-# OpenapiClient::PageDimensionsSchema
+# FactPulse::PageDimensionsSchema
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PageDimensionsSchema.new(
+instance = FactPulse::PageDimensionsSchema.new(
   width: null,
   height: null
 )

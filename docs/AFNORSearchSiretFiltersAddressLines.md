@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSiretFiltersAddressLines
+# FactPulse::AFNORSearchSiretFiltersAddressLines
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSiretFiltersAddressLines.new(
+instance = FactPulse::AFNORSearchSiretFiltersAddressLines.new(
   op: null,
   value: 16 BIS RUE HENRI BARBUSSE - CEDEX 1 - Bâtiment le Callipso
 )

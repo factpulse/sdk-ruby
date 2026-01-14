@@ -1,4 +1,4 @@
-# OpenapiClient::RoutingCodeInclude
+# FactPulse::RoutingCodeInclude
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::RoutingCodeInclude.new()
+instance = FactPulse::RoutingCodeInclude.new()
 ```
 

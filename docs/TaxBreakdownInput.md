@@ -1,4 +1,4 @@
-# OpenapiClient::TaxBreakdownInput
+# FactPulse::TaxBreakdownInput
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::TaxBreakdownInput.new(
+instance = FactPulse::TaxBreakdownInput.new(
   rate: null,
   taxable_amount: null,
   tax_amount: null

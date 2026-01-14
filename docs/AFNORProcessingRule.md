@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORProcessingRule
+# FactPulse::AFNORProcessingRule
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORProcessingRule.new()
+instance = FactPulse::AFNORProcessingRule.new()
 ```
 

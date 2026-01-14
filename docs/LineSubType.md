@@ -1,4 +1,4 @@
-# OpenapiClient::LineSubType
+# FactPulse::LineSubType
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::LineSubType.new()
+instance = FactPulse::LineSubType.new()
 ```
 

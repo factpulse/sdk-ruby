@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORUpdatePatchDirectoryLineBody
+# FactPulse::AFNORUpdatePatchDirectoryLineBody
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORUpdatePatchDirectoryLineBody.new(
+instance = FactPulse::AFNORUpdatePatchDirectoryLineBody.new(
   date_to: 2023-01-31
 )
 ```

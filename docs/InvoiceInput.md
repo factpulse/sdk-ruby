@@ -1,4 +1,4 @@
-# OpenapiClient::InvoiceInput
+# FactPulse::InvoiceInput
 
 ## Properties
 
@@ -6,7 +6,7 @@
 | ---- | ---- | ----------- | ----- |
 | **invoice_id** | **String** | Invoice identifier |  |
 | **issue_date** | **Date** | Invoice issue date |  |
-| **type_code** | [**FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode**](FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md) | Invoice type code | [optional] |
+| **type_code** | [**InvoiceTypeCode**](InvoiceTypeCode.md) | Invoice type code | [optional] |
 | **currency** | [**Currency**](Currency.md) |  | [optional] |
 | **due_date** | **Date** |  | [optional] |
 | **seller_siren** | **String** | Seller SIREN/SIRET |  |
@@ -24,9 +24,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoiceInput.new(
+instance = FactPulse::InvoiceInput.new(
   invoice_id: FAC-2025-001,
   issue_date: 2025-01-15,
   type_code: null,

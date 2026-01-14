@@ -1,4 +1,4 @@
-# OpenapiClient::InvoicingFramework
+# FactPulse::InvoicingFramework
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoicingFramework.new(
+instance = FactPulse::InvoicingFramework.new(
   invoicing_framework_code: null,
   operation_nature: null,
   approver_service_code: null,

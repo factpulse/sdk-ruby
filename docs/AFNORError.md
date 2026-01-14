@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORError
+# FactPulse::AFNORError
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORError.new(
+instance = FactPulse::AFNORError.new(
   type: /path/reference-url,
   message: Error message,
   status: null,

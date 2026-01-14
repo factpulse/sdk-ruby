@@ -1,4 +1,4 @@
-# OpenapiClient::OperationNature
+# FactPulse::OperationNature
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::OperationNature.new()
+instance = FactPulse::OperationNature.new()
 ```
 

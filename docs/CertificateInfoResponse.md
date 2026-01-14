@@ -1,4 +1,4 @@
-# OpenapiClient::CertificateInfoResponse
+# FactPulse::CertificateInfoResponse
 
 ## Properties
 
@@ -20,9 +20,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::CertificateInfoResponse.new(
+instance = FactPulse::CertificateInfoResponse.new(
   cn: Test Signature Client XYZ,
   organization: Client XYZ SARL,
   country: FR,

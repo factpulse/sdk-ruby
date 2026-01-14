@@ -1,4 +1,4 @@
-# OpenapiClient::DownloadsApi
+# FactPulse::DownloadsApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -22,21 +22,21 @@ Check if a temporary file exists and get its metadata without downloading.  Usef
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DownloadsApi.new
+api_instance = FactPulse::DownloadsApi.new
 download_id = 'download_id_example' # String | 
 
 begin
   # Check if a file exists
   result = api_instance.check_file_api_v1_download_download_id_head(download_id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->check_file_api_v1_download_download_id_head: #{e}"
 end
 ```
@@ -54,7 +54,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->check_file_api_v1_download_download_id_head_with_http_info: #{e}"
 end
 ```
@@ -91,21 +91,21 @@ Check if a temporary file exists and get its metadata without downloading.  Usef
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DownloadsApi.new
+api_instance = FactPulse::DownloadsApi.new
 download_id = 'download_id_example' # String | 
 
 begin
   # Check if a file exists
   result = api_instance.check_file_api_v1_download_download_id_head_0(download_id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->check_file_api_v1_download_download_id_head_0: #{e}"
 end
 ```
@@ -123,7 +123,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->check_file_api_v1_download_download_id_head_0_with_http_info: #{e}"
 end
 ```
@@ -160,14 +160,14 @@ Download a file stored temporarily after asynchronous processing.  **Usage**: - 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DownloadsApi.new
+api_instance = FactPulse::DownloadsApi.new
 download_id = 'download_id_example' # String | 
 opts = {
   delete_after: true # Boolean | If true, delete the file after download (one-time download)
@@ -177,7 +177,7 @@ begin
   # Download a temporary file
   result = api_instance.download_file_api_v1_download_download_id_get(download_id, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->download_file_api_v1_download_download_id_get: #{e}"
 end
 ```
@@ -195,7 +195,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->download_file_api_v1_download_download_id_get_with_http_info: #{e}"
 end
 ```
@@ -233,14 +233,14 @@ Download a file stored temporarily after asynchronous processing.  **Usage**: - 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DownloadsApi.new
+api_instance = FactPulse::DownloadsApi.new
 download_id = 'download_id_example' # String | 
 opts = {
   delete_after: true # Boolean | If true, delete the file after download (one-time download)
@@ -250,7 +250,7 @@ begin
   # Download a temporary file
   result = api_instance.download_file_api_v1_download_download_id_get_0(download_id, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->download_file_api_v1_download_download_id_get_0: #{e}"
 end
 ```
@@ -268,7 +268,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DownloadsApi->download_file_api_v1_download_download_id_get_0_with_http_info: #{e}"
 end
 ```

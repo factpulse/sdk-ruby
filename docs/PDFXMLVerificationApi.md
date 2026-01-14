@@ -1,4 +1,4 @@
-# OpenapiClient::PDFXMLVerificationApi
+# FactPulse::PDFXMLVerificationApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -24,21 +24,21 @@ Retrieves the status and result of an asynchronous verification task.  **Possibl
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::PDFXMLVerificationApi.new
+api_instance = FactPulse::PDFXMLVerificationApi.new
 task_id = 'task_id_example' # String | Celery task ID returned by /verify-async endpoint
 
 begin
   # Get status of an asynchronous verification
   result = api_instance.get_verification_status_api_v1_verification_verify_async_task_id_status_get(task_id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->get_verification_status_api_v1_verification_verify_async_task_id_status_get: #{e}"
 end
 ```
@@ -56,7 +56,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <AsyncTaskStatus>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->get_verification_status_api_v1_verification_verify_async_task_id_status_get_with_http_info: #{e}"
 end
 ```
@@ -93,21 +93,21 @@ Retrieves the status and result of an asynchronous verification task.  **Possibl
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::PDFXMLVerificationApi.new
+api_instance = FactPulse::PDFXMLVerificationApi.new
 task_id = 'task_id_example' # String | Celery task ID returned by /verify-async endpoint
 
 begin
   # Get status of an asynchronous verification
   result = api_instance.get_verification_status_api_v1_verification_verify_async_task_id_status_get_0(task_id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->get_verification_status_api_v1_verification_verify_async_task_id_status_get_0: #{e}"
 end
 ```
@@ -125,7 +125,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <AsyncTaskStatus>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->get_verification_status_api_v1_verification_verify_async_task_id_status_get_0_with_http_info: #{e}"
 end
 ```
@@ -162,14 +162,14 @@ Verifies PDF/XML Factur-X compliance asynchronously.  **IMPORTANT**: Only Factur
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::PDFXMLVerificationApi.new
+api_instance = FactPulse::PDFXMLVerificationApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to verify
 opts = {
   force_ocr: true, # Boolean | Force OCR usage even if PDF contains native text
@@ -181,7 +181,7 @@ begin
   # Verify PDF/XML Factur-X compliance (asynchronous)
   result = api_instance.verify_pdf_async_api_v1_verification_verify_async_post(pdf_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_async_api_v1_verification_verify_async_post: #{e}"
 end
 ```
@@ -199,7 +199,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaskResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_async_api_v1_verification_verify_async_post_with_http_info: #{e}"
 end
 ```
@@ -239,14 +239,14 @@ Verifies PDF/XML Factur-X compliance asynchronously.  **IMPORTANT**: Only Factur
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::PDFXMLVerificationApi.new
+api_instance = FactPulse::PDFXMLVerificationApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to verify
 opts = {
   force_ocr: true, # Boolean | Force OCR usage even if PDF contains native text
@@ -258,7 +258,7 @@ begin
   # Verify PDF/XML Factur-X compliance (asynchronous)
   result = api_instance.verify_pdf_async_api_v1_verification_verify_async_post_0(pdf_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_async_api_v1_verification_verify_async_post_0: #{e}"
 end
 ```
@@ -276,7 +276,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaskResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_async_api_v1_verification_verify_async_post_0_with_http_info: #{e}"
 end
 ```
@@ -316,21 +316,21 @@ Verifies compliance between the PDF and its embedded Factur-X XML.  **IMPORTANT*
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::PDFXMLVerificationApi.new
+api_instance = FactPulse::PDFXMLVerificationApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to verify
 
 begin
   # Verify PDF/XML Factur-X compliance (synchronous)
   result = api_instance.verify_pdf_sync_api_v1_verification_verify_post(pdf_file)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_sync_api_v1_verification_verify_post: #{e}"
 end
 ```
@@ -348,7 +348,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <VerificationSuccessResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_sync_api_v1_verification_verify_post_with_http_info: #{e}"
 end
 ```
@@ -385,21 +385,21 @@ Verifies compliance between the PDF and its embedded Factur-X XML.  **IMPORTANT*
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::PDFXMLVerificationApi.new
+api_instance = FactPulse::PDFXMLVerificationApi.new
 pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to verify
 
 begin
   # Verify PDF/XML Factur-X compliance (synchronous)
   result = api_instance.verify_pdf_sync_api_v1_verification_verify_post_0(pdf_file)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_sync_api_v1_verification_verify_post_0: #{e}"
 end
 ```
@@ -417,7 +417,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <VerificationSuccessResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling PDFXMLVerificationApi->verify_pdf_sync_api_v1_verification_verify_post_0_with_http_info: #{e}"
 end
 ```

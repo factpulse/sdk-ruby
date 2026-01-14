@@ -1,4 +1,4 @@
-# OpenapiClient::ChorusProDestination
+# FactPulse::ChorusProDestination
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ChorusProDestination.new(
+instance = FactPulse::ChorusProDestination.new(
   type: null,
   credentials: null
 )

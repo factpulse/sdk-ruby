@@ -1,4 +1,4 @@
-# OpenapiClient::CreateEReportingRequest
+# FactPulse::CreateEReportingRequest
 
 ## Properties
 
@@ -18,9 +18,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::CreateEReportingRequest.new(
+instance = FactPulse::CreateEReportingRequest.new(
   report_id: EREPORT-2025-001,
   report_name: null,
   flow_type: null,

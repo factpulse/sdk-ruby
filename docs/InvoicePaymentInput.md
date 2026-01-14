@@ -1,4 +1,4 @@
-# OpenapiClient::InvoicePaymentInput
+# FactPulse::InvoicePaymentInput
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoicePaymentInput.new(
+instance = FactPulse::InvoicePaymentInput.new(
   invoice_id: FAC-2025-001,
   invoice_date: 2025-01-15,
   payment_date: 2025-01-25,

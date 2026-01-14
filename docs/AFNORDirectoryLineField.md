@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORDirectoryLineField
+# FactPulse::AFNORDirectoryLineField
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORDirectoryLineField.new()
+instance = FactPulse::AFNORDirectoryLineField.new()
 ```
 

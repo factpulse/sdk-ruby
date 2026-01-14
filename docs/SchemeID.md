@@ -1,4 +1,4 @@
-# OpenapiClient::SchemeID
+# FactPulse::SchemeID
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SchemeID.new()
+instance = FactPulse::SchemeID.new()
 ```
 

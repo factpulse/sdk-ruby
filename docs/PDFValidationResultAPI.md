@@ -1,4 +1,4 @@
-# OpenapiClient::PDFValidationResultAPI
+# FactPulse::PDFValidationResultAPI
 
 ## Properties
 
@@ -31,9 +31,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PDFValidationResultAPI.new(
+instance = FactPulse::PDFValidationResultAPI.new(
   is_compliant: null,
   xml_present: null,
   xml_compliant: null,

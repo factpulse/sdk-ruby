@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodePost201Response
+# FactPulse::AFNORRoutingCodePost201Response
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodePost201Response.new(
+instance = FactPulse::AFNORRoutingCodePost201Response.new(
   id_instance: 120,
   siret: 70204275500240,
   routing_identifier: dcsc456sdcsdcs556

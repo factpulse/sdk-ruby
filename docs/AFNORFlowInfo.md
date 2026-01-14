@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORFlowInfo
+# FactPulse::AFNORFlowInfo
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORFlowInfo.new(
+instance = FactPulse::AFNORFlowInfo.new(
   tracking_id: null,
   name: null,
   processing_rule: null,

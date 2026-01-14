@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSiretFiltersPostalCode
+# FactPulse::AFNORSearchSiretFiltersPostalCode
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSiretFiltersPostalCode.new(
+instance = FactPulse::AFNORSearchSiretFiltersPostalCode.new(
   op: null,
   value: 38100
 )

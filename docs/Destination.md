@@ -1,4 +1,4 @@
-# OpenapiClient::Destination
+# FactPulse::Destination
 
 ## Class instance methods
 
@@ -9,9 +9,9 @@ Returns the list of classes defined in oneOf.
 #### Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-OpenapiClient::Destination.openapi_one_of
+FactPulse::Destination.openapi_one_of
 # =>
 # [
 #   :'AFNORDestination',
@@ -26,9 +26,9 @@ Returns the discriminator's property name.
 #### Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-OpenapiClient::Destination.openapi_discriminator_name
+FactPulse::Destination.openapi_discriminator_name
 # => :'type'
 ```
 
@@ -39,9 +39,9 @@ Returns the discriminator's mapping.
 #### Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-OpenapiClient::Destination.openapi_discriminator_mapping
+FactPulse::Destination.openapi_discriminator_mapping
 # =>
 # {
 #   :'afnor' => :'AFNORDestination',
@@ -56,12 +56,12 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 #### Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-OpenapiClient::Destination.build(data)
+FactPulse::Destination.build(data)
 # => #<AFNORDestination:0x00007fdd4aab02a0>
 
-OpenapiClient::Destination.build(data_that_doesnt_match)
+FactPulse::Destination.build(data_that_doesnt_match)
 # => nil
 ```
 

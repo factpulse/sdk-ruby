@@ -1,4 +1,4 @@
-# OpenapiClient::RoundingAmount
+# FactPulse::RoundingAmount
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::RoundingAmount.new()
+instance = FactPulse::RoundingAmount.new()
 ```
 

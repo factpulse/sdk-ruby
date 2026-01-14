@@ -1,4 +1,4 @@
-# OpenapiClient::ConvertResumeRequest
+# FactPulse::ConvertResumeRequest
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ConvertResumeRequest.new(
+instance = FactPulse::ConvertResumeRequest.new(
   overrides: null
 )
 ```

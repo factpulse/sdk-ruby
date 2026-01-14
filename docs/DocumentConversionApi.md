@@ -1,4 +1,4 @@
-# OpenapiClient::DocumentConversionApi
+# FactPulse::DocumentConversionApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -22,14 +22,14 @@ Lance une conversion asynchrone via Celery.  ## Workflow  1. **Upload** : Le doc
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DocumentConversionApi.new
+api_instance = FactPulse::DocumentConversionApi.new
 file = File.new('/path/to/some/file') # File | Document à convertir (PDF, DOCX, XLSX, JPG, PNG)
 opts = {
   output: 'output_example', # String | Format de sortie: pdf, xml, both
@@ -41,7 +41,7 @@ begin
   # Convertir un document en Factur-X (mode asynchrone)
   result = api_instance.convert_document_async_api_v1_convert_async_post(file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->convert_document_async_api_v1_convert_async_post: #{e}"
 end
 ```
@@ -59,7 +59,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->convert_document_async_api_v1_convert_async_post_with_http_info: #{e}"
 end
 ```
@@ -99,14 +99,14 @@ Télécharge le fichier Factur-X PDF ou XML généré.  ## Fichiers disponibles 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DocumentConversionApi.new
+api_instance = FactPulse::DocumentConversionApi.new
 conversion_id = 'conversion_id_example' # String | Conversion ID returned by POST /convert (UUID format)
 filename = 'filename_example' # String | File to download: 'facturx.pdf' or 'facturx.xml'
 
@@ -114,7 +114,7 @@ begin
   # Télécharger un fichier généré
   result = api_instance.download_file_api_v1_convert_conversion_id_download_filename_get(conversion_id, filename)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->download_file_api_v1_convert_conversion_id_download_filename_get: #{e}"
 end
 ```
@@ -132,7 +132,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->download_file_api_v1_convert_conversion_id_download_filename_get_with_http_info: #{e}"
 end
 ```
@@ -170,21 +170,21 @@ Retourne le statut actuel d'une conversion asynchrone.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DocumentConversionApi.new
+api_instance = FactPulse::DocumentConversionApi.new
 conversion_id = 'conversion_id_example' # String | Conversion ID returned by POST /convert (UUID format)
 
 begin
   # Vérifier le statut d'une conversion
   result = api_instance.get_conversion_status_api_v1_convert_conversion_id_status_get(conversion_id)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->get_conversion_status_api_v1_convert_conversion_id_status_get: #{e}"
 end
 ```
@@ -202,7 +202,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->get_conversion_status_api_v1_convert_conversion_id_status_get_with_http_info: #{e}"
 end
 ```
@@ -239,22 +239,22 @@ Reprend une conversion après complétion des données manquantes ou correction 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::DocumentConversionApi.new
+api_instance = FactPulse::DocumentConversionApi.new
 conversion_id = 'conversion_id_example' # String | Conversion ID returned by POST /convert (UUID format)
-convert_resume_request = OpenapiClient::ConvertResumeRequest.new # ConvertResumeRequest | 
+convert_resume_request = FactPulse::ConvertResumeRequest.new # ConvertResumeRequest | 
 
 begin
   # Reprendre une conversion avec corrections
   result = api_instance.resume_conversion_api_v1_convert_conversion_id_resume_post(conversion_id, convert_resume_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->resume_conversion_api_v1_convert_conversion_id_resume_post: #{e}"
 end
 ```
@@ -272,7 +272,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ConvertSuccessResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling DocumentConversionApi->resume_conversion_api_v1_convert_conversion_id_resume_post_with_http_info: #{e}"
 end
 ```

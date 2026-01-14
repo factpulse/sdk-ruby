@@ -1,4 +1,4 @@
-# OpenapiClient::SearchFlowRequest
+# FactPulse::SearchFlowRequest
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SearchFlowRequest.new(
+instance = FactPulse::SearchFlowRequest.new(
   updated_after: null,
   updated_before: null,
   flow_types: null,

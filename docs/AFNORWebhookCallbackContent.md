@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORWebhookCallbackContent
+# FactPulse::AFNORWebhookCallbackContent
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORWebhookCallbackContent.new(
+instance = FactPulse::AFNORWebhookCallbackContent.new(
   flow_info: null
 )
 ```

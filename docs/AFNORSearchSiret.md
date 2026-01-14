@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSiret
+# FactPulse::AFNORSearchSiret
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSiret.new(
+instance = FactPulse::AFNORSearchSiret.new(
   filters: null,
   sorting: [{champ&#x3D;siret, order&#x3D;ascending}, {champ&#x3D;name, order&#x3D;descending}],
   fields: [siret, siren, name, facilityType, address, diffusible, administrativeStatus, pmStatus, pmOnly, managesPaymentStatus, managesLegalCommitment, managesLegalCommitmentOrService, serviceCodeStatus, idInstance],

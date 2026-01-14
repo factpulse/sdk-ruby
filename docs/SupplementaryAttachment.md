@@ -1,4 +1,4 @@
-# OpenapiClient::SupplementaryAttachment
+# FactPulse::SupplementaryAttachment
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SupplementaryAttachment.new(
+instance = FactPulse::SupplementaryAttachment.new(
   description: null,
   id: null,
   link_id: null,

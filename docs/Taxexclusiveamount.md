@@ -1,4 +1,4 @@
-# OpenapiClient::Taxexclusiveamount
+# FactPulse::Taxexclusiveamount
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::Taxexclusiveamount.new()
+instance = FactPulse::Taxexclusiveamount.new()
 ```
 

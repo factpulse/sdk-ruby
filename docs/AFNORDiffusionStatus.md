@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORDiffusionStatus
+# FactPulse::AFNORDiffusionStatus
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORDiffusionStatus.new()
+instance = FactPulse::AFNORDiffusionStatus.new()
 ```
 

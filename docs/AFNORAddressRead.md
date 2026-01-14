@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORAddressRead
+# FactPulse::AFNORAddressRead
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORAddressRead.new(
+instance = FactPulse::AFNORAddressRead.new(
   address_line1: 16 BIS RUE HENRI BARBUSSE,
   address_line2: CEDEX 1,
   address_line3: Bâtiment le Callipso,

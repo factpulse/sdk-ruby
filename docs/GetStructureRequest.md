@@ -1,4 +1,4 @@
-# OpenapiClient::GetStructureRequest
+# FactPulse::GetStructureRequest
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::GetStructureRequest.new(
+instance = FactPulse::GetStructureRequest.new(
   credentials: null,
   structure_id: null,
   language_code: null

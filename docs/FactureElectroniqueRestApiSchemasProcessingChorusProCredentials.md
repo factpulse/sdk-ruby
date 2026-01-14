@@ -1,4 +1,4 @@
-# OpenapiClient::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials
+# FactPulse::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.new(
+instance = FactPulse::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.new(
   piste_client_id: null,
   piste_client_secret: null,
   chorus_login: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORAcknowledgementDetail
+# FactPulse::AFNORAcknowledgementDetail
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORAcknowledgementDetail.new(
+instance = FactPulse::AFNORAcknowledgementDetail.new(
   level: null,
   item: null,
   reason_code: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeSearch
+# FactPulse::AFNORRoutingCodeSearch
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeSearch.new(
+instance = FactPulse::AFNORRoutingCodeSearch.new(
   filters: null,
   sorting: [{field&#x3D;siret, order&#x3D;ascendant}, {field&#x3D;routingIdentifier, order&#x3D;ascendant}],
   fields: [siret, routingIdentifierType, routingCodeName, routingIdentifier, managesLegalCommitmentCode, administrativeStatus, address, idInstance],

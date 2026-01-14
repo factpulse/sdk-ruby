@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode
+# FactPulse::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode.new(
+instance = FactPulse::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode.new(
   routing_identifier: dcsc456sdcsdcs556,
   routing_identifier_type: 0224,
   routing_code_name: Libellé Code routage,

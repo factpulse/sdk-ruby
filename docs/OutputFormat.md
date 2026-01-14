@@ -1,4 +1,4 @@
-# OpenapiClient::OutputFormat
+# FactPulse::OutputFormat
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::OutputFormat.new()
+instance = FactPulse::OutputFormat.new()
 ```
 

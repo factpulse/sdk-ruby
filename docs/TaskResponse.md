@@ -1,4 +1,4 @@
-# OpenapiClient::TaskResponse
+# FactPulse::TaskResponse
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::TaskResponse.new(
+instance = FactPulse::TaskResponse.new(
   task_id: null
 )
 ```

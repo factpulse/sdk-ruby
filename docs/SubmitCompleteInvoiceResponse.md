@@ -1,4 +1,4 @@
-# OpenapiClient::SubmitCompleteInvoiceResponse
+# FactPulse::SubmitCompleteInvoiceResponse
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SubmitCompleteInvoiceResponse.new(
+instance = FactPulse::SubmitCompleteInvoiceResponse.new(
   success: null,
   destination_type: null,
   chorus_result: null,

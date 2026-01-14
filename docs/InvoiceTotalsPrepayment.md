@@ -1,4 +1,4 @@
-# OpenapiClient::InvoiceTotalsPrepayment
+# FactPulse::InvoiceTotalsPrepayment
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoiceTotalsPrepayment.new()
+instance = FactPulse::InvoiceTotalsPrepayment.new()
 ```
 

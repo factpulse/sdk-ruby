@@ -1,4 +1,4 @@
-# OpenapiClient::ValidateEReportingRequest
+# FactPulse::ValidateEReportingRequest
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ValidateEReportingRequest.new(
+instance = FactPulse::ValidateEReportingRequest.new(
   data: null
 )
 ```

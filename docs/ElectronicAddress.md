@@ -1,4 +1,4 @@
-# OpenapiClient::ElectronicAddress
+# FactPulse::ElectronicAddress
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ElectronicAddress.new(
+instance = FactPulse::ElectronicAddress.new(
   identifier: null,
   scheme_id: null
 )

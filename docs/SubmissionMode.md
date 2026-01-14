@@ -1,4 +1,4 @@
-# OpenapiClient::SubmissionMode
+# FactPulse::SubmissionMode
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SubmissionMode.new()
+instance = FactPulse::SubmissionMode.new()
 ```
 

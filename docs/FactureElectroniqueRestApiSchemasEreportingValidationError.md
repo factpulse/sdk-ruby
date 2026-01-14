@@ -1,4 +1,4 @@
-# OpenapiClient::FactureElectroniqueRestApiSchemasEreportingValidationError
+# FactPulse::FactureElectroniqueRestApiSchemasEreportingValidationError
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FactureElectroniqueRestApiSchemasEreportingValidationError.new(
+instance = FactPulse::FactureElectroniqueRestApiSchemasEreportingValidationError.new(
   field: null,
   message: null,
   code: null

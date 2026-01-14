@@ -1,4 +1,4 @@
-# OpenapiClient::ProductCharacteristic
+# FactPulse::ProductCharacteristic
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ProductCharacteristic.new(
+instance = FactPulse::ProductCharacteristic.new(
   name: null,
   value: null
 )

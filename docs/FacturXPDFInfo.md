@@ -1,4 +1,4 @@
-# OpenapiClient::FacturXPDFInfo
+# FactPulse::FacturXPDFInfo
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FacturXPDFInfo.new(
+instance = FactPulse::FacturXPDFInfo.new(
   size: null,
   profile: null,
   signed: null

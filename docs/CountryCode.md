@@ -1,4 +1,4 @@
-# OpenapiClient::CountryCode
+# FactPulse::CountryCode
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::CountryCode.new()
+instance = FactPulse::CountryCode.new()
 ```
 

@@ -1,4 +1,4 @@
-# OpenapiClient::SubmitAggregatedReportRequest
+# FactPulse::SubmitAggregatedReportRequest
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SubmitAggregatedReportRequest.new(
+instance = FactPulse::SubmitAggregatedReportRequest.new(
   data: null,
   tracking_id: null,
   pdp_flow_service_url: null,

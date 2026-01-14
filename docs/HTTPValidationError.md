@@ -1,4 +1,4 @@
-# OpenapiClient::HTTPValidationError
+# FactPulse::HTTPValidationError
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::HTTPValidationError.new(
+instance = FactPulse::HTTPValidationError.new(
   detail: null
 )
 ```

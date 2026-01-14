@@ -1,4 +1,4 @@
-# OpenapiClient::VATAccountingCode
+# FactPulse::VATAccountingCode
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::VATAccountingCode.new()
+instance = FactPulse::VATAccountingCode.new()
 ```
 

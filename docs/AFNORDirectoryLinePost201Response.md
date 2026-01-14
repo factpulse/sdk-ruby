@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORDirectoryLinePost201Response
+# FactPulse::AFNORDirectoryLinePost201Response
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORDirectoryLinePost201Response.new(
+instance = FactPulse::AFNORDirectoryLinePost201Response.new(
   id_instance: 120,
   addressing_identifier: dcsc456sdcsdcs556,
   date_from: 2023-01-01

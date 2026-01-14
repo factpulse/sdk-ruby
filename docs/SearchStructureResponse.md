@@ -1,4 +1,4 @@
-# OpenapiClient::SearchStructureResponse
+# FactPulse::SearchStructureResponse
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SearchStructureResponse.new(
+instance = FactPulse::SearchStructureResponse.new(
   return_code: null,
   message: null,
   structures: null,

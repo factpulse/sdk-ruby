@@ -1,4 +1,4 @@
-# OpenapiClient::PaymentCard
+# FactPulse::PaymentCard
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PaymentCard.new(
+instance = FactPulse::PaymentCard.new(
   card_id: null,
   cardholder_name: null
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::EReportingFlowType
+# FactPulse::EReportingFlowType
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::EReportingFlowType.new()
+instance = FactPulse::EReportingFlowType.new()
 ```
 

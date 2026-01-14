@@ -1,4 +1,4 @@
-# OpenapiClient::StructureParameters
+# FactPulse::StructureParameters
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::StructureParameters.new(
+instance = FactPulse::StructureParameters.new(
   service_code_required: null,
   engagement_number_required: null,
   engagement_or_service_management: null

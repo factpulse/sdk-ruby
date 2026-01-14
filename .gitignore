@@ -1,8 +1,19 @@
-*.gem
-*.rbc
-/.config
-/coverage/
-/pkg/
-/spec/reports/
-/tmp/
+# Bundler
+vendor/bundle/
+.bundle/
 Gemfile.lock
+
+# RSpec
+.rspec_status
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

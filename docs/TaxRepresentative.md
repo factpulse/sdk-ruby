@@ -1,4 +1,4 @@
-# OpenapiClient::TaxRepresentative
+# FactPulse::TaxRepresentative
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::TaxRepresentative.new(
+instance = FactPulse::TaxRepresentative.new(
   name: null,
   vat_number: null,
   postal_address: null

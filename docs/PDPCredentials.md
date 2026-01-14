@@ -1,4 +1,4 @@
-# OpenapiClient::PDPCredentials
+# FactPulse::PDPCredentials
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PDPCredentials.new(
+instance = FactPulse::PDPCredentials.new(
   flow_service_url: https://api.pdp-example.fr/flow/v1,
   directory_service_url: null,
   token_url: https://auth.pdp-example.fr/oauth/token,

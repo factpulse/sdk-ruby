@@ -1,4 +1,4 @@
-# OpenapiClient::VATCategory
+# FactPulse::VATCategory
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::VATCategory.new()
+instance = FactPulse::VATCategory.new()
 ```
 

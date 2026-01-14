@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORLegalUnitAdministrativeStatus
+# FactPulse::AFNORLegalUnitAdministrativeStatus
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORLegalUnitAdministrativeStatus.new()
+instance = FactPulse::AFNORLegalUnitAdministrativeStatus.new()
 ```
 

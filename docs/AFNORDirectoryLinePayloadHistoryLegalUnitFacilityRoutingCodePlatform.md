@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodePlatform
+# FactPulse::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodePlatform
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodePlatform.new(
+instance = FactPulse::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodePlatform.new(
   platform_type: null,
   platform_status: null
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::DocumentTypeInfo
+# FactPulse::DocumentTypeInfo
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::DocumentTypeInfo.new(
+instance = FactPulse::DocumentTypeInfo.new(
   code: null,
   label: null,
   detected_as: null

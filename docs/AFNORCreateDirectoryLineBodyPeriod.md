@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORCreateDirectoryLineBodyPeriod
+# FactPulse::AFNORCreateDirectoryLineBodyPeriod
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORCreateDirectoryLineBodyPeriod.new(
+instance = FactPulse::AFNORCreateDirectoryLineBodyPeriod.new(
   date_from: 2023-01-01,
   date_to: 2023-01-31
 )

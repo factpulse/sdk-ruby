@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORFacilityPayloadIncluded
+# FactPulse::AFNORFacilityPayloadIncluded
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORFacilityPayloadIncluded.new(
+instance = FactPulse::AFNORFacilityPayloadIncluded.new(
   siret: 70204275500240,
   siren: 702042755,
   name: Boulangerie Pascale,

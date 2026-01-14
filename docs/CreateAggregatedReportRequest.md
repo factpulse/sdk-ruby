@@ -1,4 +1,4 @@
-# OpenapiClient::CreateAggregatedReportRequest
+# FactPulse::CreateAggregatedReportRequest
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::CreateAggregatedReportRequest.new(
+instance = FactPulse::CreateAggregatedReportRequest.new(
   report_id: EREPORT-2025-001,
   report_name: null,
   transmission_type: null,

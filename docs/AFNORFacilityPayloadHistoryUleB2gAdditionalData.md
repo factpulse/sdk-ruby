@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORFacilityPayloadHistoryUleB2gAdditionalData
+# FactPulse::AFNORFacilityPayloadHistoryUleB2gAdditionalData
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORFacilityPayloadHistoryUleB2gAdditionalData.new(
+instance = FactPulse::AFNORFacilityPayloadHistoryUleB2gAdditionalData.new(
   pm: true,
   pm_only: true,
   manages_payment_status: true,

@@ -1,4 +1,4 @@
-# OpenapiClient::ExtractionInfo
+# FactPulse::ExtractionInfo
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ExtractionInfo.new(
+instance = FactPulse::ExtractionInfo.new(
   confidence_score: null,
   fields_extracted: null,
   fields_enriched: null,

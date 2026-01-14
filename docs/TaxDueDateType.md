@@ -1,4 +1,4 @@
-# OpenapiClient::TaxDueDateType
+# FactPulse::TaxDueDateType
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::TaxDueDateType.new()
+instance = FactPulse::TaxDueDateType.new()
 ```
 

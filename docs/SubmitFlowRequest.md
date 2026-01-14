@@ -1,4 +1,4 @@
-# OpenapiClient::SubmitFlowRequest
+# FactPulse::SubmitFlowRequest
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SubmitFlowRequest.new(
+instance = FactPulse::SubmitFlowRequest.new(
   flow_name: Invoice 2025-001,
   flow_syntax: null,
   flow_profile: null,

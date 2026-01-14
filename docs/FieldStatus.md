@@ -1,4 +1,4 @@
-# OpenapiClient::FieldStatus
+# FactPulse::FieldStatus
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FieldStatus.new()
+instance = FactPulse::FieldStatus.new()
 ```
 

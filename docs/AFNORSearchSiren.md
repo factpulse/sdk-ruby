@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSiren
+# FactPulse::AFNORSearchSiren
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSiren.new(
+instance = FactPulse::AFNORSearchSiren.new(
   filters: null,
   sorting: [{field&#x3D;siren, order&#x3D;ascending}, {field&#x3D;administrativeStatus, order&#x3D;descending}],
   fields: [siren, businessName, entityType, administrativeStatus, idInstance],

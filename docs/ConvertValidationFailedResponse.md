@@ -1,4 +1,4 @@
-# OpenapiClient::ConvertValidationFailedResponse
+# FactPulse::ConvertValidationFailedResponse
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ConvertValidationFailedResponse.new(
+instance = FactPulse::ConvertValidationFailedResponse.new(
   status: null,
   conversion_id: null,
   message: null,

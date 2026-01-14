@@ -1,4 +1,4 @@
-# OpenapiClient::Contact
+# FactPulse::Contact
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::Contact.new(
+instance = FactPulse::Contact.new(
   name: null,
   department_name: null,
   phone: null,

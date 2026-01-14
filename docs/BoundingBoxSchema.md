@@ -1,4 +1,4 @@
-# OpenapiClient::BoundingBoxSchema
+# FactPulse::BoundingBoxSchema
 
 ## Properties
 
@@ -15,9 +15,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::BoundingBoxSchema.new(
+instance = FactPulse::BoundingBoxSchema.new(
   x0: null,
   y0: null,
   x1: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORUpdatePatchRoutingCodeBody
+# FactPulse::AFNORUpdatePatchRoutingCodeBody
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORUpdatePatchRoutingCodeBody.new(
+instance = FactPulse::AFNORUpdatePatchRoutingCodeBody.new(
   routing_identifier_type: 0224,
   routing_code_name: Libellé Code routage,
   administrative_status: null,

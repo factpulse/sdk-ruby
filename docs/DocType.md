@@ -1,4 +1,4 @@
-# OpenapiClient::DocType
+# FactPulse::DocType
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::DocType.new()
+instance = FactPulse::DocType.new()
 ```
 

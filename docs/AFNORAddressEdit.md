@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORAddressEdit
+# FactPulse::AFNORAddressEdit
 
 ## Properties
 
@@ -15,9 +15,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORAddressEdit.new(
+instance = FactPulse::AFNORAddressEdit.new(
   ligne_adresse1: 16 BIS RUE HENRI BARBUSSE,
   ligne_adresse2: CEDEX 1,
   ligne_adresse3: Bâtiment le Callipso,

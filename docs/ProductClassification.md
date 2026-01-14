@@ -1,4 +1,4 @@
-# OpenapiClient::ProductClassification
+# FactPulse::ProductClassification
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ProductClassification.new(
+instance = FactPulse::ProductClassification.new(
   class_code: null,
   list_id: null,
   list_version_id: null

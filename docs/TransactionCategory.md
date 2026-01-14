@@ -1,4 +1,4 @@
-# OpenapiClient::TransactionCategory
+# FactPulse::TransactionCategory
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::TransactionCategory.new()
+instance = FactPulse::TransactionCategory.new()
 ```
 

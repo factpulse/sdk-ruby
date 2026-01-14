@@ -1,4 +1,4 @@
-# OpenapiClient::FlowProfile
+# FactPulse::FlowProfile
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FlowProfile.new()
+instance = FactPulse::FlowProfile.new()
 ```
 

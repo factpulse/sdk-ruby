@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORLegalUnitPayloadIncludedNoSiren
+# FactPulse::AFNORLegalUnitPayloadIncludedNoSiren
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORLegalUnitPayloadIncludedNoSiren.new(
+instance = FactPulse::AFNORLegalUnitPayloadIncludedNoSiren.new(
   business_name: Boulangerie Pascale,
   entity_type: null,
   administrative_status: null

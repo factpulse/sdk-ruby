@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORCredentials
+# FactPulse::AFNORCredentials
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORCredentials.new(
+instance = FactPulse::AFNORCredentials.new(
   client_id: null,
   client_secret: null,
   flow_service_url: null

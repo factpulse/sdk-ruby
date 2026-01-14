@@ -1,4 +1,4 @@
-# OpenapiClient::MandatoryNoteSchema
+# FactPulse::MandatoryNoteSchema
 
 ## Properties
 
@@ -15,9 +15,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::MandatoryNoteSchema.new(
+instance = FactPulse::MandatoryNoteSchema.new(
   subject_code: null,
   label: null,
   pdf_value: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::ValidationInfo
+# FactPulse::ValidationInfo
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ValidationInfo.new(
+instance = FactPulse::ValidationInfo.new(
   profile: null,
   schematron_rules_passed: null,
   schematron_rules_total: null,

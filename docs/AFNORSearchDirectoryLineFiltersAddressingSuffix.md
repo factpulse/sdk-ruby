@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchDirectoryLineFiltersAddressingSuffix
+# FactPulse::AFNORSearchDirectoryLineFiltersAddressingSuffix
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchDirectoryLineFiltersAddressingSuffix.new(
+instance = FactPulse::AFNORSearchDirectoryLineFiltersAddressingSuffix.new(
   op: null,
   value: dcsc456sdcsdcs556
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::AsyncTaskStatus
+# FactPulse::AsyncTaskStatus
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AsyncTaskStatus.new(
+instance = FactPulse::AsyncTaskStatus.new(
   task_id: null,
   status: null,
   result: null

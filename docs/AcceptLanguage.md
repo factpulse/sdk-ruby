@@ -1,4 +1,4 @@
-# OpenapiClient::AcceptLanguage
+# FactPulse::AcceptLanguage
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AcceptLanguage.new()
+instance = FactPulse::AcceptLanguage.new()
 ```
 

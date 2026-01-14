@@ -1,4 +1,4 @@
-# OpenapiClient::APIError
+# FactPulse::APIError
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::APIError.new(
+instance = FactPulse::APIError.new(
   error_code: null,
   error_message: null,
   details: null

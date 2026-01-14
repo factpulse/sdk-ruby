@@ -1,4 +1,4 @@
-# OpenapiClient::EReportingApi
+# FactPulse::EReportingApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -29,21 +29,21 @@ Generate a PPF-compliant aggregated e-reporting XML containing multiple flux typ
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-create_aggregated_report_request = OpenapiClient::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateAggregatedReportRequest | 
+api_instance = FactPulse::EReportingApi.new
+create_aggregated_report_request = FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateAggregatedReportRequest | 
 
 begin
   # Generate aggregated e-reporting XML (PPF-compliant)
   result = api_instance.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post(create_aggregated_report_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post: #{e}"
 end
 ```
@@ -61,7 +61,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GenerateAggregatedReportResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post_with_http_info: #{e}"
 end
 ```
@@ -98,21 +98,21 @@ Generate e-reporting XML (FRR format) from structured data.  Supports all four f
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-create_e_reporting_request = OpenapiClient::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: OpenapiClient::EReportingFlowType::N10_1, sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateEReportingRequest | 
+api_instance = FactPulse::EReportingApi.new
+create_e_reporting_request = FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateEReportingRequest | 
 
 begin
   # Generate e-reporting XML
   result = api_instance.generate_ereporting_api_v1_ereporting_generate_post(create_e_reporting_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->generate_ereporting_api_v1_ereporting_generate_post: #{e}"
 end
 ```
@@ -130,7 +130,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GenerateEReportingResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->generate_ereporting_api_v1_ereporting_generate_post_with_http_info: #{e}"
 end
 ```
@@ -167,15 +167,15 @@ Generate e-reporting XML and return as downloadable file.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-create_e_reporting_request = OpenapiClient::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: OpenapiClient::EReportingFlowType::N10_1, sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateEReportingRequest | 
+api_instance = FactPulse::EReportingApi.new
+create_e_reporting_request = FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateEReportingRequest | 
 opts = {
   filename: 'filename_example' # String | Output filename (default: ereporting_{reportId}.xml)
 }
@@ -183,7 +183,7 @@ opts = {
 begin
   # Generate and download e-reporting XML
   api_instance.generate_ereporting_download_api_v1_ereporting_generate_download_post(create_e_reporting_request, opts)
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->generate_ereporting_download_api_v1_ereporting_generate_download_post: #{e}"
 end
 ```
@@ -201,7 +201,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => nil
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->generate_ereporting_download_api_v1_ereporting_generate_download_post_with_http_info: #{e}"
 end
 ```
@@ -239,15 +239,15 @@ Returns the list of valid CategoryCode values (TT-81) for e-reporting transactio
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::EReportingApi.new
+api_instance = FactPulse::EReportingApi.new
 
 begin
   # List PPF-compliant category codes
   result = api_instance.list_category_codes_api_v1_ereporting_category_codes_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->list_category_codes_api_v1_ereporting_category_codes_get: #{e}"
 end
 ```
@@ -265,7 +265,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->list_category_codes_api_v1_ereporting_category_codes_get_with_http_info: #{e}"
 end
 ```
@@ -300,15 +300,15 @@ Returns the list of supported e-reporting flow types with descriptions.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::EReportingApi.new
+api_instance = FactPulse::EReportingApi.new
 
 begin
   # List available flow types
   result = api_instance.list_flow_types_api_v1_ereporting_flow_types_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->list_flow_types_api_v1_ereporting_flow_types_get: #{e}"
 end
 ```
@@ -326,7 +326,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->list_flow_types_api_v1_ereporting_flow_types_get_with_http_info: #{e}"
 end
 ```
@@ -361,21 +361,21 @@ Generate and submit a PPF-compliant aggregated e-reporting to a PA/PDP.  Combine
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-submit_aggregated_report_request = OpenapiClient::SubmitAggregatedReportRequest.new({data: OpenapiClient::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitAggregatedReportRequest | 
+api_instance = FactPulse::EReportingApi.new
+submit_aggregated_report_request = FactPulse::SubmitAggregatedReportRequest.new({data: FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitAggregatedReportRequest | 
 
 begin
   # Submit aggregated e-reporting to PA/PDP
   result = api_instance.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post(submit_aggregated_report_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post: #{e}"
 end
 ```
@@ -393,7 +393,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info: #{e}"
 end
 ```
@@ -430,21 +430,21 @@ Generate and submit e-reporting to a PA (Plateforme Agréée).  Authentication s
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-submit_e_reporting_request = OpenapiClient::SubmitEReportingRequest.new({data: OpenapiClient::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: OpenapiClient::EReportingFlowType::N10_1, sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitEReportingRequest | 
+api_instance = FactPulse::EReportingApi.new
+submit_e_reporting_request = FactPulse::SubmitEReportingRequest.new({data: FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitEReportingRequest | 
 
 begin
   # Submit e-reporting to PA/PDP
   result = api_instance.submit_ereporting_api_v1_ereporting_submit_post(submit_e_reporting_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->submit_ereporting_api_v1_ereporting_submit_post: #{e}"
 end
 ```
@@ -462,7 +462,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->submit_ereporting_api_v1_ereporting_submit_post_with_http_info: #{e}"
 end
 ```
@@ -499,14 +499,14 @@ Submit a pre-generated e-reporting XML file directly to a PA/PDP.  This endpoint
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
+api_instance = FactPulse::EReportingApi.new
 xml_file = File.new('/path/to/some/file') # File | E-reporting XML file
 opts = {
   tracking_id: 'tracking_id_example', # String | 
@@ -521,7 +521,7 @@ begin
   # Submit pre-generated e-reporting XML
   result = api_instance.submit_xml_ereporting_api_v1_ereporting_submit_xml_post(xml_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->submit_xml_ereporting_api_v1_ereporting_submit_xml_post: #{e}"
 end
 ```
@@ -539,7 +539,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->submit_xml_ereporting_api_v1_ereporting_submit_xml_post_with_http_info: #{e}"
 end
 ```
@@ -582,21 +582,21 @@ Validates aggregated e-reporting data without generating XML.
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-create_aggregated_report_request = OpenapiClient::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateAggregatedReportRequest | 
+api_instance = FactPulse::EReportingApi.new
+create_aggregated_report_request = FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateAggregatedReportRequest | 
 
 begin
   # Validate aggregated e-reporting data
   result = api_instance.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post(create_aggregated_report_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post: #{e}"
 end
 ```
@@ -614,7 +614,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post_with_http_info: #{e}"
 end
 ```
@@ -651,21 +651,21 @@ Validate e-reporting data without generating or submitting.  Performs: - Schema 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
-validate_e_reporting_request = OpenapiClient::ValidateEReportingRequest.new({data: OpenapiClient::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: OpenapiClient::EReportingFlowType::N10_1, sender: OpenapiClient::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: OpenapiClient::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # ValidateEReportingRequest | 
+api_instance = FactPulse::EReportingApi.new
+validate_e_reporting_request = FactPulse::ValidateEReportingRequest.new({data: FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # ValidateEReportingRequest | 
 
 begin
   # Validate e-reporting data
   result = api_instance.validate_ereporting_api_v1_ereporting_validate_post(validate_e_reporting_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->validate_ereporting_api_v1_ereporting_validate_post: #{e}"
 end
 ```
@@ -683,7 +683,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ValidateEReportingResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->validate_ereporting_api_v1_ereporting_validate_post_with_http_info: #{e}"
 end
 ```
@@ -720,14 +720,14 @@ Validates an e-reporting XML file against:  1. **XSD schemas**: Official PPF e-r
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::EReportingApi.new
+api_instance = FactPulse::EReportingApi.new
 xml_file = File.new('/path/to/some/file') # File | E-reporting XML file to validate
 opts = {
   validate_business_rules: true # Boolean | Also validate business rules (ISO codes, enums)
@@ -737,7 +737,7 @@ begin
   # Validate e-reporting XML against PPF XSD schemas and business rules
   result = api_instance.validate_xml_ereporting_api_v1_ereporting_validate_xml_post(xml_file, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->validate_xml_ereporting_api_v1_ereporting_validate_xml_post: #{e}"
 end
 ```
@@ -755,7 +755,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling EReportingApi->validate_xml_ereporting_api_v1_ereporting_validate_xml_post_with_http_info: #{e}"
 end
 ```

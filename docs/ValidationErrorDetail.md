@@ -1,4 +1,4 @@
-# OpenapiClient::ValidationErrorDetail
+# FactPulse::ValidationErrorDetail
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ValidationErrorDetail.new(
+instance = FactPulse::ValidationErrorDetail.new(
   level: null,
   item: null,
   reason: null,

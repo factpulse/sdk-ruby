@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeSearchFiltersAdministrativeStatus
+# FactPulse::AFNORRoutingCodeSearchFiltersAdministrativeStatus
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeSearchFiltersAdministrativeStatus.new(
+instance = FactPulse::AFNORRoutingCodeSearchFiltersAdministrativeStatus.new(
   op: null,
   value: null
 )

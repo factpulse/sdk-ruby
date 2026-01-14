@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORPDPPAApi
+# FactPulse::AFNORPDPPAApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -21,20 +21,20 @@ Retrieves stored AFNOR/PDP credentials for the JWT's client_uid. This endpoint i
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::AFNORPDPPAApi.new
+api_instance = FactPulse::AFNORPDPPAApi.new
 
 begin
   # Retrieve stored AFNOR credentials
   result = api_instance.get_afnor_credentials_api_v1_afnor_credentials_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->get_afnor_credentials_api_v1_afnor_credentials_get: #{e}"
 end
 ```
@@ -52,7 +52,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->get_afnor_credentials_api_v1_afnor_credentials_get_with_http_info: #{e}"
 end
 ```
@@ -87,14 +87,14 @@ Downloads an incoming flow from the AFNOR PDP and extracts invoice metadata into
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::AFNORPDPPAApi.new
+api_instance = FactPulse::AFNORPDPPAApi.new
 flow_id = 'flow_id_example' # String | AFNOR flow ID (UUID format)
 opts = {
   include_document: true # Boolean | Include base64-encoded document in response
@@ -104,7 +104,7 @@ begin
   # Retrieve and extract an incoming invoice
   result = api_instance.get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get(flow_id, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get: #{e}"
 end
 ```
@@ -122,7 +122,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <IncomingInvoice>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info: #{e}"
 end
 ```
@@ -160,15 +160,15 @@ OAuth2 proxy endpoint to obtain an AFNOR access token. Proxies to AFNOR mock (sa
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::AFNORPDPPAApi.new
+api_instance = FactPulse::AFNORPDPPAApi.new
 
 begin
   # OAuth2 endpoint for AFNOR authentication
   result = api_instance.oauth_token_proxy_api_v1_afnor_oauth_token_post
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->oauth_token_proxy_api_v1_afnor_oauth_token_post: #{e}"
 end
 ```
@@ -186,7 +186,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAApi->oauth_token_proxy_api_v1_afnor_oauth_token_post_with_http_info: #{e}"
 end
 ```

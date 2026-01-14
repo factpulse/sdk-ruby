@@ -1,4 +1,4 @@
-# OpenapiClient::CeleryStatus
+# FactPulse::CeleryStatus
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::CeleryStatus.new()
+instance = FactPulse::CeleryStatus.new()
 ```
 

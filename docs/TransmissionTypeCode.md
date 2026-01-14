@@ -1,4 +1,4 @@
-# OpenapiClient::TransmissionTypeCode
+# FactPulse::TransmissionTypeCode
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::TransmissionTypeCode.new()
+instance = FactPulse::TransmissionTypeCode.new()
 ```
 

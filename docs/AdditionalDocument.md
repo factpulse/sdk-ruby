@@ -1,4 +1,4 @@
-# OpenapiClient::AdditionalDocument
+# FactPulse::AdditionalDocument
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AdditionalDocument.new(
+instance = FactPulse::AdditionalDocument.new(
   id: null,
   type_code: null,
   name: null,

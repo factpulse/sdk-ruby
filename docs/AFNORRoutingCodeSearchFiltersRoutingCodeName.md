@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeSearchFiltersRoutingCodeName
+# FactPulse::AFNORRoutingCodeSearchFiltersRoutingCodeName
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeSearchFiltersRoutingCodeName.new(
+instance = FactPulse::AFNORRoutingCodeSearchFiltersRoutingCodeName.new(
   op: null,
   value: Libellé Code routage
 )

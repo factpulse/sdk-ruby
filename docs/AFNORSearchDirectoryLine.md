@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchDirectoryLine
+# FactPulse::AFNORSearchDirectoryLine
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchDirectoryLine.new(
+instance = FactPulse::AFNORSearchDirectoryLine.new(
   filters: null,
   sorting: [{champ&#x3D;addressingIdentifier, order&#x3D;ascending}],
   fields: [addressingIdentifier, siren, siret, addressingSuffix, idInstance],

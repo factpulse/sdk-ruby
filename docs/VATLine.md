@@ -1,4 +1,4 @@
-# OpenapiClient::VATLine
+# FactPulse::VATLine
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::VATLine.new(
+instance = FactPulse::VATLine.new(
   taxable_amount: null,
   vat_amount: null,
   rate: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSiretField
+# FactPulse::AFNORSiretField
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSiretField.new()
+instance = FactPulse::AFNORSiretField.new()
 ```
 

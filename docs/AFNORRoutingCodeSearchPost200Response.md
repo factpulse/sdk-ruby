@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeSearchPost200Response
+# FactPulse::AFNORRoutingCodeSearchPost200Response
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeSearchPost200Response.new(
+instance = FactPulse::AFNORRoutingCodeSearchPost200Response.new(
   search: null,
   total_number_of_results: 1500,
   results: null

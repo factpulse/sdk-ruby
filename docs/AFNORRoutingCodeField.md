@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRoutingCodeField
+# FactPulse::AFNORRoutingCodeField
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRoutingCodeField.new()
+instance = FactPulse::AFNORRoutingCodeField.new()
 ```
 

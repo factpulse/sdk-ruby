@@ -1,4 +1,4 @@
-# OpenapiClient::Recipient
+# FactPulse::Recipient
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::Recipient.new(
+instance = FactPulse::Recipient.new(
   electronic_address: null,
   executing_service_code: null,
   name: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORPDPPAFlowServiceApi
+# FactPulse::AFNORPDPPAFlowServiceApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -22,19 +22,19 @@ Download a file related to a given flow (AFNOR XP Z12-013 compliant): - Metadata
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::AFNORPDPPAFlowServiceApi.new
+api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
 flow_id = 'flow_id_example' # String | AFNOR flow identifier (UUID)
 opts = {
-  doc_type: OpenapiClient::DocType::METADATA # DocType | Type of file to download: Metadata (default, JSON), Original, Converted, or ReadableView
+  doc_type: FactPulse::DocType::METADATA # DocType | Type of file to download: Metadata (default, JSON), Original, Converted, or ReadableView
 }
 
 begin
   # Download a flow
   result = api_instance.download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get(flow_id, opts)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get: #{e}"
 end
 ```
@@ -52,7 +52,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <AFNORFlow>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get_with_http_info: #{e}"
 end
 ```
@@ -90,15 +90,15 @@ Check Flow Service availability (AFNOR XP Z12-013 compliant)
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::AFNORPDPPAFlowServiceApi.new
+api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
 
 begin
   # Healthcheck Flow Service
   result = api_instance.flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get: #{e}"
 end
 ```
@@ -116,7 +116,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get_with_http_info: #{e}"
 end
 ```
@@ -151,16 +151,16 @@ Search invoicing flows by criteria (AFNOR XP Z12-013 compliant)
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::AFNORPDPPAFlowServiceApi.new
-afnor_search_flow_params = OpenapiClient::AFNORSearchFlowParams.new({where: OpenapiClient::AFNORSearchFlowFilters.new}) # AFNORSearchFlowParams | 
+api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
+afnor_search_flow_params = FactPulse::AFNORSearchFlowParams.new({where: FactPulse::AFNORSearchFlowFilters.new}) # AFNORSearchFlowParams | 
 
 begin
   # Search flows
   result = api_instance.search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post(afnor_search_flow_params)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post: #{e}"
 end
 ```
@@ -178,7 +178,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <AFNORSearchFlowContent>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post_with_http_info: #{e}"
 end
 ```
@@ -215,17 +215,17 @@ Submits an electronic invoice to a Partner Dematerialization Platform (PDP) in c
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 
-api_instance = OpenapiClient::AFNORPDPPAFlowServiceApi.new
-flow_info = OpenapiClient::AFNORFlowInfo.new({flow_syntax: OpenapiClient::AFNORFlowSyntax::CII}) # AFNORFlowInfo | 
+api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
+flow_info = FactPulse::AFNORFlowInfo.new({flow_syntax: FactPulse::AFNORFlowSyntax::CII}) # AFNORFlowInfo | 
 file = File.new('/path/to/some/file') # File | Flow file (PDF/A-3 with embedded XML or XML)
 
 begin
   # Submit an invoicing flow
   result = api_instance.submit_flow_proxy_api_v1_afnor_flow_v1_flows_post(flow_info, file)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->submit_flow_proxy_api_v1_afnor_flow_v1_flows_post: #{e}"
 end
 ```
@@ -243,7 +243,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling AFNORPDPPAFlowServiceApi->submit_flow_proxy_api_v1_afnor_flow_v1_flows_post_with_http_info: #{e}"
 end
 ```

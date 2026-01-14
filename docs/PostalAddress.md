@@ -1,4 +1,4 @@
-# OpenapiClient::PostalAddress
+# FactPulse::PostalAddress
 
 ## Properties
 
@@ -15,9 +15,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PostalAddress.new(
+instance = FactPulse::PostalAddress.new(
   postal_code: null,
   line_one: null,
   line_two: null,

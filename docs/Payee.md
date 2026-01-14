@@ -1,4 +1,4 @@
-# OpenapiClient::Payee
+# FactPulse::Payee
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::Payee.new(
+instance = FactPulse::Payee.new(
   nom: null,
   payee_id: null,
   siret: null,

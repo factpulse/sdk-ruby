@@ -1,4 +1,4 @@
-# OpenapiClient::FlowSummary
+# FactPulse::FlowSummary
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FlowSummary.new(
+instance = FactPulse::FlowSummary.new(
   flow_id: null,
   tracking_id: null,
   name: null,

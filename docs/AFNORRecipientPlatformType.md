@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORRecipientPlatformType
+# FactPulse::AFNORRecipientPlatformType
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORRecipientPlatformType.new()
+instance = FactPulse::AFNORRecipientPlatformType.new()
 ```
 

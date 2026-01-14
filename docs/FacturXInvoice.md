@@ -1,4 +1,4 @@
-# OpenapiClient::FacturXInvoice
+# FactPulse::FacturXInvoice
 
 ## Properties
 
@@ -38,9 +38,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FacturXInvoice.new(
+instance = FactPulse::FacturXInvoice.new(
   invoice_number: null,
   payment_due_date: null,
   invoice_date: null,

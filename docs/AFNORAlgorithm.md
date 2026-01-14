@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORAlgorithm
+# FactPulse::AFNORAlgorithm
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORAlgorithm.new()
+instance = FactPulse::AFNORAlgorithm.new()
 ```
 

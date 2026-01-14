@@ -1,4 +1,4 @@
-# OpenapiClient::MissingField
+# FactPulse::MissingField
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::MissingField.new(
+instance = FactPulse::MissingField.new(
   field: null,
   bt_code: null,
   description: null,

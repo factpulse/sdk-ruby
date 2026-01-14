@@ -1,4 +1,4 @@
-# OpenapiClient::AcknowledgmentStatus
+# FactPulse::AcknowledgmentStatus
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AcknowledgmentStatus.new()
+instance = FactPulse::AcknowledgmentStatus.new()
 ```
 

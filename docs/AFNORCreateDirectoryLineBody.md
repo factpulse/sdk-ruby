@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORCreateDirectoryLineBody
+# FactPulse::AFNORCreateDirectoryLineBody
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORCreateDirectoryLineBody.new(
+instance = FactPulse::AFNORCreateDirectoryLineBody.new(
   period: null,
   addressing_information: null
 )

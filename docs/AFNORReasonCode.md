@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORReasonCode
+# FactPulse::AFNORReasonCode
 
 ## Class instance methods
 
@@ -9,9 +9,9 @@ Returns the list of classes defined in oneOf.
 #### Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-OpenapiClient::AFNORReasonCode.openapi_one_of
+FactPulse::AFNORReasonCode.openapi_one_of
 # =>
 # [
 #   :'AFNORReasonCodeEnum',
@@ -26,12 +26,12 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 #### Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-OpenapiClient::AFNORReasonCode.build(data)
+FactPulse::AFNORReasonCode.build(data)
 # => #<AFNORReasonCodeEnum:0x00007fdd4aab02a0>
 
-OpenapiClient::AFNORReasonCode.build(data_that_doesnt_match)
+FactPulse::AFNORReasonCode.build(data_that_doesnt_match)
 # => nil
 ```
 

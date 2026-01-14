@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSortingOrder
+# FactPulse::AFNORSortingOrder
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSortingOrder.new()
+instance = FactPulse::AFNORSortingOrder.new()
 ```
 

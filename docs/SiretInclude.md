@@ -1,4 +1,4 @@
-# OpenapiClient::SiretInclude
+# FactPulse::SiretInclude
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::SiretInclude.new()
+instance = FactPulse::SiretInclude.new()
 ```
 

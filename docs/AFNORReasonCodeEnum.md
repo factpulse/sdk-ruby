@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORReasonCodeEnum
+# FactPulse::AFNORReasonCodeEnum
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORReasonCodeEnum.new()
+instance = FactPulse::AFNORReasonCodeEnum.new()
 ```
 

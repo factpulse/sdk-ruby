@@ -1,4 +1,4 @@
-# OpenapiClient::PaymentAmountByRate
+# FactPulse::PaymentAmountByRate
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::PaymentAmountByRate.new(
+instance = FactPulse::PaymentAmountByRate.new(
   rate: null,
   amount: null
 )

@@ -1,4 +1,4 @@
-# OpenapiClient::StructureInfo
+# FactPulse::StructureInfo
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::StructureInfo.new(
+instance = FactPulse::StructureInfo.new(
   structure_id: null,
   structure_identifier: null,
   structure_name: null,

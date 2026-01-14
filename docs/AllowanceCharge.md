@@ -1,4 +1,4 @@
-# OpenapiClient::AllowanceCharge
+# FactPulse::AllowanceCharge
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AllowanceCharge.new(
+instance = FactPulse::AllowanceCharge.new(
   is_charge: null,
   amount: null,
   base_amount: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::InvoiceReferences
+# FactPulse::InvoiceReferences
 
 ## Properties
 
@@ -26,9 +26,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::InvoiceReferences.new(
+instance = FactPulse::InvoiceReferences.new(
   business_process_id: null,
   invoice_currency: null,
   payment_means: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::VerifiedFieldSchema
+# FactPulse::VerifiedFieldSchema
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::VerifiedFieldSchema.new(
+instance = FactPulse::VerifiedFieldSchema.new(
   business_term: null,
   label: null,
   pdf_value: null,

@@ -1,4 +1,4 @@
-# OpenapiClient::ReportSender
+# FactPulse::ReportSender
 
 ## Properties
 
@@ -11,9 +11,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::ReportSender.new(
+instance = FactPulse::ReportSender.new(
   siren: 123456789,
   name: Ma Société SARL,
   vat_id: null

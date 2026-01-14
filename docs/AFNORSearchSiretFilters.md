@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORSearchSiretFilters
+# FactPulse::AFNORSearchSiretFilters
 
 ## Properties
 
@@ -17,9 +17,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORSearchSiretFilters.new(
+instance = FactPulse::AFNORSearchSiretFilters.new(
   siret: null,
   siren: null,
   facility_type: null,

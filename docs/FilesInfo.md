@@ -1,4 +1,4 @@
-# OpenapiClient::FilesInfo
+# FactPulse::FilesInfo
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::FilesInfo.new(
+instance = FactPulse::FilesInfo.new(
   facturx_pdf: null,
   xml: null
 )

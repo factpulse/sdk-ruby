@@ -1,4 +1,4 @@
-# OpenapiClient::UserApi
+# FactPulse::UserApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -19,20 +19,20 @@ Returns information about the authenticated user.  This endpoint allows you to: 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::UserApi.new
+api_instance = FactPulse::UserApi.new
 
 begin
   # Get current user information
   result = api_instance.get_user_info_api_v1_me_get
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling UserApi->get_user_info_api_v1_me_get: #{e}"
 end
 ```
@@ -50,7 +50,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling UserApi->get_user_info_api_v1_me_get_with_http_info: #{e}"
 end
 ```

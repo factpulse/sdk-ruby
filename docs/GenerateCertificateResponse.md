@@ -1,4 +1,4 @@
-# OpenapiClient::GenerateCertificateResponse
+# FactPulse::GenerateCertificateResponse
 
 ## Properties
 
@@ -14,9 +14,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::GenerateCertificateResponse.new(
+instance = FactPulse::GenerateCertificateResponse.new(
   status: success,
   certificate_pem: -----BEGIN CERTIFICATE-----
 MIID...

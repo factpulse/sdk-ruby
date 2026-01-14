@@ -1,4 +1,4 @@
-# OpenapiClient::IncomingInvoice
+# FactPulse::IncomingInvoice
 
 ## Properties
 
@@ -27,9 +27,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::IncomingInvoice.new(
+instance = FactPulse::IncomingInvoice.new(
   flow_id: null,
   source_format: null,
   supplier_reference: null,

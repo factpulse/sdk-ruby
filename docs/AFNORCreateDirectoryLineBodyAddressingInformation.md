@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORCreateDirectoryLineBodyAddressingInformation
+# FactPulse::AFNORCreateDirectoryLineBodyAddressingInformation
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORCreateDirectoryLineBodyAddressingInformation.new(
+instance = FactPulse::AFNORCreateDirectoryLineBodyAddressingInformation.new(
   siren: 702042755,
   siret: 70204275500240,
   routing_identifier: dcsc456sdcsdcs556,

@@ -1,4 +1,4 @@
-# OpenapiClient::UnitOfMeasure
+# FactPulse::UnitOfMeasure
 
 ## Properties
 
@@ -8,8 +8,8 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::UnitOfMeasure.new()
+instance = FactPulse::UnitOfMeasure.new()
 ```
 

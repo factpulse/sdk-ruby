@@ -1,4 +1,4 @@
-# OpenapiClient::VerificationSuccessResponse
+# FactPulse::VerificationSuccessResponse
 
 ## Properties
 
@@ -18,9 +18,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::VerificationSuccessResponse.new(
+instance = FactPulse::VerificationSuccessResponse.new(
   is_compliant: null,
   compliance_score: null,
   verified_fields_count: null,

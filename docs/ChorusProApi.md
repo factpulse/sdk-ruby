@@ -1,4 +1,4 @@
-# OpenapiClient::ChorusProApi
+# FactPulse::ChorusProApi
 
 All URIs are relative to *https://factpulse.fr*
 
@@ -34,21 +34,21 @@ Add an attachment to the current user account.      **Max size**: 10 MB per file
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Add an attachment
   result = api_instance.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post: #{e}"
 end
 ```
@@ -66,7 +66,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post_with_http_info: #{e}"
 end
 ```
@@ -103,21 +103,21 @@ Complete a SUSPENDUE status invoice by adding attachments or a comment.      **R
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Complete a suspended invoice (Supplier)
   result = api_instance.completer_facture_api_v1_chorus_pro_factures_completer_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->completer_facture_api_v1_chorus_pro_factures_completer_post: #{e}"
 end
 ```
@@ -135,7 +135,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->completer_facture_api_v1_chorus_pro_factures_completer_post_with_http_info: #{e}"
 end
 ```
@@ -172,21 +172,21 @@ Retrieves the information and current status of an invoice submitted to Chorus P
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
-get_invoice_request = OpenapiClient::GetInvoiceRequest.new({chorus_invoice_id: 37}) # GetInvoiceRequest | 
+api_instance = FactPulse::ChorusProApi.new
+get_invoice_request = FactPulse::GetInvoiceRequest.new({chorus_invoice_id: 37}) # GetInvoiceRequest | 
 
 begin
   # Consult invoice status
   result = api_instance.consulter_facture_api_v1_chorus_pro_factures_consulter_post(get_invoice_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->consulter_facture_api_v1_chorus_pro_factures_consulter_post: #{e}"
 end
 ```
@@ -204,7 +204,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetInvoiceResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->consulter_facture_api_v1_chorus_pro_factures_consulter_post_with_http_info: #{e}"
 end
 ```
@@ -241,21 +241,21 @@ Retrieves detailed information about a Chorus Pro structure.       **Returns**: 
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
-get_structure_request = OpenapiClient::GetStructureRequest.new({structure_id: 37}) # GetStructureRequest | 
+api_instance = FactPulse::ChorusProApi.new
+get_structure_request = FactPulse::GetStructureRequest.new({structure_id: 37}) # GetStructureRequest | 
 
 begin
   # Consult structure details
   result = api_instance.consulter_structure_api_v1_chorus_pro_structures_consulter_post(get_structure_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->consulter_structure_api_v1_chorus_pro_structures_consulter_post: #{e}"
 end
 ```
@@ -273,7 +273,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetStructureResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->consulter_structure_api_v1_chorus_pro_structures_consulter_post_with_http_info: #{e}"
 end
 ```
@@ -310,21 +310,21 @@ Retrieves the list of active services for a public structure.      **Use cases**
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 id_structure_cpp = 56 # Integer | Chorus Pro structure ID (idStructureCPP)
 
 begin
   # List structure services
   result = api_instance.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get(id_structure_cpp)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get: #{e}"
 end
 ```
@@ -342,7 +342,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SearchServicesResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get_with_http_info: #{e}"
 end
 ```
@@ -379,21 +379,21 @@ Utility: Get Chorus Pro ID from SIRET
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
-get_chorus_pro_id_request = OpenapiClient::GetChorusProIdRequest.new({siret: 'siret_example'}) # GetChorusProIdRequest | 
+api_instance = FactPulse::ChorusProApi.new
+get_chorus_pro_id_request = FactPulse::GetChorusProIdRequest.new({siret: 'siret_example'}) # GetChorusProIdRequest | 
 
 begin
   # Utility: Get Chorus Pro ID from SIRET
   result = api_instance.obtenir_id_chorus_pro_depuis_siret_api_v1_chorus_pro_structures_obtenir_id_depuis_siret_post(get_chorus_pro_id_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->obtenir_id_chorus_pro_depuis_siret_api_v1_chorus_pro_structures_obtenir_id_depuis_siret_post: #{e}"
 end
 ```
@@ -411,7 +411,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GetChorusProIdResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->obtenir_id_chorus_pro_depuis_siret_api_v1_chorus_pro_structures_obtenir_id_depuis_siret_post_with_http_info: #{e}"
 end
 ```
@@ -448,21 +448,21 @@ Search invoices received by the connected recipient.      **Filters**:     - Dow
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Search received invoices (Recipient)
   result = api_instance.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post: #{e}"
 end
 ```
@@ -480,7 +480,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post_with_http_info: #{e}"
 end
 ```
@@ -517,21 +517,21 @@ Search invoices issued by the connected supplier.      **Available filters**:   
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Search issued invoices (Supplier)
   result = api_instance.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post: #{e}"
 end
 ```
@@ -549,7 +549,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post_with_http_info: #{e}"
 end
 ```
@@ -586,21 +586,21 @@ Search for structures (companies, administrations) registered on Chorus Pro.    
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
-search_structure_request = OpenapiClient::SearchStructureRequest.new # SearchStructureRequest | 
+api_instance = FactPulse::ChorusProApi.new
+search_structure_request = FactPulse::SearchStructureRequest.new # SearchStructureRequest | 
 
 begin
   # Search Chorus Pro structures
   result = api_instance.rechercher_structures_api_v1_chorus_pro_structures_rechercher_post(search_structure_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_structures_api_v1_chorus_pro_structures_rechercher_post: #{e}"
 end
 ```
@@ -618,7 +618,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SearchStructureResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->rechercher_structures_api_v1_chorus_pro_structures_rechercher_post_with_http_info: #{e}"
 end
 ```
@@ -655,21 +655,21 @@ Recycle an invoice with A_RECYCLER status by modifying routing data.      **Requ
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Recycle an invoice (Supplier)
   result = api_instance.recycler_facture_api_v1_chorus_pro_factures_recycler_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->recycler_facture_api_v1_chorus_pro_factures_recycler_post: #{e}"
 end
 ```
@@ -687,7 +687,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->recycler_facture_api_v1_chorus_pro_factures_recycler_post_with_http_info: #{e}"
 end
 ```
@@ -724,21 +724,21 @@ Submits an electronic invoice to a public structure via Chorus Pro.       **Comp
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
-submit_invoice_request = OpenapiClient::SubmitInvoiceRequest.new({invoice_number: 'invoice_number_example', invoice_date: 'invoice_date_example', structure_id: 37, total_net_amount: OpenapiClient::SubmitNetAmount.new, vat_amount: OpenapiClient::SubmitVatAmount.new, total_gross_amount: OpenapiClient::SubmitGrossAmount.new}) # SubmitInvoiceRequest | 
+api_instance = FactPulse::ChorusProApi.new
+submit_invoice_request = FactPulse::SubmitInvoiceRequest.new({invoice_number: 'invoice_number_example', invoice_date: 'invoice_date_example', structure_id: 37, total_net_amount: FactPulse::SubmitNetAmount.new, vat_amount: FactPulse::SubmitVatAmount.new, total_gross_amount: FactPulse::SubmitGrossAmount.new}) # SubmitInvoiceRequest | 
 
 begin
   # Submit an invoice to Chorus Pro
   result = api_instance.soumettre_facture_api_v1_chorus_pro_factures_soumettre_post(submit_invoice_request)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->soumettre_facture_api_v1_chorus_pro_factures_soumettre_post: #{e}"
 end
 ```
@@ -756,7 +756,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitInvoiceResponse>
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->soumettre_facture_api_v1_chorus_pro_factures_soumettre_post_with_http_info: #{e}"
 end
 ```
@@ -793,21 +793,21 @@ Download one or more invoices (max 10 recommended) with their attachments.      
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Download a group of invoices
   result = api_instance.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post: #{e}"
 end
 ```
@@ -825,7 +825,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post_with_http_info: #{e}"
 end
 ```
@@ -862,21 +862,21 @@ Change the status of a received invoice.      **Possible statuses**:     - MISE_
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Process a received invoice (Recipient)
   result = api_instance.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post: #{e}"
 end
 ```
@@ -894,7 +894,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post_with_http_info: #{e}"
 end
 ```
@@ -931,21 +931,21 @@ Retrieves detailed information about an invoice for validators.  **Use case**: C
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Consult an invoice (Validator)
   result = api_instance.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post: #{e}"
 end
 ```
@@ -963,7 +963,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post_with_http_info: #{e}"
 end
 ```
@@ -1000,21 +1000,21 @@ Search invoices pending validation by the connected validator.      **Role**: Va
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Search invoices to validate (Validator)
   result = api_instance.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post: #{e}"
 end
 ```
@@ -1032,7 +1032,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post_with_http_info: #{e}"
 end
 ```
@@ -1069,21 +1069,21 @@ Validate or reject an invoice pending validation.      **Actions**:     - Valida
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'factpulse'
 # setup authorization
-OpenapiClient.configure do |config|
+FactPulse.configure do |config|
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = OpenapiClient::ChorusProApi.new
+api_instance = FactPulse::ChorusProApi.new
 request_body = { key: 3.56} # Hash<String, Object> | 
 
 begin
   # Validate or reject an invoice (Validator)
   result = api_instance.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post(request_body)
   p result
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post: #{e}"
 end
 ```
@@ -1101,7 +1101,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Object
-rescue OpenapiClient::ApiError => e
+rescue FactPulse::ApiError => e
   puts "Error when calling ChorusProApi->valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post_with_http_info: #{e}"
 end
 ```

@@ -1,4 +1,4 @@
-# OpenapiClient::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode
+# FactPulse::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode
 
 ## Properties
 
@@ -16,9 +16,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'factpulse'
 
-instance = OpenapiClient::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode.new(
+instance = FactPulse::AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode.new(
   addressing_identifier: dcsc456sdcsdcs556,
   siren: 702042755,
   siret: 70204275500240,
