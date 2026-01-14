@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **credentials** | [**FactureElectroniqueRestApiSchemasChorusProChorusProCredentials**](FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md) |  | [optional] |
+| **credentials** | [**ChorusProCredentials**](ChorusProCredentials.md) |  | [optional] |
 | **structure_identifier** | **String** |  | [optional] |
 | **structure_identifier_type** | **String** |  | [optional] |
 | **company_name** | **String** |  | [optional] |
