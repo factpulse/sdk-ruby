@@ -40,8 +40,10 @@ client = FactPulseClient.new(
 
 # Build the invoice with helpers
 invoice_data = {
-  number: 'INV-2025-001',
-  date: '2025-01-15',
+  invoice_number: 'INV-2025-001',
+  issue_date: '2025-01-15',
+  due_date: '2025-02-15',
+  currency_code: 'EUR',
   supplier: supplier(
     'My Company SAS',
     '12345678901234',
@@ -56,7 +58,7 @@ invoice_data = {
     '69001',
     'Lyon'
   ),
-  total_amount: total_amount(1000.00, 200.00, 1200.00, 1200.00),
+  totals: invoice_totals(1000.00, 200.00, 1200.00, 1200.00),
   lines: [
     invoice_line(1, 'Consulting services', 10, 100.00, 1000.00)
   ],
@@ -85,23 +87,23 @@ amount('1234.56')   # "1234.56"
 amount(nil)         # "0.00"
 ```
 
-### total_amount(excluding_tax, vat, including_tax, due, ...)
+### invoice_totals(excl_tax, vat, incl_tax, amount_due, ...)
 
-Creates a complete TotalAmount object.
+Creates a complete invoice totals object.
 
 ```ruby
-total = total_amount(
-  1000.00,                  # excluding_tax
+totals = invoice_totals(
+  1000.00,                  # excl_tax
   200.00,                   # vat
-  1200.00,                  # including_tax
-  1200.00,                  # due
-  50.00,                    # discount_including_tax (optional)
-  'Loyalty discount',       # discount_reason (optional)
-  100.00                    # prepayment (optional)
+  1200.00,                  # incl_tax
+  1200.00,                  # amount_due
+  discount_incl_tax: 50.00, # optional
+  discount_reason: 'Loyalty discount', # optional
+  prepayment: 100.00        # optional
 )
 ```
 
-### invoice_line(number, description, quantity, unit_price, line_total, ...)
+### invoice_line(line_number, item_name, quantity, unit_net_price, line_net_amount, ...)
 
 Creates an invoice line.
 
@@ -111,26 +113,26 @@ line = invoice_line(
   'Consulting services',
   5,
   200.00,
-  1000.00,  # line_total required
+  1000.00,
   'S',      # vat_category: S, Z, E, AE, K
-  'HOUR',   # unit: FIXED, PIECE, HOUR, DAY...
+  'HOUR',   # unit: LUMP_SUM, PIECE, HOUR, DAY...
   {
-    vat_rate: 'VAT20',        # Or manual_vat_rate: '20.00'
+    vat_rate: 'TVA20',        # Or manual_vat_rate: '20.00'
     reference: 'REF-001'
   }
 )
 ```
 
-### vat_line(base_excluding_tax, vat_amount, ...)
+### vat_line(taxable_amount, vat_amount, ...)
 
 Creates a VAT breakdown line.
 
 ```ruby
 vat = vat_line(
-  1000.00,    # base_excluding_tax
+  1000.00,    # taxable_amount
   200.00,     # vat_amount
   'S',        # category: S, Z, E, AE, K
-  { rate: 'VAT20' }  # Or manual_rate: '20.00'
+  { rate: 'TVA20' }  # Or manual_rate: '20.00'
 )
 ```
 
