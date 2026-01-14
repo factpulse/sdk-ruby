@@ -1,0 +1,32 @@
+# OpenapiClient::FlowSummary
+
+## Properties
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **flow_id** | **String** | Unique flow identifier |  |
+| **tracking_id** | **String** |  | [optional] |
+| **name** | **String** | Flow name |  |
+| **flow_type** | **String** |  | [optional] |
+| **flow_direction** | **String** |  | [optional] |
+| **acknowledgment_status** | **String** |  | [optional] |
+| **created_at** | **String** |  | [optional] |
+| **updated_at** | **String** |  | [optional] |
+
+## Example
+
+```ruby
+require 'openapi_client'
+
+instance = OpenapiClient::FlowSummary.new(
+  flow_id: null,
+  tracking_id: null,
+  name: null,
+  flow_type: null,
+  flow_direction: null,
+  acknowledgment_status: null,
+  created_at: null,
+  updated_at: null
+)
+```
+
