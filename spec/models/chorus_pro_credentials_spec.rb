@@ -39,19 +39,19 @@ describe FactPulse::ChorusProCredentials do
     end
   end
 
-  describe 'test attribute "chorus_login"' do
+  describe 'test attribute "chorus_pro_login"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
   end
 
-  describe 'test attribute "chorus_password"' do
+  describe 'test attribute "chorus_pro_password"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
   end
 
-  describe 'test attribute "sandbox_mode"' do
+  describe 'test attribute "sandbox"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
