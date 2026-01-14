@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **credentials** | [**ChorusProCredentials**](ChorusProCredentials.md) |  | [optional] |
+| **credentials** | [**FactureElectroniqueRestApiSchemasChorusProChorusProCredentials**](FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md) |  | [optional] |
 | **structure_id** | **Integer** | Chorus Pro structure ID |  |
 | **language_code** | **String** | Language code (fr, en) | [optional][default to &#39;fr&#39;] |
 

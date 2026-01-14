@@ -9,7 +9,7 @@
 | **schematron_rules_total** | **Integer** | Total regles |  |
 | **pdfa_compliant** | **Boolean** | PDF/A-3 conforme | [optional][default to true] |
 | **xml_embedded** | **Boolean** | XML embarque dans PDF | [optional][default to true] |
-| **errors** | [**Array&lt;ValidationError&gt;**](ValidationError.md) |  | [optional] |
+| **errors** | [**Array&lt;FactureElectroniqueRestApiSchemasConvertValidationError&gt;**](FactureElectroniqueRestApiSchemasConvertValidationError.md) |  | [optional] |
 
 ## Example
 

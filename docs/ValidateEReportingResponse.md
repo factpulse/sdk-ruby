@@ -7,8 +7,8 @@
 | **valid** | **Boolean** | Whether the data is valid |  |
 | **report_id** | **String** | Report identifier |  |
 | **flow_type** | **String** | Flux type |  |
-| **errors** | [**Array&lt;FactureElectroniqueRestApiSchemasEreportingValidationError&gt;**](FactureElectroniqueRestApiSchemasEreportingValidationError.md) | List of validation errors (if any) | [optional] |
-| **warnings** | [**Array&lt;FactureElectroniqueRestApiSchemasEreportingValidationError&gt;**](FactureElectroniqueRestApiSchemasEreportingValidationError.md) | List of validation warnings (if any) | [optional] |
+| **errors** | [**Array&lt;ValidationError&gt;**](ValidationError.md) | List of validation errors (if any) | [optional] |
+| **warnings** | [**Array&lt;ValidationError&gt;**](ValidationError.md) | List of validation warnings (if any) | [optional] |
 | **message** | **String** | Status message |  |
 
 ## Example

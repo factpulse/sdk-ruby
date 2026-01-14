@@ -14,27 +14,38 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Optional Chorus Pro credentials.  **MODE 1 - JWT retrieval (recommended):** Do not provide this `credentials` field in the payload. Credentials will be automatically retrieved via client_uid from JWT (0-trust).  **MODE 2 - Credentials in payload:** Provide all required fields below. Useful for tests or third-party integrations.
-  class FactureElectroniqueRestApiSchemasProcessingChorusProCredentials < ApiModelBase
-    attr_accessor :piste_client_id
+  # Erreur de validation Schematron avec suggestion de correction.
+  class FactureElectroniqueRestApiSchemasConvertValidationError < ApiModelBase
+    # Code de la regle (BR-XX, BR-FR-XX)
+    attr_accessor :rule
 
-    attr_accessor :piste_client_secret
+    attr_accessor :bt_code
 
-    attr_accessor :chorus_login
+    # Gravite: error, warning
+    attr_accessor :severity
 
-    attr_accessor :chorus_password
+    # Message d'erreur
+    attr_accessor :message
 
-    # [MODE 2] Use sandbox mode (default: True)
-    attr_accessor :sandbox_mode
+    attr_accessor :suggested_value
+
+    attr_accessor :suggested_field
+
+    attr_accessor :explanation
+
+    attr_accessor :confidence
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'piste_client_id' => :'pisteClientId',
-        :'piste_client_secret' => :'pisteClientSecret',
-        :'chorus_login' => :'chorusLogin',
-        :'chorus_password' => :'chorusPassword',
-        :'sandbox_mode' => :'sandboxMode'
+        :'rule' => :'rule',
+        :'bt_code' => :'bt_code',
+        :'severity' => :'severity',
+        :'message' => :'message',
+        :'suggested_value' => :'suggested_value',
+        :'suggested_field' => :'suggested_field',
+        :'explanation' => :'explanation',
+        :'confidence' => :'confidence'
       }
     end
 
@@ -51,21 +62,25 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'piste_client_id' => :'String',
-        :'piste_client_secret' => :'String',
-        :'chorus_login' => :'String',
-        :'chorus_password' => :'String',
-        :'sandbox_mode' => :'Boolean'
+        :'rule' => :'String',
+        :'bt_code' => :'String',
+        :'severity' => :'String',
+        :'message' => :'String',
+        :'suggested_value' => :'String',
+        :'suggested_field' => :'String',
+        :'explanation' => :'String',
+        :'confidence' => :'Float'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'piste_client_id',
-        :'piste_client_secret',
-        :'chorus_login',
-        :'chorus_password',
+        :'bt_code',
+        :'suggested_value',
+        :'suggested_field',
+        :'explanation',
+        :'confidence'
       ])
     end
 
@@ -73,38 +88,54 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureElectroniqueRestApiSchemasConvertValidationError` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureElectroniqueRestApiSchemasConvertValidationError`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'piste_client_id')
-        self.piste_client_id = attributes[:'piste_client_id']
-      end
-
-      if attributes.key?(:'piste_client_secret')
-        self.piste_client_secret = attributes[:'piste_client_secret']
-      end
-
-      if attributes.key?(:'chorus_login')
-        self.chorus_login = attributes[:'chorus_login']
-      end
-
-      if attributes.key?(:'chorus_password')
-        self.chorus_password = attributes[:'chorus_password']
-      end
-
-      if attributes.key?(:'sandbox_mode')
-        self.sandbox_mode = attributes[:'sandbox_mode']
+      if attributes.key?(:'rule')
+        self.rule = attributes[:'rule']
       else
-        self.sandbox_mode = true
+        self.rule = nil
+      end
+
+      if attributes.key?(:'bt_code')
+        self.bt_code = attributes[:'bt_code']
+      end
+
+      if attributes.key?(:'severity')
+        self.severity = attributes[:'severity']
+      else
+        self.severity = nil
+      end
+
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
+      else
+        self.message = nil
+      end
+
+      if attributes.key?(:'suggested_value')
+        self.suggested_value = attributes[:'suggested_value']
+      end
+
+      if attributes.key?(:'suggested_field')
+        self.suggested_field = attributes[:'suggested_field']
+      end
+
+      if attributes.key?(:'explanation')
+        self.explanation = attributes[:'explanation']
+      end
+
+      if attributes.key?(:'confidence')
+        self.confidence = attributes[:'confidence']
       end
     end
 
@@ -113,6 +144,26 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @rule.nil?
+        invalid_properties.push('invalid value for "rule", rule cannot be nil.')
+      end
+
+      if @severity.nil?
+        invalid_properties.push('invalid value for "severity", severity cannot be nil.')
+      end
+
+      if @message.nil?
+        invalid_properties.push('invalid value for "message", message cannot be nil.')
+      end
+
+      if !@confidence.nil? && @confidence > 1.0
+        invalid_properties.push('invalid value for "confidence", must be smaller than or equal to 1.0.')
+      end
+
+      if !@confidence.nil? && @confidence < 0.0
+        invalid_properties.push('invalid value for "confidence", must be greater than or equal to 0.0.')
+      end
+
       invalid_properties
     end
 
@@ -120,7 +171,56 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @rule.nil?
+      return false if @severity.nil?
+      return false if @message.nil?
+      return false if !@confidence.nil? && @confidence > 1.0
+      return false if !@confidence.nil? && @confidence < 0.0
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] rule Value to be assigned
+    def rule=(rule)
+      if rule.nil?
+        fail ArgumentError, 'rule cannot be nil'
+      end
+
+      @rule = rule
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] severity Value to be assigned
+    def severity=(severity)
+      if severity.nil?
+        fail ArgumentError, 'severity cannot be nil'
+      end
+
+      @severity = severity
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] message Value to be assigned
+    def message=(message)
+      if message.nil?
+        fail ArgumentError, 'message cannot be nil'
+      end
+
+      @message = message
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] confidence Value to be assigned
+    def confidence=(confidence)
+      if !confidence.nil? && confidence > 1.0
+        fail ArgumentError, 'invalid value for "confidence", must be smaller than or equal to 1.0.'
+      end
+
+      if !confidence.nil? && confidence < 0.0
+        fail ArgumentError, 'invalid value for "confidence", must be greater than or equal to 0.0.'
+      end
+
+      @confidence = confidence
     end
 
     # Checks equality by comparing each attribute.
@@ -128,11 +228,14 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          piste_client_id == o.piste_client_id &&
-          piste_client_secret == o.piste_client_secret &&
-          chorus_login == o.chorus_login &&
-          chorus_password == o.chorus_password &&
-          sandbox_mode == o.sandbox_mode
+          rule == o.rule &&
+          bt_code == o.bt_code &&
+          severity == o.severity &&
+          message == o.message &&
+          suggested_value == o.suggested_value &&
+          suggested_field == o.suggested_field &&
+          explanation == o.explanation &&
+          confidence == o.confidence
     end
 
     # @see the `==` method
@@ -144,7 +247,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [piste_client_id, piste_client_secret, chorus_login, chorus_password, sandbox_mode].hash
+      [rule, bt_code, severity, message, suggested_value, suggested_field, explanation, confidence].hash
     end
 
     # Builds the object from hash
