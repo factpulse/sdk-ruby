@@ -62,8 +62,8 @@ module FactPulse
         :'valid' => :'Boolean',
         :'report_id' => :'String',
         :'flow_type' => :'String',
-        :'errors' => :'Array<ValidationError>',
-        :'warnings' => :'Array<ValidationError>',
+        :'errors' => :'Array<FactureElectroniqueRestApiSchemasEreportingValidationError>',
+        :'warnings' => :'Array<FactureElectroniqueRestApiSchemasEreportingValidationError>',
         :'message' => :'String'
       }
     end

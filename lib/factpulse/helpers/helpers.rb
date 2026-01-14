@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require_relative 'helpers/exceptions'
-require_relative 'helpers/client'
+require_relative 'exceptions'
+require_relative 'client'
 module FactPulse
   module Helpers
     def self.create_client(**opts); FactPulseClient.new(**opts); end
