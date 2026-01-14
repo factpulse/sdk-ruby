@@ -1,0 +1,8 @@
+*.gem
+*.rbc
+/.config
+/coverage/
+/pkg/
+/spec/reports/
+/tmp/
+Gemfile.lock
