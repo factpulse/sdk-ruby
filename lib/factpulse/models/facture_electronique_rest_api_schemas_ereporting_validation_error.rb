@@ -14,38 +14,22 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Erreur de validation Schematron avec suggestion de correction.
-  class FactureElectroniqueRestApiSchemasConvertValidationError < ApiModelBase
-    # Code de la regle (BR-XX, BR-FR-XX)
-    attr_accessor :rule
+  # Validation error detail.
+  class FactureElectroniqueRestApiSchemasEreportingValidationError < ApiModelBase
+    # Field path with error
+    attr_accessor :field
 
-    attr_accessor :bt_code
-
-    # Gravite: error, warning
-    attr_accessor :severity
-
-    # Message d'erreur
+    # Error message
     attr_accessor :message
 
-    attr_accessor :suggested_value
-
-    attr_accessor :suggested_field
-
-    attr_accessor :explanation
-
-    attr_accessor :confidence
+    attr_accessor :code
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'rule' => :'rule',
-        :'bt_code' => :'bt_code',
-        :'severity' => :'severity',
+        :'field' => :'field',
         :'message' => :'message',
-        :'suggested_value' => :'suggested_value',
-        :'suggested_field' => :'suggested_field',
-        :'explanation' => :'explanation',
-        :'confidence' => :'confidence'
+        :'code' => :'code'
       }
     end
 
@@ -62,25 +46,16 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'rule' => :'String',
-        :'bt_code' => :'String',
-        :'severity' => :'String',
+        :'field' => :'String',
         :'message' => :'String',
-        :'suggested_value' => :'String',
-        :'suggested_field' => :'String',
-        :'explanation' => :'String',
-        :'confidence' => :'Float'
+        :'code' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'bt_code',
-        :'suggested_value',
-        :'suggested_field',
-        :'explanation',
-        :'confidence'
+        :'code'
       ])
     end
 
@@ -88,32 +63,22 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureElectroniqueRestApiSchemasConvertValidationError` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureElectroniqueRestApiSchemasEreportingValidationError` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureElectroniqueRestApiSchemasConvertValidationError`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureElectroniqueRestApiSchemasEreportingValidationError`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'rule')
-        self.rule = attributes[:'rule']
+      if attributes.key?(:'field')
+        self.field = attributes[:'field']
       else
-        self.rule = nil
-      end
-
-      if attributes.key?(:'bt_code')
-        self.bt_code = attributes[:'bt_code']
-      end
-
-      if attributes.key?(:'severity')
-        self.severity = attributes[:'severity']
-      else
-        self.severity = nil
+        self.field = nil
       end
 
       if attributes.key?(:'message')
@@ -122,20 +87,8 @@ module FactPulse
         self.message = nil
       end
 
-      if attributes.key?(:'suggested_value')
-        self.suggested_value = attributes[:'suggested_value']
-      end
-
-      if attributes.key?(:'suggested_field')
-        self.suggested_field = attributes[:'suggested_field']
-      end
-
-      if attributes.key?(:'explanation')
-        self.explanation = attributes[:'explanation']
-      end
-
-      if attributes.key?(:'confidence')
-        self.confidence = attributes[:'confidence']
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       end
     end
 
@@ -144,24 +97,12 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @rule.nil?
-        invalid_properties.push('invalid value for "rule", rule cannot be nil.')
-      end
-
-      if @severity.nil?
-        invalid_properties.push('invalid value for "severity", severity cannot be nil.')
+      if @field.nil?
+        invalid_properties.push('invalid value for "field", field cannot be nil.')
       end
 
       if @message.nil?
         invalid_properties.push('invalid value for "message", message cannot be nil.')
-      end
-
-      if !@confidence.nil? && @confidence > 1.0
-        invalid_properties.push('invalid value for "confidence", must be smaller than or equal to 1.0.')
-      end
-
-      if !@confidence.nil? && @confidence < 0.0
-        invalid_properties.push('invalid value for "confidence", must be greater than or equal to 0.0.')
       end
 
       invalid_properties
@@ -171,32 +112,19 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @rule.nil?
-      return false if @severity.nil?
+      return false if @field.nil?
       return false if @message.nil?
-      return false if !@confidence.nil? && @confidence > 1.0
-      return false if !@confidence.nil? && @confidence < 0.0
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] rule Value to be assigned
-    def rule=(rule)
-      if rule.nil?
-        fail ArgumentError, 'rule cannot be nil'
+    # @param [Object] field Value to be assigned
+    def field=(field)
+      if field.nil?
+        fail ArgumentError, 'field cannot be nil'
       end
 
-      @rule = rule
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] severity Value to be assigned
-    def severity=(severity)
-      if severity.nil?
-        fail ArgumentError, 'severity cannot be nil'
-      end
-
-      @severity = severity
+      @field = field
     end
 
     # Custom attribute writer method with validation
@@ -209,33 +137,14 @@ module FactPulse
       @message = message
     end
 
-    # Custom attribute writer method with validation
-    # @param [Object] confidence Value to be assigned
-    def confidence=(confidence)
-      if !confidence.nil? && confidence > 1.0
-        fail ArgumentError, 'invalid value for "confidence", must be smaller than or equal to 1.0.'
-      end
-
-      if !confidence.nil? && confidence < 0.0
-        fail ArgumentError, 'invalid value for "confidence", must be greater than or equal to 0.0.'
-      end
-
-      @confidence = confidence
-    end
-
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          rule == o.rule &&
-          bt_code == o.bt_code &&
-          severity == o.severity &&
+          field == o.field &&
           message == o.message &&
-          suggested_value == o.suggested_value &&
-          suggested_field == o.suggested_field &&
-          explanation == o.explanation &&
-          confidence == o.confidence
+          code == o.code
     end
 
     # @see the `==` method
@@ -247,7 +156,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [rule, bt_code, severity, message, suggested_value, suggested_field, explanation, confidence].hash
+      [field, message, code].hash
     end
 
     # Builds the object from hash
