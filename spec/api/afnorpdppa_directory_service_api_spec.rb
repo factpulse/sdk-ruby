@@ -36,7 +36,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Creating a directory line
   # Creation of a new directory line for a SIREN, a SIRET or a ROUTING CODE.
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [Object]
   describe 'create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post test' do
     it 'should work' do
@@ -48,7 +47,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Create a routing code
   # Creating a routing code.
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [Object]
   describe 'create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post test' do
     it 'should work' do
@@ -61,7 +59,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Delete a directory line.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [Object]
   describe 'delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete test' do
     it 'should work' do
@@ -85,9 +82,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
   # @param addressing_identifier Addressing identifier (SIREN, SIRET or routing code)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of the Directory Line resource.
-  # @option opts [Array<DirectoryLineInclude>] :include Relations to include in the response.
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode]
   describe 'get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get test' do
     it 'should work' do
@@ -100,8 +94,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of the Directory Line resource.
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode]
   describe 'get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get test' do
     it 'should work' do
@@ -114,8 +106,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Retrieve the Routing Code data corresponding to the Instance ID.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of the Routing Code resource
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORRoutingCodePayloadHistoryLegalUnitFacility]
   describe 'get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get test' do
     it 'should work' do
@@ -129,9 +119,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # @param siret 14-digit SIRET number (INSEE establishment identifier)
   # @param routing_identifier Routing code identifier
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of the Routing Code resource
-  # @option opts [Array<RoutingCodeInclude>] :include Relations to include in the response.
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORRoutingCodePayloadHistoryLegalUnitFacility]
   describe 'get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get test' do
     it 'should work' do
@@ -144,8 +131,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Returns the details of a company (legal unit) identified by the SIREN number passed as a parameter.
   # @param siren 9-digit SIREN number (INSEE company identifier)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of the SIREN resource
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORLegalUnitPayloadHistory]
   describe 'get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get test' do
     it 'should work' do
@@ -158,8 +143,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Returns the details of a company (legal unit) identified by the id-instance passed as a parameter.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of the SIREN resource
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORLegalUnitPayloadHistory]
   describe 'get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get test' do
     it 'should work' do
@@ -172,9 +155,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Returns the details of a facility associated to a SIRET.
   # @param siret 14-digit SIRET number (INSEE establishment identifier)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of a SIRET resource.
-  # @option opts [Array<SiretInclude>] :include Relations to include in the response.
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORFacilityPayloadHistory]
   describe 'get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get test' do
     it 'should work' do
@@ -187,8 +167,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Returns the details of a facility according to an instance-id.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [Array<String>] :fields Fields of a SIRET resource.
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORFacilityPayloadHistory]
   describe 'get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get test' do
     it 'should work' do
@@ -201,7 +179,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Partially updates a directory line.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORDirectoryLinePost201Response]
   describe 'patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch test' do
     it 'should work' do
@@ -214,7 +191,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Partially update a private routing code.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORRoutingCodePost201Response]
   describe 'patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch test' do
     it 'should work' do
@@ -227,7 +203,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Completely update a private routing code.
   # @param id_instance AFNOR instance ID (UUID)
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORRoutingCodePost201Response]
   describe 'put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put test' do
     it 'should work' do
@@ -239,7 +214,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Search for a directory line
   # Search for directory lines that meet all the criteria passed as parameters and return the results in the desired format.
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORDirectoryLineSearchPost200Response]
   describe 'search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post test' do
     it 'should work' do
@@ -251,7 +225,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Search for a routing code
   # Search for routing codes that meet all the criteria passed as parameters and return the routing codes in the desired format.
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORRoutingCodeSearchPost200Response]
   describe 'search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post test' do
     it 'should work' do
@@ -263,7 +236,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # SIREN search (or legal unit)
   # Multi-criteria company search.
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORSirenSearchPost200Response]
   describe 'search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post test' do
     it 'should work' do
@@ -275,7 +247,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Search for a SIRET (facility)
   # Multi-criteria search for facilities.
   # @param [Hash] opts the optional parameters
-  # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
   # @return [AFNORSiretSearchPost200Response]
   describe 'search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post test' do
     it 'should work' do

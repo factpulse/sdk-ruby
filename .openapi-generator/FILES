@@ -107,7 +107,6 @@ docs/AFNORUpdatePutRoutingCodeBody.md
 docs/AFNORWebhookCallbackContent.md
 docs/APIError.md
 docs/APIProfile.md
-docs/AcceptLanguage.md
 docs/AcknowledgmentStatus.md
 docs/AdditionalDocument.md
 docs/AggregatedPaymentInput.md
@@ -141,7 +140,6 @@ docs/Currency.md
 docs/CurrencyCode.md
 docs/DeliveryParty.md
 docs/Destination.md
-docs/DirectoryLineInclude.md
 docs/DocType.md
 docs/DocumentConversionApi.md
 docs/DocumentTypeInfo.md
@@ -156,8 +154,8 @@ docs/ErrorSource.md
 docs/ExtractionInfo.md
 docs/FacturXInvoice.md
 docs/FacturXPDFInfo.md
+docs/FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md
 docs/FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md
-docs/FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.md
 docs/FieldStatus.md
 docs/FileInfo.md
 docs/FilesInfo.md
@@ -230,7 +228,6 @@ docs/Recipient.md
 docs/ReportPeriod.md
 docs/ReportSender.md
 docs/RoundingAmount.md
-docs/RoutingCodeInclude.md
 docs/SchematronValidationError.md
 docs/SchemeID.md
 docs/SearchFlowRequest.md
@@ -243,7 +240,6 @@ docs/SignatureInfo.md
 docs/SignatureInfoAPI.md
 docs/SignatureParameters.md
 docs/SimplifiedInvoiceData.md
-docs/SiretInclude.md
 docs/StructureInfo.md
 docs/StructureParameters.md
 docs/StructureService.md
@@ -314,7 +310,6 @@ lib/factpulse/api_client.rb
 lib/factpulse/api_error.rb
 lib/factpulse/api_model_base.rb
 lib/factpulse/configuration.rb
-lib/factpulse/models/accept_language.rb
 lib/factpulse/models/acknowledgment_status.rb
 lib/factpulse/models/additional_document.rb
 lib/factpulse/models/afnor_acknowledgement.rb
@@ -444,7 +439,6 @@ lib/factpulse/models/currency.rb
 lib/factpulse/models/currency_code.rb
 lib/factpulse/models/delivery_party.rb
 lib/factpulse/models/destination.rb
-lib/factpulse/models/directory_line_include.rb
 lib/factpulse/models/doc_type.rb
 lib/factpulse/models/document_type_info.rb
 lib/factpulse/models/e_reporting_flow_type.rb
@@ -456,8 +450,8 @@ lib/factpulse/models/error_source.rb
 lib/factpulse/models/extraction_info.rb
 lib/factpulse/models/factur_x_invoice.rb
 lib/factpulse/models/factur_xpdf_info.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials.rb
 lib/factpulse/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code.rb
-lib/factpulse/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials.rb
 lib/factpulse/models/field_status.rb
 lib/factpulse/models/file_info.rb
 lib/factpulse/models/files_info.rb
@@ -527,7 +521,6 @@ lib/factpulse/models/recipient.rb
 lib/factpulse/models/report_period.rb
 lib/factpulse/models/report_sender.rb
 lib/factpulse/models/rounding_amount.rb
-lib/factpulse/models/routing_code_include.rb
 lib/factpulse/models/schematron_validation_error.rb
 lib/factpulse/models/scheme_id.rb
 lib/factpulse/models/search_flow_request.rb
@@ -540,7 +533,6 @@ lib/factpulse/models/signature_info.rb
 lib/factpulse/models/signature_info_api.rb
 lib/factpulse/models/signature_parameters.rb
 lib/factpulse/models/simplified_invoice_data.rb
-lib/factpulse/models/siret_include.rb
 lib/factpulse/models/structure_info.rb
 lib/factpulse/models/structure_parameters.rb
 lib/factpulse/models/structure_service.rb
@@ -604,7 +596,6 @@ spec/api/health_api_spec.rb
 spec/api/invoice_processing_api_spec.rb
 spec/api/pdfxml_verification_api_spec.rb
 spec/api/user_api_spec.rb
-spec/models/accept_language_spec.rb
 spec/models/acknowledgment_status_spec.rb
 spec/models/additional_document_spec.rb
 spec/models/afnor_acknowledgement_detail_spec.rb
@@ -734,7 +725,6 @@ spec/models/currency_code_spec.rb
 spec/models/currency_spec.rb
 spec/models/delivery_party_spec.rb
 spec/models/destination_spec.rb
-spec/models/directory_line_include_spec.rb
 spec/models/doc_type_spec.rb
 spec/models/document_type_info_spec.rb
 spec/models/e_reporting_flow_type_spec.rb
@@ -746,8 +736,8 @@ spec/models/error_source_spec.rb
 spec/models/extraction_info_spec.rb
 spec/models/factur_x_invoice_spec.rb
 spec/models/factur_xpdf_info_spec.rb
+spec/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials_spec.rb
 spec/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code_spec.rb
-spec/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials_spec.rb
 spec/models/field_status_spec.rb
 spec/models/file_info_spec.rb
 spec/models/files_info_spec.rb
@@ -817,7 +807,6 @@ spec/models/recipient_spec.rb
 spec/models/report_period_spec.rb
 spec/models/report_sender_spec.rb
 spec/models/rounding_amount_spec.rb
-spec/models/routing_code_include_spec.rb
 spec/models/schematron_validation_error_spec.rb
 spec/models/scheme_id_spec.rb
 spec/models/search_flow_request_spec.rb
@@ -830,7 +819,6 @@ spec/models/signature_info_api_spec.rb
 spec/models/signature_info_spec.rb
 spec/models/signature_parameters_spec.rb
 spec/models/simplified_invoice_data_spec.rb
-spec/models/siret_include_spec.rb
 spec/models/structure_info_spec.rb
 spec/models/structure_parameters_spec.rb
 spec/models/structure_service_spec.rb

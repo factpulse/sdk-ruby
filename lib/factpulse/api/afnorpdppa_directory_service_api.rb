@@ -22,7 +22,6 @@ module FactPulse
     # Creating a directory line
     # Creation of a new directory line for a SIREN, a SIRET or a ROUTING CODE.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Object]
     def create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post(opts = {})
       data, _status_code, _headers = create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post_with_http_info(opts)
@@ -32,7 +31,6 @@ module FactPulse
     # Creating a directory line
     # Creation of a new directory line for a SIREN, a SIRET or a ROUTING CODE.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -48,7 +46,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -60,7 +57,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post",
@@ -82,7 +79,6 @@ module FactPulse
     # Create a routing code
     # Creating a routing code.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Object]
     def create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post(opts = {})
       data, _status_code, _headers = create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post_with_http_info(opts)
@@ -92,7 +88,6 @@ module FactPulse
     # Create a routing code
     # Creating a routing code.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -108,7 +103,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -120,7 +114,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post",
@@ -143,7 +137,6 @@ module FactPulse
     # Delete a directory line.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Object]
     def delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete(id_instance, opts = {})
       data, _status_code, _headers = delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete_with_http_info(id_instance, opts)
@@ -154,7 +147,6 @@ module FactPulse
     # Delete a directory line.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -174,7 +166,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -186,7 +177,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete",
@@ -266,9 +257,6 @@ module FactPulse
     # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
     # @param addressing_identifier [String] Addressing identifier (SIREN, SIRET or routing code)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Directory Line resource.
-    # @option opts [Array<DirectoryLineInclude>] :include Relations to include in the response.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode]
     def get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get(addressing_identifier, opts = {})
       data, _status_code, _headers = get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get_with_http_info(addressing_identifier, opts)
@@ -279,9 +267,6 @@ module FactPulse
     # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
     # @param addressing_identifier [String] Addressing identifier (SIREN, SIRET or routing code)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Directory Line resource.
-    # @option opts [Array<DirectoryLineInclude>] :include Relations to include in the response.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode, Integer, Hash)>] AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode data, response status code and response headers
     def get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get_with_http_info(addressing_identifier, opts = {})
       if @api_client.config.debugging
@@ -296,14 +281,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
-      query_params[:'include'] = @api_client.build_collection_param(opts[:'include'], :multi) if !opts[:'include'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -315,7 +297,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get",
@@ -338,8 +320,6 @@ module FactPulse
     # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Directory Line resource.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode]
     def get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get(id_instance, opts = {})
       data, _status_code, _headers = get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get_with_http_info(id_instance, opts)
@@ -350,8 +330,6 @@ module FactPulse
     # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Directory Line resource.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode, Integer, Hash)>] AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode data, response status code and response headers
     def get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -366,13 +344,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -384,7 +360,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get",
@@ -407,8 +383,6 @@ module FactPulse
     # Retrieve the Routing Code data corresponding to the Instance ID.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Routing Code resource
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORRoutingCodePayloadHistoryLegalUnitFacility]
     def get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get(id_instance, opts = {})
       data, _status_code, _headers = get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get_with_http_info(id_instance, opts)
@@ -419,8 +393,6 @@ module FactPulse
     # Retrieve the Routing Code data corresponding to the Instance ID.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Routing Code resource
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORRoutingCodePayloadHistoryLegalUnitFacility, Integer, Hash)>] AFNORRoutingCodePayloadHistoryLegalUnitFacility data, response status code and response headers
     def get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -435,13 +407,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -453,7 +423,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORRoutingCodePayloadHistoryLegalUnitFacility'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get",
@@ -477,9 +447,6 @@ module FactPulse
     # @param siret [String] 14-digit SIRET number (INSEE establishment identifier)
     # @param routing_identifier [String] Routing code identifier
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Routing Code resource
-    # @option opts [Array<RoutingCodeInclude>] :include Relations to include in the response.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORRoutingCodePayloadHistoryLegalUnitFacility]
     def get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get(siret, routing_identifier, opts = {})
       data, _status_code, _headers = get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get_with_http_info(siret, routing_identifier, opts)
@@ -491,9 +458,6 @@ module FactPulse
     # @param siret [String] 14-digit SIRET number (INSEE establishment identifier)
     # @param routing_identifier [String] Routing code identifier
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the Routing Code resource
-    # @option opts [Array<RoutingCodeInclude>] :include Relations to include in the response.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORRoutingCodePayloadHistoryLegalUnitFacility, Integer, Hash)>] AFNORRoutingCodePayloadHistoryLegalUnitFacility data, response status code and response headers
     def get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get_with_http_info(siret, routing_identifier, opts = {})
       if @api_client.config.debugging
@@ -512,14 +476,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
-      query_params[:'include'] = @api_client.build_collection_param(opts[:'include'], :multi) if !opts[:'include'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -531,7 +492,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORRoutingCodePayloadHistoryLegalUnitFacility'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_routing_code_by_siret_and_code_proxy_api_v1_afnor_directory_v1_routing_code_siret_siret_code_routing_identifier_get",
@@ -554,8 +515,6 @@ module FactPulse
     # Returns the details of a company (legal unit) identified by the SIREN number passed as a parameter.
     # @param siren [String] 9-digit SIREN number (INSEE company identifier)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the SIREN resource
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORLegalUnitPayloadHistory]
     def get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get(siren, opts = {})
       data, _status_code, _headers = get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get_with_http_info(siren, opts)
@@ -566,8 +525,6 @@ module FactPulse
     # Returns the details of a company (legal unit) identified by the SIREN number passed as a parameter.
     # @param siren [String] 9-digit SIREN number (INSEE company identifier)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the SIREN resource
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORLegalUnitPayloadHistory, Integer, Hash)>] AFNORLegalUnitPayloadHistory data, response status code and response headers
     def get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get_with_http_info(siren, opts = {})
       if @api_client.config.debugging
@@ -582,13 +539,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -600,7 +555,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORLegalUnitPayloadHistory'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siren_by_code_insee_proxy_api_v1_afnor_directory_v1_siren_code_insee_siren_get",
@@ -623,8 +578,6 @@ module FactPulse
     # Returns the details of a company (legal unit) identified by the id-instance passed as a parameter.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the SIREN resource
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORLegalUnitPayloadHistory]
     def get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get(id_instance, opts = {})
       data, _status_code, _headers = get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get_with_http_info(id_instance, opts)
@@ -635,8 +588,6 @@ module FactPulse
     # Returns the details of a company (legal unit) identified by the id-instance passed as a parameter.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of the SIREN resource
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORLegalUnitPayloadHistory, Integer, Hash)>] AFNORLegalUnitPayloadHistory data, response status code and response headers
     def get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -651,13 +602,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -669,7 +618,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORLegalUnitPayloadHistory'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get",
@@ -692,9 +641,6 @@ module FactPulse
     # Returns the details of a facility associated to a SIRET.
     # @param siret [String] 14-digit SIRET number (INSEE establishment identifier)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of a SIRET resource.
-    # @option opts [Array<SiretInclude>] :include Relations to include in the response.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORFacilityPayloadHistory]
     def get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get(siret, opts = {})
       data, _status_code, _headers = get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get_with_http_info(siret, opts)
@@ -705,9 +651,6 @@ module FactPulse
     # Returns the details of a facility associated to a SIRET.
     # @param siret [String] 14-digit SIRET number (INSEE establishment identifier)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of a SIRET resource.
-    # @option opts [Array<SiretInclude>] :include Relations to include in the response.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORFacilityPayloadHistory, Integer, Hash)>] AFNORFacilityPayloadHistory data, response status code and response headers
     def get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get_with_http_info(siret, opts = {})
       if @api_client.config.debugging
@@ -722,14 +665,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
-      query_params[:'include'] = @api_client.build_collection_param(opts[:'include'], :multi) if !opts[:'include'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -741,7 +681,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORFacilityPayloadHistory'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get",
@@ -764,8 +704,6 @@ module FactPulse
     # Returns the details of a facility according to an instance-id.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of a SIRET resource.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORFacilityPayloadHistory]
     def get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get(id_instance, opts = {})
       data, _status_code, _headers = get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get_with_http_info(id_instance, opts)
@@ -776,8 +714,6 @@ module FactPulse
     # Returns the details of a facility according to an instance-id.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [Array<String>] :fields Fields of a SIRET resource.
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORFacilityPayloadHistory, Integer, Hash)>] AFNORFacilityPayloadHistory data, response status code and response headers
     def get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -792,13 +728,11 @@ module FactPulse
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'fields'] = @api_client.build_collection_param(opts[:'fields'], :multi) if !opts[:'fields'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -810,7 +744,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORFacilityPayloadHistory'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get",
@@ -833,7 +767,6 @@ module FactPulse
     # Partially updates a directory line.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORDirectoryLinePost201Response]
     def patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch(id_instance, opts = {})
       data, _status_code, _headers = patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch_with_http_info(id_instance, opts)
@@ -844,7 +777,6 @@ module FactPulse
     # Partially updates a directory line.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORDirectoryLinePost201Response, Integer, Hash)>] AFNORDirectoryLinePost201Response data, response status code and response headers
     def patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -864,7 +796,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -876,7 +807,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORDirectoryLinePost201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch",
@@ -899,7 +830,6 @@ module FactPulse
     # Partially update a private routing code.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORRoutingCodePost201Response]
     def patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch(id_instance, opts = {})
       data, _status_code, _headers = patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch_with_http_info(id_instance, opts)
@@ -910,7 +840,6 @@ module FactPulse
     # Partially update a private routing code.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORRoutingCodePost201Response, Integer, Hash)>] AFNORRoutingCodePost201Response data, response status code and response headers
     def patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -930,7 +859,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -942,7 +870,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORRoutingCodePost201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch",
@@ -965,7 +893,6 @@ module FactPulse
     # Completely update a private routing code.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORRoutingCodePost201Response]
     def put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put(id_instance, opts = {})
       data, _status_code, _headers = put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put_with_http_info(id_instance, opts)
@@ -976,7 +903,6 @@ module FactPulse
     # Completely update a private routing code.
     # @param id_instance [String] AFNOR instance ID (UUID)
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORRoutingCodePost201Response, Integer, Hash)>] AFNORRoutingCodePost201Response data, response status code and response headers
     def put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put_with_http_info(id_instance, opts = {})
       if @api_client.config.debugging
@@ -996,7 +922,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1008,7 +933,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORRoutingCodePost201Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put",
@@ -1030,7 +955,6 @@ module FactPulse
     # Search for a directory line
     # Search for directory lines that meet all the criteria passed as parameters and return the results in the desired format.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORDirectoryLineSearchPost200Response]
     def search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post(opts = {})
       data, _status_code, _headers = search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post_with_http_info(opts)
@@ -1040,7 +964,6 @@ module FactPulse
     # Search for a directory line
     # Search for directory lines that meet all the criteria passed as parameters and return the results in the desired format.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORDirectoryLineSearchPost200Response, Integer, Hash)>] AFNORDirectoryLineSearchPost200Response data, response status code and response headers
     def search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1056,7 +979,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1068,7 +990,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORDirectoryLineSearchPost200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_search_post",
@@ -1090,7 +1012,6 @@ module FactPulse
     # Search for a routing code
     # Search for routing codes that meet all the criteria passed as parameters and return the routing codes in the desired format.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORRoutingCodeSearchPost200Response]
     def search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post(opts = {})
       data, _status_code, _headers = search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post_with_http_info(opts)
@@ -1100,7 +1021,6 @@ module FactPulse
     # Search for a routing code
     # Search for routing codes that meet all the criteria passed as parameters and return the routing codes in the desired format.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORRoutingCodeSearchPost200Response, Integer, Hash)>] AFNORRoutingCodeSearchPost200Response data, response status code and response headers
     def search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1116,7 +1036,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1128,7 +1047,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORRoutingCodeSearchPost200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_search_post",
@@ -1150,7 +1069,6 @@ module FactPulse
     # SIREN search (or legal unit)
     # Multi-criteria company search.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORSirenSearchPost200Response]
     def search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post(opts = {})
       data, _status_code, _headers = search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post_with_http_info(opts)
@@ -1160,7 +1078,6 @@ module FactPulse
     # SIREN search (or legal unit)
     # Multi-criteria company search.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORSirenSearchPost200Response, Integer, Hash)>] AFNORSirenSearchPost200Response data, response status code and response headers
     def search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1176,7 +1093,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1188,7 +1104,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORSirenSearchPost200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_siren_proxy_api_v1_afnor_directory_v1_siren_search_post",
@@ -1210,7 +1126,6 @@ module FactPulse
     # Search for a SIRET (facility)
     # Multi-criteria search for facilities.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [AFNORSiretSearchPost200Response]
     def search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post(opts = {})
       data, _status_code, _headers = search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post_with_http_info(opts)
@@ -1220,7 +1135,6 @@ module FactPulse
     # Search for a SIRET (facility)
     # Multi-criteria search for facilities.
     # @param [Hash] opts the optional parameters
-    # @option opts [AcceptLanguage] :accept_language Specifies the language in which the resource is requested.
     # @return [Array<(AFNORSiretSearchPost200Response, Integer, Hash)>] AFNORSiretSearchPost200Response data, response status code and response headers
     def search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -1236,7 +1150,6 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
-      header_params[:'Accept-Language'] = opts[:'accept_language'] if !opts[:'accept_language'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -1248,7 +1161,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AFNORSiretSearchPost200Response'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPADirectoryServiceApi.search_siret_proxy_api_v1_afnor_directory_v1_siret_search_post",
