@@ -38,37 +38,30 @@ client = FactPulseClient.new(
   'your_password'
 )
 
-# Build the invoice with helpers
+# Build the invoice using simplified format (auto-calculates totals)
 invoice_data = {
-  invoice_number: 'INV-2025-001',
-  issue_date: '2025-01-15',
-  due_date: '2025-02-15',
-  currency_code: 'EUR',
-  supplier: supplier(
-    'My Company SAS',
-    '12345678901234',
-    '123 Example Street',
-    '75001',
-    'Paris'
-  ),
-  recipient: recipient(
-    'Client SARL',
-    '98765432109876',
-    '456 Test Avenue',
-    '69001',
-    'Lyon'
-  ),
-  totals: invoice_totals(1000.00, 200.00, 1200.00, 1200.00),
-  lines: [
-    invoice_line(1, 'Consulting services', 10, 100.00, 1000.00)
-  ],
-  vat_lines: [
-    vat_line(1000.00, 200.00)
+  'number' => 'INV-2025-001',
+  'supplier' => {
+    'name' => 'My Company SAS',
+    'siret' => '12345678901234',
+    'iban' => 'FR7630001007941234567890185'
+  },
+  'recipient' => {
+    'name' => 'Client SARL',
+    'siret' => '98765432109876'
+  },
+  'lines' => [
+    {
+      'description' => 'Consulting services',
+      'quantity' => 10,
+      'unitPrice' => 100.0,
+      'vatRate' => 20
+    }
   ]
 }
 
 # Generate the Factur-X PDF
-pdf_bytes = client.generate_facturx(invoice_data, 'source_invoice.pdf', 'EN16931')
+pdf_bytes = client.generate_facturx(invoice_data, 'source_invoice.pdf')
 
 File.binwrite('invoice_facturx.pdf', pdf_bytes)
 ```

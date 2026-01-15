@@ -295,8 +295,8 @@ module FactPulse
 
         data = JSON.parse(response.body)
 
-        if sync && data['task_id']
-          result = poll_task(data['task_id'], timeout: timeout)
+        if sync && data['taskId']
+          result = poll_task(data['taskId'], timeout: timeout)
           if result['contenu_b64']
             return Base64.decode64(result['contenu_b64'])
           elsif result['contenu_xml']
