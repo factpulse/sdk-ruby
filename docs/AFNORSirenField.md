@@ -1,0 +1,15 @@
+# FactPulse::AFNORSirenField
+
+## Properties
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+## Example
+
+```ruby
+require 'factpulse'
+
+instance = FactPulse::AFNORSirenField.new()
+```
+
