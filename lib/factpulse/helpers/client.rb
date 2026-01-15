@@ -297,10 +297,10 @@ module FactPulse
 
         if sync && data['taskId']
           result = poll_task(data['taskId'], timeout: timeout)
-          if result['contenu_b64']
-            return Base64.decode64(result['contenu_b64'])
-          elsif result['contenu_xml']
-            return result['contenu_xml']
+          if result['content_b64']
+            return Base64.decode64(result['content_b64'])
+          elsif result['content_xml']
+            return result['content_xml']
           end
           raise FactPulseValidationError.new("Unexpected result: #{result.keys.join(', ')}")
         end
