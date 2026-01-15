@@ -462,19 +462,48 @@ module FactPulse
 
       # ==================== AFNOR Directory ====================
 
-      # Searches for a company by SIRET in the AFNOR directory.
-      def search_siret_afnor(siret)
-        make_afnor_request('GET', "/directory/siret/#{siret}")
+      # Gets a company (legal unit) by SIRET in the AFNOR directory.
+      # @param siret [String] 14-digit SIRET number
+      # @return [Hash] Company information
+      def get_siret_afnor(siret)
+        make_afnor_request('GET', "/directory/v1/siret/code-insee:#{siret}")
       end
 
-      # Searches for a company by SIREN in the AFNOR directory.
-      def search_siren_afnor(siren)
-        make_afnor_request('GET', "/directory/siren/#{siren}")
+      # Gets a company (legal unit) by SIREN in the AFNOR directory.
+      # @param siren [String] 9-digit SIREN number
+      # @return [Hash] Company information
+      def get_siren_afnor(siren)
+        make_afnor_request('GET', "/directory/v1/siren/code-insee:#{siren}")
       end
 
-      # Lists available routing codes for a SIREN.
-      def list_routing_codes_afnor(siren)
-        make_afnor_request('GET', "/directory/siren/#{siren}/routing-codes")
+      # Searches for SIRENs (legal units) in the AFNOR directory.
+      # @param criteria [Hash] Search criteria (filters, sorting, fields, limit)
+      # @return [Hash] Search results
+      def search_siren_afnor(**criteria)
+        search_body = {
+          'limit' => criteria[:limit] || 25,
+          'filters' => criteria[:filters] || {}
+        }
+        make_afnor_request('POST', '/directory/v1/siren/search', json_data: search_body)
+      end
+
+      # Searches for routing codes in the AFNOR directory.
+      # @param criteria [Hash] Search criteria (filters, sorting, fields, limit)
+      # @return [Hash] Search results with routing codes
+      def search_routing_codes_afnor(**criteria)
+        search_body = {
+          'limit' => criteria[:limit] || 25,
+          'filters' => criteria[:filters] || {}
+        }
+        make_afnor_request('POST', '/directory/v1/routing-code/search', json_data: search_body)
+      end
+
+      # Gets a routing code by SIRET and routing identifier.
+      # @param siret [String] 14-digit SIRET number
+      # @param routing_identifier [String] Routing code identifier
+      # @return [Hash] Routing code information
+      def get_routing_code_afnor(siret, routing_identifier)
+        make_afnor_request('GET', "/directory/v1/routing-code/siret:#{siret}/code:#{routing_identifier}")
       end
 
       # =========================================================================
