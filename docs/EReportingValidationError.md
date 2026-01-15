@@ -1,4 +1,4 @@
-# FactPulse::FactureElectroniqueRestApiSchemasEreportingValidationError
+# FactPulse::EReportingValidationError
 
 ## Properties
 
@@ -13,7 +13,7 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::FactureElectroniqueRestApiSchemasEreportingValidationError.new(
+instance = FactPulse::EReportingValidationError.new(
   field: null,
   message: null,
   code: null

@@ -63,7 +63,7 @@ module FactPulse
         :'schematron_rules_total' => :'Integer',
         :'pdfa_compliant' => :'Boolean',
         :'xml_embedded' => :'Boolean',
-        :'errors' => :'Array<ValidationError>'
+        :'errors' => :'Array<SchematronValidationError>'
       }
     end
 

@@ -14,78 +14,22 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Simplified invoice data (minimal format for auto-enrichment).
-  class SimplifiedInvoiceData < ApiModelBase
-    # Unique invoice number
-    attr_accessor :number
+  # Validation error detail for E-Reporting.
+  class EReportingValidationError < ApiModelBase
+    # Field path with error
+    attr_accessor :field
 
-    # Supplier information (siret, iban, ...)
-    attr_accessor :supplier
+    # Error message
+    attr_accessor :message
 
-    # Recipient information (siret, ...)
-    attr_accessor :recipient
-
-    # Invoice lines
-    attr_accessor :lines
-
-    attr_accessor :date
-
-    # Due date in days (default: 30)
-    attr_accessor :due_days
-
-    attr_accessor :comment
-
-    attr_accessor :purchase_order_reference
-
-    attr_accessor :contract_reference
-
-    # Document type (UNTDID 1001). Default: 380 (Invoice).
-    attr_accessor :invoice_type
-
-    attr_accessor :preceding_invoice_reference
-
-    attr_accessor :operation_nature
-
-    attr_accessor :invoicing_framework
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+    attr_accessor :code
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'number' => :'number',
-        :'supplier' => :'supplier',
-        :'recipient' => :'recipient',
-        :'lines' => :'lines',
-        :'date' => :'date',
-        :'due_days' => :'dueDays',
-        :'comment' => :'comment',
-        :'purchase_order_reference' => :'purchaseOrderReference',
-        :'contract_reference' => :'contractReference',
-        :'invoice_type' => :'invoiceType',
-        :'preceding_invoice_reference' => :'precedingInvoiceReference',
-        :'operation_nature' => :'operationNature',
-        :'invoicing_framework' => :'invoicingFramework'
+        :'field' => :'field',
+        :'message' => :'message',
+        :'code' => :'code'
       }
     end
 
@@ -102,32 +46,16 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'number' => :'String',
-        :'supplier' => :'Hash<String, Object>',
-        :'recipient' => :'Hash<String, Object>',
-        :'lines' => :'Array<Hash<String, Object>>',
-        :'date' => :'String',
-        :'due_days' => :'Integer',
-        :'comment' => :'String',
-        :'purchase_order_reference' => :'String',
-        :'contract_reference' => :'String',
-        :'invoice_type' => :'InvoiceTypeCode',
-        :'preceding_invoice_reference' => :'String',
-        :'operation_nature' => :'OperationNature',
-        :'invoicing_framework' => :'InvoicingFrameworkCode'
+        :'field' => :'String',
+        :'message' => :'String',
+        :'code' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'date',
-        :'comment',
-        :'purchase_order_reference',
-        :'contract_reference',
-        :'preceding_invoice_reference',
-        :'operation_nature',
-        :'invoicing_framework'
+        :'code'
       ])
     end
 
@@ -135,84 +63,32 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::SimplifiedInvoiceData` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::EReportingValidationError` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::SimplifiedInvoiceData`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::EReportingValidationError`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'number')
-        self.number = attributes[:'number']
+      if attributes.key?(:'field')
+        self.field = attributes[:'field']
       else
-        self.number = nil
+        self.field = nil
       end
 
-      if attributes.key?(:'supplier')
-        if (value = attributes[:'supplier']).is_a?(Hash)
-          self.supplier = value
-        end
+      if attributes.key?(:'message')
+        self.message = attributes[:'message']
       else
-        self.supplier = nil
+        self.message = nil
       end
 
-      if attributes.key?(:'recipient')
-        if (value = attributes[:'recipient']).is_a?(Hash)
-          self.recipient = value
-        end
-      else
-        self.recipient = nil
-      end
-
-      if attributes.key?(:'lines')
-        if (value = attributes[:'lines']).is_a?(Array)
-          self.lines = value
-        end
-      else
-        self.lines = nil
-      end
-
-      if attributes.key?(:'date')
-        self.date = attributes[:'date']
-      end
-
-      if attributes.key?(:'due_days')
-        self.due_days = attributes[:'due_days']
-      else
-        self.due_days = 30
-      end
-
-      if attributes.key?(:'comment')
-        self.comment = attributes[:'comment']
-      end
-
-      if attributes.key?(:'purchase_order_reference')
-        self.purchase_order_reference = attributes[:'purchase_order_reference']
-      end
-
-      if attributes.key?(:'contract_reference')
-        self.contract_reference = attributes[:'contract_reference']
-      end
-
-      if attributes.key?(:'invoice_type')
-        self.invoice_type = attributes[:'invoice_type']
-      end
-
-      if attributes.key?(:'preceding_invoice_reference')
-        self.preceding_invoice_reference = attributes[:'preceding_invoice_reference']
-      end
-
-      if attributes.key?(:'operation_nature')
-        self.operation_nature = attributes[:'operation_nature']
-      end
-
-      if attributes.key?(:'invoicing_framework')
-        self.invoicing_framework = attributes[:'invoicing_framework']
+      if attributes.key?(:'code')
+        self.code = attributes[:'code']
       end
     end
 
@@ -221,32 +97,12 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @number.nil?
-        invalid_properties.push('invalid value for "number", number cannot be nil.')
+      if @field.nil?
+        invalid_properties.push('invalid value for "field", field cannot be nil.')
       end
 
-      if @supplier.nil?
-        invalid_properties.push('invalid value for "supplier", supplier cannot be nil.')
-      end
-
-      if @recipient.nil?
-        invalid_properties.push('invalid value for "recipient", recipient cannot be nil.')
-      end
-
-      if @lines.nil?
-        invalid_properties.push('invalid value for "lines", lines cannot be nil.')
-      end
-
-      if @lines.length < 1
-        invalid_properties.push('invalid value for "lines", number of items must be greater than or equal to 1.')
-      end
-
-      if !@due_days.nil? && @due_days > 365
-        invalid_properties.push('invalid value for "due_days", must be smaller than or equal to 365.')
-      end
-
-      if !@due_days.nil? && @due_days < 0
-        invalid_properties.push('invalid value for "due_days", must be greater than or equal to 0.')
+      if @message.nil?
+        invalid_properties.push('invalid value for "message", message cannot be nil.')
       end
 
       invalid_properties
@@ -256,76 +112,29 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @number.nil?
-      return false if @supplier.nil?
-      return false if @recipient.nil?
-      return false if @lines.nil?
-      return false if @lines.length < 1
-      return false if !@due_days.nil? && @due_days > 365
-      return false if !@due_days.nil? && @due_days < 0
+      return false if @field.nil?
+      return false if @message.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] number Value to be assigned
-    def number=(number)
-      if number.nil?
-        fail ArgumentError, 'number cannot be nil'
+    # @param [Object] field Value to be assigned
+    def field=(field)
+      if field.nil?
+        fail ArgumentError, 'field cannot be nil'
       end
 
-      @number = number
+      @field = field
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] supplier Value to be assigned
-    def supplier=(supplier)
-      if supplier.nil?
-        fail ArgumentError, 'supplier cannot be nil'
+    # @param [Object] message Value to be assigned
+    def message=(message)
+      if message.nil?
+        fail ArgumentError, 'message cannot be nil'
       end
 
-      @supplier = supplier
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] recipient Value to be assigned
-    def recipient=(recipient)
-      if recipient.nil?
-        fail ArgumentError, 'recipient cannot be nil'
-      end
-
-      @recipient = recipient
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] lines Value to be assigned
-    def lines=(lines)
-      if lines.nil?
-        fail ArgumentError, 'lines cannot be nil'
-      end
-
-      if lines.length < 1
-        fail ArgumentError, 'invalid value for "lines", number of items must be greater than or equal to 1.'
-      end
-
-      @lines = lines
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] due_days Value to be assigned
-    def due_days=(due_days)
-      if due_days.nil?
-        fail ArgumentError, 'due_days cannot be nil'
-      end
-
-      if due_days > 365
-        fail ArgumentError, 'invalid value for "due_days", must be smaller than or equal to 365.'
-      end
-
-      if due_days < 0
-        fail ArgumentError, 'invalid value for "due_days", must be greater than or equal to 0.'
-      end
-
-      @due_days = due_days
+      @message = message
     end
 
     # Checks equality by comparing each attribute.
@@ -333,19 +142,9 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          number == o.number &&
-          supplier == o.supplier &&
-          recipient == o.recipient &&
-          lines == o.lines &&
-          date == o.date &&
-          due_days == o.due_days &&
-          comment == o.comment &&
-          purchase_order_reference == o.purchase_order_reference &&
-          contract_reference == o.contract_reference &&
-          invoice_type == o.invoice_type &&
-          preceding_invoice_reference == o.preceding_invoice_reference &&
-          operation_nature == o.operation_nature &&
-          invoicing_framework == o.invoicing_framework
+          field == o.field &&
+          message == o.message &&
+          code == o.code
     end
 
     # @see the `==` method
@@ -357,7 +156,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [number, supplier, recipient, lines, date, due_days, comment, purchase_order_reference, contract_reference, invoice_type, preceding_invoice_reference, operation_nature, invoicing_framework].hash
+      [field, message, code].hash
     end
 
     # Builds the object from hash

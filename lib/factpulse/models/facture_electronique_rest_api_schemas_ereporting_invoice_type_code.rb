@@ -14,26 +14,15 @@ require 'date'
 require 'time'
 
 module FactPulse
-  class InvoiceTypeCode
-    INVOICE = "380".freeze
-    SELF_BILLED_INVOICE = "389".freeze
-    FACTORED_INVOICE = "393".freeze
-    SELF_BILLED_FACTORED_INVOICE = "501".freeze
-    PREPAYMENT_INVOICE = "386".freeze
-    SELF_BILLED_PREPAYMENT_INVOICE = "500".freeze
-    CORRECTIVE_INVOICE = "384".freeze
-    SELF_BILLED_CORRECTIVE_INVOICE = "471".freeze
-    FACTORED_CORRECTIVE_INVOICE = "472".freeze
-    SELF_BILLED_FACTORED_CORRECTIVE_INVOICE = "473".freeze
-    CREDIT_NOTE = "381".freeze
-    SELF_BILLED_CREDIT_NOTE = "261".freeze
-    GLOBAL_ALLOWANCE_CREDIT_NOTE = "262".freeze
-    FACTORED_CREDIT_NOTE = "396".freeze
-    SELF_BILLED_FACTORED_CREDIT_NOTE = "502".freeze
-    PREPAYMENT_CREDIT_NOTE = "503".freeze
+  class FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode
+    N380 = "380".freeze
+    N381 = "381".freeze
+    N384 = "384".freeze
+    N389 = "389".freeze
+    N386 = "386".freeze
 
     def self.all_vars
-      @all_vars ||= [INVOICE, SELF_BILLED_INVOICE, FACTORED_INVOICE, SELF_BILLED_FACTORED_INVOICE, PREPAYMENT_INVOICE, SELF_BILLED_PREPAYMENT_INVOICE, CORRECTIVE_INVOICE, SELF_BILLED_CORRECTIVE_INVOICE, FACTORED_CORRECTIVE_INVOICE, SELF_BILLED_FACTORED_CORRECTIVE_INVOICE, CREDIT_NOTE, SELF_BILLED_CREDIT_NOTE, GLOBAL_ALLOWANCE_CREDIT_NOTE, FACTORED_CREDIT_NOTE, SELF_BILLED_FACTORED_CREDIT_NOTE, PREPAYMENT_CREDIT_NOTE].freeze
+      @all_vars ||= [N380, N381, N384, N389, N386].freeze
     end
 
     # Builds the enum from string
@@ -47,8 +36,8 @@ module FactPulse
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      return value if InvoiceTypeCode.all_vars.include?(value)
-      raise "Invalid ENUM value #{value} for class #InvoiceTypeCode"
+      return value if FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.all_vars.include?(value)
+      raise "Invalid ENUM value #{value} for class #FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode"
     end
   end
 end
