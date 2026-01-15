@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **credentials** | [**ChorusProCredentials**](ChorusProCredentials.md) |  | [optional] |
+| **credentials** | [**FactureElectroniqueRestApiSchemasChorusProChorusProCredentials**](FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md) |  | [optional] |
 | **chorus_invoice_id** | **Integer** | Chorus Pro invoice ID |  |
 
 ## Example

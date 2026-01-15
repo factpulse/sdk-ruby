@@ -200,10 +200,10 @@ module FactPulse
           ensure_authenticated; response = http_get(URI("#{@api_url}/api/v1/processing/tasks/#{task_id}/status"))
           reset_auth and next if response.code == '401'
           data = JSON.parse(response.body)
-          return data['resultat'] || {} if data['statut'] == 'SUCCESS'
-          if data['statut'] == 'FAILURE'
+          return data['result'] || {} if data['status'] == 'SUCCESS'
+          if data['status'] == 'FAILURE'
             # Format AFNOR: errorMessage, details
-            r = data['resultat'] || {}
+            r = data['result'] || {}
             raise FactPulseValidationError.new("Task #{task_id} failed: #{r['errorMessage'] || '?'}", (r['details'] || []).map { |e| ValidationErrorDetail.from_hash(e) })
           end
           sleep(current_interval / 1000.0); current_interval = [current_interval * 1.5, 10000].min
