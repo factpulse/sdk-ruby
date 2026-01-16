@@ -6,7 +6,7 @@
 | ---- | ---- | ----------- | ----- |
 | **invoice_id** | **String** | Invoice identifier |  |
 | **issue_date** | **Date** | Invoice issue date |  |
-| **type_code** | [**InvoiceTypeCode**](InvoiceTypeCode.md) | Invoice type code | [optional] |
+| **type_code** | [**FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode**](FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md) | Invoice type code | [optional] |
 | **currency** | [**Currency**](Currency.md) |  | [optional] |
 | **due_date** | **Date** |  | [optional] |
 | **seller_siren** | **String** | Seller SIREN/SIRET |  |
