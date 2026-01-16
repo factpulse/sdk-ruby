@@ -24,18 +24,17 @@ gem 'factpulse'
 
 ## Quick Start
 
-The `helpers` module provides a simplified API with automatic authentication and polling:
+The `FactPulse::Helpers` module provides a simplified API with automatic authentication and polling:
 
 ```ruby
 require 'factpulse'
-require 'factpulse/helpers'
 
-include Factpulse::Helpers
+include FactPulse::Helpers
 
 # Create the client
 client = FactPulseClient.new(
-  'your_email@example.com',
-  'your_password'
+  email: 'your_email@example.com',
+  password: 'your_password'
 )
 
 # Build the invoice using simplified format (auto-calculates totals)
@@ -66,18 +65,18 @@ pdf_bytes = client.generate_facturx(invoice_data, 'source_invoice.pdf')
 File.binwrite('invoice_facturx.pdf', pdf_bytes)
 ```
 
-## Available Helpers (Factpulse::Helpers module)
+## Available Helpers (FactPulse::Helpers::AmountHelpers module)
 
 ### amount(value)
 
 Converts a value to a formatted string for monetary amounts.
 
 ```ruby
-include Factpulse::Helpers
+include FactPulse::Helpers
 
-amount(1234.5)      # "1234.50"
-amount('1234.56')   # "1234.56"
-amount(nil)         # "0.00"
+AmountHelpers.amount(1234.5)      # "1234.50"
+AmountHelpers.amount('1234.56')   # "1234.56"
+AmountHelpers.amount(nil)         # "0.00"
 ```
 
 ### invoice_totals(excl_tax, vat, incl_tax, amount_due, ...)
@@ -85,7 +84,7 @@ amount(nil)         # "0.00"
 Creates a complete invoice totals object.
 
 ```ruby
-totals = invoice_totals(
+totals = AmountHelpers.invoice_totals(
   1000.00,                  # excl_tax
   200.00,                   # vat
   1200.00,                  # incl_tax
@@ -96,36 +95,34 @@ totals = invoice_totals(
 )
 ```
 
-### invoice_line(line_number, item_name, quantity, unit_net_price, line_net_amount, ...)
+### invoice_line(number, description, quantity, unit_price_excl_tax, line_total_excl_tax, ...)
 
 Creates an invoice line.
 
 ```ruby
-line = invoice_line(
+line = AmountHelpers.invoice_line(
   1,
   'Consulting services',
   5,
   200.00,
   1000.00,
-  'S',      # vat_category: S, Z, E, AE, K
-  'HOUR',   # unit: LUMP_SUM, PIECE, HOUR, DAY...
-  {
-    vat_rate: 'TVA20',        # Or manual_vat_rate: '20.00'
-    reference: 'REF-001'
-  }
+  vat_rate: '20.00',    # vatRateManual
+  vat_category: 'S',    # S, Z, E, AE, K
+  unit: 'LUMP_SUM',     # LUMP_SUM, PIECE, HOUR, DAY...
+  reference: 'REF-001'  # optional
 )
 ```
 
-### vat_line(taxable_amount, vat_amount, ...)
+### vat_line(rate_manual, base_amount_excl_tax, vat_amount, category)
 
 Creates a VAT breakdown line.
 
 ```ruby
-vat = vat_line(
-  1000.00,    # taxable_amount
+vat = AmountHelpers.vat_line(
+  '20.00',    # rate_manual
+  1000.00,    # base_amount_excl_tax
   200.00,     # vat_amount
-  'S',        # category: S, Z, E, AE, K
-  { rate: 'TVA20' }  # Or manual_rate: '20.00'
+  category: 'S'  # S, Z, E, AE, K
 )
 ```
 
@@ -134,12 +131,12 @@ vat = vat_line(
 Creates a structured postal address.
 
 ```ruby
-address = postal_address(
+address = AmountHelpers.postal_address(
   '123 Republic Street',
   '75001',
   'Paris',
-  'FR',           # country (default: 'FR')
-  'Building A'    # line2 (optional)
+  country: 'FR',        # default: 'FR'
+  line2: 'Building A'   # optional
 )
 ```
 
@@ -148,13 +145,13 @@ address = postal_address(
 Creates a complete supplier with automatic calculation of SIREN and intra-community VAT.
 
 ```ruby
-s = supplier(
+s = AmountHelpers.supplier(
   'My Company SAS',
   '12345678901234',
   '123 Example Street',
   '75001',
   'Paris',
-  { iban: 'FR7630006000011234567890189' }
+  iban: 'FR7630006000011234567890189'
 )
 # SIREN and intra-community VAT automatically calculated
 ```
@@ -164,7 +161,7 @@ s = supplier(
 Creates a recipient (customer) with automatic calculation of SIREN.
 
 ```ruby
-r = recipient(
+r = AmountHelpers.recipient(
   'Client SARL',
   '98765432109876',
   '456 Test Avenue',
@@ -178,30 +175,28 @@ r = recipient(
 To pass your own credentials without server-side storage:
 
 ```ruby
-include Factpulse::Helpers
+include FactPulse::Helpers
 
 chorus_creds = ChorusProCredentials.new(
-  'your_client_id',
-  'your_client_secret',
-  'your_login',
-  'your_password',
-  true  # sandbox
+  piste_client_id: 'your_client_id',
+  piste_client_secret: 'your_client_secret',
+  chorus_pro_login: 'your_login',
+  chorus_pro_password: 'your_password',
+  sandbox: true
 )
 
 afnor_creds = AFNORCredentials.new(
-  'https://api.pdp.fr/flow/v1',
-  'https://auth.pdp.fr/oauth/token',
-  'your_client_id',
-  'your_client_secret'
+  flow_service_url: 'https://api.pdp.fr/flow/v1',
+  token_url: 'https://auth.pdp.fr/oauth/token',
+  client_id: 'your_client_id',
+  client_secret: 'your_client_secret'
 )
 
 client = FactPulseClient.new(
-  'your_email@example.com',
-  'your_password',
-  nil,  # api_url
-  nil,  # client_uid
-  chorus_creds,
-  afnor_creds
+  email: 'your_email@example.com',
+  password: 'your_password',
+  chorus_credentials: chorus_creds,
+  afnor_credentials: afnor_creds
 )
 ```
 

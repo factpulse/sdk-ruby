@@ -561,14 +561,21 @@ module FactPulse
       end
 
       # Submits an invoice to Chorus Pro.
-      def soumettre_facture_chorus(facture_data)
-        make_chorus_request('POST', '/factures/soumettre', facture_data)
+      # @param invoice_data [Hash] Invoice data with keys: numero_facture, date_facture, date_echeance_paiement,
+      #   id_structure_cpp, montant_ht_total, montant_tva, montant_ttc_total, etc.
+      # @return [Hash] Response with identifiant_facture_cpp, numero_flux_depot, code_retour, libelle
+      def submit_invoice_chorus(invoice_data)
+        make_chorus_request('POST', '/factures/soumettre', invoice_data)
       end
+      alias soumettre_facture_chorus submit_invoice_chorus
 
       # Gets the status of a Chorus Pro invoice.
-      def consulter_facture_chorus(identifiant_facture_cpp)
-        make_chorus_request('POST', '/factures/consulter', { 'identifiant_facture_cpp' => identifiant_facture_cpp })
+      # @param invoice_cpp_id [Integer] Chorus Pro invoice ID
+      # @return [Hash] Invoice status with statut_courant, numero_facture, date_facture, etc.
+      def get_invoice_status_chorus(invoice_cpp_id)
+        make_chorus_request('POST', '/factures/consulter', { 'identifiant_facture_cpp' => invoice_cpp_id })
       end
+      alias consulter_facture_chorus get_invoice_status_chorus
 
       # =========================================================================
       # Validation
