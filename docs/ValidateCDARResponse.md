@@ -5,8 +5,8 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **valid** | **Boolean** | Résultat de validation |  |
-| **errors** | [**Array&lt;ValidationErrorResponse&gt;**](ValidationErrorResponse.md) | Liste des erreurs | [optional] |
-| **warnings** | [**Array&lt;ValidationErrorResponse&gt;**](ValidationErrorResponse.md) | Liste des avertissements | [optional] |
+| **errors** | [**Array&lt;FactureElectroniqueRestApiSchemasCdarValidationErrorResponse&gt;**](FactureElectroniqueRestApiSchemasCdarValidationErrorResponse.md) | Liste des erreurs | [optional] |
+| **warnings** | [**Array&lt;FactureElectroniqueRestApiSchemasCdarValidationErrorResponse&gt;**](FactureElectroniqueRestApiSchemasCdarValidationErrorResponse.md) | Liste des avertissements | [optional] |
 
 ## Example
 
