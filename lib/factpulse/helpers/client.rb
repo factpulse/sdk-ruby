@@ -247,7 +247,7 @@ module FactPulse
         # Build multipart request
         boundary = "----RubyFormBoundary#{SecureRandom.hex(16)}"
         body = build_multipart_body(boundary, [
-          { name: 'invoice_data', content: json_data },
+          { name: 'invoice_data', content: json_data, filename: 'invoice.json', content_type: 'application/json' },
           { name: 'profile', content: profile },
           { name: 'output_format', content: output_format },
           { name: 'source_pdf', content: pdf_content, filename: pdf_filename, content_type: 'application/pdf' }
