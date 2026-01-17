@@ -712,7 +712,7 @@ module FactPulse
           if validate
             validation = validate_facturx_pdf(temp_file.path, profile: profile)
             result[:validation] = validation
-            unless validation['is_compliant']
+            unless validation['isCompliant']
               if options[:output_path]
                 File.binwrite(options[:output_path], pdf_bytes)
                 result[:pdf_path] = options[:output_path]
