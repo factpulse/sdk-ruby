@@ -297,6 +297,22 @@ module FactPulse
 
         if sync && data['taskId']
           result = poll_task(data['taskId'], timeout: timeout)
+
+          # Check for business error (task succeeded but business result is ERROR)
+          if result['status'] == 'ERROR'
+            error_msg = result['errorMessage'] || 'Business error'
+            errors = (result['details'] || []).map do |d|
+              ValidationErrorDetail.new(
+                d['level'] || 'ERROR',
+                d['item'] || '',
+                d['reason'] || '',
+                d['source'],
+                d['code']
+              )
+            end
+            raise FactPulseValidationError.new(error_msg, errors)
+          end
+
           if result['content_b64']
             return Base64.decode64(result['content_b64'])
           elsif result['content_xml']
