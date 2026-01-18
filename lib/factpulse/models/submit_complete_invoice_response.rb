@@ -35,7 +35,7 @@ module FactPulse
     attr_accessor :signature
 
     # Generated Factur-X PDF (and signed if requested) base64-encoded
-    attr_accessor :pdf_base64
+    attr_accessor :content_b64
 
     # Return message
     attr_accessor :message
@@ -72,7 +72,7 @@ module FactPulse
         :'enriched_invoice' => :'enrichedInvoice',
         :'facturx_pdf' => :'facturxPdf',
         :'signature' => :'signature',
-        :'pdf_base64' => :'pdfBase64',
+        :'content_b64' => :'contentB64',
         :'message' => :'message'
       }
     end
@@ -97,7 +97,7 @@ module FactPulse
         :'enriched_invoice' => :'EnrichedInvoiceInfo',
         :'facturx_pdf' => :'FacturXPDFInfo',
         :'signature' => :'SignatureInfo',
-        :'pdf_base64' => :'String',
+        :'content_b64' => :'String',
         :'message' => :'String'
       }
     end
@@ -163,10 +163,10 @@ module FactPulse
         self.signature = attributes[:'signature']
       end
 
-      if attributes.key?(:'pdf_base64')
-        self.pdf_base64 = attributes[:'pdf_base64']
+      if attributes.key?(:'content_b64')
+        self.content_b64 = attributes[:'content_b64']
       else
-        self.pdf_base64 = nil
+        self.content_b64 = nil
       end
 
       if attributes.key?(:'message')
@@ -197,8 +197,8 @@ module FactPulse
         invalid_properties.push('invalid value for "facturx_pdf", facturx_pdf cannot be nil.')
       end
 
-      if @pdf_base64.nil?
-        invalid_properties.push('invalid value for "pdf_base64", pdf_base64 cannot be nil.')
+      if @content_b64.nil?
+        invalid_properties.push('invalid value for "content_b64", content_b64 cannot be nil.')
       end
 
       if @message.nil?
@@ -218,7 +218,7 @@ module FactPulse
       return false unless destination_type_validator.valid?(@destination_type)
       return false if @enriched_invoice.nil?
       return false if @facturx_pdf.nil?
-      return false if @pdf_base64.nil?
+      return false if @content_b64.nil?
       return false if @message.nil?
       true
     end
@@ -264,13 +264,13 @@ module FactPulse
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] pdf_base64 Value to be assigned
-    def pdf_base64=(pdf_base64)
-      if pdf_base64.nil?
-        fail ArgumentError, 'pdf_base64 cannot be nil'
+    # @param [Object] content_b64 Value to be assigned
+    def content_b64=(content_b64)
+      if content_b64.nil?
+        fail ArgumentError, 'content_b64 cannot be nil'
       end
 
-      @pdf_base64 = pdf_base64
+      @content_b64 = content_b64
     end
 
     # Custom attribute writer method with validation
@@ -295,7 +295,7 @@ module FactPulse
           enriched_invoice == o.enriched_invoice &&
           facturx_pdf == o.facturx_pdf &&
           signature == o.signature &&
-          pdf_base64 == o.pdf_base64 &&
+          content_b64 == o.content_b64 &&
           message == o.message
     end
 
@@ -308,7 +308,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [success, destination_type, chorus_result, afnor_result, enriched_invoice, facturx_pdf, signature, pdf_base64, message].hash
+      [success, destination_type, chorus_result, afnor_result, enriched_invoice, facturx_pdf, signature, content_b64, message].hash
     end
 
     # Builds the object from hash

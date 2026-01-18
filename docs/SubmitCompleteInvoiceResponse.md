@@ -11,7 +11,7 @@
 | **enriched_invoice** | [**EnrichedInvoiceInfo**](EnrichedInvoiceInfo.md) | Enriched invoice data |  |
 | **facturx_pdf** | [**FacturXPDFInfo**](FacturXPDFInfo.md) | Generated PDF information |  |
 | **signature** | [**SignatureInfo**](SignatureInfo.md) |  | [optional] |
-| **pdf_base64** | **String** | Generated Factur-X PDF (and signed if requested) base64-encoded |  |
+| **content_b64** | **String** | Generated Factur-X PDF (and signed if requested) base64-encoded |  |
 | **message** | **String** | Return message |  |
 
 ## Example
@@ -27,7 +27,7 @@ instance = FactPulse::SubmitCompleteInvoiceResponse.new(
   enriched_invoice: null,
   facturx_pdf: null,
   signature: null,
-  pdf_base64: null,
+  content_b64: null,
   message: null
 )
 ```

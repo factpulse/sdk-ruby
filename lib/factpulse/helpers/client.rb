@@ -83,14 +83,16 @@ module FactPulse
 
       result = parse_response(response)
 
-      # Auto-poll if taskId present
-      if result.is_a?(Hash) && result['taskId']
-        result = poll(result['taskId'])
+      # Auto-poll: support both taskId (camelCase) and task_id (snake_case)
+      if result.is_a?(Hash)
+        task_id = result['taskId'] || result['task_id']
+        result = poll(task_id) if task_id
       end
 
-      # Auto-decode base64
-      if result.is_a?(Hash) && result['content_b64']
-        result['content'] = Base64.decode64(result.delete('content_b64'))
+      # Auto-decode: support both content_b64 and contentB64
+      if result.is_a?(Hash)
+        b64_content = result.delete('content_b64') || result.delete('contentB64')
+        result['content'] = Base64.decode64(b64_content) if b64_content
       end
 
       result
@@ -153,9 +155,9 @@ module FactPulse
 
         if status == 'SUCCESS'
           result = data['result'] || {}
-          if result['content_b64']
-            result['content'] = Base64.decode64(result.delete('content_b64'))
-          end
+          # Support both content_b64 and contentB64
+          b64_content = result.delete('content_b64') || result.delete('contentB64')
+          result['content'] = Base64.decode64(b64_content) if b64_content
           return result
         end
 

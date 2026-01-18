@@ -201,7 +201,6 @@ end
 ## Resources
 
 - **API Documentation**: https://factpulse.fr/api/facturation/documentation
-- **Webhooks Guide**: https://factpulse.fr/docs/webhooks
 - **Support**: contact@factpulse.fr
 
 ## License

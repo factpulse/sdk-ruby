@@ -73,7 +73,7 @@ describe FactPulse::SubmitCompleteInvoiceResponse do
     end
   end
 
-  describe 'test attribute "pdf_base64"' do
+  describe 'test attribute "content_b64"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
