@@ -5,10 +5,10 @@ Official Ruby client for the FactPulse API - French electronic invoicing.
 ## Features
 
 - **Factur-X**: Generation and validation of electronic invoices (MINIMUM, BASIC, EN16931, EXTENDED profiles)
-- **Chorus Pro**: Integration with the French public sector invoicing platform
-- **AFNOR PDP/PA**: Submission of flows compliant with the XP Z12-013 standard
-- **Electronic signature**: PDF signature (PAdES-B-B, PAdES-B-T, PAdES-B-LT)
-- **Simplified client**: JWT authentication and integrated polling via `helpers`
+- **Chorus Pro**: Integration with the French public invoicing platform
+- **AFNOR PDP/PA**: Submission of flows compliant with XP Z12-013 standard
+- **Electronic signature**: PDF signing (PAdES-B-B, PAdES-B-T, PAdES-B-LT)
+- **Thin HTTP wrapper**: Generic `post` and `get` methods with automatic JWT auth and polling
 
 ## Installation
 
@@ -24,185 +24,184 @@ gem 'factpulse'
 
 ## Quick Start
 
-The `FactPulse::Helpers` module provides a simplified API with automatic authentication and polling:
+```ruby
+require 'factpulse'
+require 'base64'
+
+# Create the client
+client = FactPulse::Client.new(
+  email: 'your_email@example.com',
+  password: 'your_password',
+  client_uid: 'your-client-uuid'  # From dashboard: Configuration > Clients
+)
+
+# Read your source PDF
+pdf_b64 = Base64.strict_encode64(File.binread('source_invoice.pdf'))
+
+# Generate Factur-X and submit to PDP in one call
+result = client.post('processing/invoices/submit-complete-async',
+  invoiceData: {
+    number: 'INV-2025-001',
+    supplier: {
+      siret: '12345678901234',
+      iban: 'FR7630001007941234567890185',
+      routingAddress: '12345678901234'
+    },
+    recipient: {
+      siret: '98765432109876',
+      routingAddress: '98765432109876'
+    },
+    lines: [
+      {
+        description: 'Consulting services',
+        quantity: 10,
+        unitPrice: 100.0,
+        vatRate: 20.0
+      }
+    ]
+  },
+  sourcePdf: pdf_b64,
+  profile: 'EN16931',
+  destination: { type: 'afnor' }
+)
+
+# PDF is in result['content'] (auto-polled, auto-decoded)
+File.binwrite('facturx_invoice.pdf', result['content'])
+
+puts "Flow ID: #{result['afnorResult']['flowId']}"
+```
+
+## API Methods
+
+The SDK provides two generic methods that map directly to API endpoints:
+
+```ruby
+# POST /api/v1/{path}
+result = client.post('path/to/endpoint', key1: value1, key2: value2)
+
+# GET /api/v1/{path}
+result = client.get('path/to/endpoint', param1: value1)
+```
+
+### Common Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `processing/invoices/submit-complete-async` | POST | Generate Factur-X + submit to PDP |
+| `processing/generate-invoice` | POST | Generate Factur-X XML or PDF |
+| `processing/validate-xml` | POST | Validate Factur-X XML |
+| `processing/validate-facturx-pdf` | POST | Validate Factur-X PDF |
+| `processing/sign-pdf` | POST | Sign PDF with certificate |
+| `afnor/flow/v1/flows` | POST | Submit flow to AFNOR PDP |
+| `afnor/incoming-flows/{flow_id}` | GET | Get incoming invoice |
+| `chorus-pro/factures/soumettre` | POST | Submit to Chorus Pro |
+
+## Webhooks
+
+Instead of polling, you can receive results via webhook by adding `callbackUrl`:
+
+```ruby
+result = client.post('processing/invoices/submit-complete-async',
+  invoiceData: invoice_data,
+  sourcePdf: pdf_b64,
+  destination: { type: 'afnor' },
+  callbackUrl: 'https://your-server.com/webhook/factpulse',
+  webhookMode: 'INLINE'  # or 'DOWNLOAD_URL'
+)
+
+task_id = result['taskId']
+# Result will be POSTed to your webhook URL
+```
+
+### Webhook Receiver Example (Sinatra)
+
+```ruby
+require 'sinatra'
+require 'json'
+require 'openssl'
+
+WEBHOOK_SECRET = 'your-shared-secret'
+
+def verify_signature(payload, signature)
+  return false unless signature&.start_with?('sha256=')
+
+  expected = OpenSSL::HMAC.hexdigest('SHA256', WEBHOOK_SECRET, payload)
+  Rack::Utils.secure_compare(expected, signature[7..])
+end
+
+post '/webhook/factpulse' do
+  payload = request.body.read
+  signature = request.env['HTTP_X_WEBHOOK_SIGNATURE']
+
+  unless verify_signature(payload, signature)
+    halt 401, { error: 'Invalid signature' }.to_json
+  end
+
+  event = JSON.parse(payload)
+  event_type = event['event_type']
+  data = event['data']
+
+  case event_type
+  when 'submission.completed'
+    flow_id = data.dig('afnorResult', 'flowId')
+    puts "Invoice submitted: #{flow_id}"
+  when 'submission.failed'
+    puts "Submission failed: #{data['error']}"
+  end
+
+  content_type :json
+  { status: 'received' }.to_json
+end
+```
+
+### Webhook Event Types
+
+| Event | Description |
+|-------|-------------|
+| `generation.completed` | Factur-X generated successfully |
+| `generation.failed` | Generation failed |
+| `validation.completed` | Validation passed |
+| `validation.failed` | Validation failed |
+| `signature.completed` | PDF signed |
+| `submission.completed` | Submitted to PDP/Chorus |
+| `submission.failed` | Submission failed |
+
+## Zero-Storage Mode
+
+Pass PDP credentials directly in the request (no server-side storage):
+
+```ruby
+result = client.post('processing/invoices/submit-complete-async',
+  invoiceData: invoice_data,
+  sourcePdf: pdf_b64,
+  destination: {
+    type: 'afnor',
+    flowServiceUrl: 'https://api.pdp.example.com/flow/v1',
+    tokenUrl: 'https://auth.pdp.example.com/oauth/token',
+    clientId: 'your_pdp_client_id',
+    clientSecret: 'your_pdp_client_secret'
+  }
+)
+```
+
+## Error Handling
 
 ```ruby
 require 'factpulse'
 
-include FactPulse::Helpers
-
-# Create the client
-client = FactPulseClient.new(
-  email: 'your_email@example.com',
-  password: 'your_password'
-)
-
-# Build the invoice using simplified format (auto-calculates totals)
-invoice_data = {
-  'number' => 'INV-2025-001',
-  'supplier' => {
-    'name' => 'My Company SAS',
-    'siret' => '12345678901234',
-    'iban' => 'FR7630001007941234567890185'
-  },
-  'recipient' => {
-    'name' => 'Client SARL',
-    'siret' => '98765432109876'
-  },
-  'lines' => [
-    {
-      'description' => 'Consulting services',
-      'quantity' => 10,
-      'unitPrice' => 100.0,
-      'vatRate' => 20
-    }
-  ]
-}
-
-# Generate the Factur-X PDF
-pdf_bytes = client.generate_facturx(invoice_data, 'source_invoice.pdf')
-
-File.binwrite('invoice_facturx.pdf', pdf_bytes)
-```
-
-## Available Helpers (FactPulse::Helpers::AmountHelpers module)
-
-### amount(value)
-
-Converts a value to a formatted string for monetary amounts.
-
-```ruby
-include FactPulse::Helpers
-
-AmountHelpers.amount(1234.5)      # "1234.50"
-AmountHelpers.amount('1234.56')   # "1234.56"
-AmountHelpers.amount(nil)         # "0.00"
-```
-
-### invoice_totals(excl_tax, vat, incl_tax, amount_due, ...)
-
-Creates a complete invoice totals object.
-
-```ruby
-totals = AmountHelpers.invoice_totals(
-  1000.00,                  # excl_tax
-  200.00,                   # vat
-  1200.00,                  # incl_tax
-  1200.00,                  # amount_due
-  discount_incl_tax: 50.00, # optional
-  discount_reason: 'Loyalty discount', # optional
-  prepayment: 100.00        # optional
-)
-```
-
-### invoice_line(number, description, quantity, unit_price_excl_tax, line_total_excl_tax, ...)
-
-Creates an invoice line.
-
-```ruby
-line = AmountHelpers.invoice_line(
-  1,
-  'Consulting services',
-  5,
-  200.00,
-  1000.00,
-  vat_rate: '20.00',    # vatRateManual
-  vat_category: 'S',    # S, Z, E, AE, K
-  unit: 'LUMP_SUM',     # LUMP_SUM, PIECE, HOUR, DAY...
-  reference: 'REF-001'  # optional
-)
-```
-
-### vat_line(rate_manual, base_amount_excl_tax, vat_amount, category)
-
-Creates a VAT breakdown line.
-
-```ruby
-vat = AmountHelpers.vat_line(
-  '20.00',    # rate_manual
-  1000.00,    # base_amount_excl_tax
-  200.00,     # vat_amount
-  category: 'S'  # S, Z, E, AE, K
-)
-```
-
-### postal_address(line1, postal_code, city, ...)
-
-Creates a structured postal address.
-
-```ruby
-address = AmountHelpers.postal_address(
-  '123 Republic Street',
-  '75001',
-  'Paris',
-  country: 'FR',        # default: 'FR'
-  line2: 'Building A'   # optional
-)
-```
-
-### supplier(name, siret, address_line1, postal_code, city, options)
-
-Creates a complete supplier with automatic calculation of SIREN and intra-community VAT.
-
-```ruby
-s = AmountHelpers.supplier(
-  'My Company SAS',
-  '12345678901234',
-  '123 Example Street',
-  '75001',
-  'Paris',
-  iban: 'FR7630006000011234567890189'
-)
-# SIREN and intra-community VAT automatically calculated
-```
-
-### recipient(name, siret, address_line1, postal_code, city, options)
-
-Creates a recipient (customer) with automatic calculation of SIREN.
-
-```ruby
-r = AmountHelpers.recipient(
-  'Client SARL',
-  '98765432109876',
-  '456 Test Avenue',
-  '69001',
-  'Lyon'
-)
-```
-
-## Zero-Trust Mode (Chorus Pro / AFNOR)
-
-To pass your own credentials without server-side storage:
-
-```ruby
-include FactPulse::Helpers
-
-chorus_creds = ChorusProCredentials.new(
-  piste_client_id: 'your_client_id',
-  piste_client_secret: 'your_client_secret',
-  chorus_pro_login: 'your_login',
-  chorus_pro_password: 'your_password',
-  sandbox: true
-)
-
-afnor_creds = AFNORCredentials.new(
-  flow_service_url: 'https://api.pdp.fr/flow/v1',
-  token_url: 'https://auth.pdp.fr/oauth/token',
-  client_id: 'your_client_id',
-  client_secret: 'your_client_secret'
-)
-
-client = FactPulseClient.new(
-  email: 'your_email@example.com',
-  password: 'your_password',
-  chorus_credentials: chorus_creds,
-  afnor_credentials: afnor_creds
-)
+begin
+  result = client.post('processing/validate-xml', xmlContent: xml_string)
+rescue FactPulse::Error => e
+  puts "Error: #{e.message}"
+  puts "Status code: #{e.status_code}"
+  puts "Details: #{e.details}"
+end
 ```
 
 ## Resources
 
 - **API Documentation**: https://factpulse.fr/api/facturation/documentation
+- **Webhooks Guide**: https://factpulse.fr/docs/webhooks
 - **Support**: contact@factpulse.fr
 
 ## License
