@@ -7,7 +7,7 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-## [1.0.0] - 2026-01-18
+## [3.1.0] - 2026-01-18
 
 ### Added
 - Version initiale du SDK ruby
@@ -20,5 +20,5 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Documentation complète et exemples
 
 
-[Unreleased]: https://github.com/factpulse/sdk-ruby/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/factpulse/sdk-ruby/releases/tag/v1.0.0
+[Unreleased]: https://github.com/factpulse/sdk-ruby/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/factpulse/sdk-ruby/releases/tag/v3.1.0
