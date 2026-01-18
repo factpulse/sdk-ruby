@@ -1,13 +1,14 @@
 # frozen_string_literal: true
-require_relative 'exceptions'
+
+# Load client first (defines FactPulse::Error base class)
 require_relative 'client'
+# Then load additional exception types
+require_relative 'exceptions'
+
 module FactPulse
   module Helpers
-    def self.create_client(**opts); FactPulseClient.new(**opts); end
-    def self.format_amount(m); AmountHelpers.amount(m); end
-    def self.amount(m); AmountHelpers.amount(m); end
-    def self.invoice_totals(*args, **kwargs); AmountHelpers.invoice_totals(*args, **kwargs); end
-    def self.invoice_line(*args, **kwargs); AmountHelpers.invoice_line(*args, **kwargs); end
-    def self.vat_line(*args, **kwargs); AmountHelpers.vat_line(*args, **kwargs); end
+    def self.create_client(**opts)
+      FactPulse::Client.new(**opts)
+    end
   end
 end
