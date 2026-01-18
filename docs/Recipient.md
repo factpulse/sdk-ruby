@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  |  |
+| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
 | **executing_service_code** | **String** |  | [optional] |
 | **name** | **String** |  | [optional] |
 | **siren** | **String** |  | [optional] |

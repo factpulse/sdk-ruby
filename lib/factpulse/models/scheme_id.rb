@@ -15,9 +15,9 @@ require 'time'
 
 module FactPulse
   class SchemeID
-    FR_SIREN = "0225".freeze
+    FR_ELECTRONIC_ADDRESS = "0225".freeze
+    FR_SIREN = "0002".freeze
     FR_SIRET = "0009".freeze
-    FR_SIREN_OLD = "0002".freeze
     GLN = "0088".freeze
     DUNS = "0060".freeze
     FR_VAT_INTRA = "9957".freeze
@@ -35,7 +35,7 @@ module FactPulse
     PT_VAT = "9934".freeze
 
     def self.all_vars
-      @all_vars ||= [FR_SIREN, FR_SIRET, FR_SIREN_OLD, GLN, DUNS, FR_VAT_INTRA, GLEIF, DT_DIRECTORY_ID, EMAIL, ODETTE, FR_CHORUS_PRO_ROUTING, DE_VAT, AT_VAT, BE_VAT, ES_VAT, IT_VAT, NL_VAT, PT_VAT].freeze
+      @all_vars ||= [FR_ELECTRONIC_ADDRESS, FR_SIREN, FR_SIRET, GLN, DUNS, FR_VAT_INTRA, GLEIF, DT_DIRECTORY_ID, EMAIL, ODETTE, FR_CHORUS_PRO_ROUTING, DE_VAT, AT_VAT, BE_VAT, ES_VAT, IT_VAT, NL_VAT, PT_VAT].freeze
     end
 
     # Builds the enum from string

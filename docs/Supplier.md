@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  |  |
+| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
 | **supplier_id** | **Integer** |  |  |
 | **private_id** | **String** |  | [optional] |
 | **supplier_bank_account_code** | **Integer** |  | [optional] |

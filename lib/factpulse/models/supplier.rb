@@ -151,8 +151,6 @@ module FactPulse
 
       if attributes.key?(:'electronic_address')
         self.electronic_address = attributes[:'electronic_address']
-      else
-        self.electronic_address = nil
       end
 
       if attributes.key?(:'supplier_id')
