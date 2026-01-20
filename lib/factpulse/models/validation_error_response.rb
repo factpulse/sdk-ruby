@@ -14,26 +14,15 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Erreur de validation.
+  # Response for validation errors.
   class ValidationErrorResponse < ApiModelBase
-    # Champ concerné
-    attr_accessor :field
-
-    # Message d'erreur
-    attr_accessor :message
-
-    attr_accessor :rule
-
-    # Sévérité (error/warning)
-    attr_accessor :severity
+    # List of detected validation errors.
+    attr_accessor :detail
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'field' => :'field',
-        :'message' => :'message',
-        :'rule' => :'rule',
-        :'severity' => :'severity'
+        :'detail' => :'detail'
       }
     end
 
@@ -50,17 +39,13 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'field' => :'String',
-        :'message' => :'String',
-        :'rule' => :'String',
-        :'severity' => :'String'
+        :'detail' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'rule',
       ])
     end
 
@@ -80,26 +65,12 @@ module FactPulse
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'field')
-        self.field = attributes[:'field']
+      if attributes.key?(:'detail')
+        if (value = attributes[:'detail']).is_a?(Array)
+          self.detail = value
+        end
       else
-        self.field = nil
-      end
-
-      if attributes.key?(:'message')
-        self.message = attributes[:'message']
-      else
-        self.message = nil
-      end
-
-      if attributes.key?(:'rule')
-        self.rule = attributes[:'rule']
-      end
-
-      if attributes.key?(:'severity')
-        self.severity = attributes[:'severity']
-      else
-        self.severity = 'error'
+        self.detail = nil
       end
     end
 
@@ -108,12 +79,8 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @field.nil?
-        invalid_properties.push('invalid value for "field", field cannot be nil.')
-      end
-
-      if @message.nil?
-        invalid_properties.push('invalid value for "message", message cannot be nil.')
+      if @detail.nil?
+        invalid_properties.push('invalid value for "detail", detail cannot be nil.')
       end
 
       invalid_properties
@@ -123,29 +90,18 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @field.nil?
-      return false if @message.nil?
+      return false if @detail.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] field Value to be assigned
-    def field=(field)
-      if field.nil?
-        fail ArgumentError, 'field cannot be nil'
+    # @param [Object] detail Value to be assigned
+    def detail=(detail)
+      if detail.nil?
+        fail ArgumentError, 'detail cannot be nil'
       end
 
-      @field = field
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] message Value to be assigned
-    def message=(message)
-      if message.nil?
-        fail ArgumentError, 'message cannot be nil'
-      end
-
-      @message = message
+      @detail = detail
     end
 
     # Checks equality by comparing each attribute.
@@ -153,10 +109,7 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          field == o.field &&
-          message == o.message &&
-          rule == o.rule &&
-          severity == o.severity
+          detail == o.detail
     end
 
     # @see the `==` method
@@ -168,7 +121,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [field, message, rule, severity].hash
+      [detail].hash
     end
 
     # Builds the object from hash
