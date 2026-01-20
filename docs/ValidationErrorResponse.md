@@ -4,7 +4,10 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **detail** | **Array&lt;String&gt;** | List of detected validation errors. |  |
+| **field** | **String** | Champ concerné |  |
+| **message** | **String** | Message d&#39;erreur |  |
+| **rule** | **String** |  | [optional] |
+| **severity** | **String** | Sévérité (error/warning) | [optional][default to &#39;error&#39;] |
 
 ## Example
 
@@ -12,7 +15,10 @@
 require 'factpulse'
 
 instance = FactPulse::ValidationErrorResponse.new(
-  detail: null
+  field: null,
+  message: null,
+  rule: null,
+  severity: null
 )
 ```
 
