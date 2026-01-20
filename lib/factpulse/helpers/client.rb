@@ -43,9 +43,14 @@ module FactPulse
       @token_mutex = Mutex.new
     end
 
-    # POST request to /api/v1/{path}
+    # POST request to /api/v1/{path} (JSON body)
     def post(path, **data)
       request('POST', path, data, retry_auth: true)
+    end
+
+    # POST request with multipart/form-data (for file uploads)
+    def post_multipart(path, data: {}, files: {})
+      request_multipart(path, data, files, retry_auth: true)
     end
 
     # GET request to /api/v1/{path}
@@ -90,6 +95,64 @@ module FactPulse
       end
 
       # Auto-decode: support both content_b64 and contentB64
+      if result.is_a?(Hash)
+        b64_content = result.delete('content_b64') || result.delete('contentB64')
+        result['content'] = Base64.decode64(b64_content) if b64_content
+      end
+
+      result
+    end
+
+    def request_multipart(path, data, files, retry_auth:)
+      ensure_auth
+      url = "#{@api_url}/api/v1/#{path}"
+      uri = URI(url)
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      http.read_timeout = @timeout
+
+      # Build multipart body
+      boundary = "----RubyFormBoundary#{rand(1_000_000)}"
+      body = []
+
+      data.each do |key, value|
+        body << "--#{boundary}\r\n"
+        body << "Content-Disposition: form-data; name=\"#{key}\"\r\n\r\n"
+        body << "#{value}\r\n"
+      end
+
+      files.each do |key, content|
+        body << "--#{boundary}\r\n"
+        body << "Content-Disposition: form-data; name=\"#{key}\"; filename=\"#{key}\"\r\n"
+        body << "Content-Type: application/octet-stream\r\n\r\n"
+        body << content
+        body << "\r\n"
+      end
+
+      body << "--#{boundary}--\r\n"
+
+      req = Net::HTTP::Post.new(uri)
+      req['Authorization'] = "Bearer #{@token}"
+      req['Content-Type'] = "multipart/form-data; boundary=#{boundary}"
+      req.body = body.join
+
+      response = http.request(req)
+
+      if response.code == '401' && retry_auth
+        invalidate_token
+        return request_multipart(path, data, files, retry_auth: false)
+      end
+
+      result = parse_response(response)
+
+      # Auto-poll
+      if result.is_a?(Hash)
+        task_id = result['taskId'] || result['task_id']
+        result = poll(task_id) if task_id
+      end
+
+      # Auto-decode
       if result.is_a?(Hash)
         b64_content = result.delete('content_b64') || result.delete('contentB64')
         result['content'] = Base64.decode64(b64_content) if b64_content

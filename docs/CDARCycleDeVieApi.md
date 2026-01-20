@@ -10,6 +10,8 @@ All URIs are relative to *https://factpulse.fr*
 | [**get_status_codes_api_v1_cdar_status_codes_get**](CDARCycleDeVieApi.md#get_status_codes_api_v1_cdar_status_codes_get) | **GET** /api/v1/cdar/status-codes | Liste des codes statut CDAR |
 | [**submit_cdar_api_v1_cdar_submit_post**](CDARCycleDeVieApi.md#submit_cdar_api_v1_cdar_submit_post) | **POST** /api/v1/cdar/submit | Générer et soumettre un message CDAR |
 | [**submit_cdar_xml_api_v1_cdar_submit_xml_post**](CDARCycleDeVieApi.md#submit_cdar_xml_api_v1_cdar_submit_xml_post) | **POST** /api/v1/cdar/submit-xml | Soumettre un XML CDAR pré-généré |
+| [**submit_encaissee_api_v1_cdar_encaissee_post**](CDARCycleDeVieApi.md#submit_encaissee_api_v1_cdar_encaissee_post) | **POST** /api/v1/cdar/encaissee | [Simplifié] Soumettre un statut ENCAISSÉE (212) |
+| [**submit_refusee_api_v1_cdar_refusee_post**](CDARCycleDeVieApi.md#submit_refusee_api_v1_cdar_refusee_post) | **POST** /api/v1/cdar/refusee | [Simplifié] Soumettre un statut REFUSÉE (210) |
 | [**validate_cdar_api_v1_cdar_validate_post**](CDARCycleDeVieApi.md#validate_cdar_api_v1_cdar_validate_post) | **POST** /api/v1/cdar/validate | Valider des données CDAR |
 
 
@@ -267,11 +269,11 @@ No authorization required
 
 ## submit_cdar_api_v1_cdar_submit_post
 
-> <SubmitCDARResponse> submit_cdar_api_v1_cdar_submit_post(user_id, body_submit_cdar_api_v1_cdar_submit_post, opts)
+> <SubmitCDARResponse> submit_cdar_api_v1_cdar_submit_post(submit_cdar_request)
 
 Générer et soumettre un message CDAR
 
-Génère un message CDAR et le soumet à la plateforme PA/PDP.  Nécessite une authentification AFNOR valide.  **Types de flux (flowType):** - `CustomerInvoiceLC`: Cycle de vie côté client (acheteur) - `SupplierInvoiceLC`: Cycle de vie côté fournisseur (vendeur)
+Génère un message CDAR et le soumet à la plateforme PA/PDP.  **Stratégies d'authentification:** 1. **JWT avec client_uid** (recommandé): credentials PDP récupérés du backend 2. **Zero-storage**: Fournir pdpFlowServiceUrl, pdpClientId, pdpClientSecret dans la requête  **Types de flux (flowType):** - `CustomerInvoiceLC`: Cycle de vie côté client (acheteur) - `SupplierInvoiceLC`: Cycle de vie côté fournisseur (vendeur)
 
 ### Examples
 
@@ -285,16 +287,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::CDARCycleDeVieApi.new
-user_id = 56 # Integer | 
-body_submit_cdar_api_v1_cdar_submit_post = FactPulse::BodySubmitCdarApiV1CdarSubmitPost.new({request: FactPulse::SubmitCDARRequest.new({document_id: 'document_id_example', sender_siren: 'sender_siren_example', invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, status: 'status_example'})}) # BodySubmitCdarApiV1CdarSubmitPost | 
-opts = {
-  jwt_token: 'jwt_token_example', # String | 
-  client_uid: 'client_uid_example' # String | 
-}
+submit_cdar_request = FactPulse::SubmitCDARRequest.new({document_id: 'document_id_example', sender_siren: 'sender_siren_example', invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, status: 'status_example'}) # SubmitCDARRequest | 
 
 begin
   # Générer et soumettre un message CDAR
-  result = api_instance.submit_cdar_api_v1_cdar_submit_post(user_id, body_submit_cdar_api_v1_cdar_submit_post, opts)
+  result = api_instance.submit_cdar_api_v1_cdar_submit_post(submit_cdar_request)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling CDARCycleDeVieApi->submit_cdar_api_v1_cdar_submit_post: #{e}"
@@ -305,12 +302,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_api_v1_cdar_submit_post_with_http_info(user_id, body_submit_cdar_api_v1_cdar_submit_post, opts)
+> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request)
 
 ```ruby
 begin
   # Générer et soumettre un message CDAR
-  data, status_code, headers = api_instance.submit_cdar_api_v1_cdar_submit_post_with_http_info(user_id, body_submit_cdar_api_v1_cdar_submit_post, opts)
+  data, status_code, headers = api_instance.submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCDARResponse>
@@ -323,10 +320,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **user_id** | **Integer** |  |  |
-| **body_submit_cdar_api_v1_cdar_submit_post** | [**BodySubmitCdarApiV1CdarSubmitPost**](BodySubmitCdarApiV1CdarSubmitPost.md) |  |  |
-| **jwt_token** | **String** |  | [optional] |
-| **client_uid** | **String** |  | [optional] |
+| **submit_cdar_request** | [**SubmitCDARRequest**](SubmitCDARRequest.md) |  |  |
 
 ### Return type
 
@@ -344,11 +338,11 @@ end
 
 ## submit_cdar_xml_api_v1_cdar_submit_xml_post
 
-> <SubmitCDARResponse> submit_cdar_xml_api_v1_cdar_submit_xml_post(user_id, body_submit_cdar_xml_api_v1_cdar_submit_xml_post, opts)
+> <SubmitCDARResponse> submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request)
 
 Soumettre un XML CDAR pré-généré
 
-Soumet un message XML CDAR pré-généré à la plateforme PA/PDP.  Utile pour soumettre des XML générés par d'autres systèmes.
+Soumet un message XML CDAR pré-généré à la plateforme PA/PDP.  Utile pour soumettre des XML générés par d'autres systèmes.  **Stratégies d'authentification:** 1. **JWT avec client_uid** (recommandé): credentials PDP récupérés du backend 2. **Zero-storage**: Fournir pdpFlowServiceUrl, pdpClientId, pdpClientSecret dans la requête
 
 ### Examples
 
@@ -362,16 +356,11 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::CDARCycleDeVieApi.new
-user_id = 56 # Integer | 
-body_submit_cdar_xml_api_v1_cdar_submit_xml_post = FactPulse::BodySubmitCdarXmlApiV1CdarSubmitXmlPost.new({request: FactPulse::SubmitCDARXMLRequest.new({xml: 'xml_example'})}) # BodySubmitCdarXmlApiV1CdarSubmitXmlPost | 
-opts = {
-  jwt_token: 'jwt_token_example', # String | 
-  client_uid: 'client_uid_example' # String | 
-}
+submit_cdarxml_request = FactPulse::SubmitCDARXMLRequest.new({xml: 'xml_example'}) # SubmitCDARXMLRequest | 
 
 begin
   # Soumettre un XML CDAR pré-généré
-  result = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post(user_id, body_submit_cdar_xml_api_v1_cdar_submit_xml_post, opts)
+  result = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling CDARCycleDeVieApi->submit_cdar_xml_api_v1_cdar_submit_xml_post: #{e}"
@@ -382,12 +371,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(user_id, body_submit_cdar_xml_api_v1_cdar_submit_xml_post, opts)
+> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request)
 
 ```ruby
 begin
   # Soumettre un XML CDAR pré-généré
-  data, status_code, headers = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(user_id, body_submit_cdar_xml_api_v1_cdar_submit_xml_post, opts)
+  data, status_code, headers = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCDARResponse>
@@ -400,14 +389,149 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **user_id** | **Integer** |  |  |
-| **body_submit_cdar_xml_api_v1_cdar_submit_xml_post** | [**BodySubmitCdarXmlApiV1CdarSubmitXmlPost**](BodySubmitCdarXmlApiV1CdarSubmitXmlPost.md) |  |  |
-| **jwt_token** | **String** |  | [optional] |
-| **client_uid** | **String** |  | [optional] |
+| **submit_cdarxml_request** | [**SubmitCDARXMLRequest**](SubmitCDARXMLRequest.md) |  |  |
 
 ### Return type
 
 [**SubmitCDARResponse**](SubmitCDARResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## submit_encaissee_api_v1_cdar_encaissee_post
+
+> <SimplifiedCDARResponse> submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request)
+
+[Simplifié] Soumettre un statut ENCAISSÉE (212)
+
+**Endpoint simplifié pour OD** - Soumet un statut ENCAISSÉE (212) pour une facture.  Ce statut est **obligatoire pour le PPF** (BR-FR-CDV-14 requiert le montant encaissé).  **Cas d'usage:** L'acheteur confirme le paiement d'une facture.  **Authentification:** JWT Bearer (recommandé) ou credentials PDP dans la requête.
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::CDARCycleDeVieApi.new
+encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, amount: FactPulse::Amount.new}) # EncaisseeRequest | 
+
+begin
+  # [Simplifié] Soumettre un statut ENCAISSÉE (212)
+  result = api_instance.submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling CDARCycleDeVieApi->submit_encaissee_api_v1_cdar_encaissee_post: #{e}"
+end
+```
+
+#### Using the submit_encaissee_api_v1_cdar_encaissee_post_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SimplifiedCDARResponse>, Integer, Hash)> submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request)
+
+```ruby
+begin
+  # [Simplifié] Soumettre un statut ENCAISSÉE (212)
+  data, status_code, headers = api_instance.submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SimplifiedCDARResponse>
+rescue FactPulse::ApiError => e
+  puts "Error when calling CDARCycleDeVieApi->submit_encaissee_api_v1_cdar_encaissee_post_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **encaissee_request** | [**EncaisseeRequest**](EncaisseeRequest.md) |  |  |
+
+### Return type
+
+[**SimplifiedCDARResponse**](SimplifiedCDARResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## submit_refusee_api_v1_cdar_refusee_post
+
+> <SimplifiedCDARResponse> submit_refusee_api_v1_cdar_refusee_post(refusee_request)
+
+[Simplifié] Soumettre un statut REFUSÉE (210)
+
+**Endpoint simplifié pour OD** - Soumet un statut REFUSÉE (210) pour une facture.  Ce statut est **obligatoire pour le PPF** (BR-FR-CDV-15 requiert un code motif).  **Cas d'usage:** L'acheteur refuse une facture reçue.  **Codes motif autorisés (BR-FR-CDV-CL-09):** - `TX_TVA_ERR`: Taux de TVA erroné - `MONTANTTOTAL_ERR`: Montant total erroné - `CALCUL_ERR`: Erreur de calcul - `NON_CONFORME`: Non conforme - `DOUBLON`: Doublon - `DEST_ERR`: Destinataire erroné - `TRANSAC_INC`: Transaction incomplète - `EMMET_INC`: Émetteur inconnu - `CONTRAT_TERM`: Contrat terminé - `DOUBLE_FACT`: Double facturation - `CMD_ERR`: Commande erronée - `ADR_ERR`: Adresse erronée - `REF_CT_ABSENT`: Référence contrat absente  **Authentification:** JWT Bearer (recommandé) ou credentials PDP dans la requête.
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::CDARCycleDeVieApi.new
+refusee_request = FactPulse::RefuseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, reason_code: 'reason_code_example'}) # RefuseeRequest | 
+
+begin
+  # [Simplifié] Soumettre un statut REFUSÉE (210)
+  result = api_instance.submit_refusee_api_v1_cdar_refusee_post(refusee_request)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling CDARCycleDeVieApi->submit_refusee_api_v1_cdar_refusee_post: #{e}"
+end
+```
+
+#### Using the submit_refusee_api_v1_cdar_refusee_post_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SimplifiedCDARResponse>, Integer, Hash)> submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request)
+
+```ruby
+begin
+  # [Simplifié] Soumettre un statut REFUSÉE (210)
+  data, status_code, headers = api_instance.submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SimplifiedCDARResponse>
+rescue FactPulse::ApiError => e
+  puts "Error when calling CDARCycleDeVieApi->submit_refusee_api_v1_cdar_refusee_post_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **refusee_request** | [**RefuseeRequest**](RefuseeRequest.md) |  |  |
+
+### Return type
+
+[**SimplifiedCDARResponse**](SimplifiedCDARResponse.md)
 
 ### Authorization
 

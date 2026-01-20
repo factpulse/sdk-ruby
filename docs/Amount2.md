@@ -1,4 +1,4 @@
-# FactPulse::FactureElectroniqueModelsInvoiceTypeCode
+# FactPulse::Amount2
 
 ## Properties
 
@@ -10,6 +10,6 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::FactureElectroniqueModelsInvoiceTypeCode.new()
+instance = FactPulse::Amount2.new()
 ```
 

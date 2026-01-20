@@ -23,6 +23,10 @@
 | **action_code** | **String** |  | [optional] |
 | **encaisse_amount** | [**Encaisseamount**](Encaisseamount.md) |  | [optional] |
 | **flow_type** | **String** | Type de flux AFNOR (CustomerInvoiceLC, SupplierInvoiceLC, etc.) | [optional][default to &#39;CustomerInvoiceLC&#39;] |
+| **pdp_flow_service_url** | **String** |  | [optional] |
+| **pdp_token_url** | **String** |  | [optional] |
+| **pdp_client_id** | **String** |  | [optional] |
+| **pdp_client_secret** | **String** |  | [optional] |
 
 ## Example
 
@@ -48,7 +52,11 @@ instance = FactPulse::SubmitCDARRequest.new(
   reason_text: null,
   action_code: null,
   encaisse_amount: null,
-  flow_type: null
+  flow_type: null,
+  pdp_flow_service_url: null,
+  pdp_token_url: null,
+  pdp_client_id: null,
+  pdp_client_secret: null
 )
 ```
 
