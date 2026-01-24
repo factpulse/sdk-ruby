@@ -1,7 +1,7 @@
 =begin
 #FactPulse REST API
 
-# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X Invoice Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Validation and Compliance - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata, electronic signatures - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules) - **Asynchronous Processing**: Celery support for heavy validations (VeraPDF)  ### 📡 AFNOR PDP/PA Integration (XP Z12-013) - **Flow Submission**: Send invoices to Partner Dematerialization Platforms - **Flow Search**: View submitted invoices - **Download**: Retrieve PDF/A-3 with XML - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user (stored credentials or zero-storage)  ### ✍️ PDF Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification - **Certificate Generation**: Self-signed X.509 certificates for testing  ### 🔄 Asynchronous Processing - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **No timeout**: Ideal for large files or heavy validations  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://factpulse.fr/api/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://factpulse.fr/documentation-api/     
+# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X - Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Factur-X - Validation - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules)  ### ✍️ Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification  ### 📋 Flux 6 - Invoice Lifecycle (CDAR) - **CDAR Messages**: Acknowledgements, invoice statuses - **PPF Statuses**: REFUSED (210), PAID (212)  ### 📊 Flux 10 - E-Reporting - **Tax Declarations**: International B2B, B2C - **Flow Types**: 10.1 (B2B transactions), 10.2 (B2B payments), 10.3 (B2C transactions), 10.4 (B2C payments)  ### 📡 AFNOR PDP/PA (XP Z12-013) - **Flow Service**: Submit and search flows to PDPs - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user  ### 🏛️ Chorus Pro - **Public Sector Invoicing**: Complete API for Chorus Pro  ### ⏳ Async Tasks - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **Webhooks**: Automatic notifications when tasks complete  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://factpulse.fr/api/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://factpulse.fr/documentation-api/     
 
 The version of the OpenAPI document: 1.0.0
 Contact: contact@factpulse.fr
@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Requête simplifiée pour soumettre un statut REFUSÉE (210).  Statut obligatoire PPF - Le destinataire refuse la facture. Un code motif est OBLIGATOIRE (BR-FR-CDV-15).  Codes motif autorisés (BR-FR-CDV-CL-09_MDT-113_210): - TX_TVA_ERR: Taux de TVA erroné - MONTANTTOTAL_ERR: Montant total erroné - CALCUL_ERR: Erreur de calcul - NON_CONFORME: Non conforme - DOUBLON: Doublon - DEST_ERR: Destinataire erroné - TRANSAC_INC: Transaction incomplète - EMMET_INC: Émetteur inconnu - CONTRAT_TERM: Contrat terminé - DOUBLE_FACT: Double facturation - CMD_ERR: Commande erronée - ADR_ERR: Adresse erronée - REF_CT_ABSENT: Référence contrat absente
+  # Requête simplifiée pour soumettre un statut REFUSÉE (210).  **Usage** : Pour une facture REÇUE (vous êtes acheteur). L'acheteur refuse la facture et envoie le statut au vendeur.  Statut obligatoire PPF - Un code motif est OBLIGATOIRE (BR-FR-CDV-15).  Codes motif autorisés (BR-FR-CDV-CL-09_MDT-113_210): - TX_TVA_ERR, MONTANTTOTAL_ERR, CALCUL_ERR, NON_CONFORME, DOUBLON, - DEST_ERR, TRANSAC_INC, EMMET_INC, CONTRAT_TERM, DOUBLE_FACT, - CMD_ERR, ADR_ERR, REF_CT_ABSENT
   class RefuseeRequest < ApiModelBase
     # Identifiant de la facture (BT-1)
     attr_accessor :invoice_id
@@ -22,9 +22,20 @@ module FactPulse
     # Date d'émission de la facture (YYYY-MM-DD)
     attr_accessor :invoice_issue_date
 
+    # SIREN du vendeur (destinataire du statut, MDT-129)
+    attr_accessor :invoice_seller_siren
+
+    # Adresse électronique du vendeur (MDT-73)
+    attr_accessor :invoice_seller_electronic_address
+
+    # Code motif du refus (obligatoire). Valeurs: TX_TVA_ERR, MONTANTTOTAL_ERR, CALCUL_ERR, NON_CONFORME, DOUBLON, DEST_ERR, TRANSAC_INC, EMMET_INC, CONTRAT_TERM, DOUBLE_FACT, CMD_ERR, ADR_ERR, REF_CT_ABSENT
+    attr_accessor :reason_code
+
+    attr_accessor :reason_text
+
     attr_accessor :sender_siren
 
-    # Type de flux: SupplierInvoiceLC (acheteur) ou CustomerInvoiceLC (vendeur)
+    # Type de flux (SupplierInvoiceLC pour facture reçue)
     attr_accessor :flow_type
 
     attr_accessor :pdp_flow_service_url
@@ -35,24 +46,21 @@ module FactPulse
 
     attr_accessor :pdp_client_secret
 
-    # Code motif du refus (obligatoire). Valeurs autorisées: TX_TVA_ERR, MONTANTTOTAL_ERR, CALCUL_ERR, NON_CONFORME, DOUBLON, DEST_ERR, TRANSAC_INC, EMMET_INC, CONTRAT_TERM, DOUBLE_FACT, CMD_ERR, ADR_ERR, REF_CT_ABSENT
-    attr_accessor :reason_code
-
-    attr_accessor :reason_text
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'invoice_id' => :'invoiceId',
         :'invoice_issue_date' => :'invoiceIssueDate',
+        :'invoice_seller_siren' => :'invoiceSellerSiren',
+        :'invoice_seller_electronic_address' => :'invoiceSellerElectronicAddress',
+        :'reason_code' => :'reasonCode',
+        :'reason_text' => :'reasonText',
         :'sender_siren' => :'senderSiren',
         :'flow_type' => :'flowType',
         :'pdp_flow_service_url' => :'pdpFlowServiceUrl',
         :'pdp_token_url' => :'pdpTokenUrl',
         :'pdp_client_id' => :'pdpClientId',
-        :'pdp_client_secret' => :'pdpClientSecret',
-        :'reason_code' => :'reasonCode',
-        :'reason_text' => :'reasonText'
+        :'pdp_client_secret' => :'pdpClientSecret'
       }
     end
 
@@ -71,26 +79,28 @@ module FactPulse
       {
         :'invoice_id' => :'String',
         :'invoice_issue_date' => :'Date',
+        :'invoice_seller_siren' => :'String',
+        :'invoice_seller_electronic_address' => :'String',
+        :'reason_code' => :'String',
+        :'reason_text' => :'String',
         :'sender_siren' => :'String',
         :'flow_type' => :'String',
         :'pdp_flow_service_url' => :'String',
         :'pdp_token_url' => :'String',
         :'pdp_client_id' => :'String',
-        :'pdp_client_secret' => :'String',
-        :'reason_code' => :'String',
-        :'reason_text' => :'String'
+        :'pdp_client_secret' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'reason_text',
         :'sender_siren',
         :'pdp_flow_service_url',
         :'pdp_token_url',
         :'pdp_client_id',
-        :'pdp_client_secret',
-        :'reason_text'
+        :'pdp_client_secret'
       ])
     end
 
@@ -122,6 +132,28 @@ module FactPulse
         self.invoice_issue_date = nil
       end
 
+      if attributes.key?(:'invoice_seller_siren')
+        self.invoice_seller_siren = attributes[:'invoice_seller_siren']
+      else
+        self.invoice_seller_siren = nil
+      end
+
+      if attributes.key?(:'invoice_seller_electronic_address')
+        self.invoice_seller_electronic_address = attributes[:'invoice_seller_electronic_address']
+      else
+        self.invoice_seller_electronic_address = nil
+      end
+
+      if attributes.key?(:'reason_code')
+        self.reason_code = attributes[:'reason_code']
+      else
+        self.reason_code = nil
+      end
+
+      if attributes.key?(:'reason_text')
+        self.reason_text = attributes[:'reason_text']
+      end
+
       if attributes.key?(:'sender_siren')
         self.sender_siren = attributes[:'sender_siren']
       end
@@ -147,16 +179,6 @@ module FactPulse
       if attributes.key?(:'pdp_client_secret')
         self.pdp_client_secret = attributes[:'pdp_client_secret']
       end
-
-      if attributes.key?(:'reason_code')
-        self.reason_code = attributes[:'reason_code']
-      else
-        self.reason_code = nil
-      end
-
-      if attributes.key?(:'reason_text')
-        self.reason_text = attributes[:'reason_text']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -172,6 +194,14 @@ module FactPulse
         invalid_properties.push('invalid value for "invoice_issue_date", invoice_issue_date cannot be nil.')
       end
 
+      if @invoice_seller_siren.nil?
+        invalid_properties.push('invalid value for "invoice_seller_siren", invoice_seller_siren cannot be nil.')
+      end
+
+      if @invoice_seller_electronic_address.nil?
+        invalid_properties.push('invalid value for "invoice_seller_electronic_address", invoice_seller_electronic_address cannot be nil.')
+      end
+
       if @reason_code.nil?
         invalid_properties.push('invalid value for "reason_code", reason_code cannot be nil.')
       end
@@ -185,6 +215,8 @@ module FactPulse
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @invoice_id.nil?
       return false if @invoice_issue_date.nil?
+      return false if @invoice_seller_siren.nil?
+      return false if @invoice_seller_electronic_address.nil?
       return false if @reason_code.nil?
       true
     end
@@ -210,6 +242,26 @@ module FactPulse
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] invoice_seller_siren Value to be assigned
+    def invoice_seller_siren=(invoice_seller_siren)
+      if invoice_seller_siren.nil?
+        fail ArgumentError, 'invoice_seller_siren cannot be nil'
+      end
+
+      @invoice_seller_siren = invoice_seller_siren
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] invoice_seller_electronic_address Value to be assigned
+    def invoice_seller_electronic_address=(invoice_seller_electronic_address)
+      if invoice_seller_electronic_address.nil?
+        fail ArgumentError, 'invoice_seller_electronic_address cannot be nil'
+      end
+
+      @invoice_seller_electronic_address = invoice_seller_electronic_address
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] reason_code Value to be assigned
     def reason_code=(reason_code)
       if reason_code.nil?
@@ -226,14 +278,16 @@ module FactPulse
       self.class == o.class &&
           invoice_id == o.invoice_id &&
           invoice_issue_date == o.invoice_issue_date &&
+          invoice_seller_siren == o.invoice_seller_siren &&
+          invoice_seller_electronic_address == o.invoice_seller_electronic_address &&
+          reason_code == o.reason_code &&
+          reason_text == o.reason_text &&
           sender_siren == o.sender_siren &&
           flow_type == o.flow_type &&
           pdp_flow_service_url == o.pdp_flow_service_url &&
           pdp_token_url == o.pdp_token_url &&
           pdp_client_id == o.pdp_client_id &&
-          pdp_client_secret == o.pdp_client_secret &&
-          reason_code == o.reason_code &&
-          reason_text == o.reason_text
+          pdp_client_secret == o.pdp_client_secret
     end
 
     # @see the `==` method
@@ -245,7 +299,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [invoice_id, invoice_issue_date, sender_siren, flow_type, pdp_flow_service_url, pdp_token_url, pdp_client_id, pdp_client_secret, reason_code, reason_text].hash
+      [invoice_id, invoice_issue_date, invoice_seller_siren, invoice_seller_electronic_address, reason_code, reason_text, sender_siren, flow_type, pdp_flow_service_url, pdp_token_url, pdp_client_id, pdp_client_secret].hash
     end
 
     # Builds the object from hash

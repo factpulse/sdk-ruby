@@ -8,7 +8,8 @@
 | **report_name** | **String** |  | [optional] |
 | **flow_type** | [**EReportingFlowType**](EReportingFlowType.md) | E-Reporting flux type (for internal routing) |  |
 | **transmission_type** | [**TransmissionTypeCode**](TransmissionTypeCode.md) | Transmission type (TT-4 TypeCode): IN&#x3D;Initial, RE&#x3D;Rectificative | [optional] |
-| **sender** | [**ReportSender**](ReportSender.md) | Report sender (declarant) |  |
+| **sender** | [**ReportSender**](ReportSender.md) | Report sender (PA transmitting the report) |  |
+| **issuer** | [**ReportIssuer**](ReportIssuer.md) |  | [optional] |
 | **period** | [**ReportPeriod**](ReportPeriod.md) | Reporting period |  |
 | **invoices** | [**Array&lt;InvoiceInput&gt;**](InvoiceInput.md) |  | [optional] |
 | **transactions** | [**Array&lt;AggregatedTransactionInput&gt;**](AggregatedTransactionInput.md) |  | [optional] |
@@ -26,6 +27,7 @@ instance = FactPulse::CreateEReportingRequest.new(
   flow_type: null,
   transmission_type: null,
   sender: null,
+  issuer: null,
   period: null,
   invoices: null,
   transactions: null,

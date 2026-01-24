@@ -7,7 +7,7 @@
 | **invoice_number** | **String** |  |  |
 | **payment_due_date** | **String** |  |  |
 | **invoice_date** | **String** |  | [optional] |
-| **submission_mode** | [**SubmissionMode**](SubmissionMode.md) |  |  |
+| **submission_mode** | [**SubmissionMode**](SubmissionMode.md) |  | [optional] |
 | **recipient** | [**Recipient**](Recipient.md) |  |  |
 | **supplier** | [**Supplier**](Supplier.md) |  |  |
 | **invoicing_framework** | [**InvoicingFramework**](InvoicingFramework.md) |  |  |

@@ -1,7 +1,7 @@
 =begin
 #FactPulse REST API
 
-# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X Invoice Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Validation and Compliance - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata, electronic signatures - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules) - **Asynchronous Processing**: Celery support for heavy validations (VeraPDF)  ### 📡 AFNOR PDP/PA Integration (XP Z12-013) - **Flow Submission**: Send invoices to Partner Dematerialization Platforms - **Flow Search**: View submitted invoices - **Download**: Retrieve PDF/A-3 with XML - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user (stored credentials or zero-storage)  ### ✍️ PDF Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification - **Certificate Generation**: Self-signed X.509 certificates for testing  ### 🔄 Asynchronous Processing - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **No timeout**: Ideal for large files or heavy validations  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://factpulse.fr/api/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://factpulse.fr/documentation-api/     
+# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X - Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Factur-X - Validation - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules)  ### ✍️ Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification  ### 📋 Flux 6 - Invoice Lifecycle (CDAR) - **CDAR Messages**: Acknowledgements, invoice statuses - **PPF Statuses**: REFUSED (210), PAID (212)  ### 📊 Flux 10 - E-Reporting - **Tax Declarations**: International B2B, B2C - **Flow Types**: 10.1 (B2B transactions), 10.2 (B2B payments), 10.3 (B2C transactions), 10.4 (B2C payments)  ### 📡 AFNOR PDP/PA (XP Z12-013) - **Flow Service**: Submit and search flows to PDPs - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user  ### 🏛️ Chorus Pro - **Public Sector Invoicing**: Complete API for Chorus Pro  ### ⏳ Async Tasks - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **Webhooks**: Automatic notifications when tasks complete  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://factpulse.fr/api/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://factpulse.fr/documentation-api/     
 
 The version of the OpenAPI document: 1.0.0
 Contact: contact@factpulse.fr
@@ -13,7 +13,7 @@ Generator version: 7.20.0-SNAPSHOT
 require 'cgi'
 
 module FactPulse
-  class EReportingApi
+  class Flux10EReportingApi
     attr_accessor :api_client
 
     def initialize(api_client = ApiClient.default)
@@ -36,11 +36,11 @@ module FactPulse
     # @return [Array<(GenerateAggregatedReportResponse, Integer, Hash)>] GenerateAggregatedReportResponse data, response status code and response headers
     def generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post_with_http_info(create_aggregated_report_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post ...'
       end
       # verify the required parameter 'create_aggregated_report_request' is set
       if @api_client.config.client_side_validation && create_aggregated_report_request.nil?
-        fail ArgumentError, "Missing the required parameter 'create_aggregated_report_request' when calling EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post"
+        fail ArgumentError, "Missing the required parameter 'create_aggregated_report_request' when calling Flux10EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/generate-aggregated'
@@ -71,7 +71,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post",
+        :operation => :"Flux10EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -82,7 +82,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -104,11 +104,11 @@ module FactPulse
     # @return [Array<(GenerateEReportingResponse, Integer, Hash)>] GenerateEReportingResponse data, response status code and response headers
     def generate_ereporting_api_v1_ereporting_generate_post_with_http_info(create_e_reporting_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.generate_ereporting_api_v1_ereporting_generate_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.generate_ereporting_api_v1_ereporting_generate_post ...'
       end
       # verify the required parameter 'create_e_reporting_request' is set
       if @api_client.config.client_side_validation && create_e_reporting_request.nil?
-        fail ArgumentError, "Missing the required parameter 'create_e_reporting_request' when calling EReportingApi.generate_ereporting_api_v1_ereporting_generate_post"
+        fail ArgumentError, "Missing the required parameter 'create_e_reporting_request' when calling Flux10EReportingApi.generate_ereporting_api_v1_ereporting_generate_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/generate'
@@ -139,7 +139,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.generate_ereporting_api_v1_ereporting_generate_post",
+        :operation => :"Flux10EReportingApi.generate_ereporting_api_v1_ereporting_generate_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -150,7 +150,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#generate_ereporting_api_v1_ereporting_generate_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#generate_ereporting_api_v1_ereporting_generate_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -174,11 +174,11 @@ module FactPulse
     # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
     def generate_ereporting_download_api_v1_ereporting_generate_download_post_with_http_info(create_e_reporting_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post ...'
       end
       # verify the required parameter 'create_e_reporting_request' is set
       if @api_client.config.client_side_validation && create_e_reporting_request.nil?
-        fail ArgumentError, "Missing the required parameter 'create_e_reporting_request' when calling EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post"
+        fail ArgumentError, "Missing the required parameter 'create_e_reporting_request' when calling Flux10EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/generate/download'
@@ -210,7 +210,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post",
+        :operation => :"Flux10EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -221,7 +221,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#generate_ereporting_download_api_v1_ereporting_generate_download_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#generate_ereporting_download_api_v1_ereporting_generate_download_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -241,7 +241,7 @@ module FactPulse
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def list_category_codes_api_v1_ereporting_category_codes_get_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.list_category_codes_api_v1_ereporting_category_codes_get ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.list_category_codes_api_v1_ereporting_category_codes_get ...'
       end
       # resource path
       local_var_path = '/api/v1/ereporting/category-codes'
@@ -267,7 +267,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.list_category_codes_api_v1_ereporting_category_codes_get",
+        :operation => :"Flux10EReportingApi.list_category_codes_api_v1_ereporting_category_codes_get",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -278,7 +278,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#list_category_codes_api_v1_ereporting_category_codes_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#list_category_codes_api_v1_ereporting_category_codes_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -298,7 +298,7 @@ module FactPulse
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def list_flow_types_api_v1_ereporting_flow_types_get_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.list_flow_types_api_v1_ereporting_flow_types_get ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.list_flow_types_api_v1_ereporting_flow_types_get ...'
       end
       # resource path
       local_var_path = '/api/v1/ereporting/flow-types'
@@ -324,7 +324,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.list_flow_types_api_v1_ereporting_flow_types_get",
+        :operation => :"Flux10EReportingApi.list_flow_types_api_v1_ereporting_flow_types_get",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -335,7 +335,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#list_flow_types_api_v1_ereporting_flow_types_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#list_flow_types_api_v1_ereporting_flow_types_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -357,11 +357,11 @@ module FactPulse
     # @return [Array<(SubmitEReportingResponse, Integer, Hash)>] SubmitEReportingResponse data, response status code and response headers
     def submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info(submit_aggregated_report_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post ...'
       end
       # verify the required parameter 'submit_aggregated_report_request' is set
       if @api_client.config.client_side_validation && submit_aggregated_report_request.nil?
-        fail ArgumentError, "Missing the required parameter 'submit_aggregated_report_request' when calling EReportingApi.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post"
+        fail ArgumentError, "Missing the required parameter 'submit_aggregated_report_request' when calling Flux10EReportingApi.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/submit-aggregated'
@@ -392,7 +392,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post",
+        :operation => :"Flux10EReportingApi.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -403,7 +403,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -425,11 +425,11 @@ module FactPulse
     # @return [Array<(SubmitEReportingResponse, Integer, Hash)>] SubmitEReportingResponse data, response status code and response headers
     def submit_ereporting_api_v1_ereporting_submit_post_with_http_info(submit_e_reporting_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.submit_ereporting_api_v1_ereporting_submit_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.submit_ereporting_api_v1_ereporting_submit_post ...'
       end
       # verify the required parameter 'submit_e_reporting_request' is set
       if @api_client.config.client_side_validation && submit_e_reporting_request.nil?
-        fail ArgumentError, "Missing the required parameter 'submit_e_reporting_request' when calling EReportingApi.submit_ereporting_api_v1_ereporting_submit_post"
+        fail ArgumentError, "Missing the required parameter 'submit_e_reporting_request' when calling Flux10EReportingApi.submit_ereporting_api_v1_ereporting_submit_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/submit'
@@ -460,7 +460,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.submit_ereporting_api_v1_ereporting_submit_post",
+        :operation => :"Flux10EReportingApi.submit_ereporting_api_v1_ereporting_submit_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -471,7 +471,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#submit_ereporting_api_v1_ereporting_submit_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#submit_ereporting_api_v1_ereporting_submit_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -505,11 +505,11 @@ module FactPulse
     # @return [Array<(SubmitEReportingResponse, Integer, Hash)>] SubmitEReportingResponse data, response status code and response headers
     def submit_xml_ereporting_api_v1_ereporting_submit_xml_post_with_http_info(xml_file, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.submit_xml_ereporting_api_v1_ereporting_submit_xml_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.submit_xml_ereporting_api_v1_ereporting_submit_xml_post ...'
       end
       # verify the required parameter 'xml_file' is set
       if @api_client.config.client_side_validation && xml_file.nil?
-        fail ArgumentError, "Missing the required parameter 'xml_file' when calling EReportingApi.submit_xml_ereporting_api_v1_ereporting_submit_xml_post"
+        fail ArgumentError, "Missing the required parameter 'xml_file' when calling Flux10EReportingApi.submit_xml_ereporting_api_v1_ereporting_submit_xml_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/submit-xml'
@@ -547,7 +547,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.submit_xml_ereporting_api_v1_ereporting_submit_xml_post",
+        :operation => :"Flux10EReportingApi.submit_xml_ereporting_api_v1_ereporting_submit_xml_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -558,7 +558,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#submit_xml_ereporting_api_v1_ereporting_submit_xml_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#submit_xml_ereporting_api_v1_ereporting_submit_xml_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -580,11 +580,11 @@ module FactPulse
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post_with_http_info(create_aggregated_report_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post ...'
       end
       # verify the required parameter 'create_aggregated_report_request' is set
       if @api_client.config.client_side_validation && create_aggregated_report_request.nil?
-        fail ArgumentError, "Missing the required parameter 'create_aggregated_report_request' when calling EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post"
+        fail ArgumentError, "Missing the required parameter 'create_aggregated_report_request' when calling Flux10EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/validate-aggregated'
@@ -615,7 +615,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post",
+        :operation => :"Flux10EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -626,7 +626,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -648,11 +648,11 @@ module FactPulse
     # @return [Array<(ValidateEReportingResponse, Integer, Hash)>] ValidateEReportingResponse data, response status code and response headers
     def validate_ereporting_api_v1_ereporting_validate_post_with_http_info(validate_e_reporting_request, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.validate_ereporting_api_v1_ereporting_validate_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.validate_ereporting_api_v1_ereporting_validate_post ...'
       end
       # verify the required parameter 'validate_e_reporting_request' is set
       if @api_client.config.client_side_validation && validate_e_reporting_request.nil?
-        fail ArgumentError, "Missing the required parameter 'validate_e_reporting_request' when calling EReportingApi.validate_ereporting_api_v1_ereporting_validate_post"
+        fail ArgumentError, "Missing the required parameter 'validate_e_reporting_request' when calling Flux10EReportingApi.validate_ereporting_api_v1_ereporting_validate_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/validate'
@@ -683,7 +683,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.validate_ereporting_api_v1_ereporting_validate_post",
+        :operation => :"Flux10EReportingApi.validate_ereporting_api_v1_ereporting_validate_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -694,42 +694,45 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#validate_ereporting_api_v1_ereporting_validate_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#validate_ereporting_api_v1_ereporting_validate_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
 
-    # Validate e-reporting XML against PPF XSD schemas and business rules
-    # Validates an e-reporting XML file against:  1. **XSD schemas**: Official PPF e-reporting XSD (structure, types, cardinality) 2. **Business rules**: ISO codes and enum validation    - Currency codes (ISO 4217: EUR, USD, GBP, etc.)    - Country codes (ISO 3166-1 alpha-2: FR, DE, US, etc.)    - Scheme IDs (0009=SIRET, 0002=SIREN, etc.)    - Role codes (UNCL 3035: SE=Seller, BY=Buyer, WK=Working party, etc.)  Returns validation status and detailed error messages if invalid.
+    # Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
+    # Validates an e-reporting XML file against PPF specifications (Annexe 6 v1.9):  **Validation levels:** 1. **XSD (REJ_SEMAN)**: Structure, types, cardinality 2. **Semantic (REJ_SEMAN)**: Authorized values from codelists 3. **Coherence (REJ_COH)**: Data consistency (totals = sum of breakdowns) 4. **Period (REJ_PER)**: Transaction dates within declared period  **Validated codes:** - SchemeID (ISO 6523): 0002=SIREN, 0009=SIRET, 0224=RoutingCode, etc. - RoleCode (UNCL 3035): SE=Seller, BY=Buyer, WK=Working party - CategoryCode (TT-81): TLB1, TPS1, TNT1, TMA1 - TaxCategoryCode (UNTDID 5305): S, Z, E, AE, K, G, O - Currency (ISO 4217), Country (ISO 3166-1)  Returns structured validation errors with PPF rejection codes.
     # @param xml_file [File] E-reporting XML file to validate
     # @param [Hash] opts the optional parameters
-    # @option opts [Boolean] :validate_business_rules Also validate business rules (ISO codes, enums) (default to true)
+    # @option opts [Boolean] :validate_coherence Validate data coherence (REJ_COH) (default to true)
+    # @option opts [Boolean] :validate_period Validate period coherence (REJ_PER) (default to true)
     # @return [Hash<String, Object>]
     def validate_xml_ereporting_api_v1_ereporting_validate_xml_post(xml_file, opts = {})
       data, _status_code, _headers = validate_xml_ereporting_api_v1_ereporting_validate_xml_post_with_http_info(xml_file, opts)
       data
     end
 
-    # Validate e-reporting XML against PPF XSD schemas and business rules
-    # Validates an e-reporting XML file against:  1. **XSD schemas**: Official PPF e-reporting XSD (structure, types, cardinality) 2. **Business rules**: ISO codes and enum validation    - Currency codes (ISO 4217: EUR, USD, GBP, etc.)    - Country codes (ISO 3166-1 alpha-2: FR, DE, US, etc.)    - Scheme IDs (0009&#x3D;SIRET, 0002&#x3D;SIREN, etc.)    - Role codes (UNCL 3035: SE&#x3D;Seller, BY&#x3D;Buyer, WK&#x3D;Working party, etc.)  Returns validation status and detailed error messages if invalid.
+    # Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
+    # Validates an e-reporting XML file against PPF specifications (Annexe 6 v1.9):  **Validation levels:** 1. **XSD (REJ_SEMAN)**: Structure, types, cardinality 2. **Semantic (REJ_SEMAN)**: Authorized values from codelists 3. **Coherence (REJ_COH)**: Data consistency (totals &#x3D; sum of breakdowns) 4. **Period (REJ_PER)**: Transaction dates within declared period  **Validated codes:** - SchemeID (ISO 6523): 0002&#x3D;SIREN, 0009&#x3D;SIRET, 0224&#x3D;RoutingCode, etc. - RoleCode (UNCL 3035): SE&#x3D;Seller, BY&#x3D;Buyer, WK&#x3D;Working party - CategoryCode (TT-81): TLB1, TPS1, TNT1, TMA1 - TaxCategoryCode (UNTDID 5305): S, Z, E, AE, K, G, O - Currency (ISO 4217), Country (ISO 3166-1)  Returns structured validation errors with PPF rejection codes.
     # @param xml_file [File] E-reporting XML file to validate
     # @param [Hash] opts the optional parameters
-    # @option opts [Boolean] :validate_business_rules Also validate business rules (ISO codes, enums) (default to true)
+    # @option opts [Boolean] :validate_coherence Validate data coherence (REJ_COH) (default to true)
+    # @option opts [Boolean] :validate_period Validate period coherence (REJ_PER) (default to true)
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def validate_xml_ereporting_api_v1_ereporting_validate_xml_post_with_http_info(xml_file, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post ...'
+        @api_client.config.logger.debug 'Calling API: Flux10EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post ...'
       end
       # verify the required parameter 'xml_file' is set
       if @api_client.config.client_side_validation && xml_file.nil?
-        fail ArgumentError, "Missing the required parameter 'xml_file' when calling EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post"
+        fail ArgumentError, "Missing the required parameter 'xml_file' when calling Flux10EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post"
       end
       # resource path
       local_var_path = '/api/v1/ereporting/validate-xml'
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'validate_business_rules'] = opts[:'validate_business_rules'] if !opts[:'validate_business_rules'].nil?
+      query_params[:'validate_coherence'] = opts[:'validate_coherence'] if !opts[:'validate_coherence'].nil?
+      query_params[:'validate_period'] = opts[:'validate_period'] if !opts[:'validate_period'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -755,7 +758,7 @@ module FactPulse
       auth_names = opts[:debug_auth_names] || ['HTTPBearer']
 
       new_options = opts.merge(
-        :operation => :"EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post",
+        :operation => :"Flux10EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -766,7 +769,7 @@ module FactPulse
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: EReportingApi#validate_xml_ereporting_api_v1_ereporting_validate_xml_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Flux10EReportingApi#validate_xml_ereporting_api_v1_ereporting_validate_xml_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

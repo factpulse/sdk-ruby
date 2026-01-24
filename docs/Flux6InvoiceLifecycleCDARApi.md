@@ -1,27 +1,28 @@
-# FactPulse::CDARCycleDeVieApi
+# FactPulse::Flux6InvoiceLifecycleCDARApi
 
 All URIs are relative to *https://factpulse.fr*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**generate_cdar_api_v1_cdar_generate_post**](CDARCycleDeVieApi.md#generate_cdar_api_v1_cdar_generate_post) | **POST** /api/v1/cdar/generate | Générer un message CDAR |
-| [**get_action_codes_api_v1_cdar_action_codes_get**](CDARCycleDeVieApi.md#get_action_codes_api_v1_cdar_action_codes_get) | **GET** /api/v1/cdar/action-codes | Liste des codes action CDAR |
-| [**get_reason_codes_api_v1_cdar_reason_codes_get**](CDARCycleDeVieApi.md#get_reason_codes_api_v1_cdar_reason_codes_get) | **GET** /api/v1/cdar/reason-codes | Liste des codes motif CDAR |
-| [**get_status_codes_api_v1_cdar_status_codes_get**](CDARCycleDeVieApi.md#get_status_codes_api_v1_cdar_status_codes_get) | **GET** /api/v1/cdar/status-codes | Liste des codes statut CDAR |
-| [**submit_cdar_api_v1_cdar_submit_post**](CDARCycleDeVieApi.md#submit_cdar_api_v1_cdar_submit_post) | **POST** /api/v1/cdar/submit | Générer et soumettre un message CDAR |
-| [**submit_cdar_xml_api_v1_cdar_submit_xml_post**](CDARCycleDeVieApi.md#submit_cdar_xml_api_v1_cdar_submit_xml_post) | **POST** /api/v1/cdar/submit-xml | Soumettre un XML CDAR pré-généré |
-| [**submit_encaissee_api_v1_cdar_encaissee_post**](CDARCycleDeVieApi.md#submit_encaissee_api_v1_cdar_encaissee_post) | **POST** /api/v1/cdar/encaissee | [Simplifié] Soumettre un statut ENCAISSÉE (212) |
-| [**submit_refusee_api_v1_cdar_refusee_post**](CDARCycleDeVieApi.md#submit_refusee_api_v1_cdar_refusee_post) | **POST** /api/v1/cdar/refusee | [Simplifié] Soumettre un statut REFUSÉE (210) |
-| [**validate_cdar_api_v1_cdar_validate_post**](CDARCycleDeVieApi.md#validate_cdar_api_v1_cdar_validate_post) | **POST** /api/v1/cdar/validate | Valider des données CDAR |
+| [**generate_cdar_api_v1_cdar_generate_post**](Flux6InvoiceLifecycleCDARApi.md#generate_cdar_api_v1_cdar_generate_post) | **POST** /api/v1/cdar/generate | Generate a CDAR message |
+| [**get_action_codes_api_v1_cdar_action_codes_get**](Flux6InvoiceLifecycleCDARApi.md#get_action_codes_api_v1_cdar_action_codes_get) | **GET** /api/v1/cdar/action-codes | List of CDAR action codes |
+| [**get_reason_codes_api_v1_cdar_reason_codes_get**](Flux6InvoiceLifecycleCDARApi.md#get_reason_codes_api_v1_cdar_reason_codes_get) | **GET** /api/v1/cdar/reason-codes | List of CDAR reason codes |
+| [**get_status_codes_api_v1_cdar_status_codes_get**](Flux6InvoiceLifecycleCDARApi.md#get_status_codes_api_v1_cdar_status_codes_get) | **GET** /api/v1/cdar/status-codes | List of CDAR status codes |
+| [**submit_cdar_api_v1_cdar_submit_post**](Flux6InvoiceLifecycleCDARApi.md#submit_cdar_api_v1_cdar_submit_post) | **POST** /api/v1/cdar/submit | Generate and submit a CDAR message |
+| [**submit_cdar_xml_api_v1_cdar_submit_xml_post**](Flux6InvoiceLifecycleCDARApi.md#submit_cdar_xml_api_v1_cdar_submit_xml_post) | **POST** /api/v1/cdar/submit-xml | Submit a pre-generated CDAR XML |
+| [**submit_encaissee_api_v1_cdar_encaissee_post**](Flux6InvoiceLifecycleCDARApi.md#submit_encaissee_api_v1_cdar_encaissee_post) | **POST** /api/v1/cdar/encaissee | [Simplified] Submit PAID status (212) - Issued invoice |
+| [**submit_refusee_api_v1_cdar_refusee_post**](Flux6InvoiceLifecycleCDARApi.md#submit_refusee_api_v1_cdar_refusee_post) | **POST** /api/v1/cdar/refusee | [Simplified] Submit REFUSED status (210) - Received invoice |
+| [**validate_cdar_api_v1_cdar_validate_post**](Flux6InvoiceLifecycleCDARApi.md#validate_cdar_api_v1_cdar_validate_post) | **POST** /api/v1/cdar/validate | Validate CDAR structured data |
+| [**validate_xml_cdar_api_v1_cdar_validate_xml_post**](Flux6InvoiceLifecycleCDARApi.md#validate_xml_cdar_api_v1_cdar_validate_xml_post) | **POST** /api/v1/cdar/validate-xml | Validate CDAR XML against XSD and Schematron BR-FR-CDV |
 
 
 ## generate_cdar_api_v1_cdar_generate_post
 
 > <GenerateCDARResponse> generate_cdar_api_v1_cdar_generate_post(create_cdar_request)
 
-Générer un message CDAR
+Generate a CDAR message
 
-Génère un message XML CDAR (Cross Domain Acknowledgement and Response) pour communiquer le statut d'une facture.  **Types de messages:** - **23** (Traitement): Message de cycle de vie standard - **305** (Transmission): Message de transmission entre plateformes  **Règles métier:** - BR-FR-CDV-14: Le statut 212 (ENCAISSEE) requiert un montant encaissé - BR-FR-CDV-15: Les statuts 206/207/208/210/213/501 requièrent un code motif
+Generate a CDAR XML message (Cross Domain Acknowledgement and Response) to communicate the status of an invoice.  **Message types:** - **23** (Processing): Standard lifecycle message - **305** (Transmission): Inter-platform transmission message  **Business rules:** - BR-FR-CDV-14: Status 212 (PAID) requires a paid amount - BR-FR-CDV-15: Statuses 206/207/208/210/213/501 require a reason code
 
 ### Examples
 
@@ -34,15 +35,15 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 create_cdar_request = FactPulse::CreateCDARRequest.new({document_id: 'document_id_example', sender_siren: 'sender_siren_example', invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, status: 'status_example'}) # CreateCDARRequest | 
 
 begin
-  # Générer un message CDAR
+  # Generate a CDAR message
   result = api_instance.generate_cdar_api_v1_cdar_generate_post(create_cdar_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->generate_cdar_api_v1_cdar_generate_post: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->generate_cdar_api_v1_cdar_generate_post: #{e}"
 end
 ```
 
@@ -54,13 +55,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Générer un message CDAR
+  # Generate a CDAR message
   data, status_code, headers = api_instance.generate_cdar_api_v1_cdar_generate_post_with_http_info(create_cdar_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <GenerateCDARResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->generate_cdar_api_v1_cdar_generate_post_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->generate_cdar_api_v1_cdar_generate_post_with_http_info: #{e}"
 end
 ```
 
@@ -88,9 +89,9 @@ end
 
 > <ActionCodesResponse> get_action_codes_api_v1_cdar_action_codes_get
 
-Liste des codes action CDAR
+List of CDAR action codes
 
-Retourne la liste complète des codes action (BR-FR-CDV-CL-10).  Ces codes indiquent l'action demandée sur la facture.
+Returns the complete list of action codes (BR-FR-CDV-CL-10).  These codes indicate the requested action on the invoice.
 
 ### Examples
 
@@ -98,14 +99,14 @@ Retourne la liste complète des codes action (BR-FR-CDV-CL-10).  Ces codes indiq
 require 'time'
 require 'factpulse'
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 
 begin
-  # Liste des codes action CDAR
+  # List of CDAR action codes
   result = api_instance.get_action_codes_api_v1_cdar_action_codes_get
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->get_action_codes_api_v1_cdar_action_codes_get: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_action_codes_api_v1_cdar_action_codes_get: #{e}"
 end
 ```
 
@@ -117,13 +118,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Liste des codes action CDAR
+  # List of CDAR action codes
   data, status_code, headers = api_instance.get_action_codes_api_v1_cdar_action_codes_get_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ActionCodesResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->get_action_codes_api_v1_cdar_action_codes_get_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_action_codes_api_v1_cdar_action_codes_get_with_http_info: #{e}"
 end
 ```
 
@@ -149,9 +150,9 @@ No authorization required
 
 > <ReasonCodesResponse> get_reason_codes_api_v1_cdar_reason_codes_get
 
-Liste des codes motif CDAR
+List of CDAR reason codes
 
-Retourne la liste complète des codes motif de statut (BR-FR-CDV-CL-09).  Ces codes expliquent la raison d'un statut particulier.
+Returns the complete list of status reason codes (BR-FR-CDV-CL-09).  These codes explain the reason for a particular status.
 
 ### Examples
 
@@ -159,14 +160,14 @@ Retourne la liste complète des codes motif de statut (BR-FR-CDV-CL-09).  Ces co
 require 'time'
 require 'factpulse'
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 
 begin
-  # Liste des codes motif CDAR
+  # List of CDAR reason codes
   result = api_instance.get_reason_codes_api_v1_cdar_reason_codes_get
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->get_reason_codes_api_v1_cdar_reason_codes_get: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_reason_codes_api_v1_cdar_reason_codes_get: #{e}"
 end
 ```
 
@@ -178,13 +179,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Liste des codes motif CDAR
+  # List of CDAR reason codes
   data, status_code, headers = api_instance.get_reason_codes_api_v1_cdar_reason_codes_get_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ReasonCodesResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->get_reason_codes_api_v1_cdar_reason_codes_get_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_reason_codes_api_v1_cdar_reason_codes_get_with_http_info: #{e}"
 end
 ```
 
@@ -210,9 +211,9 @@ No authorization required
 
 > <StatusCodesResponse> get_status_codes_api_v1_cdar_status_codes_get
 
-Liste des codes statut CDAR
+List of CDAR status codes
 
-Retourne la liste complète des codes statut de facture (BR-FR-CDV-CL-06).  Ces codes indiquent l'état du cycle de vie d'une facture.
+Returns the complete list of invoice status codes (BR-FR-CDV-CL-06).  These codes indicate the lifecycle state of an invoice.
 
 ### Examples
 
@@ -220,14 +221,14 @@ Retourne la liste complète des codes statut de facture (BR-FR-CDV-CL-06).  Ces 
 require 'time'
 require 'factpulse'
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 
 begin
-  # Liste des codes statut CDAR
+  # List of CDAR status codes
   result = api_instance.get_status_codes_api_v1_cdar_status_codes_get
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->get_status_codes_api_v1_cdar_status_codes_get: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_status_codes_api_v1_cdar_status_codes_get: #{e}"
 end
 ```
 
@@ -239,13 +240,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Liste des codes statut CDAR
+  # List of CDAR status codes
   data, status_code, headers = api_instance.get_status_codes_api_v1_cdar_status_codes_get_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <StatusCodesResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->get_status_codes_api_v1_cdar_status_codes_get_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_status_codes_api_v1_cdar_status_codes_get_with_http_info: #{e}"
 end
 ```
 
@@ -271,9 +272,9 @@ No authorization required
 
 > <SubmitCDARResponse> submit_cdar_api_v1_cdar_submit_post(submit_cdar_request)
 
-Générer et soumettre un message CDAR
+Generate and submit a CDAR message
 
-Génère un message CDAR et le soumet à la plateforme PA/PDP.  **Stratégies d'authentification:** 1. **JWT avec client_uid** (recommandé): credentials PDP récupérés du backend 2. **Zero-storage**: Fournir pdpFlowServiceUrl, pdpClientId, pdpClientSecret dans la requête  **Types de flux (flowType):** - `CustomerInvoiceLC`: Cycle de vie côté client (acheteur) - `SupplierInvoiceLC`: Cycle de vie côté fournisseur (vendeur)
+Generate a CDAR message and submit it to the PA/PDP platform.  **Authentication strategies:** 1. **JWT with client_uid** (recommended): PDP credentials retrieved from backend 2. **Zero-storage**: Provide pdpFlowServiceUrl, pdpClientId, pdpClientSecret in the request  **Flow types (flowType):** - `CustomerInvoiceLC`: Client-side lifecycle (buyer) - `SupplierInvoiceLC`: Supplier-side lifecycle (seller)
 
 ### Examples
 
@@ -286,15 +287,15 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 submit_cdar_request = FactPulse::SubmitCDARRequest.new({document_id: 'document_id_example', sender_siren: 'sender_siren_example', invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, status: 'status_example'}) # SubmitCDARRequest | 
 
 begin
-  # Générer et soumettre un message CDAR
+  # Generate and submit a CDAR message
   result = api_instance.submit_cdar_api_v1_cdar_submit_post(submit_cdar_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_cdar_api_v1_cdar_submit_post: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_cdar_api_v1_cdar_submit_post: #{e}"
 end
 ```
 
@@ -306,13 +307,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Générer et soumettre un message CDAR
+  # Generate and submit a CDAR message
   data, status_code, headers = api_instance.submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCDARResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_cdar_api_v1_cdar_submit_post_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_cdar_api_v1_cdar_submit_post_with_http_info: #{e}"
 end
 ```
 
@@ -340,9 +341,9 @@ end
 
 > <SubmitCDARResponse> submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request)
 
-Soumettre un XML CDAR pré-généré
+Submit a pre-generated CDAR XML
 
-Soumet un message XML CDAR pré-généré à la plateforme PA/PDP.  Utile pour soumettre des XML générés par d'autres systèmes.  **Stratégies d'authentification:** 1. **JWT avec client_uid** (recommandé): credentials PDP récupérés du backend 2. **Zero-storage**: Fournir pdpFlowServiceUrl, pdpClientId, pdpClientSecret dans la requête
+Submit a pre-generated CDAR XML message to the PA/PDP platform.  Useful for submitting XML generated by other systems.  **Validation:** The XML is validated against XSD and Schematron BR-FR-CDV rules BEFORE submission. Invalid XML will be rejected with detailed error messages.  **Authentication strategies:** 1. **JWT with client_uid** (recommended): PDP credentials retrieved from backend 2. **Zero-storage**: Provide pdpFlowServiceUrl, pdpClientId, pdpClientSecret in the request
 
 ### Examples
 
@@ -355,15 +356,15 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 submit_cdarxml_request = FactPulse::SubmitCDARXMLRequest.new({xml: 'xml_example'}) # SubmitCDARXMLRequest | 
 
 begin
-  # Soumettre un XML CDAR pré-généré
+  # Submit a pre-generated CDAR XML
   result = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_cdar_xml_api_v1_cdar_submit_xml_post: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_cdar_xml_api_v1_cdar_submit_xml_post: #{e}"
 end
 ```
 
@@ -375,13 +376,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Soumettre un XML CDAR pré-généré
+  # Submit a pre-generated CDAR XML
   data, status_code, headers = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCDARResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info: #{e}"
 end
 ```
 
@@ -409,9 +410,9 @@ end
 
 > <SimplifiedCDARResponse> submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request)
 
-[Simplifié] Soumettre un statut ENCAISSÉE (212)
+[Simplified] Submit PAID status (212) - Issued invoice
 
-**Endpoint simplifié pour OD** - Soumet un statut ENCAISSÉE (212) pour une facture.  Ce statut est **obligatoire pour le PPF** (BR-FR-CDV-14 requiert le montant encaissé).  **Cas d'usage:** L'acheteur confirme le paiement d'une facture.  **Authentification:** JWT Bearer (recommandé) ou credentials PDP dans la requête.
+**Simplified endpoint for OD** - Submit a PAID status (212) for an **ISSUED** invoice.  This status is **mandatory for PPF** (BR-FR-CDV-14 requires the paid amount).  **Use case:** The **seller** confirms payment receipt for an invoice they issued.  **Who issues this status?** - **Issuer (IssuerTradeParty):** The seller (SE = Seller) who received payment - **Recipient (RecipientTradeParty):** The buyer (BY = Buyer) who paid  **Reference:** XP Z12-014 Annex B, example UC1_F202500003_07-CDV-212_Encaissee.xml  **Authentication:** JWT Bearer (recommended) or PDP credentials in request.
 
 ### Examples
 
@@ -424,15 +425,15 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
-encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, amount: FactPulse::Amount.new}) # EncaisseeRequest | 
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
+encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_buyer_siren: 'invoice_buyer_siren_example', invoice_buyer_electronic_address: 'invoice_buyer_electronic_address_example', amount: FactPulse::Amount.new}) # EncaisseeRequest | 
 
 begin
-  # [Simplifié] Soumettre un statut ENCAISSÉE (212)
+  # [Simplified] Submit PAID status (212) - Issued invoice
   result = api_instance.submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_encaissee_api_v1_cdar_encaissee_post: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_encaissee_api_v1_cdar_encaissee_post: #{e}"
 end
 ```
 
@@ -444,13 +445,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # [Simplifié] Soumettre un statut ENCAISSÉE (212)
+  # [Simplified] Submit PAID status (212) - Issued invoice
   data, status_code, headers = api_instance.submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SimplifiedCDARResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_encaissee_api_v1_cdar_encaissee_post_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_encaissee_api_v1_cdar_encaissee_post_with_http_info: #{e}"
 end
 ```
 
@@ -478,9 +479,9 @@ end
 
 > <SimplifiedCDARResponse> submit_refusee_api_v1_cdar_refusee_post(refusee_request)
 
-[Simplifié] Soumettre un statut REFUSÉE (210)
+[Simplified] Submit REFUSED status (210) - Received invoice
 
-**Endpoint simplifié pour OD** - Soumet un statut REFUSÉE (210) pour une facture.  Ce statut est **obligatoire pour le PPF** (BR-FR-CDV-15 requiert un code motif).  **Cas d'usage:** L'acheteur refuse une facture reçue.  **Codes motif autorisés (BR-FR-CDV-CL-09):** - `TX_TVA_ERR`: Taux de TVA erroné - `MONTANTTOTAL_ERR`: Montant total erroné - `CALCUL_ERR`: Erreur de calcul - `NON_CONFORME`: Non conforme - `DOUBLON`: Doublon - `DEST_ERR`: Destinataire erroné - `TRANSAC_INC`: Transaction incomplète - `EMMET_INC`: Émetteur inconnu - `CONTRAT_TERM`: Contrat terminé - `DOUBLE_FACT`: Double facturation - `CMD_ERR`: Commande erronée - `ADR_ERR`: Adresse erronée - `REF_CT_ABSENT`: Référence contrat absente  **Authentification:** JWT Bearer (recommandé) ou credentials PDP dans la requête.
+**Simplified endpoint for OD** - Submit a REFUSED status (210) for a **RECEIVED** invoice.  This status is **mandatory for PPF** (BR-FR-CDV-15 requires a reason code).  **Use case:** The **buyer** refuses an invoice they received.  **Who issues this status?** - **Issuer (IssuerTradeParty):** The buyer (BY = Buyer) refusing the invoice - **Recipient (RecipientTradeParty):** The seller (SE = Seller) who issued the invoice  **Reference:** XP Z12-014 Annex B, example UC3_F202500005_04-CDV-210_Refusee.xml  **Allowed reason codes (BR-FR-CDV-CL-09):** - `TX_TVA_ERR`: Incorrect VAT rate - `MONTANTTOTAL_ERR`: Incorrect total amount - `CALCUL_ERR`: Calculation error - `NON_CONFORME`: Non-compliant - `DOUBLON`: Duplicate - `DEST_ERR`: Wrong recipient - `TRANSAC_INC`: Incomplete transaction - `EMMET_INC`: Unknown issuer - `CONTRAT_TERM`: Contract terminated - `DOUBLE_FACT`: Double billing - `CMD_ERR`: Order error - `ADR_ERR`: Address error - `REF_CT_ABSENT`: Missing contract reference  **Authentication:** JWT Bearer (recommended) or PDP credentials in request.
 
 ### Examples
 
@@ -493,15 +494,15 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
-refusee_request = FactPulse::RefuseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, reason_code: 'reason_code_example'}) # RefuseeRequest | 
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
+refusee_request = FactPulse::RefuseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_seller_siren: 'invoice_seller_siren_example', invoice_seller_electronic_address: 'invoice_seller_electronic_address_example', reason_code: 'reason_code_example'}) # RefuseeRequest | 
 
 begin
-  # [Simplifié] Soumettre un statut REFUSÉE (210)
+  # [Simplified] Submit REFUSED status (210) - Received invoice
   result = api_instance.submit_refusee_api_v1_cdar_refusee_post(refusee_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_refusee_api_v1_cdar_refusee_post: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_refusee_api_v1_cdar_refusee_post: #{e}"
 end
 ```
 
@@ -513,13 +514,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # [Simplifié] Soumettre un statut REFUSÉE (210)
+  # [Simplified] Submit REFUSED status (210) - Received invoice
   data, status_code, headers = api_instance.submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SimplifiedCDARResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->submit_refusee_api_v1_cdar_refusee_post_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_refusee_api_v1_cdar_refusee_post_with_http_info: #{e}"
 end
 ```
 
@@ -547,9 +548,9 @@ end
 
 > <ValidateCDARResponse> validate_cdar_api_v1_cdar_validate_post(validate_cdar_request)
 
-Valider des données CDAR
+Validate CDAR structured data
 
-Valide les données CDAR sans générer le XML.  Vérifie: - Les formats des champs (SIREN, dates, etc.) - Les codes enums (statut, motif, action) - Les règles métier BR-FR-CDV-*
+Validate CDAR structured data without generating XML.  **Note:** This endpoint validates structured data fields only. Use `/validate-xml` to validate a pre-generated CDAR XML file against XSD and Schematron.  Checks: - Field formats (SIREN, dates, etc.) - Enum codes (status, reason, action) - Business rules BR-FR-CDV-*
 
 ### Examples
 
@@ -562,15 +563,15 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::CDARCycleDeVieApi.new
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 validate_cdar_request = FactPulse::ValidateCDARRequest.new # ValidateCDARRequest | 
 
 begin
-  # Valider des données CDAR
+  # Validate CDAR structured data
   result = api_instance.validate_cdar_api_v1_cdar_validate_post(validate_cdar_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->validate_cdar_api_v1_cdar_validate_post: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->validate_cdar_api_v1_cdar_validate_post: #{e}"
 end
 ```
 
@@ -582,13 +583,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Valider des données CDAR
+  # Validate CDAR structured data
   data, status_code, headers = api_instance.validate_cdar_api_v1_cdar_validate_post_with_http_info(validate_cdar_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ValidateCDARResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling CDARCycleDeVieApi->validate_cdar_api_v1_cdar_validate_post_with_http_info: #{e}"
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->validate_cdar_api_v1_cdar_validate_post_with_http_info: #{e}"
 end
 ```
 
@@ -609,5 +610,74 @@ end
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## validate_xml_cdar_api_v1_cdar_validate_xml_post
+
+> Hash&lt;String, Object&gt; validate_xml_cdar_api_v1_cdar_validate_xml_post(xml_file)
+
+Validate CDAR XML against XSD and Schematron BR-FR-CDV
+
+Validates a CDAR XML file against:  1. **XSD schema**: UN/CEFACT D22B CrossDomainAcknowledgementAndResponse 2. **Schematron BR-FR-CDV**: French business rules for invoice lifecycle  Returns validation status and detailed error messages if invalid.  **Note:** Use `/validate` to validate structured data fields (JSON).
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
+xml_file = File.new('/path/to/some/file') # File | CDAR XML file to validate
+
+begin
+  # Validate CDAR XML against XSD and Schematron BR-FR-CDV
+  result = api_instance.validate_xml_cdar_api_v1_cdar_validate_xml_post(xml_file)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->validate_xml_cdar_api_v1_cdar_validate_xml_post: #{e}"
+end
+```
+
+#### Using the validate_xml_cdar_api_v1_cdar_validate_xml_post_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(Hash&lt;String, Object&gt;, Integer, Hash)> validate_xml_cdar_api_v1_cdar_validate_xml_post_with_http_info(xml_file)
+
+```ruby
+begin
+  # Validate CDAR XML against XSD and Schematron BR-FR-CDV
+  data, status_code, headers = api_instance.validate_xml_cdar_api_v1_cdar_validate_xml_post_with_http_info(xml_file)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => Hash&lt;String, Object&gt;
+rescue FactPulse::ApiError => e
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->validate_xml_cdar_api_v1_cdar_validate_xml_post_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **xml_file** | **File** | CDAR XML file to validate |  |
+
+### Return type
+
+**Hash&lt;String, Object&gt;**
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 

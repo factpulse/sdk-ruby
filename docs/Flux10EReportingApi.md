@@ -1,20 +1,20 @@
-# FactPulse::EReportingApi
+# FactPulse::Flux10EReportingApi
 
 All URIs are relative to *https://factpulse.fr*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post**](EReportingApi.md#generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post) | **POST** /api/v1/ereporting/generate-aggregated | Generate aggregated e-reporting XML (PPF-compliant) |
-| [**generate_ereporting_api_v1_ereporting_generate_post**](EReportingApi.md#generate_ereporting_api_v1_ereporting_generate_post) | **POST** /api/v1/ereporting/generate | Generate e-reporting XML |
-| [**generate_ereporting_download_api_v1_ereporting_generate_download_post**](EReportingApi.md#generate_ereporting_download_api_v1_ereporting_generate_download_post) | **POST** /api/v1/ereporting/generate/download | Generate and download e-reporting XML |
-| [**list_category_codes_api_v1_ereporting_category_codes_get**](EReportingApi.md#list_category_codes_api_v1_ereporting_category_codes_get) | **GET** /api/v1/ereporting/category-codes | List PPF-compliant category codes |
-| [**list_flow_types_api_v1_ereporting_flow_types_get**](EReportingApi.md#list_flow_types_api_v1_ereporting_flow_types_get) | **GET** /api/v1/ereporting/flow-types | List available flow types |
-| [**submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post**](EReportingApi.md#submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post) | **POST** /api/v1/ereporting/submit-aggregated | Submit aggregated e-reporting to PA/PDP |
-| [**submit_ereporting_api_v1_ereporting_submit_post**](EReportingApi.md#submit_ereporting_api_v1_ereporting_submit_post) | **POST** /api/v1/ereporting/submit | Submit e-reporting to PA/PDP |
-| [**submit_xml_ereporting_api_v1_ereporting_submit_xml_post**](EReportingApi.md#submit_xml_ereporting_api_v1_ereporting_submit_xml_post) | **POST** /api/v1/ereporting/submit-xml | Submit pre-generated e-reporting XML |
-| [**validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post**](EReportingApi.md#validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post) | **POST** /api/v1/ereporting/validate-aggregated | Validate aggregated e-reporting data |
-| [**validate_ereporting_api_v1_ereporting_validate_post**](EReportingApi.md#validate_ereporting_api_v1_ereporting_validate_post) | **POST** /api/v1/ereporting/validate | Validate e-reporting data |
-| [**validate_xml_ereporting_api_v1_ereporting_validate_xml_post**](EReportingApi.md#validate_xml_ereporting_api_v1_ereporting_validate_xml_post) | **POST** /api/v1/ereporting/validate-xml | Validate e-reporting XML against PPF XSD schemas and business rules |
+| [**generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post**](Flux10EReportingApi.md#generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post) | **POST** /api/v1/ereporting/generate-aggregated | Generate aggregated e-reporting XML (PPF-compliant) |
+| [**generate_ereporting_api_v1_ereporting_generate_post**](Flux10EReportingApi.md#generate_ereporting_api_v1_ereporting_generate_post) | **POST** /api/v1/ereporting/generate | Generate e-reporting XML |
+| [**generate_ereporting_download_api_v1_ereporting_generate_download_post**](Flux10EReportingApi.md#generate_ereporting_download_api_v1_ereporting_generate_download_post) | **POST** /api/v1/ereporting/generate/download | Generate and download e-reporting XML |
+| [**list_category_codes_api_v1_ereporting_category_codes_get**](Flux10EReportingApi.md#list_category_codes_api_v1_ereporting_category_codes_get) | **GET** /api/v1/ereporting/category-codes | List PPF-compliant category codes |
+| [**list_flow_types_api_v1_ereporting_flow_types_get**](Flux10EReportingApi.md#list_flow_types_api_v1_ereporting_flow_types_get) | **GET** /api/v1/ereporting/flow-types | List available flow types |
+| [**submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post**](Flux10EReportingApi.md#submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post) | **POST** /api/v1/ereporting/submit-aggregated | Submit aggregated e-reporting to PA/PDP |
+| [**submit_ereporting_api_v1_ereporting_submit_post**](Flux10EReportingApi.md#submit_ereporting_api_v1_ereporting_submit_post) | **POST** /api/v1/ereporting/submit | Submit e-reporting to PA/PDP |
+| [**submit_xml_ereporting_api_v1_ereporting_submit_xml_post**](Flux10EReportingApi.md#submit_xml_ereporting_api_v1_ereporting_submit_xml_post) | **POST** /api/v1/ereporting/submit-xml | Submit pre-generated e-reporting XML |
+| [**validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post**](Flux10EReportingApi.md#validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post) | **POST** /api/v1/ereporting/validate-aggregated | Validate aggregated e-reporting data |
+| [**validate_ereporting_api_v1_ereporting_validate_post**](Flux10EReportingApi.md#validate_ereporting_api_v1_ereporting_validate_post) | **POST** /api/v1/ereporting/validate | Validate e-reporting data |
+| [**validate_xml_ereporting_api_v1_ereporting_validate_xml_post**](Flux10EReportingApi.md#validate_xml_ereporting_api_v1_ereporting_validate_xml_post) | **POST** /api/v1/ereporting/validate-xml | Validate e-reporting XML (PPF Annexe 6 v1.9 compliant) |
 
 
 ## generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post
@@ -36,7 +36,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 create_aggregated_report_request = FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateAggregatedReportRequest | 
 
 begin
@@ -44,7 +44,7 @@ begin
   result = api_instance.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post(create_aggregated_report_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post: #{e}"
 end
 ```
 
@@ -62,7 +62,7 @@ begin
   p headers # => { ... }
   p data # => <GenerateAggregatedReportResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post_with_http_info: #{e}"
 end
 ```
 
@@ -105,7 +105,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 create_e_reporting_request = FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateEReportingRequest | 
 
 begin
@@ -113,7 +113,7 @@ begin
   result = api_instance.generate_ereporting_api_v1_ereporting_generate_post(create_e_reporting_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->generate_ereporting_api_v1_ereporting_generate_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->generate_ereporting_api_v1_ereporting_generate_post: #{e}"
 end
 ```
 
@@ -131,7 +131,7 @@ begin
   p headers # => { ... }
   p data # => <GenerateEReportingResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->generate_ereporting_api_v1_ereporting_generate_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->generate_ereporting_api_v1_ereporting_generate_post_with_http_info: #{e}"
 end
 ```
 
@@ -174,7 +174,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 create_e_reporting_request = FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateEReportingRequest | 
 opts = {
   filename: 'filename_example' # String | Output filename (default: ereporting_{reportId}.xml)
@@ -184,7 +184,7 @@ begin
   # Generate and download e-reporting XML
   api_instance.generate_ereporting_download_api_v1_ereporting_generate_download_post(create_e_reporting_request, opts)
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->generate_ereporting_download_api_v1_ereporting_generate_download_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->generate_ereporting_download_api_v1_ereporting_generate_download_post: #{e}"
 end
 ```
 
@@ -202,7 +202,7 @@ begin
   p headers # => { ... }
   p data # => nil
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->generate_ereporting_download_api_v1_ereporting_generate_download_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->generate_ereporting_download_api_v1_ereporting_generate_download_post_with_http_info: #{e}"
 end
 ```
 
@@ -241,14 +241,14 @@ Returns the list of valid CategoryCode values (TT-81) for e-reporting transactio
 require 'time'
 require 'factpulse'
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 
 begin
   # List PPF-compliant category codes
   result = api_instance.list_category_codes_api_v1_ereporting_category_codes_get
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->list_category_codes_api_v1_ereporting_category_codes_get: #{e}"
+  puts "Error when calling Flux10EReportingApi->list_category_codes_api_v1_ereporting_category_codes_get: #{e}"
 end
 ```
 
@@ -266,7 +266,7 @@ begin
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->list_category_codes_api_v1_ereporting_category_codes_get_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->list_category_codes_api_v1_ereporting_category_codes_get_with_http_info: #{e}"
 end
 ```
 
@@ -302,14 +302,14 @@ Returns the list of supported e-reporting flow types with descriptions.
 require 'time'
 require 'factpulse'
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 
 begin
   # List available flow types
   result = api_instance.list_flow_types_api_v1_ereporting_flow_types_get
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->list_flow_types_api_v1_ereporting_flow_types_get: #{e}"
+  puts "Error when calling Flux10EReportingApi->list_flow_types_api_v1_ereporting_flow_types_get: #{e}"
 end
 ```
 
@@ -327,7 +327,7 @@ begin
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->list_flow_types_api_v1_ereporting_flow_types_get_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->list_flow_types_api_v1_ereporting_flow_types_get_with_http_info: #{e}"
 end
 ```
 
@@ -368,7 +368,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 submit_aggregated_report_request = FactPulse::SubmitAggregatedReportRequest.new({data: FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitAggregatedReportRequest | 
 
 begin
@@ -376,7 +376,7 @@ begin
   result = api_instance.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post(submit_aggregated_report_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post: #{e}"
 end
 ```
 
@@ -394,7 +394,7 @@ begin
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info: #{e}"
 end
 ```
 
@@ -437,7 +437,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 submit_e_reporting_request = FactPulse::SubmitEReportingRequest.new({data: FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitEReportingRequest | 
 
 begin
@@ -445,7 +445,7 @@ begin
   result = api_instance.submit_ereporting_api_v1_ereporting_submit_post(submit_e_reporting_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->submit_ereporting_api_v1_ereporting_submit_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->submit_ereporting_api_v1_ereporting_submit_post: #{e}"
 end
 ```
 
@@ -463,7 +463,7 @@ begin
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->submit_ereporting_api_v1_ereporting_submit_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->submit_ereporting_api_v1_ereporting_submit_post_with_http_info: #{e}"
 end
 ```
 
@@ -506,7 +506,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 xml_file = File.new('/path/to/some/file') # File | E-reporting XML file
 opts = {
   tracking_id: 'tracking_id_example', # String | 
@@ -522,7 +522,7 @@ begin
   result = api_instance.submit_xml_ereporting_api_v1_ereporting_submit_xml_post(xml_file, opts)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->submit_xml_ereporting_api_v1_ereporting_submit_xml_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->submit_xml_ereporting_api_v1_ereporting_submit_xml_post: #{e}"
 end
 ```
 
@@ -540,7 +540,7 @@ begin
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->submit_xml_ereporting_api_v1_ereporting_submit_xml_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->submit_xml_ereporting_api_v1_ereporting_submit_xml_post_with_http_info: #{e}"
 end
 ```
 
@@ -589,7 +589,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 create_aggregated_report_request = FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})}) # CreateAggregatedReportRequest | 
 
 begin
@@ -597,7 +597,7 @@ begin
   result = api_instance.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post(create_aggregated_report_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post: #{e}"
 end
 ```
 
@@ -615,7 +615,7 @@ begin
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post_with_http_info: #{e}"
 end
 ```
 
@@ -658,7 +658,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 validate_e_reporting_request = FactPulse::ValidateEReportingRequest.new({data: FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # ValidateEReportingRequest | 
 
 begin
@@ -666,7 +666,7 @@ begin
   result = api_instance.validate_ereporting_api_v1_ereporting_validate_post(validate_e_reporting_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->validate_ereporting_api_v1_ereporting_validate_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->validate_ereporting_api_v1_ereporting_validate_post: #{e}"
 end
 ```
 
@@ -684,7 +684,7 @@ begin
   p headers # => { ... }
   p data # => <ValidateEReportingResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->validate_ereporting_api_v1_ereporting_validate_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->validate_ereporting_api_v1_ereporting_validate_post_with_http_info: #{e}"
 end
 ```
 
@@ -712,9 +712,9 @@ end
 
 > Hash&lt;String, Object&gt; validate_xml_ereporting_api_v1_ereporting_validate_xml_post(xml_file, opts)
 
-Validate e-reporting XML against PPF XSD schemas and business rules
+Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
 
-Validates an e-reporting XML file against:  1. **XSD schemas**: Official PPF e-reporting XSD (structure, types, cardinality) 2. **Business rules**: ISO codes and enum validation    - Currency codes (ISO 4217: EUR, USD, GBP, etc.)    - Country codes (ISO 3166-1 alpha-2: FR, DE, US, etc.)    - Scheme IDs (0009=SIRET, 0002=SIREN, etc.)    - Role codes (UNCL 3035: SE=Seller, BY=Buyer, WK=Working party, etc.)  Returns validation status and detailed error messages if invalid.
+Validates an e-reporting XML file against PPF specifications (Annexe 6 v1.9):  **Validation levels:** 1. **XSD (REJ_SEMAN)**: Structure, types, cardinality 2. **Semantic (REJ_SEMAN)**: Authorized values from codelists 3. **Coherence (REJ_COH)**: Data consistency (totals = sum of breakdowns) 4. **Period (REJ_PER)**: Transaction dates within declared period  **Validated codes:** - SchemeID (ISO 6523): 0002=SIREN, 0009=SIRET, 0224=RoutingCode, etc. - RoleCode (UNCL 3035): SE=Seller, BY=Buyer, WK=Working party - CategoryCode (TT-81): TLB1, TPS1, TNT1, TMA1 - TaxCategoryCode (UNTDID 5305): S, Z, E, AE, K, G, O - Currency (ISO 4217), Country (ISO 3166-1)  Returns structured validation errors with PPF rejection codes.
 
 ### Examples
 
@@ -727,18 +727,19 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::EReportingApi.new
+api_instance = FactPulse::Flux10EReportingApi.new
 xml_file = File.new('/path/to/some/file') # File | E-reporting XML file to validate
 opts = {
-  validate_business_rules: true # Boolean | Also validate business rules (ISO codes, enums)
+  validate_coherence: true, # Boolean | Validate data coherence (REJ_COH)
+  validate_period: true # Boolean | Validate period coherence (REJ_PER)
 }
 
 begin
-  # Validate e-reporting XML against PPF XSD schemas and business rules
+  # Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
   result = api_instance.validate_xml_ereporting_api_v1_ereporting_validate_xml_post(xml_file, opts)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->validate_xml_ereporting_api_v1_ereporting_validate_xml_post: #{e}"
+  puts "Error when calling Flux10EReportingApi->validate_xml_ereporting_api_v1_ereporting_validate_xml_post: #{e}"
 end
 ```
 
@@ -750,13 +751,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Validate e-reporting XML against PPF XSD schemas and business rules
+  # Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
   data, status_code, headers = api_instance.validate_xml_ereporting_api_v1_ereporting_validate_xml_post_with_http_info(xml_file, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => Hash&lt;String, Object&gt;
 rescue FactPulse::ApiError => e
-  puts "Error when calling EReportingApi->validate_xml_ereporting_api_v1_ereporting_validate_xml_post_with_http_info: #{e}"
+  puts "Error when calling Flux10EReportingApi->validate_xml_ereporting_api_v1_ereporting_validate_xml_post_with_http_info: #{e}"
 end
 ```
 
@@ -765,7 +766,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **xml_file** | **File** | E-reporting XML file to validate |  |
-| **validate_business_rules** | **Boolean** | Also validate business rules (ISO codes, enums) | [optional][default to true] |
+| **validate_coherence** | **Boolean** | Validate data coherence (REJ_COH) | [optional][default to true] |
+| **validate_period** | **Boolean** | Validate period coherence (REJ_PER) | [optional][default to true] |
 
 ### Return type
 

@@ -9,7 +9,8 @@
 | **type_code** | [**FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode**](FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md) | Invoice type code | [optional] |
 | **currency** | [**Currency**](Currency.md) |  | [optional] |
 | **due_date** | **Date** |  | [optional] |
-| **seller_siren** | **String** | Seller SIREN/SIRET |  |
+| **seller_id** | **String** |  | [optional] |
+| **seller_siren** | **String** |  | [optional] |
 | **seller_vat_id** | **String** |  | [optional] |
 | **seller_country** | [**Sellercountry**](Sellercountry.md) |  | [optional] |
 | **buyer_id** | **String** |  | [optional] |
@@ -32,7 +33,8 @@ instance = FactPulse::InvoiceInput.new(
   type_code: null,
   currency: null,
   due_date: null,
-  seller_siren: 123456789,
+  seller_id: null,
+  seller_siren: null,
   seller_vat_id: null,
   seller_country: null,
   buyer_id: null,
