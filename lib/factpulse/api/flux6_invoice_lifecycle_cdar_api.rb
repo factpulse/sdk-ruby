@@ -68,7 +68,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GenerateCDARResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux6InvoiceLifecycleCDARApi.generate_cdar_api_v1_cdar_generate_post",
@@ -579,7 +579,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ValidateCDARResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux6InvoiceLifecycleCDARApi.validate_cdar_api_v1_cdar_validate_post",
@@ -648,7 +648,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Hash<String, Object>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux6InvoiceLifecycleCDARApi.validate_xml_cdar_api_v1_cdar_validate_xml_post",

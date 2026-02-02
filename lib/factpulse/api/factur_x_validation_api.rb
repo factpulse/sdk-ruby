@@ -78,7 +78,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'PDFValidationResultAPI'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXValidationApi.validate_facturx_pdf_api_v1_processing_validate_facturx_pdf_post",
@@ -159,7 +159,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'TaskResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXValidationApi.validate_facturx_pdf_async_api_v1_processing_validate_facturx_async_post",
@@ -234,7 +234,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ValidationSuccessResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXValidationApi.validate_xml_api_v1_processing_validate_xml_post",

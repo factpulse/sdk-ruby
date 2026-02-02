@@ -172,9 +172,9 @@ docs/FacturXInvoice.md
 docs/FacturXPDFInfo.md
 docs/FacturXPDFXMLVerificationApi.md
 docs/FacturXValidationApi.md
-docs/FactureElectroniqueRestApiSchemasCdarValidationErrorResponse.md
-docs/FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md
 docs/FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md
+docs/FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.md
+docs/FactureElectroniqueRestApiSchemasValidationValidationErrorResponse.md
 docs/FieldStatus.md
 docs/FileInfo.md
 docs/FilesInfo.md
@@ -217,6 +217,8 @@ docs/InvoiceTypeCodeOutput.md
 docs/InvoicingFramework.md
 docs/InvoicingFrameworkCode.md
 docs/IssuerRoleCode.md
+docs/KeyRotationRequest.md
+docs/KeyRotationResponse.md
 docs/LineNetAmount.md
 docs/LineSubType.md
 docs/LineTotalAmount.md
@@ -328,6 +330,9 @@ docs/ValidationSuccessResponse.md
 docs/VatRate.md
 docs/VerificationSuccessResponse.md
 docs/VerifiedFieldSchema.md
+docs/WebhookSecretDeleteResponse.md
+docs/WebhookSecretGenerateResponse.md
+docs/WebhookSecretStatusResponse.md
 factpulse.gemspec
 git_push.sh
 lib/factpulse.rb
@@ -503,9 +508,9 @@ lib/factpulse/models/error_source.rb
 lib/factpulse/models/extraction_info.rb
 lib/factpulse/models/factur_x_invoice.rb
 lib/factpulse/models/factur_xpdf_info.rb
-lib/factpulse/models/facture_electronique_rest_api_schemas_cdar_validation_error_response.rb
-lib/factpulse/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials.rb
 lib/factpulse/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_validation_validation_error_response.rb
 lib/factpulse/models/field_status.rb
 lib/factpulse/models/file_info.rb
 lib/factpulse/models/files_info.rb
@@ -545,6 +550,8 @@ lib/factpulse/models/invoice_type_code_output.rb
 lib/factpulse/models/invoicing_framework.rb
 lib/factpulse/models/invoicing_framework_code.rb
 lib/factpulse/models/issuer_role_code.rb
+lib/factpulse/models/key_rotation_request.rb
+lib/factpulse/models/key_rotation_response.rb
 lib/factpulse/models/line_net_amount.rb
 lib/factpulse/models/line_sub_type.rb
 lib/factpulse/models/line_total_amount.rb
@@ -656,6 +663,9 @@ lib/factpulse/models/vat_point_date_code.rb
 lib/factpulse/models/vat_rate.rb
 lib/factpulse/models/verification_success_response.rb
 lib/factpulse/models/verified_field_schema.rb
+lib/factpulse/models/webhook_secret_delete_response.rb
+lib/factpulse/models/webhook_secret_generate_response.rb
+lib/factpulse/models/webhook_secret_status_response.rb
 lib/factpulse/version.rb
 spec/api/afnorpdppa_api_spec.rb
 spec/api/afnorpdppa_directory_service_api_spec.rb
@@ -825,9 +835,9 @@ spec/models/error_source_spec.rb
 spec/models/extraction_info_spec.rb
 spec/models/factur_x_invoice_spec.rb
 spec/models/factur_xpdf_info_spec.rb
-spec/models/facture_electronique_rest_api_schemas_cdar_validation_error_response_spec.rb
-spec/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials_spec.rb
 spec/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code_spec.rb
+spec/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials_spec.rb
+spec/models/facture_electronique_rest_api_schemas_validation_validation_error_response_spec.rb
 spec/models/field_status_spec.rb
 spec/models/file_info_spec.rb
 spec/models/files_info_spec.rb
@@ -867,6 +877,8 @@ spec/models/invoice_type_code_spec.rb
 spec/models/invoicing_framework_code_spec.rb
 spec/models/invoicing_framework_spec.rb
 spec/models/issuer_role_code_spec.rb
+spec/models/key_rotation_request_spec.rb
+spec/models/key_rotation_response_spec.rb
 spec/models/line_net_amount_spec.rb
 spec/models/line_sub_type_spec.rb
 spec/models/line_total_amount_spec.rb
@@ -978,4 +990,7 @@ spec/models/vat_point_date_code_spec.rb
 spec/models/vat_rate_spec.rb
 spec/models/verification_success_response_spec.rb
 spec/models/verified_field_schema_spec.rb
+spec/models/webhook_secret_delete_response_spec.rb
+spec/models/webhook_secret_generate_response_spec.rb
+spec/models/webhook_secret_status_response_spec.rb
 spec/spec_helper.rb

@@ -63,7 +63,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AsyncTaskStatus'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXPDFXMLVerificationApi.get_verification_status_api_v1_verification_verify_async_task_id_status_get",
@@ -141,7 +141,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'TaskResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXPDFXMLVerificationApi.verify_pdf_async_api_v1_verification_verify_async_post",
@@ -210,7 +210,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'VerificationSuccessResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXPDFXMLVerificationApi.verify_pdf_sync_api_v1_verification_verify_post",

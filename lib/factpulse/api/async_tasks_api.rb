@@ -63,7 +63,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'AsyncTaskStatus'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AsyncTasksApi.get_task_status_api_v1_processing_tasks_task_id_status_get",

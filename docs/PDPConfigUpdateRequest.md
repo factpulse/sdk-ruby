@@ -10,6 +10,7 @@
 | **token_url** | **String** | PDP OAuth token URL |  |
 | **oauth_client_id** | **String** | OAuth Client ID |  |
 | **client_secret** | **String** | OAuth Client Secret (sent but never returned) |  |
+| **encryption_mode** | **String** |  | [optional] |
 
 ## Example
 
@@ -22,7 +23,8 @@ instance = FactPulse::PDPConfigUpdateRequest.new(
   flow_service_url: null,
   token_url: null,
   oauth_client_id: null,
-  client_secret: null
+  client_secret: null,
+  encryption_mode: null
 )
 ```
 

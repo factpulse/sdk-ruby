@@ -68,7 +68,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GenerateCertificateResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ElectronicSignatureApi.generate_test_certificate_api_v1_processing_generate_test_certificate_post",
@@ -155,7 +155,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ElectronicSignatureApi.sign_pdf_api_v1_processing_sign_pdf_post",
@@ -248,7 +248,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ElectronicSignatureApi.sign_pdf_async_api_v1_processing_sign_pdf_async_post",
@@ -317,7 +317,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ElectronicSignatureApi.validate_pdf_signature_endpoint_api_v1_processing_validate_pdf_signature_post",

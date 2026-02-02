@@ -23,6 +23,11 @@ require 'time'
 require 'factpulse'
 # setup authorization
 FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
   # Configure Bearer authorization: HTTPBearer
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
@@ -30,7 +35,8 @@ end
 api_instance = FactPulse::AFNORPDPPAApi.new
 flow_id = 'flow_id_example' # String | AFNOR flow ID (UUID format)
 opts = {
-  include_document: true # Boolean | Include base64-encoded document in response
+  include_document: true, # Boolean | Include base64-encoded document in response
+  x_encryption_key: 'x_encryption_key_example' # String | Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode='double'.
 }
 
 begin
@@ -66,6 +72,7 @@ end
 | ---- | ---- | ----------- | ----- |
 | **flow_id** | **String** | AFNOR flow ID (UUID format) |  |
 | **include_document** | **Boolean** | Include base64-encoded document in response | [optional][default to false] |
+| **x_encryption_key** | **String** | Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;. | [optional] |
 
 ### Return type
 
@@ -73,7 +80,7 @@ end
 
 ### Authorization
 
-[HTTPBearer](../README.md#HTTPBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

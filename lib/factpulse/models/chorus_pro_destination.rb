@@ -64,7 +64,7 @@ module FactPulse
     def self.openapi_types
       {
         :'type' => :'String',
-        :'credentials' => :'ChorusProCredentials'
+        :'credentials' => :'FactureElectroniqueRestApiSchemasProcessingChorusProCredentials'
       }
     end
 

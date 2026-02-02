@@ -51,7 +51,7 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'credentials' => :'FactureElectroniqueRestApiSchemasChorusProChorusProCredentials',
+        :'credentials' => :'ChorusProCredentials',
         :'structure_identifier' => :'String',
         :'structure_identifier_type' => :'String',
         :'company_name' => :'String',

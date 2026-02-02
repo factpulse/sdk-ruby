@@ -68,7 +68,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GenerateAggregatedReportResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux10EReportingApi.generate_aggregated_ereporting_api_v1_ereporting_generate_aggregated_post",
@@ -136,7 +136,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GenerateEReportingResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux10EReportingApi.generate_ereporting_api_v1_ereporting_generate_post",
@@ -207,7 +207,7 @@ module FactPulse
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux10EReportingApi.generate_ereporting_download_api_v1_ereporting_generate_download_post",
@@ -612,7 +612,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Hash<String, Object>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux10EReportingApi.validate_aggregated_ereporting_api_v1_ereporting_validate_aggregated_post",
@@ -680,7 +680,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ValidateEReportingResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux10EReportingApi.validate_ereporting_api_v1_ereporting_validate_post",
@@ -755,7 +755,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Hash<String, Object>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"Flux10EReportingApi.validate_xml_ereporting_api_v1_ereporting_validate_xml_post",

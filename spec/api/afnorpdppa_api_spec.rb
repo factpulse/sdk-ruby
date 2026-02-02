@@ -38,6 +38,7 @@ describe 'AFNORPDPPAApi' do
   # @param flow_id AFNOR flow ID (UUID format)
   # @param [Hash] opts the optional parameters
   # @option opts [Boolean] :include_document Include base64-encoded document in response
+  # @option opts [String] :x_encryption_key Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;.
   # @return [IncomingInvoice]
   describe 'get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get test' do
     it 'should work' do

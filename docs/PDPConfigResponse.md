@@ -11,6 +11,7 @@
 | **flow_service_url** | **String** |  | [optional] |
 | **token_url** | **String** |  | [optional] |
 | **oauth_client_id** | **String** |  | [optional] |
+| **encryption_mode** | **String** |  | [optional] |
 | **secret_status** | [**SecretStatus**](SecretStatus.md) |  | [optional] |
 | **last_test_at** | **Time** |  | [optional] |
 | **last_test_success** | **Boolean** |  | [optional] |
@@ -32,6 +33,7 @@ instance = FactPulse::PDPConfigResponse.new(
   flow_service_url: null,
   token_url: null,
   oauth_client_id: null,
+  encryption_mode: null,
   secret_status: null,
   last_test_at: null,
   last_test_success: null,

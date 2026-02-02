@@ -68,7 +68,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.ajouter_fichier_api_v1_chorus_pro_transverses_ajouter_fichier_post",
@@ -136,7 +136,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.completer_facture_api_v1_chorus_pro_factures_completer_post",
@@ -204,7 +204,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GetInvoiceResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.consulter_facture_api_v1_chorus_pro_factures_consulter_post",
@@ -272,7 +272,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GetStructureResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.consulter_structure_api_v1_chorus_pro_structures_consulter_post",
@@ -335,7 +335,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'SearchServicesResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.lister_services_structure_api_v1_chorus_pro_structures_id_structure_cpp_services_get",
@@ -403,7 +403,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'GetChorusProIdResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.obtenir_id_chorus_pro_depuis_siret_api_v1_chorus_pro_structures_obtenir_id_depuis_siret_post",
@@ -471,7 +471,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.rechercher_factures_destinataire_api_v1_chorus_pro_factures_rechercher_destinataire_post",
@@ -539,7 +539,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.rechercher_factures_fournisseur_api_v1_chorus_pro_factures_rechercher_fournisseur_post",
@@ -607,7 +607,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'SearchStructureResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.rechercher_structures_api_v1_chorus_pro_structures_rechercher_post",
@@ -675,7 +675,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.recycler_facture_api_v1_chorus_pro_factures_recycler_post",
@@ -743,7 +743,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'SubmitInvoiceResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.soumettre_facture_api_v1_chorus_pro_factures_soumettre_post",
@@ -811,7 +811,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.telecharger_groupe_factures_api_v1_chorus_pro_factures_telecharger_groupe_post",
@@ -879,7 +879,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.traiter_facture_recue_api_v1_chorus_pro_factures_traiter_facture_recue_post",
@@ -947,7 +947,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.valideur_consulter_facture_api_v1_chorus_pro_factures_valideur_consulter_post",
@@ -1015,7 +1015,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.valideur_rechercher_factures_api_v1_chorus_pro_factures_valideur_rechercher_post",
@@ -1083,7 +1083,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ChorusProApi.valideur_traiter_facture_api_v1_chorus_pro_factures_valideur_traiter_post",

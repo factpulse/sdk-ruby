@@ -78,7 +78,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXConversionApi.convert_document_async_api_v1_convert_async_post",
@@ -147,7 +147,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXConversionApi.download_file_api_v1_convert_conversion_id_download_filename_get",
@@ -210,7 +210,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'Hash<String, Object>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXConversionApi.get_conversion_status_api_v1_convert_conversion_id_status_get",
@@ -284,7 +284,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ConvertSuccessResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXConversionApi.resume_conversion_api_v1_convert_conversion_id_resume_post",

@@ -24,6 +24,7 @@ module FactPulse
     # @param flow_id [String] AFNOR flow ID (UUID format)
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :include_document Include base64-encoded document in response (default to false)
+    # @option opts [String] :x_encryption_key Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;.
     # @return [IncomingInvoice]
     def get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get(flow_id, opts = {})
       data, _status_code, _headers = get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info(flow_id, opts)
@@ -35,6 +36,7 @@ module FactPulse
     # @param flow_id [String] AFNOR flow ID (UUID format)
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :include_document Include base64-encoded document in response (default to false)
+    # @option opts [String] :x_encryption_key Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;.
     # @return [Array<(IncomingInvoice, Integer, Hash)>] IncomingInvoice data, response status code and response headers
     def get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get_with_http_info(flow_id, opts = {})
       if @api_client.config.debugging
@@ -55,6 +57,7 @@ module FactPulse
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
       header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+      header_params[:'X-Encryption-Key'] = opts[:'x_encryption_key'] if !opts[:'x_encryption_key'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -66,7 +69,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'IncomingInvoice'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"AFNORPDPPAApi.get_flux_entrant_api_v1_afnor_incoming_flows_flow_id_get",

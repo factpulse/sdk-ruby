@@ -43,11 +43,13 @@ result = client.post('processing/invoices/submit-complete-async',
   invoiceData: {
     number: 'INV-2025-001',
     supplier: {
+      name: 'ACME Corporation',
       siret: '12345678901234',
       iban: 'FR7630001007941234567890185',
       routing_address: '12345678901234'
     },
     recipient: {
+      name: 'Client Company SA',
       siret: '98765432109876',
       routing_address: '98765432109876'
     },
@@ -197,6 +199,16 @@ rescue FactPulse::Error => e
   puts "Details: #{e.details}"
 end
 ```
+
+## Available Helpers
+
+The SDK provides the following helper classes:
+
+- `FactPulse::Client`: Main HTTP client with auto-auth and polling
+- `FactPulse::Error`: Base exception class
+- `FactPulse::AuthError`: Authentication failure
+- `FactPulse::ValidationError`: Validation errors with details
+- `FactPulse::PollingTimeout`: Task polling timeout
 
 ## Resources
 

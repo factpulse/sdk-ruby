@@ -63,7 +63,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ClientActivateResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.activate_client_api_v1_clients_uid_activer_post",
@@ -131,7 +131,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ClientDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.create_client_api_v1_clients_post",
@@ -194,7 +194,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ClientActivateResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.deactivate_client_api_v1_clients_uid_desactiver_post",
@@ -209,6 +209,132 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ClientManagementApi#deactivate_client_api_v1_clients_uid_desactiver_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete webhook secret
+    # Delete the webhook secret for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **After deletion**: Webhooks for this client will use the global server key for HMAC signature instead of a client-specific key.
+    # @param uid [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [WebhookSecretDeleteResponse]
+    def delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete(uid, opts = {})
+      data, _status_code, _headers = delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete_with_http_info(uid, opts)
+      data
+    end
+
+    # Delete webhook secret
+    # Delete the webhook secret for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **After deletion**: Webhooks for this client will use the global server key for HMAC signature instead of a client-specific key.
+    # @param uid [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WebhookSecretDeleteResponse, Integer, Hash)>] WebhookSecretDeleteResponse data, response status code and response headers
+    def delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete_with_http_info(uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ClientManagementApi.delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete ...'
+      end
+      # verify the required parameter 'uid' is set
+      if @api_client.config.client_side_validation && uid.nil?
+        fail ArgumentError, "Missing the required parameter 'uid' when calling ClientManagementApi.delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete"
+      end
+      # resource path
+      local_var_path = '/api/v1/clients/{uid}/webhook-secret'.sub('{' + 'uid' + '}', CGI.escape(uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WebhookSecretDeleteResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"ClientManagementApi.delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ClientManagementApi#delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Generate webhook secret
+    # Generate or regenerate the webhook secret for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Important**: Save the returned secret immediately - it will never be shown again. The secret is used to sign webhooks sent by the server (HMAC-SHA256).  **If a secret already exists**: It will be replaced by the new one.
+    # @param uid [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [WebhookSecretGenerateResponse]
+    def generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post(uid, opts = {})
+      data, _status_code, _headers = generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post_with_http_info(uid, opts)
+      data
+    end
+
+    # Generate webhook secret
+    # Generate or regenerate the webhook secret for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Important**: Save the returned secret immediately - it will never be shown again. The secret is used to sign webhooks sent by the server (HMAC-SHA256).  **If a secret already exists**: It will be replaced by the new one.
+    # @param uid [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WebhookSecretGenerateResponse, Integer, Hash)>] WebhookSecretGenerateResponse data, response status code and response headers
+    def generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post_with_http_info(uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ClientManagementApi.generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post ...'
+      end
+      # verify the required parameter 'uid' is set
+      if @api_client.config.client_side_validation && uid.nil?
+        fail ArgumentError, "Missing the required parameter 'uid' when calling ClientManagementApi.generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post"
+      end
+      # resource path
+      local_var_path = '/api/v1/clients/{uid}/webhook-secret/generate'.sub('{' + 'uid' + '}', CGI.escape(uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WebhookSecretGenerateResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"ClientManagementApi.generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ClientManagementApi#generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -257,7 +383,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ClientDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.get_client_api_v1_clients_uid_get",
@@ -320,7 +446,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'PDPConfigResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.get_pdp_config_api_v1_clients_uid_pdp_config_get",
@@ -335,6 +461,69 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ClientManagementApi#get_pdp_config_api_v1_clients_uid_pdp_config_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get webhook secret status
+    # Check if a webhook secret is configured for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Response**: - `hasSecret`: Whether a webhook secret is configured - `createdAt`: When the secret was created (if exists)  **Note**: The secret value is never returned, only its status.
+    # @param uid [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [WebhookSecretStatusResponse]
+    def get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get(uid, opts = {})
+      data, _status_code, _headers = get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get_with_http_info(uid, opts)
+      data
+    end
+
+    # Get webhook secret status
+    # Check if a webhook secret is configured for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Response**: - &#x60;hasSecret&#x60;: Whether a webhook secret is configured - &#x60;createdAt&#x60;: When the secret was created (if exists)  **Note**: The secret value is never returned, only its status.
+    # @param uid [String] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(WebhookSecretStatusResponse, Integer, Hash)>] WebhookSecretStatusResponse data, response status code and response headers
+    def get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get_with_http_info(uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ClientManagementApi.get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get ...'
+      end
+      # verify the required parameter 'uid' is set
+      if @api_client.config.client_side_validation && uid.nil?
+        fail ArgumentError, "Missing the required parameter 'uid' when calling ClientManagementApi.get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/clients/{uid}/webhook-secret/status'.sub('{' + 'uid' + '}', CGI.escape(uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'WebhookSecretStatusResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"ClientManagementApi.get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ClientManagementApi#get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -395,7 +584,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ClientListResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.list_clients_api_v1_clients_get",
@@ -410,6 +599,80 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ClientManagementApi#list_clients_api_v1_clients_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Rotate client encryption key
+    # Rotate the client encryption key for all secrets in double encryption mode.  **Scope**: Client level (JWT with client_uid that must match {uid})  **What this does**: 1. Decrypts all secrets (PDP, Chorus Pro) using the old key 2. Re-encrypts them using the new key 3. Saves to database  **Important notes**: - Both keys must be base64-encoded AES-256 keys (32 bytes each) - The old key becomes invalid immediately after rotation - Only secrets encrypted with `encryptionMode: \"double\"` are affected - If the client has no double-encrypted secrets, returns 404  **Security**: - The old key must be valid (decryption is verified) - If decryption fails, rotation is aborted (atomic operation) - Neither key is logged or stored by the server
+    # @param uid [String] 
+    # @param key_rotation_request [KeyRotationRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [KeyRotationResponse]
+    def rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post(uid, key_rotation_request, opts = {})
+      data, _status_code, _headers = rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post_with_http_info(uid, key_rotation_request, opts)
+      data
+    end
+
+    # Rotate client encryption key
+    # Rotate the client encryption key for all secrets in double encryption mode.  **Scope**: Client level (JWT with client_uid that must match {uid})  **What this does**: 1. Decrypts all secrets (PDP, Chorus Pro) using the old key 2. Re-encrypts them using the new key 3. Saves to database  **Important notes**: - Both keys must be base64-encoded AES-256 keys (32 bytes each) - The old key becomes invalid immediately after rotation - Only secrets encrypted with &#x60;encryptionMode: \&quot;double\&quot;&#x60; are affected - If the client has no double-encrypted secrets, returns 404  **Security**: - The old key must be valid (decryption is verified) - If decryption fails, rotation is aborted (atomic operation) - Neither key is logged or stored by the server
+    # @param uid [String] 
+    # @param key_rotation_request [KeyRotationRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(KeyRotationResponse, Integer, Hash)>] KeyRotationResponse data, response status code and response headers
+    def rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post_with_http_info(uid, key_rotation_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ClientManagementApi.rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post ...'
+      end
+      # verify the required parameter 'uid' is set
+      if @api_client.config.client_side_validation && uid.nil?
+        fail ArgumentError, "Missing the required parameter 'uid' when calling ClientManagementApi.rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post"
+      end
+      # verify the required parameter 'key_rotation_request' is set
+      if @api_client.config.client_side_validation && key_rotation_request.nil?
+        fail ArgumentError, "Missing the required parameter 'key_rotation_request' when calling ClientManagementApi.rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post"
+      end
+      # resource path
+      local_var_path = '/api/v1/clients/{uid}/rotate-encryption-key'.sub('{' + 'uid' + '}', CGI.escape(uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(key_rotation_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'KeyRotationResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"ClientManagementApi.rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ClientManagementApi#rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -469,7 +732,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'ClientDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.update_client_api_v1_clients_uid_patch",
@@ -489,10 +752,11 @@ module FactPulse
     end
 
     # Configure client PDP
-    # Configure or update the PDP (PA/PDP) configuration for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Required fields**: - `flowServiceUrl`: PDP Flow Service URL - `tokenUrl`: PDP OAuth token URL - `oauthClientId`: OAuth Client ID - `clientSecret`: OAuth Client Secret (sent but NEVER returned)  **Optional fields**: - `isActive`: Enable/disable the config (default: true) - `modeSandbox`: Sandbox mode (default: false)  **Security**: The `clientSecret` is stored encrypted on Django side and is never returned in API responses.
+    # Configure or update the PDP (PA/PDP) configuration for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Required fields**: - `flowServiceUrl`: PDP Flow Service URL - `tokenUrl`: PDP OAuth token URL - `oauthClientId`: OAuth Client ID - `clientSecret`: OAuth Client Secret (sent but NEVER returned)  **Optional fields**: - `isActive`: Enable/disable the config (default: true) - `modeSandbox`: Sandbox mode (default: false) - `encryptionMode`: Encryption mode (default: \"fernet\")   - \"fernet\": Server-side encryption only   - \"double\": Client AES-256-GCM + Server Fernet (requires X-Encryption-Key header)  **Double Encryption Mode**: When `encryptionMode` is set to \"double\", you MUST also provide the `X-Encryption-Key` header containing a base64-encoded AES-256 key (32 bytes). This key is used to encrypt the `clientSecret` on the client side before the server encrypts it again with Fernet. The server cannot decrypt the secret without the client key.  **Security**: The `clientSecret` is stored encrypted on Django side and is never returned in API responses.
     # @param uid [String] 
     # @param pdp_config_update_request [PDPConfigUpdateRequest] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :x_encryption_key Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;.
     # @return [PDPConfigResponse]
     def update_pdp_config_api_v1_clients_uid_pdp_config_put(uid, pdp_config_update_request, opts = {})
       data, _status_code, _headers = update_pdp_config_api_v1_clients_uid_pdp_config_put_with_http_info(uid, pdp_config_update_request, opts)
@@ -500,10 +764,11 @@ module FactPulse
     end
 
     # Configure client PDP
-    # Configure or update the PDP (PA/PDP) configuration for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Required fields**: - &#x60;flowServiceUrl&#x60;: PDP Flow Service URL - &#x60;tokenUrl&#x60;: PDP OAuth token URL - &#x60;oauthClientId&#x60;: OAuth Client ID - &#x60;clientSecret&#x60;: OAuth Client Secret (sent but NEVER returned)  **Optional fields**: - &#x60;isActive&#x60;: Enable/disable the config (default: true) - &#x60;modeSandbox&#x60;: Sandbox mode (default: false)  **Security**: The &#x60;clientSecret&#x60; is stored encrypted on Django side and is never returned in API responses.
+    # Configure or update the PDP (PA/PDP) configuration for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Required fields**: - &#x60;flowServiceUrl&#x60;: PDP Flow Service URL - &#x60;tokenUrl&#x60;: PDP OAuth token URL - &#x60;oauthClientId&#x60;: OAuth Client ID - &#x60;clientSecret&#x60;: OAuth Client Secret (sent but NEVER returned)  **Optional fields**: - &#x60;isActive&#x60;: Enable/disable the config (default: true) - &#x60;modeSandbox&#x60;: Sandbox mode (default: false) - &#x60;encryptionMode&#x60;: Encryption mode (default: \&quot;fernet\&quot;)   - \&quot;fernet\&quot;: Server-side encryption only   - \&quot;double\&quot;: Client AES-256-GCM + Server Fernet (requires X-Encryption-Key header)  **Double Encryption Mode**: When &#x60;encryptionMode&#x60; is set to \&quot;double\&quot;, you MUST also provide the &#x60;X-Encryption-Key&#x60; header containing a base64-encoded AES-256 key (32 bytes). This key is used to encrypt the &#x60;clientSecret&#x60; on the client side before the server encrypts it again with Fernet. The server cannot decrypt the secret without the client key.  **Security**: The &#x60;clientSecret&#x60; is stored encrypted on Django side and is never returned in API responses.
     # @param uid [String] 
     # @param pdp_config_update_request [PDPConfigUpdateRequest] 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :x_encryption_key Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;.
     # @return [Array<(PDPConfigResponse, Integer, Hash)>] PDPConfigResponse data, response status code and response headers
     def update_pdp_config_api_v1_clients_uid_pdp_config_put_with_http_info(uid, pdp_config_update_request, opts = {})
       if @api_client.config.debugging
@@ -532,6 +797,7 @@ module FactPulse
       if !content_type.nil?
           header_params['Content-Type'] = content_type
       end
+      header_params[:'X-Encryption-Key'] = opts[:'x_encryption_key'] if !opts[:'x_encryption_key'].nil?
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -543,7 +809,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'PDPConfigResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"ClientManagementApi.update_pdp_config_api_v1_clients_uid_pdp_config_put",

@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # PDP configuration update request.
+  # PDP configuration update request.  For encryption_mode='double', the X-Encryption-Key header must also be provided containing a base64-encoded AES-256 key (32 bytes).
   class PDPConfigUpdateRequest < ApiModelBase
     # Whether config is active
     attr_accessor :is_active
@@ -34,6 +34,30 @@ module FactPulse
     # OAuth Client Secret (sent but never returned)
     attr_accessor :client_secret
 
+    attr_accessor :encryption_mode
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -42,7 +66,8 @@ module FactPulse
         :'flow_service_url' => :'flowServiceUrl',
         :'token_url' => :'tokenUrl',
         :'oauth_client_id' => :'oauthClientId',
-        :'client_secret' => :'clientSecret'
+        :'client_secret' => :'clientSecret',
+        :'encryption_mode' => :'encryptionMode'
       }
     end
 
@@ -64,13 +89,15 @@ module FactPulse
         :'flow_service_url' => :'String',
         :'token_url' => :'String',
         :'oauth_client_id' => :'String',
-        :'client_secret' => :'String'
+        :'client_secret' => :'String',
+        :'encryption_mode' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'encryption_mode'
       ])
     end
 
@@ -125,6 +152,10 @@ module FactPulse
       else
         self.client_secret = nil
       end
+
+      if attributes.key?(:'encryption_mode')
+        self.encryption_mode = attributes[:'encryption_mode']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -159,6 +190,8 @@ module FactPulse
       return false if @token_url.nil?
       return false if @oauth_client_id.nil?
       return false if @client_secret.nil?
+      encryption_mode_validator = EnumAttributeValidator.new('String', ["fernet", "double"])
+      return false unless encryption_mode_validator.valid?(@encryption_mode)
       true
     end
 
@@ -202,6 +235,16 @@ module FactPulse
       @client_secret = client_secret
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] encryption_mode Object to be assigned
+    def encryption_mode=(encryption_mode)
+      validator = EnumAttributeValidator.new('String', ["fernet", "double"])
+      unless validator.valid?(encryption_mode)
+        fail ArgumentError, "invalid value for \"encryption_mode\", must be one of #{validator.allowable_values}."
+      end
+      @encryption_mode = encryption_mode
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -212,7 +255,8 @@ module FactPulse
           flow_service_url == o.flow_service_url &&
           token_url == o.token_url &&
           oauth_client_id == o.oauth_client_id &&
-          client_secret == o.client_secret
+          client_secret == o.client_secret &&
+          encryption_mode == o.encryption_mode
     end
 
     # @see the `==` method
@@ -224,7 +268,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [is_active, mode_sandbox, flow_service_url, token_url, oauth_client_id, client_secret].hash
+      [is_active, mode_sandbox, flow_service_url, token_url, oauth_client_id, client_secret, encryption_mode].hash
     end
 
     # Builds the object from hash

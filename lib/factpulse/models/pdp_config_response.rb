@@ -31,6 +31,8 @@ module FactPulse
 
     attr_accessor :oauth_client_id
 
+    attr_accessor :encryption_mode
+
     attr_accessor :secret_status
 
     attr_accessor :last_test_at
@@ -55,6 +57,7 @@ module FactPulse
         :'flow_service_url' => :'flowServiceUrl',
         :'token_url' => :'tokenUrl',
         :'oauth_client_id' => :'oauthClientId',
+        :'encryption_mode' => :'encryptionMode',
         :'secret_status' => :'secretStatus',
         :'last_test_at' => :'lastTestAt',
         :'last_test_success' => :'lastTestSuccess',
@@ -85,6 +88,7 @@ module FactPulse
         :'flow_service_url' => :'String',
         :'token_url' => :'String',
         :'oauth_client_id' => :'String',
+        :'encryption_mode' => :'String',
         :'secret_status' => :'SecretStatus',
         :'last_test_at' => :'Time',
         :'last_test_success' => :'Boolean',
@@ -104,6 +108,7 @@ module FactPulse
         :'flow_service_url',
         :'token_url',
         :'oauth_client_id',
+        :'encryption_mode',
         :'secret_status',
         :'last_test_at',
         :'last_test_success',
@@ -158,6 +163,10 @@ module FactPulse
 
       if attributes.key?(:'oauth_client_id')
         self.oauth_client_id = attributes[:'oauth_client_id']
+      end
+
+      if attributes.key?(:'encryption_mode')
+        self.encryption_mode = attributes[:'encryption_mode']
       end
 
       if attributes.key?(:'secret_status')
@@ -231,6 +240,7 @@ module FactPulse
           flow_service_url == o.flow_service_url &&
           token_url == o.token_url &&
           oauth_client_id == o.oauth_client_id &&
+          encryption_mode == o.encryption_mode &&
           secret_status == o.secret_status &&
           last_test_at == o.last_test_at &&
           last_test_success == o.last_test_success &&
@@ -249,7 +259,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [is_configured, id, is_active, mode_sandbox, flow_service_url, token_url, oauth_client_id, secret_status, last_test_at, last_test_success, last_test_error, created_at, updated_at, message].hash
+      [is_configured, id, is_active, mode_sandbox, flow_service_url, token_url, oauth_client_id, encryption_mode, secret_status, last_test_at, last_test_success, last_test_error, created_at, updated_at, message].hash
     end
 
     # Builds the object from hash

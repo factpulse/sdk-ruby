@@ -48,8 +48,8 @@ module FactPulse
     def self.openapi_types
       {
         :'valid' => :'Boolean',
-        :'errors' => :'Array<FactureElectroniqueRestApiSchemasCdarValidationErrorResponse>',
-        :'warnings' => :'Array<FactureElectroniqueRestApiSchemasCdarValidationErrorResponse>'
+        :'errors' => :'Array<ValidationErrorResponse>',
+        :'warnings' => :'Array<ValidationErrorResponse>'
       }
     end
 

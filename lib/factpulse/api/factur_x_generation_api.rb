@@ -90,7 +90,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'TaskResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXGenerationApi.generate_invoice_api_v1_processing_generate_invoice_post",
@@ -158,7 +158,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'SubmitCompleteInvoiceResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXGenerationApi.submit_complete_invoice_api_v1_processing_invoices_submit_complete_post",
@@ -232,7 +232,7 @@ module FactPulse
       return_type = opts[:debug_return_type] || 'TaskResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['HTTPBearer']
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
 
       new_options = opts.merge(
         :operation => :"FacturXGenerationApi.submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post",

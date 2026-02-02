@@ -251,6 +251,13 @@ module FactPulse
             key: 'Authorization',
             value: "Bearer #{access_token_with_refresh}"
           },
+        'APIKeyHeader' =>
+          {
+            type: 'api_key',
+            in: 'header',
+            key: 'X-API-Key',
+            value: api_key_with_prefix('X-API-Key')
+          },
       }
     end
 

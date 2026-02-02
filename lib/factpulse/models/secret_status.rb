@@ -22,11 +22,17 @@ module FactPulse
     # Descriptive status message
     attr_accessor :message
 
+    attr_accessor :encryption_mode
+
+    attr_accessor :requires_client_key
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'status' => :'status',
-        :'message' => :'message'
+        :'message' => :'message',
+        :'encryption_mode' => :'encryptionMode',
+        :'requires_client_key' => :'requiresClientKey'
       }
     end
 
@@ -44,13 +50,17 @@ module FactPulse
     def self.openapi_types
       {
         :'status' => :'String',
-        :'message' => :'String'
+        :'message' => :'String',
+        :'encryption_mode' => :'String',
+        :'requires_client_key' => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'encryption_mode',
+        :'requires_client_key'
       ])
     end
 
@@ -80,6 +90,14 @@ module FactPulse
         self.message = attributes[:'message']
       else
         self.message = nil
+      end
+
+      if attributes.key?(:'encryption_mode')
+        self.encryption_mode = attributes[:'encryption_mode']
+      end
+
+      if attributes.key?(:'requires_client_key')
+        self.requires_client_key = attributes[:'requires_client_key']
       end
     end
 
@@ -134,7 +152,9 @@ module FactPulse
       return true if self.equal?(o)
       self.class == o.class &&
           status == o.status &&
-          message == o.message
+          message == o.message &&
+          encryption_mode == o.encryption_mode &&
+          requires_client_key == o.requires_client_key
     end
 
     # @see the `==` method
@@ -146,7 +166,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [status, message].hash
+      [status, message, encryption_mode, requires_client_key].hash
     end
 
     # Builds the object from hash

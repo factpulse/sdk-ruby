@@ -14,26 +14,18 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Erreur de validation.
-  class FactureElectroniqueRestApiSchemasCdarValidationErrorResponse < ApiModelBase
-    # Champ concerné
-    attr_accessor :field
+  # Webhook secret status for a client.
+  class WebhookSecretStatusResponse < ApiModelBase
+    # Whether a webhook secret is configured
+    attr_accessor :has_secret
 
-    # Message d'erreur
-    attr_accessor :message
-
-    attr_accessor :rule
-
-    # Sévérité (error/warning)
-    attr_accessor :severity
+    attr_accessor :created_at
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'field' => :'field',
-        :'message' => :'message',
-        :'rule' => :'rule',
-        :'severity' => :'severity'
+        :'has_secret' => :'hasSecret',
+        :'created_at' => :'createdAt'
       }
     end
 
@@ -50,17 +42,15 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'field' => :'String',
-        :'message' => :'String',
-        :'rule' => :'String',
-        :'severity' => :'String'
+        :'has_secret' => :'Boolean',
+        :'created_at' => :'Time'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'rule',
+        :'created_at'
       ])
     end
 
@@ -68,38 +58,26 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureElectroniqueRestApiSchemasCdarValidationErrorResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::WebhookSecretStatusResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureElectroniqueRestApiSchemasCdarValidationErrorResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::WebhookSecretStatusResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'field')
-        self.field = attributes[:'field']
+      if attributes.key?(:'has_secret')
+        self.has_secret = attributes[:'has_secret']
       else
-        self.field = nil
+        self.has_secret = nil
       end
 
-      if attributes.key?(:'message')
-        self.message = attributes[:'message']
-      else
-        self.message = nil
-      end
-
-      if attributes.key?(:'rule')
-        self.rule = attributes[:'rule']
-      end
-
-      if attributes.key?(:'severity')
-        self.severity = attributes[:'severity']
-      else
-        self.severity = 'error'
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
     end
 
@@ -108,12 +86,8 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @field.nil?
-        invalid_properties.push('invalid value for "field", field cannot be nil.')
-      end
-
-      if @message.nil?
-        invalid_properties.push('invalid value for "message", message cannot be nil.')
+      if @has_secret.nil?
+        invalid_properties.push('invalid value for "has_secret", has_secret cannot be nil.')
       end
 
       invalid_properties
@@ -123,29 +97,18 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @field.nil?
-      return false if @message.nil?
+      return false if @has_secret.nil?
       true
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] field Value to be assigned
-    def field=(field)
-      if field.nil?
-        fail ArgumentError, 'field cannot be nil'
+    # @param [Object] has_secret Value to be assigned
+    def has_secret=(has_secret)
+      if has_secret.nil?
+        fail ArgumentError, 'has_secret cannot be nil'
       end
 
-      @field = field
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] message Value to be assigned
-    def message=(message)
-      if message.nil?
-        fail ArgumentError, 'message cannot be nil'
-      end
-
-      @message = message
+      @has_secret = has_secret
     end
 
     # Checks equality by comparing each attribute.
@@ -153,10 +116,8 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          field == o.field &&
-          message == o.message &&
-          rule == o.rule &&
-          severity == o.severity
+          has_secret == o.has_secret &&
+          created_at == o.created_at
     end
 
     # @see the `==` method
@@ -168,7 +129,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [field, message, rule, severity].hash
+      [has_secret, created_at].hash
     end
 
     # Builds the object from hash
