@@ -8,6 +8,7 @@ All URIs are relative to *https://factpulse.fr*
 | [**download_file_api_v1_convert_conversion_id_download_filename_get**](FacturXConversionApi.md#download_file_api_v1_convert_conversion_id_download_filename_get) | **GET** /api/v1/convert/{conversion_id}/download/{filename} | Download a generated file |
 | [**get_conversion_status_api_v1_convert_conversion_id_status_get**](FacturXConversionApi.md#get_conversion_status_api_v1_convert_conversion_id_status_get) | **GET** /api/v1/convert/{conversion_id}/status | Check conversion status |
 | [**resume_conversion_api_v1_convert_conversion_id_resume_post**](FacturXConversionApi.md#resume_conversion_api_v1_convert_conversion_id_resume_post) | **POST** /api/v1/convert/{conversion_id}/resume | Resume a conversion with corrections |
+| [**resume_conversion_async_api_v1_convert_conversion_id_resume_async_post**](FacturXConversionApi.md#resume_conversion_async_api_v1_convert_conversion_id_resume_async_post) | **POST** /api/v1/convert/{conversion_id}/resume/async | Resume a conversion asynchronously |
 
 
 ## convert_document_async_api_v1_convert_async_post
@@ -307,6 +308,82 @@ end
 ### Return type
 
 [**ConvertSuccessResponse**](ConvertSuccessResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## resume_conversion_async_api_v1_convert_conversion_id_resume_async_post
+
+> Object resume_conversion_async_api_v1_convert_conversion_id_resume_async_post(conversion_id, convert_resume_request)
+
+Resume a conversion asynchronously
+
+Resume a conversion after completing missing data or correcting errors (async mode).  The OCR extraction is preserved, data is updated with corrections, then processing is performed asynchronously via Celery.  ## Workflow  1. **Submit corrections**: Corrections are validated and task is queued 2. **Celery Task**: Task processes corrections and generates Factur-X 3. **Callback**: Webhook notification on completion  ## Possible responses  - **202**: Task accepted, processing - **404**: Conversion not found or expired
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::FacturXConversionApi.new
+conversion_id = 'conversion_id_example' # String | Conversion ID returned by POST /convert (UUID format)
+convert_resume_request = FactPulse::ConvertResumeRequest.new # ConvertResumeRequest | 
+
+begin
+  # Resume a conversion asynchronously
+  result = api_instance.resume_conversion_async_api_v1_convert_conversion_id_resume_async_post(conversion_id, convert_resume_request)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling FacturXConversionApi->resume_conversion_async_api_v1_convert_conversion_id_resume_async_post: #{e}"
+end
+```
+
+#### Using the resume_conversion_async_api_v1_convert_conversion_id_resume_async_post_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(Object, Integer, Hash)> resume_conversion_async_api_v1_convert_conversion_id_resume_async_post_with_http_info(conversion_id, convert_resume_request)
+
+```ruby
+begin
+  # Resume a conversion asynchronously
+  data, status_code, headers = api_instance.resume_conversion_async_api_v1_convert_conversion_id_resume_async_post_with_http_info(conversion_id, convert_resume_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => Object
+rescue FactPulse::ApiError => e
+  puts "Error when calling FacturXConversionApi->resume_conversion_async_api_v1_convert_conversion_id_resume_async_post_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **conversion_id** | **String** | Conversion ID returned by POST /convert (UUID format) |  |
+| **convert_resume_request** | [**ConvertResumeRequest**](ConvertResumeRequest.md) |  |  |
+
+### Return type
+
+**Object**
 
 ### Authorization
 

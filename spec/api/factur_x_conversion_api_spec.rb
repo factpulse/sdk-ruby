@@ -85,4 +85,17 @@ describe 'FacturXConversionApi' do
     end
   end
 
+  # unit tests for resume_conversion_async_api_v1_convert_conversion_id_resume_async_post
+  # Resume a conversion asynchronously
+  # Resume a conversion after completing missing data or correcting errors (async mode).  The OCR extraction is preserved, data is updated with corrections, then processing is performed asynchronously via Celery.  ## Workflow  1. **Submit corrections**: Corrections are validated and task is queued 2. **Celery Task**: Task processes corrections and generates Factur-X 3. **Callback**: Webhook notification on completion  ## Possible responses  - **202**: Task accepted, processing - **404**: Conversion not found or expired
+  # @param conversion_id Conversion ID returned by POST /convert (UUID format)
+  # @param convert_resume_request 
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'resume_conversion_async_api_v1_convert_conversion_id_resume_async_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
 end

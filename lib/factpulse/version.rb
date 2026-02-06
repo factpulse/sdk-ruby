@@ -11,5 +11,5 @@ Generator version: 7.20.0-SNAPSHOT
 =end
 
 module FactPulse
-  VERSION = '0.1.0'
+  VERSION = '4.0.3'
 end

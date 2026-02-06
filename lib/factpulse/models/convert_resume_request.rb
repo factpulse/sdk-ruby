@@ -14,15 +14,22 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Requete de reprise de conversion avec corrections.  Le champ `overrides` accepte n'importe quel sous-ensemble de FacturXInvoice. Seuls les champs fournis seront mis a jour (merge profond).  Exemple:     {         \"overrides\": {             \"supplier\": {                 \"name\": \"Ma Société\",                 \"siret\": \"12345678901234\"             },             \"totals\": {                 \"total_net_amount\": 1000.00             }         }     }
+  # Requete de reprise de conversion avec corrections.  Le champ `overrides` accepte n'importe quel sous-ensemble de FacturXInvoice. Seuls les champs fournis seront mis a jour (merge profond).  Exemple:     {         \"overrides\": {             \"supplier\": {                 \"name\": \"Ma Société\",                 \"siret\": \"12345678901234\"             },             \"totals\": {                 \"total_net_amount\": 1000.00             }         },         \"callback_url\": \"https://example.com/webhook\",         \"webhook_mode\": \"inline\"     }
   class ConvertResumeRequest < ApiModelBase
     # Sous-ensemble de FacturXInvoice a mettre a jour (merge profond)
     attr_accessor :overrides
 
+    attr_accessor :callback_url
+
+    # Mode de livraison webhook: 'inline' ou 'download_url'
+    attr_accessor :webhook_mode
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'overrides' => :'overrides'
+        :'overrides' => :'overrides',
+        :'callback_url' => :'callback_url',
+        :'webhook_mode' => :'webhook_mode'
       }
     end
 
@@ -39,13 +46,16 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'overrides' => :'Hash<String, Object>'
+        :'overrides' => :'Hash<String, Object>',
+        :'callback_url' => :'String',
+        :'webhook_mode' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'callback_url',
       ])
     end
 
@@ -70,6 +80,16 @@ module FactPulse
           self.overrides = value
         end
       end
+
+      if attributes.key?(:'callback_url')
+        self.callback_url = attributes[:'callback_url']
+      end
+
+      if attributes.key?(:'webhook_mode')
+        self.webhook_mode = attributes[:'webhook_mode']
+      else
+        self.webhook_mode = 'inline'
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -92,7 +112,9 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          overrides == o.overrides
+          overrides == o.overrides &&
+          callback_url == o.callback_url &&
+          webhook_mode == o.webhook_mode
     end
 
     # @see the `==` method
@@ -104,7 +126,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [overrides].hash
+      [overrides, callback_url, webhook_mode].hash
     end
 
     # Builds the object from hash

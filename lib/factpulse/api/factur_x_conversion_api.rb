@@ -302,5 +302,79 @@ module FactPulse
       end
       return data, status_code, headers
     end
+
+    # Resume a conversion asynchronously
+    # Resume a conversion after completing missing data or correcting errors (async mode).  The OCR extraction is preserved, data is updated with corrections, then processing is performed asynchronously via Celery.  ## Workflow  1. **Submit corrections**: Corrections are validated and task is queued 2. **Celery Task**: Task processes corrections and generates Factur-X 3. **Callback**: Webhook notification on completion  ## Possible responses  - **202**: Task accepted, processing - **404**: Conversion not found or expired
+    # @param conversion_id [String] Conversion ID returned by POST /convert (UUID format)
+    # @param convert_resume_request [ConvertResumeRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def resume_conversion_async_api_v1_convert_conversion_id_resume_async_post(conversion_id, convert_resume_request, opts = {})
+      data, _status_code, _headers = resume_conversion_async_api_v1_convert_conversion_id_resume_async_post_with_http_info(conversion_id, convert_resume_request, opts)
+      data
+    end
+
+    # Resume a conversion asynchronously
+    # Resume a conversion after completing missing data or correcting errors (async mode).  The OCR extraction is preserved, data is updated with corrections, then processing is performed asynchronously via Celery.  ## Workflow  1. **Submit corrections**: Corrections are validated and task is queued 2. **Celery Task**: Task processes corrections and generates Factur-X 3. **Callback**: Webhook notification on completion  ## Possible responses  - **202**: Task accepted, processing - **404**: Conversion not found or expired
+    # @param conversion_id [String] Conversion ID returned by POST /convert (UUID format)
+    # @param convert_resume_request [ConvertResumeRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def resume_conversion_async_api_v1_convert_conversion_id_resume_async_post_with_http_info(conversion_id, convert_resume_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: FacturXConversionApi.resume_conversion_async_api_v1_convert_conversion_id_resume_async_post ...'
+      end
+      # verify the required parameter 'conversion_id' is set
+      if @api_client.config.client_side_validation && conversion_id.nil?
+        fail ArgumentError, "Missing the required parameter 'conversion_id' when calling FacturXConversionApi.resume_conversion_async_api_v1_convert_conversion_id_resume_async_post"
+      end
+      # verify the required parameter 'convert_resume_request' is set
+      if @api_client.config.client_side_validation && convert_resume_request.nil?
+        fail ArgumentError, "Missing the required parameter 'convert_resume_request' when calling FacturXConversionApi.resume_conversion_async_api_v1_convert_conversion_id_resume_async_post"
+      end
+      # resource path
+      local_var_path = '/api/v1/convert/{conversion_id}/resume/async'.sub('{' + 'conversion_id' + '}', CGI.escape(conversion_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(convert_resume_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"FacturXConversionApi.resume_conversion_async_api_v1_convert_conversion_id_resume_async_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: FacturXConversionApi#resume_conversion_async_api_v1_convert_conversion_id_resume_async_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
   end
 end
