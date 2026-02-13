@@ -1,21 +1,21 @@
-# FactPulse::FacturXGenerationApi
+# FactPulse::InvoiceGenerationApi
 
 All URIs are relative to *https://factpulse.fr*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**generate_invoice_api_v1_processing_generate_invoice_post**](FacturXGenerationApi.md#generate_invoice_api_v1_processing_generate_invoice_post) | **POST** /api/v1/processing/generate-invoice | Generate a Factur-X invoice |
-| [**submit_complete_invoice_api_v1_processing_invoices_submit_complete_post**](FacturXGenerationApi.md#submit_complete_invoice_api_v1_processing_invoices_submit_complete_post) | **POST** /api/v1/processing/invoices/submit-complete | Submit a complete invoice (generation + signature + submission) |
-| [**submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post**](FacturXGenerationApi.md#submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post) | **POST** /api/v1/processing/invoices/submit-complete-async | Submit a complete invoice (asynchronous with Celery) |
+| [**generate_invoice_api_v1_processing_generate_invoice_post**](InvoiceGenerationApi.md#generate_invoice_api_v1_processing_generate_invoice_post) | **POST** /api/v1/processing/generate-invoice | Generate an electronic invoice (CII / UBL / Factur-X PDF) |
+| [**submit_complete_invoice_api_v1_processing_invoices_submit_complete_post**](InvoiceGenerationApi.md#submit_complete_invoice_api_v1_processing_invoices_submit_complete_post) | **POST** /api/v1/processing/invoices/submit-complete | Submit a complete invoice (generation + signature + submission) |
+| [**submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post**](InvoiceGenerationApi.md#submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post) | **POST** /api/v1/processing/invoices/submit-complete-async | Submit a complete invoice (asynchronous with Celery) |
 
 
 ## generate_invoice_api_v1_processing_generate_invoice_post
 
 > <TaskResponse> generate_invoice_api_v1_processing_generate_invoice_post(invoice_data, opts)
 
-Generate a Factur-X invoice
+Generate an electronic invoice (CII / UBL / Factur-X PDF)
 
-Generates an electronic invoice in Factur-X format compliant with European standards.  ## Applied Standards  - **Factur-X** (France): FNFE-MPE standard (Forum National de la Facture Électronique) - **ZUGFeRD** (Germany): German format compatible with Factur-X - **EN 16931**: European semantic standard for electronic invoicing - **ISO 19005-3** (PDF/A-3): Long-term electronic archiving - **Cross Industry Invoice (CII)**: UN/CEFACT XML syntax  ## 🆕 New: Simplified format with auto-enrichment (P0.1)  You can now create an invoice by providing only: - An invoice number - A supplier SIRET + **IBAN** (required) - A recipient SIRET - Invoice lines (description, quantity, net price)  **Simplified format example**: ```json {   \"number\": \"FACT-2025-001\",   \"supplier\": {     \"siret\": \"92019522900017\",     \"iban\": \"FR7630001007941234567890185\"   },   \"recipient\": {\"siret\": \"35600000000048\"},   \"lines\": [     {\"description\": \"Service\", \"quantity\": 10, \"unitPrice\": 100.00, \"vatRate\": 20.0}   ] } ```  **⚠️ Required fields (simplified format)**: - `number`: Unique invoice number - `supplier.siret`: Supplier's SIRET (14 digits) - `supplier.iban`: Bank account IBAN (no public API to retrieve it) - `recipient.siret`: Recipient's SIRET - `lines[]`: At least one invoice line  **What happens automatically with `auto_enrich=True`**: - ✅ Name enrichment from Chorus Pro API - ✅ Address enrichment from Business Search API (free, public) - ✅ Automatic intra-EU VAT calculation (FR + key + SIREN) - ✅ Chorus Pro ID retrieval for electronic invoicing - ✅ Net/VAT/Gross totals calculation - ✅ Date generation (today + 30-day due date) - ✅ Multi-rate VAT handling  **Supported identifiers**: - SIRET (14 digits): Specific establishment ⭐ Recommended - SIREN (9 digits): Company (auto-selection of headquarters) - Special types: UE_HORS_FRANCE, RIDET, TAHITI, etc.  ## Checks performed during generation  ### 1. Data validation (Pydantic) - Data types (amounts as Decimal, ISO 8601 dates) - Formats (14-digit SIRET, 9-digit SIREN, IBAN) - Required fields per profile - Amount consistency (Net + VAT = Gross)  ### 2. CII-compliant XML generation - Serialization according to Cross Industry Invoice XSD schema - Correct UN/CEFACT namespaces - Hierarchical structure respected - UTF-8 encoding without BOM  ### 3. Schematron validation - Business rules for selected profile (MINIMUM, BASIC, EN16931, EXTENDED) - Element cardinality (required, optional, repeatable) - Calculation rules (totals, VAT, discounts) - European EN 16931 compliance  ### 4. PDF/A-3 conversion (if output_format='pdf') - Source PDF conversion to PDF/A-3 via Ghostscript - Factur-X XML embedding in PDF - Compliant XMP metadata - ICC sRGB color profile - Removal of forbidden elements (JavaScript, forms)  ## How it works  1. **Submission**: Invoice is queued in Celery for asynchronous processing 2. **Immediate return**: You receive a `task_id` (HTTP 202 Accepted) 3. **Tracking**: Use the `/tasks/{task_id}/status` endpoint to track progress  ## Webhook notification (recommended)  Instead of polling, you can receive a webhook notification when the task completes:  ``` callback_url=https://your-server.com/webhook ```  The webhook will POST a JSON payload with: - `event_type`: `generation.completed` or `generation.failed` - `data.task_id`: The Celery task ID - `data.content_b64` or `data.xml_content`: The generated content - `X-Webhook-Signature` header for HMAC verification  See `/docs/WEBHOOKS.md` for full documentation.  ## Output formats  - **xml**: Generates only Factur-X XML (recommended for testing) - **pdf**: Generates PDF/A-3 with embedded XML (requires `source_pdf`)  ## Factur-X profiles  - **MINIMUM**: Minimal data (simplified invoice) - **BASIC**: Basic information (SMEs) - **EN16931**: European standard (recommended, compliant with directive 2014/55/EU) - **EXTENDED**: All available data (large accounts)  ## What you get  After successful processing (status `completed`): - **XML only**: Base64-encoded Factur-X compliant XML file - **PDF/A-3**: PDF with embedded XML, ready for sending/archiving - **Metadata**: Profile, Factur-X version, file size - **Validation**: Schematron compliance confirmation  ## Validation  Data is automatically validated according to detected format. On error, a 422 status is returned with invalid field details.
+Generates an electronic invoice compliant with European standards.  Supports **two XML syntaxes** defined by EN 16931: - **CII** (Cross-Industry Invoice, UN/CEFACT) — the Factur-X / ZUGFeRD syntax - **UBL 2.1** (Universal Business Language, OASIS) — the Peppol BIS Billing syntax  ## Applied Standards  - **EN 16931**: European semantic standard for electronic invoicing - **Factur-X / ZUGFeRD** (CII syntax): Franco-German standard - **UBL 2.1** (OASIS): International standard, used by Peppol - **ISO 19005-3** (PDF/A-3): Long-term electronic archiving (PDF output only) - **Schematron**: Business rules validation (EN16931-CII, EN16931-UBL, BR-FR)  ## 🆕 New: Simplified format with auto-enrichment (P0.1)  You can now create an invoice by providing only: - An invoice number - A supplier SIRET + **IBAN** (required) - A recipient SIRET - Invoice lines (description, quantity, net price)  **Simplified format example**: ```json {   \"number\": \"FACT-2025-001\",   \"supplier\": {     \"siret\": \"92019522900017\",     \"iban\": \"FR7630001007941234567890185\"   },   \"recipient\": {\"siret\": \"35600000000048\"},   \"lines\": [     {\"description\": \"Service\", \"quantity\": 10, \"unitPrice\": 100.00, \"vatRate\": 20.0}   ] } ```  **⚠️ Required fields (simplified format)**: - `number`: Unique invoice number - `supplier.siret`: Supplier's SIRET (14 digits) - `supplier.iban`: Bank account IBAN (no public API to retrieve it) - `recipient.siret`: Recipient's SIRET - `lines[]`: At least one invoice line  **What happens automatically with `auto_enrich=True`**: - ✅ Name enrichment from Chorus Pro API - ✅ Address enrichment from Business Search API (free, public) - ✅ Automatic intra-EU VAT calculation (FR + key + SIREN) - ✅ Chorus Pro ID retrieval for electronic invoicing - ✅ Net/VAT/Gross totals calculation - ✅ Date generation (today + 30-day due date) - ✅ Multi-rate VAT handling  **Supported identifiers**: - SIRET (14 digits): Specific establishment ⭐ Recommended - SIREN (9 digits): Company (auto-selection of headquarters) - Special types: UE_HORS_FRANCE, RIDET, TAHITI, etc.  ## Checks performed during generation  ### 1. Data validation (Pydantic) - Data types (amounts as Decimal, ISO 8601 dates) - Formats (14-digit SIRET, 9-digit SIREN, IBAN) - Required fields per profile - Amount consistency (Net + VAT = Gross)  ### 2. CII-compliant XML generation - Serialization according to Cross Industry Invoice XSD schema - Correct UN/CEFACT namespaces - Hierarchical structure respected - UTF-8 encoding without BOM  ### 3. Schematron validation - Business rules for selected profile (MINIMUM, BASIC, EN16931, EXTENDED) - Element cardinality (required, optional, repeatable) - Calculation rules (totals, VAT, discounts) - European EN 16931 compliance  ### 4. PDF/A-3 conversion (if output_format='pdf') - Source PDF conversion to PDF/A-3 via Ghostscript - Factur-X XML embedding in PDF - Compliant XMP metadata - ICC sRGB color profile - Removal of forbidden elements (JavaScript, forms)  ## How it works  1. **Submission**: Invoice is queued in Celery for asynchronous processing 2. **Immediate return**: You receive a `task_id` (HTTP 202 Accepted) 3. **Tracking**: Use the `/tasks/{task_id}/status` endpoint to track progress  ## Webhook notification (recommended)  Instead of polling, you can receive a webhook notification when the task completes:  ``` callback_url=https://your-server.com/webhook ```  The webhook will POST a JSON payload with: - `event_type`: `generation.completed` or `generation.failed` - `data.task_id`: The Celery task ID - `data.content_b64` or `data.xml_content`: The generated content - `X-Webhook-Signature` header for HMAC verification  See `/docs/WEBHOOKS.md` for full documentation.  ## Output formats  - **xml** / **cii**: CII XML (Factur-X syntax, UN/CEFACT) - **ubl**: UBL 2.1 XML (OASIS, Peppol BIS Billing 3.0) - **pdf**: Factur-X PDF/A-3 with embedded CII XML (requires `source_pdf`)  ## Factur-X profiles (CII only)  - **MINIMUM**: Minimal data (simplified invoice) - **BASIC**: Basic information (SMEs) - **EN16931**: European standard (recommended, compliant with directive 2014/55/EU) - **EXTENDED**: All available data (large accounts)  When `output_format=ubl`, the profile parameter is ignored (UBL always uses EN16931).  ## What you get  After successful processing (status `completed`): - **XML only**: Base64-encoded Factur-X compliant XML file - **PDF/A-3**: PDF with embedded XML, ready for sending/archiving - **Metadata**: Profile, Factur-X version, file size - **Validation**: Schematron compliance confirmation  ## Validation  Data is automatically validated according to detected format. On error, a 422 status is returned with invalid field details.
 
 ### Examples
 
@@ -33,11 +33,11 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::FacturXGenerationApi.new
+api_instance = FactPulse::InvoiceGenerationApi.new
 invoice_data = 'invoice_data_example' # String | Invoice data in JSON format.              Two formats accepted:             1. **Classic format**: Complete FacturXInvoice structure (all fields)             2. **Simplified format** (🆕 P0.1): Minimal structure with auto-enrichment              Format is detected automatically!             
 opts = {
-  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED.
-  output_format: FactPulse::OutputFormat::XML, # OutputFormat | Output format: 'xml' (XML only) or 'pdf' (Factur-X PDF with embedded XML).
+  profile: FactPulse::APIProfile::MINIMUM, # APIProfile | Factur-X/CII profile: MINIMUM, BASIC, EN16931 or EXTENDED. Ignored when output_format='ubl' (always EN16931).
+  output_format: FactPulse::OutputFormat::XML, # OutputFormat | Output format: 'xml' or 'cii' (CII/Factur-X XML), 'ubl' (UBL 2.1 XML), 'pdf' (Factur-X PDF/A-3).
   auto_enrich: true, # Boolean | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only)
   source_pdf: File.new('/path/to/some/file'), # File | 
   callback_url: 'callback_url_example', # String | 
@@ -46,11 +46,11 @@ opts = {
 }
 
 begin
-  # Generate a Factur-X invoice
+  # Generate an electronic invoice (CII / UBL / Factur-X PDF)
   result = api_instance.generate_invoice_api_v1_processing_generate_invoice_post(invoice_data, opts)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling FacturXGenerationApi->generate_invoice_api_v1_processing_generate_invoice_post: #{e}"
+  puts "Error when calling InvoiceGenerationApi->generate_invoice_api_v1_processing_generate_invoice_post: #{e}"
 end
 ```
 
@@ -62,13 +62,13 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  # Generate a Factur-X invoice
+  # Generate an electronic invoice (CII / UBL / Factur-X PDF)
   data, status_code, headers = api_instance.generate_invoice_api_v1_processing_generate_invoice_post_with_http_info(invoice_data, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaskResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling FacturXGenerationApi->generate_invoice_api_v1_processing_generate_invoice_post_with_http_info: #{e}"
+  puts "Error when calling InvoiceGenerationApi->generate_invoice_api_v1_processing_generate_invoice_post_with_http_info: #{e}"
 end
 ```
 
@@ -77,8 +77,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **invoice_data** | **String** | Invoice data in JSON format.              Two formats accepted:             1. **Classic format**: Complete FacturXInvoice structure (all fields)             2. **Simplified format** (🆕 P0.1): Minimal structure with auto-enrichment              Format is detected automatically!              |  |
-| **profile** | [**APIProfile**](APIProfile.md) | Factur-X profile: MINIMUM, BASIC, EN16931 or EXTENDED. | [optional] |
-| **output_format** | [**OutputFormat**](OutputFormat.md) | Output format: &#39;xml&#39; (XML only) or &#39;pdf&#39; (Factur-X PDF with embedded XML). | [optional] |
+| **profile** | [**APIProfile**](APIProfile.md) | Factur-X/CII profile: MINIMUM, BASIC, EN16931 or EXTENDED. Ignored when output_format&#x3D;&#39;ubl&#39; (always EN16931). | [optional] |
+| **output_format** | [**OutputFormat**](OutputFormat.md) | Output format: &#39;xml&#39; or &#39;cii&#39; (CII/Factur-X XML), &#39;ubl&#39; (UBL 2.1 XML), &#39;pdf&#39; (Factur-X PDF/A-3). | [optional] |
 | **auto_enrich** | **Boolean** | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only) | [optional][default to true] |
 | **source_pdf** | **File** |  | [optional] |
 | **callback_url** | **String** |  | [optional] |
@@ -123,7 +123,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::FacturXGenerationApi.new
+api_instance = FactPulse::InvoiceGenerationApi.new
 submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::SimplifiedInvoiceData.new({number: 'number_example', supplier: { key: 3.56}, recipient: { key: 3.56}, lines: [{ key: 3.56}]}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
 
 begin
@@ -131,7 +131,7 @@ begin
   result = api_instance.submit_complete_invoice_api_v1_processing_invoices_submit_complete_post(submit_complete_invoice_request)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling FacturXGenerationApi->submit_complete_invoice_api_v1_processing_invoices_submit_complete_post: #{e}"
+  puts "Error when calling InvoiceGenerationApi->submit_complete_invoice_api_v1_processing_invoices_submit_complete_post: #{e}"
 end
 ```
 
@@ -149,7 +149,7 @@ begin
   p headers # => { ... }
   p data # => <SubmitCompleteInvoiceResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling FacturXGenerationApi->submit_complete_invoice_api_v1_processing_invoices_submit_complete_post_with_http_info: #{e}"
+  puts "Error when calling InvoiceGenerationApi->submit_complete_invoice_api_v1_processing_invoices_submit_complete_post_with_http_info: #{e}"
 end
 ```
 
@@ -197,7 +197,7 @@ FactPulse.configure do |config|
   config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
-api_instance = FactPulse::FacturXGenerationApi.new
+api_instance = FactPulse::InvoiceGenerationApi.new
 submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::SimplifiedInvoiceData.new({number: 'number_example', supplier: { key: 3.56}, recipient: { key: 3.56}, lines: [{ key: 3.56}]}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
 opts = {
   callback_url: 'callback_url_example', # String | Webhook URL for async notification when submission completes.
@@ -209,7 +209,7 @@ begin
   result = api_instance.submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post(submit_complete_invoice_request, opts)
   p result
 rescue FactPulse::ApiError => e
-  puts "Error when calling FacturXGenerationApi->submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post: #{e}"
+  puts "Error when calling InvoiceGenerationApi->submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post: #{e}"
 end
 ```
 
@@ -227,7 +227,7 @@ begin
   p headers # => { ... }
   p data # => <TaskResponse>
 rescue FactPulse::ApiError => e
-  puts "Error when calling FacturXGenerationApi->submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post_with_http_info: #{e}"
+  puts "Error when calling InvoiceGenerationApi->submit_complete_invoice_async_api_v1_processing_invoices_submit_complete_async_post_with_http_info: #{e}"
 end
 ```
 

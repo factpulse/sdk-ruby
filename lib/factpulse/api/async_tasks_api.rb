@@ -1,7 +1,7 @@
 =begin
 #FactPulse REST API
 
-# REST API for electronic invoicing in France: Factur-X, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Factur-X - Generation - **Formats**: XML only or PDF/A-3 with embedded XML - **Profiles**: MINIMUM, BASIC, EN16931, EXTENDED - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT) - **🆕 Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Factur-X - Validation - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules)  ### ✍️ Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification  ### 📋 Flux 6 - Invoice Lifecycle (CDAR) - **CDAR Messages**: Acknowledgements, invoice statuses - **PPF Statuses**: REFUSED (210), PAID (212)  ### 📊 Flux 10 - E-Reporting - **Tax Declarations**: International B2B, B2C - **Flow Types**: 10.1 (B2B transactions), 10.2 (B2B payments), 10.3 (B2C transactions), 10.4 (B2C payments)  ### 📡 AFNOR PDP/PA (XP Z12-013) - **Flow Service**: Submit and search flows to PDPs - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user  ### 🏛️ Chorus Pro - **Public Sector Invoicing**: Complete API for Chorus Pro  ### ⏳ Async Tasks - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **Webhooks**: Automatic notifications when tasks complete  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://factpulse.fr/api/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://factpulse.fr/documentation-api/     
+# REST API for electronic invoicing in France: Factur-X (CII), UBL 2.1, AFNOR PDP/PA, electronic signatures.  ## 🎯 Main Features  ### 📄 Invoice Generation - **Formats**: CII XML, UBL 2.1 XML, or Factur-X PDF/A-3 - **Profiles** (CII/PDF): MINIMUM, BASIC, EN16931, EXTENDED - **UBL**: Always EN16931 compliant - **Standards**: EN 16931 (EU directive 2014/55), ISO 19005-3 (PDF/A-3), CII (UN/CEFACT), UBL 2.1 (OASIS) - **Simplified Format**: Generation from SIRET + auto-enrichment (Chorus Pro API + Business Search)  ### ✅ Factur-X - Validation - **XML Validation**: Schematron (45 to 210+ rules depending on profile) - **PDF Validation**: PDF/A-3, Factur-X XMP metadata - **VeraPDF**: Strict PDF/A validation (146+ ISO 19005-3 rules)  ### ✍️ Electronic Signature - **Standards**: PAdES-B-B, PAdES-B-T (RFC 3161 timestamping), PAdES-B-LT (long-term archival) - **eIDAS Levels**: SES (self-signed), AdES (commercial CA), QES (QTSP) - **Validation**: Cryptographic integrity and certificate verification  ### 📋 Flux 6 - Invoice Lifecycle (CDAR) - **CDAR Messages**: Acknowledgements, invoice statuses - **PPF Statuses**: REFUSED (210), PAID (212)  ### 📊 Flux 10 - E-Reporting - **Tax Declarations**: International B2B, B2C - **Flow Types**: 10.1 (B2B transactions), 10.2 (B2B payments), 10.3 (B2C transactions), 10.4 (B2C payments)  ### 📡 AFNOR PDP/PA (XP Z12-013) - **Flow Service**: Submit and search flows to PDPs - **Directory Service**: Company search (SIREN/SIRET) - **Multi-client**: Support for multiple PDP configs per user  ### 🏛️ Chorus Pro - **Public Sector Invoicing**: Complete API for Chorus Pro  ### ⏳ Async Tasks - **Celery**: Asynchronous generation, validation and signing - **Polling**: Status tracking via `/tasks/{task_id}/status` - **Webhooks**: Automatic notifications when tasks complete  ## 🔒 Authentication  All requests require a **JWT token** in the Authorization header: ``` Authorization: Bearer YOUR_JWT_TOKEN ```  ### How to obtain a JWT token?  #### 🔑 Method 1: `/api/token/` API (Recommended)  **URL:** `https://factpulse.fr/api/token/`  This method is **recommended** for integration in your applications and CI/CD workflows.  **Prerequisites:** Having set a password on your account  **For users registered via email/password:** - You already have a password, use it directly  **For users registered via OAuth (Google/GitHub):** - You must first set a password at: https://factpulse.fr/accounts/password/set/ - Once the password is created, you can use the API  **Request example:** ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\"   }' ```  **Optional `client_uid` parameter:**  To select credentials for a specific client (PA/PDP, Chorus Pro, signing certificates), add `client_uid`:  ```bash curl -X POST https://factpulse.fr/api/token/ \\   -H \"Content-Type: application/json\" \\   -d '{     \"username\": \"your_email@example.com\",     \"password\": \"your_password\",     \"client_uid\": \"550e8400-e29b-41d4-a716-446655440000\"   }' ```  The `client_uid` will be included in the JWT and allow the API to automatically use: - AFNOR/PDP credentials configured for this client - Chorus Pro credentials configured for this client - Electronic signature certificates configured for this client  **Response:** ```json {   \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\",  // Access token (validity: 30 min)   \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGc...\"  // Refresh token (validity: 7 days) } ```  **Advantages:** - ✅ Full automation (CI/CD, scripts) - ✅ Programmatic token management - ✅ Refresh token support for automatic access renewal - ✅ Easy integration in any language/tool  #### 🖥️ Method 2: Dashboard Generation (Alternative)  **URL:** https://factpulse.fr/api/dashboard/  This method is suitable for quick tests or occasional use via the graphical interface.  **How it works:** - Log in to the dashboard - Use the \"Generate Test Token\" or \"Generate Production Token\" buttons - Works for **all** users (OAuth and email/password), without requiring a password  **Token types:** - **Test Token**: 24h validity, 1000 calls/day quota (free) - **Production Token**: 7 days validity, quota based on your plan  **Advantages:** - ✅ Quick for API testing - ✅ No password required - ✅ Simple visual interface  **Disadvantages:** - ❌ Requires manual action - ❌ No refresh token - ❌ Less suited for automation  ### 📚 Full Documentation  For more information on authentication and API usage: https://factpulse.fr/documentation-api/     
 
 The version of the OpenAPI document: 1.0.0
 Contact: contact@factpulse.fr
@@ -19,6 +19,132 @@ module FactPulse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Get typed generation task status
+    # Typed status endpoint for invoice generation tasks.  Returns a strongly-typed `result` (discriminated on `result.status`): - **SUCCESS**: `GenerationSuccessResult` with `content_b64` / `xml_content` - **ERROR**: `TaskErrorResult` in AFNOR format
+    # @param task_id [String] Celery task ID returned by /generate-invoice
+    # @param [Hash] opts the optional parameters
+    # @return [GenerationTaskStatus]
+    def get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get(task_id, opts = {})
+      data, _status_code, _headers = get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get_with_http_info(task_id, opts)
+      data
+    end
+
+    # Get typed generation task status
+    # Typed status endpoint for invoice generation tasks.  Returns a strongly-typed &#x60;result&#x60; (discriminated on &#x60;result.status&#x60;): - **SUCCESS**: &#x60;GenerationSuccessResult&#x60; with &#x60;content_b64&#x60; / &#x60;xml_content&#x60; - **ERROR**: &#x60;TaskErrorResult&#x60; in AFNOR format
+    # @param task_id [String] Celery task ID returned by /generate-invoice
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GenerationTaskStatus, Integer, Hash)>] GenerationTaskStatus data, response status code and response headers
+    def get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get_with_http_info(task_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AsyncTasksApi.get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get ...'
+      end
+      # verify the required parameter 'task_id' is set
+      if @api_client.config.client_side_validation && task_id.nil?
+        fail ArgumentError, "Missing the required parameter 'task_id' when calling AsyncTasksApi.get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/processing/tasks/{task_id}/generation-status'.sub('{' + 'task_id' + '}', CGI.escape(task_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'GenerationTaskStatus'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"AsyncTasksApi.get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AsyncTasksApi#get_generation_task_status_api_v1_processing_tasks_task_id_generation_status_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get typed signature task status
+    # Typed status endpoint for PDF signing tasks.  Returns a strongly-typed `result` (discriminated on `result.status`): - **SUCCESS**: `SignatureSuccessResult` with `content_b64`, `signer_cn`, etc. - **ERROR**: `TaskErrorResult` in AFNOR format
+    # @param task_id [String] Celery task ID returned by /sign-pdf-async
+    # @param [Hash] opts the optional parameters
+    # @return [SignatureTaskStatus]
+    def get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get(task_id, opts = {})
+      data, _status_code, _headers = get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get_with_http_info(task_id, opts)
+      data
+    end
+
+    # Get typed signature task status
+    # Typed status endpoint for PDF signing tasks.  Returns a strongly-typed &#x60;result&#x60; (discriminated on &#x60;result.status&#x60;): - **SUCCESS**: &#x60;SignatureSuccessResult&#x60; with &#x60;content_b64&#x60;, &#x60;signer_cn&#x60;, etc. - **ERROR**: &#x60;TaskErrorResult&#x60; in AFNOR format
+    # @param task_id [String] Celery task ID returned by /sign-pdf-async
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SignatureTaskStatus, Integer, Hash)>] SignatureTaskStatus data, response status code and response headers
+    def get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get_with_http_info(task_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AsyncTasksApi.get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get ...'
+      end
+      # verify the required parameter 'task_id' is set
+      if @api_client.config.client_side_validation && task_id.nil?
+        fail ArgumentError, "Missing the required parameter 'task_id' when calling AsyncTasksApi.get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/processing/tasks/{task_id}/signature-status'.sub('{' + 'task_id' + '}', CGI.escape(task_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SignatureTaskStatus'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"AsyncTasksApi.get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AsyncTasksApi#get_signature_task_status_api_v1_processing_tasks_task_id_signature_status_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get task generation status
     # Retrieves the progress status of an invoice generation task.  ## Possible states  The `status` field uses the `CeleryStatus` enum with values: - **PENDING, STARTED, SUCCESS, FAILURE, RETRY**  See the `CeleryStatus` schema documentation for details.  ## Business result  When `status=\"SUCCESS\"`, the `result` field contains: - `status`: \"SUCCESS\" or \"ERROR\" (business result) - `content_b64`: Base64 encoded content (if success) - `errorCode`, `errorMessage`, `details`: AFNOR format (if business error)  ## Usage  Poll this endpoint every 2-3 seconds until `status` is `SUCCESS` or `FAILURE`.
     # @param task_id [String] Celery task ID returned by async endpoints (UUID format)
@@ -78,6 +204,69 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AsyncTasksApi#get_task_status_api_v1_processing_tasks_task_id_status_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get typed validation task status
+    # Typed status endpoint for Factur-X PDF validation tasks.  Returns a strongly-typed `result` (discriminated on `result.status`): - **SUCCESS**: `ValidationSuccessTaskResult` with `validation_result` - **ERROR**: `TaskErrorResult` in AFNOR format
+    # @param task_id [String] Celery task ID returned by /validate-pdf
+    # @param [Hash] opts the optional parameters
+    # @return [ValidationTaskStatus]
+    def get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get(task_id, opts = {})
+      data, _status_code, _headers = get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get_with_http_info(task_id, opts)
+      data
+    end
+
+    # Get typed validation task status
+    # Typed status endpoint for Factur-X PDF validation tasks.  Returns a strongly-typed &#x60;result&#x60; (discriminated on &#x60;result.status&#x60;): - **SUCCESS**: &#x60;ValidationSuccessTaskResult&#x60; with &#x60;validation_result&#x60; - **ERROR**: &#x60;TaskErrorResult&#x60; in AFNOR format
+    # @param task_id [String] Celery task ID returned by /validate-pdf
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(ValidationTaskStatus, Integer, Hash)>] ValidationTaskStatus data, response status code and response headers
+    def get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get_with_http_info(task_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AsyncTasksApi.get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get ...'
+      end
+      # verify the required parameter 'task_id' is set
+      if @api_client.config.client_side_validation && task_id.nil?
+        fail ArgumentError, "Missing the required parameter 'task_id' when calling AsyncTasksApi.get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/processing/tasks/{task_id}/validation-status'.sub('{' + 'task_id' + '}', CGI.escape(task_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'ValidationTaskStatus'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"AsyncTasksApi.get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AsyncTasksApi#get_validation_task_status_api_v1_processing_tasks_task_id_validation_status_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

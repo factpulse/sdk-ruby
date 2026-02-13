@@ -7,6 +7,7 @@ All URIs are relative to *https://factpulse.fr*
 | [**convert_document_async_api_v1_convert_async_post**](FacturXConversionApi.md#convert_document_async_api_v1_convert_async_post) | **POST** /api/v1/convert/async | Convert a document to Factur-X (async mode) |
 | [**download_file_api_v1_convert_conversion_id_download_filename_get**](FacturXConversionApi.md#download_file_api_v1_convert_conversion_id_download_filename_get) | **GET** /api/v1/convert/{conversion_id}/download/{filename} | Download a generated file |
 | [**get_conversion_status_api_v1_convert_conversion_id_status_get**](FacturXConversionApi.md#get_conversion_status_api_v1_convert_conversion_id_status_get) | **GET** /api/v1/convert/{conversion_id}/status | Check conversion status |
+| [**get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get**](FacturXConversionApi.md#get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get) | **GET** /api/v1/convert/tasks/{task_id}/conversion-status | Get typed conversion task status |
 | [**resume_conversion_api_v1_convert_conversion_id_resume_post**](FacturXConversionApi.md#resume_conversion_api_v1_convert_conversion_id_resume_post) | **POST** /api/v1/convert/{conversion_id}/resume | Resume a conversion with corrections |
 | [**resume_conversion_async_api_v1_convert_conversion_id_resume_async_post**](FacturXConversionApi.md#resume_conversion_async_api_v1_convert_conversion_id_resume_async_post) | **POST** /api/v1/convert/{conversion_id}/resume/async | Resume a conversion asynchronously |
 
@@ -232,6 +233,80 @@ end
 ### Return type
 
 **Hash&lt;String, Object&gt;**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get
+
+> <ConversionTaskStatus> get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get(task_id)
+
+Get typed conversion task status
+
+Typed status endpoint for document conversion tasks.  Returns a strongly-typed `result` discriminated on `result.status`: - **SUCCESS**: `ConversionSuccessTaskResult` - **PENDING_INPUT**: `ConversionPendingInputResult` (missing fields) - **VALIDATION_FAILED**: `ConversionValidationFailedResult` - **ERROR**: `ConversionErrorResult`
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::FacturXConversionApi.new
+task_id = 'task_id_example' # String | Celery task ID returned by POST /convert
+
+begin
+  # Get typed conversion task status
+  result = api_instance.get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get(task_id)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling FacturXConversionApi->get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get: #{e}"
+end
+```
+
+#### Using the get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<ConversionTaskStatus>, Integer, Hash)> get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get_with_http_info(task_id)
+
+```ruby
+begin
+  # Get typed conversion task status
+  data, status_code, headers = api_instance.get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get_with_http_info(task_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <ConversionTaskStatus>
+rescue FactPulse::ApiError => e
+  puts "Error when calling FacturXConversionApi->get_conversion_task_status_api_v1_convert_tasks_task_id_conversion_status_get_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **task_id** | **String** | Celery task ID returned by POST /convert |  |
+
+### Return type
+
+[**ConversionTaskStatus**](ConversionTaskStatus.md)
 
 ### Authorization
 

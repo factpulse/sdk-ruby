@@ -5,6 +5,7 @@ All URIs are relative to *https://factpulse.fr*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**get_verification_status_api_v1_verification_verify_async_task_id_status_get**](FacturXPDFXMLVerificationApi.md#get_verification_status_api_v1_verification_verify_async_task_id_status_get) | **GET** /api/v1/verification/verify-async/{task_id}/status | Get status of an asynchronous verification |
+| [**get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get**](FacturXPDFXMLVerificationApi.md#get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get) | **GET** /api/v1/verification/verify-async/{task_id}/typed-status | Get typed status of an asynchronous verification |
 | [**verify_pdf_async_api_v1_verification_verify_async_post**](FacturXPDFXMLVerificationApi.md#verify_pdf_async_api_v1_verification_verify_async_post) | **POST** /api/v1/verification/verify-async | Verify PDF/XML Factur-X compliance (asynchronous) |
 | [**verify_pdf_sync_api_v1_verification_verify_post**](FacturXPDFXMLVerificationApi.md#verify_pdf_sync_api_v1_verification_verify_post) | **POST** /api/v1/verification/verify | Verify PDF/XML Factur-X compliance (synchronous) |
 
@@ -72,6 +73,80 @@ end
 ### Return type
 
 [**AsyncTaskStatus**](AsyncTaskStatus.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get
+
+> <VerificationTypedTaskStatus> get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get(task_id)
+
+Get typed status of an asynchronous verification
+
+Typed status endpoint for async verification tasks.  Returns a strongly-typed `result` (discriminated on `result.status`): - **SUCCESS**: `VerificationSuccessTaskResult` with `verification_result` - **ERROR**: `TaskErrorResult` in AFNOR format
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::FacturXPDFXMLVerificationApi.new
+task_id = 'task_id_example' # String | Celery task ID returned by /verify-async endpoint
+
+begin
+  # Get typed status of an asynchronous verification
+  result = api_instance.get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get(task_id)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling FacturXPDFXMLVerificationApi->get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get: #{e}"
+end
+```
+
+#### Using the get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<VerificationTypedTaskStatus>, Integer, Hash)> get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get_with_http_info(task_id)
+
+```ruby
+begin
+  # Get typed status of an asynchronous verification
+  data, status_code, headers = api_instance.get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get_with_http_info(task_id)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <VerificationTypedTaskStatus>
+rescue FactPulse::ApiError => e
+  puts "Error when calling FacturXPDFXMLVerificationApi->get_verification_typed_status_api_v1_verification_verify_async_task_id_typed_status_get_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **task_id** | **String** | Celery task ID returned by /verify-async endpoint |  |
+
+### Return type
+
+[**VerificationTypedTaskStatus**](VerificationTypedTaskStatus.md)
 
 ### Authorization
 
