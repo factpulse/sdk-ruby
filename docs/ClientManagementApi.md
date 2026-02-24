@@ -43,7 +43,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Activate a client
@@ -76,7 +76,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -191,7 +191,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Deactivate a client
@@ -224,7 +224,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -265,7 +265,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Delete webhook secret
@@ -298,7 +298,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -339,7 +339,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Generate webhook secret
@@ -372,7 +372,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -413,7 +413,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Get client details
@@ -446,7 +446,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -487,7 +487,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Get client PDP configuration
@@ -520,7 +520,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -561,7 +561,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 
 begin
   # Get webhook secret status
@@ -594,7 +594,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 
 ### Return type
 
@@ -713,7 +713,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 key_rotation_request = FactPulse::KeyRotationRequest.new({old_key: 'old_key_example', new_key: 'new_key_example'}) # KeyRotationRequest | 
 
 begin
@@ -747,7 +747,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 | **key_rotation_request** | [**KeyRotationRequest**](KeyRotationRequest.md) |  |  |
 
 ### Return type
@@ -789,7 +789,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 client_update_request = FactPulse::ClientUpdateRequest.new # ClientUpdateRequest | 
 
 begin
@@ -823,7 +823,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 | **client_update_request** | [**ClientUpdateRequest**](ClientUpdateRequest.md) |  |  |
 
 ### Return type
@@ -865,7 +865,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ClientManagementApi.new
-uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | 
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
 pdp_config_update_request = FactPulse::PDPConfigUpdateRequest.new({flow_service_url: 'flow_service_url_example', token_url: 'token_url_example', oauth_client_id: 'oauth_client_id_example', client_secret: 'client_secret_example'}) # PDPConfigUpdateRequest | 
 opts = {
   x_encryption_key: 'x_encryption_key_example' # String | Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode='double'.
@@ -902,7 +902,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **uid** | **String** |  |  |
+| **uid** | **String** | Client unique identifier (UUID) |  |
 | **pdp_config_update_request** | [**PDPConfigUpdateRequest**](PDPConfigUpdateRequest.md) |  |  |
 | **x_encryption_key** | **String** | Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;. | [optional] |
 

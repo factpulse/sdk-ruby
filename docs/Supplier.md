@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
-| **supplier_id** | **Integer** |  |  |
+| **supplier_id** | **Integer** | Chorus Pro supplier structure ID (idFournisseur). Only required for B2G. | [optional][default to 0] |
 | **private_id** | **String** |  | [optional] |
 | **supplier_bank_account_code** | **Integer** |  | [optional] |
 | **supplier_service_id** | **Integer** |  | [optional] |

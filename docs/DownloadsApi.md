@@ -33,7 +33,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::DownloadsApi.new
-download_id = 'download_id_example' # String | 
+download_id = 'download_id_example' # String | Unique identifier of the temporary file to check
 
 begin
   # Check if a file exists
@@ -66,7 +66,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **download_id** | **String** |  |  |
+| **download_id** | **String** | Unique identifier of the temporary file to check |  |
 
 ### Return type
 
@@ -107,7 +107,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::DownloadsApi.new
-download_id = 'download_id_example' # String | 
+download_id = 'download_id_example' # String | Unique identifier of the temporary file to download
 opts = {
   delete_after: true # Boolean | If true, delete the file after download (one-time download)
 }
@@ -143,7 +143,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **download_id** | **String** |  |  |
+| **download_id** | **String** | Unique identifier of the temporary file to download |  |
 | **delete_after** | **Boolean** | If true, delete the file after download (one-time download) | [optional][default to false] |
 
 ### Return type

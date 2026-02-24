@@ -10,7 +10,7 @@
 | **submission_mode** | [**SubmissionMode**](SubmissionMode.md) |  | [optional] |
 | **recipient** | [**Recipient**](Recipient.md) |  |  |
 | **supplier** | [**Supplier**](Supplier.md) |  |  |
-| **invoicing_framework** | [**InvoicingFramework**](InvoicingFramework.md) |  |  |
+| **invoicing_framework** | [**InvoicingFramework**](InvoicingFramework.md) |  | [optional] |
 | **references** | [**InvoiceReferences**](InvoiceReferences.md) |  |  |
 | **totals** | [**InvoiceTotals**](InvoiceTotals.md) |  |  |
 | **invoice_lines** | [**Array&lt;InvoiceLine&gt;**](InvoiceLine.md) |  | [optional] |

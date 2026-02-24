@@ -6,6 +6,7 @@ All URIs are relative to *https://factpulse.fr*
 | ------ | ------------ | ----------- |
 | [**generate_cdar_api_v1_cdar_generate_post**](Flux6InvoiceLifecycleCDARApi.md#generate_cdar_api_v1_cdar_generate_post) | **POST** /api/v1/cdar/generate | Generate a CDAR message |
 | [**get_action_codes_api_v1_cdar_action_codes_get**](Flux6InvoiceLifecycleCDARApi.md#get_action_codes_api_v1_cdar_action_codes_get) | **GET** /api/v1/cdar/action-codes | List of CDAR action codes |
+| [**get_lifecycle_api_v1_cdar_lifecycle_get**](Flux6InvoiceLifecycleCDARApi.md#get_lifecycle_api_v1_cdar_lifecycle_get) | **GET** /api/v1/cdar/lifecycle | [Simplified] Get lifecycle events for invoices |
 | [**get_reason_codes_api_v1_cdar_reason_codes_get**](Flux6InvoiceLifecycleCDARApi.md#get_reason_codes_api_v1_cdar_reason_codes_get) | **GET** /api/v1/cdar/reason-codes | List of CDAR reason codes |
 | [**get_status_codes_api_v1_cdar_status_codes_get**](Flux6InvoiceLifecycleCDARApi.md#get_status_codes_api_v1_cdar_status_codes_get) | **GET** /api/v1/cdar/status-codes | List of CDAR status codes |
 | [**submit_cdar_api_v1_cdar_submit_post**](Flux6InvoiceLifecycleCDARApi.md#submit_cdar_api_v1_cdar_submit_post) | **POST** /api/v1/cdar/submit | Generate and submit a CDAR message |
@@ -144,6 +145,87 @@ This endpoint does not need any parameter.
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_lifecycle_api_v1_cdar_lifecycle_get
+
+> <LifecycleResponse> get_lifecycle_api_v1_cdar_lifecycle_get(opts)
+
+[Simplified] Get lifecycle events for invoices
+
+Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7) - `invoiceId`: Optional filter on a specific invoice reference  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
+opts = {
+  days: 56, # Integer | Number of days to look back
+  invoice_id: 'invoice_id_example', # String | Filter by invoice reference
+  pdp_flow_service_url: 'pdp_flow_service_url_example', # String | PDP Flow Service URL
+  pdp_token_url: 'pdp_token_url_example', # String | PDP OAuth token URL
+  pdp_client_id: 'pdp_client_id_example', # String | PDP Client ID
+  pdp_client_secret: 'pdp_client_secret_example' # String | PDP Client Secret
+}
+
+begin
+  # [Simplified] Get lifecycle events for invoices
+  result = api_instance.get_lifecycle_api_v1_cdar_lifecycle_get(opts)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_lifecycle_api_v1_cdar_lifecycle_get: #{e}"
+end
+```
+
+#### Using the get_lifecycle_api_v1_cdar_lifecycle_get_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<LifecycleResponse>, Integer, Hash)> get_lifecycle_api_v1_cdar_lifecycle_get_with_http_info(opts)
+
+```ruby
+begin
+  # [Simplified] Get lifecycle events for invoices
+  data, status_code, headers = api_instance.get_lifecycle_api_v1_cdar_lifecycle_get_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <LifecycleResponse>
+rescue FactPulse::ApiError => e
+  puts "Error when calling Flux6InvoiceLifecycleCDARApi->get_lifecycle_api_v1_cdar_lifecycle_get_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **days** | **Integer** | Number of days to look back | [optional][default to 7] |
+| **invoice_id** | **String** | Filter by invoice reference | [optional] |
+| **pdp_flow_service_url** | **String** | PDP Flow Service URL | [optional] |
+| **pdp_token_url** | **String** | PDP OAuth token URL | [optional] |
+| **pdp_client_id** | **String** | PDP Client ID | [optional] |
+| **pdp_client_secret** | **String** | PDP Client Secret | [optional] |
+
+### Return type
+
+[**LifecycleResponse**](LifecycleResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

@@ -4,11 +4,11 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **piste_client_id** | **String** |  | [optional] |
-| **piste_client_secret** | **String** |  | [optional] |
-| **chorus_login** | **String** |  | [optional] |
-| **chorus_password** | **String** |  | [optional] |
-| **sandbox_mode** | **Boolean** | [MODE 2] Use sandbox mode (default: True) | [optional][default to true] |
+| **piste_client_id** | **String** | PISTE Client ID (government API portal) |  |
+| **piste_client_secret** | **String** | PISTE Client Secret |  |
+| **chorus_pro_login** | **String** | Chorus Pro login |  |
+| **chorus_pro_password** | **String** | Chorus Pro password |  |
+| **sandbox** | **Boolean** | Use sandbox environment (true) or production (false) | [optional][default to true] |
 
 ## Example
 
@@ -18,9 +18,9 @@ require 'factpulse'
 instance = FactPulse::ChorusProCredentials.new(
   piste_client_id: null,
   piste_client_secret: null,
-  chorus_login: null,
-  chorus_password: null,
-  sandbox_mode: null
+  chorus_pro_login: null,
+  chorus_pro_password: null,
+  sandbox: null
 )
 ```
 

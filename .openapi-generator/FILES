@@ -179,9 +179,9 @@ docs/FacturXInvoice.md
 docs/FacturXPDFInfo.md
 docs/FacturXPDFXMLVerificationApi.md
 docs/FacturXValidationApi.md
-docs/FactureElectroniqueModelsInvoiceTypeCode.md
-docs/FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md
-docs/FactureElectroniqueRestApiSchemasValidationValidationErrorResponse.md
+docs/FactureElectroniqueRestApiSchemasCdarValidationErrorResponse.md
+docs/FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md
+docs/FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.md
 docs/FieldStatus.md
 docs/FileInfo.md
 docs/FilesInfo.md
@@ -215,6 +215,7 @@ docs/IncomingSupplier.md
 docs/InvoiceFormat.md
 docs/InvoiceGenerationApi.md
 docs/InvoiceInput.md
+docs/InvoiceLifecycle.md
 docs/InvoiceLine.md
 docs/InvoiceLineAllowanceAmount.md
 docs/InvoiceNote.md
@@ -230,6 +231,8 @@ docs/InvoicingFrameworkCode.md
 docs/IssuerRoleCode.md
 docs/KeyRotationRequest.md
 docs/KeyRotationResponse.md
+docs/LifecycleEvent.md
+docs/LifecycleResponse.md
 docs/LineNetAmount.md
 docs/LineSubType.md
 docs/LineTotalAmount.md
@@ -266,6 +269,7 @@ docs/ReasonCodeInfo.md
 docs/ReasonCodesResponse.md
 docs/Recipient.md
 docs/RecipientInput.md
+docs/ReferencesApi.md
 docs/RefuseeRequest.md
 docs/ReportIssuer.md
 docs/ReportPeriod.md
@@ -333,6 +337,8 @@ docs/UnitOfMeasure.md
 docs/VATAccountingCode.md
 docs/VATAmount.md
 docs/VATCategory.md
+docs/VATEXCodeInfo.md
+docs/VATEXCodesResponse.md
 docs/VATLine.md
 docs/VATPointDateCode.md
 docs/ValidateCDARRequest.md
@@ -376,6 +382,7 @@ lib/factpulse/api/flux6_invoice_lifecycle_cdar_api.rb
 lib/factpulse/api/health_api.rb
 lib/factpulse/api/invoice_generation_api.rb
 lib/factpulse/api/parse_api.rb
+lib/factpulse/api/references_api.rb
 lib/factpulse/api/validation_api.rb
 lib/factpulse/api_client.rb
 lib/factpulse/api_error.rb
@@ -542,9 +549,9 @@ lib/factpulse/models/error_source.rb
 lib/factpulse/models/extraction_info.rb
 lib/factpulse/models/factur_x_invoice.rb
 lib/factpulse/models/factur_xpdf_info.rb
-lib/factpulse/models/facture_electronique_models_invoice_type_code.rb
-lib/factpulse/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials.rb
-lib/factpulse/models/facture_electronique_rest_api_schemas_validation_validation_error_response.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_cdar_validation_error_response.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials.rb
 lib/factpulse/models/field_status.rb
 lib/factpulse/models/file_info.rb
 lib/factpulse/models/files_info.rb
@@ -574,6 +581,7 @@ lib/factpulse/models/incoming_invoice.rb
 lib/factpulse/models/incoming_supplier.rb
 lib/factpulse/models/invoice_format.rb
 lib/factpulse/models/invoice_input.rb
+lib/factpulse/models/invoice_lifecycle.rb
 lib/factpulse/models/invoice_line.rb
 lib/factpulse/models/invoice_line_allowance_amount.rb
 lib/factpulse/models/invoice_note.rb
@@ -589,6 +597,8 @@ lib/factpulse/models/invoicing_framework_code.rb
 lib/factpulse/models/issuer_role_code.rb
 lib/factpulse/models/key_rotation_request.rb
 lib/factpulse/models/key_rotation_response.rb
+lib/factpulse/models/lifecycle_event.rb
+lib/factpulse/models/lifecycle_response.rb
 lib/factpulse/models/line_net_amount.rb
 lib/factpulse/models/line_sub_type.rb
 lib/factpulse/models/line_total_amount.rb
@@ -706,6 +716,8 @@ lib/factpulse/models/vat_category.rb
 lib/factpulse/models/vat_line.rb
 lib/factpulse/models/vat_point_date_code.rb
 lib/factpulse/models/vat_rate.rb
+lib/factpulse/models/vatex_code_info.rb
+lib/factpulse/models/vatex_codes_response.rb
 lib/factpulse/models/verification_success_response.rb
 lib/factpulse/models/verification_success_task_result.rb
 lib/factpulse/models/verification_typed_task_status.rb
@@ -731,6 +743,7 @@ spec/api/flux6_invoice_lifecycle_cdar_api_spec.rb
 spec/api/health_api_spec.rb
 spec/api/invoice_generation_api_spec.rb
 spec/api/parse_api_spec.rb
+spec/api/references_api_spec.rb
 spec/api/validation_api_spec.rb
 spec/models/acknowledgment_status_spec.rb
 spec/models/action_code_info_spec.rb
@@ -893,9 +906,9 @@ spec/models/error_source_spec.rb
 spec/models/extraction_info_spec.rb
 spec/models/factur_x_invoice_spec.rb
 spec/models/factur_xpdf_info_spec.rb
-spec/models/facture_electronique_models_invoice_type_code_spec.rb
-spec/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials_spec.rb
-spec/models/facture_electronique_rest_api_schemas_validation_validation_error_response_spec.rb
+spec/models/facture_electronique_rest_api_schemas_cdar_validation_error_response_spec.rb
+spec/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code_spec.rb
+spec/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials_spec.rb
 spec/models/field_status_spec.rb
 spec/models/file_info_spec.rb
 spec/models/files_info_spec.rb
@@ -925,6 +938,7 @@ spec/models/incoming_invoice_spec.rb
 spec/models/incoming_supplier_spec.rb
 spec/models/invoice_format_spec.rb
 spec/models/invoice_input_spec.rb
+spec/models/invoice_lifecycle_spec.rb
 spec/models/invoice_line_allowance_amount_spec.rb
 spec/models/invoice_line_spec.rb
 spec/models/invoice_note_spec.rb
@@ -940,6 +954,8 @@ spec/models/invoicing_framework_spec.rb
 spec/models/issuer_role_code_spec.rb
 spec/models/key_rotation_request_spec.rb
 spec/models/key_rotation_response_spec.rb
+spec/models/lifecycle_event_spec.rb
+spec/models/lifecycle_response_spec.rb
 spec/models/line_net_amount_spec.rb
 spec/models/line_sub_type_spec.rb
 spec/models/line_total_amount_spec.rb
@@ -1057,6 +1073,8 @@ spec/models/vat_category_spec.rb
 spec/models/vat_line_spec.rb
 spec/models/vat_point_date_code_spec.rb
 spec/models/vat_rate_spec.rb
+spec/models/vatex_code_info_spec.rb
+spec/models/vatex_codes_response_spec.rb
 spec/models/verification_success_response_spec.rb
 spec/models/verification_success_task_result_spec.rb
 spec/models/verification_typed_task_status_result_spec.rb
