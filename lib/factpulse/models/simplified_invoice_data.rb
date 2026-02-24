@@ -111,7 +111,7 @@ module FactPulse
         :'comment' => :'String',
         :'purchase_order_reference' => :'String',
         :'contract_reference' => :'String',
-        :'invoice_type' => :'InvoiceTypeCode',
+        :'invoice_type' => :'FactureElectroniqueModelsInvoiceTypeCode',
         :'preceding_invoice_reference' => :'String',
         :'operation_nature' => :'OperationNature',
         :'invoicing_framework' => :'InvoicingFrameworkCode'

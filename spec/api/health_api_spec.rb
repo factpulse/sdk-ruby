@@ -43,26 +43,4 @@ describe 'HealthApi' do
     end
   end
 
-  # unit tests for healthcheck_healthcheck_get
-  # Docker healthcheck endpoint
-  # Healthcheck endpoint for Docker and load balancers.  Useful for: - Docker healthcheck - Kubernetes liveness/readiness probes - Load balancers (Nginx, HAProxy) - Availability monitoring - Zero downtime deployment  Returns a 200 code if the API is operational.
-  # @param [Hash] opts the optional parameters
-  # @return [Object]
-  describe 'healthcheck_healthcheck_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for root_get
-  # Check API status
-  # Health check endpoint to verify the API is responding.  Useful for: - Availability monitoring - Integration tests - Load balancers
-  # @param [Hash] opts the optional parameters
-  # @return [Object]
-  describe 'root_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
 end
