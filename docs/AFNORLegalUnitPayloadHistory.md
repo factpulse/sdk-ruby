@@ -8,6 +8,7 @@
 | **business_name** | **String** | Business name | [optional] |
 | **entity_type** | [**AFNOREntityType**](AFNOREntityType.md) |  | [optional] |
 | **administrative_status** | [**AFNORLegalUnitAdministrativeStatus**](AFNORLegalUnitAdministrativeStatus.md) |  | [optional] |
+| **instructions** | [**AFNORSirenInstructions**](AFNORSirenInstructions.md) |  | [optional] |
 
 ## Example
 
@@ -18,7 +19,8 @@ instance = FactPulse::AFNORLegalUnitPayloadHistory.new(
   siren: 702042755,
   business_name: Boulangerie Pascale,
   entity_type: null,
-  administrative_status: null
+  administrative_status: null,
+  instructions: null
 )
 ```
 

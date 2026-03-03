@@ -32,40 +32,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
     end
   end
 
-  # unit tests for create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post
-  # Creating a directory line
-  # Creation of a new directory line for a SIREN, a SIRET or a ROUTING CODE.
-  # @param [Hash] opts the optional parameters
-  # @return [Object]
-  describe 'create_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_post test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post
-  # Create a routing code
-  # Creating a routing code.
-  # @param [Hash] opts the optional parameters
-  # @return [Object]
-  describe 'create_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_post test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete
-  # Delete a directory line
-  # Delete a directory line.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [Object]
-  describe 'delete_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_delete test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
   # unit tests for directory_healthcheck_proxy_api_v1_afnor_directory_v1_healthcheck_get
   # Healthcheck Directory Service
   # Check Directory Service availability (AFNOR XP Z12-013 compliant)
@@ -82,32 +48,8 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
   # @param addressing_identifier Addressing identifier (SIREN, SIRET or routing code)
   # @param [Hash] opts the optional parameters
-  # @return [AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode]
+  # @return [AFNORDirectoryLinePayloadLegalUnitFacilityRoutingCode]
   describe 'get_directory_line_by_code_proxy_api_v1_afnor_directory_v1_directory_line_code_addressing_identifier_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get
-  # Get a directory line.
-  # Retrieve the data from the directory line corresponding to the identifier passed in parameters.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode]
-  describe 'get_directory_line_by_id_instance_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get
-  # Get a routing code by instance-id.
-  # Retrieve the Routing Code data corresponding to the Instance ID.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORRoutingCodePayloadHistoryLegalUnitFacility]
-  describe 'get_routing_code_by_id_instance_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_get test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
@@ -138,18 +80,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
     end
   end
 
-  # unit tests for get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get
-  # Gets a siren (legal unit) by instance ID
-  # Returns the details of a company (legal unit) identified by the id-instance passed as a parameter.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORLegalUnitPayloadHistory]
-  describe 'get_siren_by_id_instance_proxy_api_v1_afnor_directory_v1_siren_id_instance_id_instance_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
   # unit tests for get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get
   # Gets a siret (facility) by SIRET number
   # Returns the details of a facility associated to a SIRET.
@@ -157,54 +87,6 @@ describe 'AFNORPDPPADirectoryServiceApi' do
   # @param [Hash] opts the optional parameters
   # @return [AFNORFacilityPayloadHistory]
   describe 'get_siret_by_code_insee_proxy_api_v1_afnor_directory_v1_siret_code_insee_siret_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get
-  # Gets a siret (facility) by id-instance
-  # Returns the details of a facility according to an instance-id.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORFacilityPayloadHistory]
-  describe 'get_siret_by_id_instance_proxy_api_v1_afnor_directory_v1_siret_id_instance_id_instance_get test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch
-  # Partially updates a directory line..
-  # Partially updates a directory line.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORDirectoryLinePost201Response]
-  describe 'patch_directory_line_proxy_api_v1_afnor_directory_v1_directory_line_id_instance_id_instance_patch test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch
-  # Partially update a private routing code.
-  # Partially update a private routing code.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORRoutingCodePost201Response]
-  describe 'patch_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_patch test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put
-  # Completely update a private routing code.
-  # Completely update a private routing code.
-  # @param id_instance AFNOR instance ID (UUID)
-  # @param [Hash] opts the optional parameters
-  # @return [AFNORRoutingCodePost201Response]
-  describe 'put_routing_code_proxy_api_v1_afnor_directory_v1_routing_code_id_instance_id_instance_put test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

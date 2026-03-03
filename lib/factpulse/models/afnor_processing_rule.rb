@@ -18,12 +18,15 @@ module FactPulse
     B2_B = "B2B".freeze
     B2_B_INT = "B2BInt".freeze
     B2_C = "B2C".freeze
+    B2_G = "B2G".freeze
+    B2_G_INT = "B2GInt".freeze
     OUT_OF_SCOPE = "OutOfScope".freeze
+    B2_G_OUT_OF_SCOPE = "B2GOutOfScope".freeze
     ARCHIVE_ONLY = "ArchiveOnly".freeze
     NOT_APPLICABLE = "NotApplicable".freeze
 
     def self.all_vars
-      @all_vars ||= [B2_B, B2_B_INT, B2_C, OUT_OF_SCOPE, ARCHIVE_ONLY, NOT_APPLICABLE].freeze
+      @all_vars ||= [B2_B, B2_B_INT, B2_C, B2_G, B2_G_INT, OUT_OF_SCOPE, B2_G_OUT_OF_SCOPE, ARCHIVE_ONLY, NOT_APPLICABLE].freeze
     end
 
     # Builds the enum from string

@@ -63,7 +63,7 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'op' => :'AFNORContainsOperator',
+        :'op' => :'AFNORContainsOrStrictOperator',
         :'value' => :'String'
       }
     end

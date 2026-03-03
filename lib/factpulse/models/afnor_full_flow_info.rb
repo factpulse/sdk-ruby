@@ -17,6 +17,12 @@ module FactPulse
   # Identified Flow info: flow info + id + timestamp
   class AFNORFullFlowInfo < ApiModelBase
     # Unique identifier supporting UUID but not only, for flexibility purpose
+    attr_accessor :flow_id
+
+    # The flow submission date and time (the date and time when the flow was created on the system) This property should be used by the API consumer as a time reference to avoid clock synchronization issues 
+    attr_accessor :submitted_at
+
+    # The tracking id is an external identifier and is used to track the flow by the sender
     attr_accessor :tracking_id
 
     # Name of the file
@@ -28,13 +34,8 @@ module FactPulse
 
     attr_accessor :flow_profile
 
+    # The sha256 is the fingerprint of the attached file: - if provided in the request: it should be checked once received - if not provided in the request: it may be computed and returned in the response 
     attr_accessor :sha256
-
-    # Unique identifier supporting UUID but not only, for flexibility purpose
-    attr_accessor :flow_id
-
-    # The flow submission date and time (the date and time when the flow was created on the system) This property should be used by the API consumer as a time reference to avoid clock synchronization issues 
-    attr_accessor :submitted_at
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -61,14 +62,14 @@ module FactPulse
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'flow_id' => :'flowId',
+        :'submitted_at' => :'submittedAt',
         :'tracking_id' => :'trackingId',
         :'name' => :'name',
         :'processing_rule' => :'processingRule',
         :'flow_syntax' => :'flowSyntax',
         :'flow_profile' => :'flowProfile',
-        :'sha256' => :'sha256',
-        :'flow_id' => :'flowId',
-        :'submitted_at' => :'submittedAt'
+        :'sha256' => :'sha256'
       }
     end
 
@@ -85,14 +86,14 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'flow_id' => :'String',
+        :'submitted_at' => :'Time',
         :'tracking_id' => :'String',
         :'name' => :'String',
         :'processing_rule' => :'AFNORProcessingRule',
         :'flow_syntax' => :'AFNORFlowSyntax',
         :'flow_profile' => :'AFNORFlowProfile',
-        :'sha256' => :'String',
-        :'flow_id' => :'String',
-        :'submitted_at' => :'Time'
+        :'sha256' => :'String'
       }
     end
 
@@ -105,7 +106,8 @@ module FactPulse
     # List of class defined in allOf (OpenAPI v3)
     def self.openapi_all_of
       [
-      :'AFNORFlowInfo'
+      :'AFNORFlowInfo',
+      :'AFNORFullFlowInfoExtension'
       ]
     end
 
@@ -125,12 +127,26 @@ module FactPulse
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'flow_id')
+        self.flow_id = attributes[:'flow_id']
+      else
+        self.flow_id = nil
+      end
+
+      if attributes.key?(:'submitted_at')
+        self.submitted_at = attributes[:'submitted_at']
+      else
+        self.submitted_at = nil
+      end
+
       if attributes.key?(:'tracking_id')
         self.tracking_id = attributes[:'tracking_id']
       end
 
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      else
+        self.name = nil
       end
 
       if attributes.key?(:'processing_rule')
@@ -150,14 +166,6 @@ module FactPulse
       if attributes.key?(:'sha256')
         self.sha256 = attributes[:'sha256']
       end
-
-      if attributes.key?(:'flow_id')
-        self.flow_id = attributes[:'flow_id']
-      end
-
-      if attributes.key?(:'submitted_at')
-        self.submitted_at = attributes[:'submitted_at']
-      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -165,11 +173,27 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @flow_id.nil?
+        invalid_properties.push('invalid value for "flow_id", flow_id cannot be nil.')
+      end
+
+      if @flow_id.to_s.length > 36
+        invalid_properties.push('invalid value for "flow_id", the character length must be smaller than or equal to 36.')
+      end
+
+      if @submitted_at.nil?
+        invalid_properties.push('invalid value for "submitted_at", submitted_at cannot be nil.')
+      end
+
       if !@tracking_id.nil? && @tracking_id.to_s.length > 36
         invalid_properties.push('invalid value for "tracking_id", the character length must be smaller than or equal to 36.')
       end
 
-      if !@name.nil? && @name.to_s.length > 255
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
+      end
+
+      if @name.to_s.length > 255
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 255.')
       end
 
@@ -182,10 +206,6 @@ module FactPulse
         invalid_properties.push("invalid value for \"sha256\", must conform to the pattern #{pattern}.")
       end
 
-      if !@flow_id.nil? && @flow_id.to_s.length > 36
-        invalid_properties.push('invalid value for "flow_id", the character length must be smaller than or equal to 36.')
-      end
-
       invalid_properties
     end
 
@@ -193,12 +213,39 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @flow_id.nil?
+      return false if @flow_id.to_s.length > 36
+      return false if @submitted_at.nil?
       return false if !@tracking_id.nil? && @tracking_id.to_s.length > 36
-      return false if !@name.nil? && @name.to_s.length > 255
+      return false if @name.nil?
+      return false if @name.to_s.length > 255
       return false if @flow_syntax.nil?
       return false if !@sha256.nil? && @sha256 !~ Regexp.new(/^[a-f0-9]{64}$/)
-      return false if !@flow_id.nil? && @flow_id.to_s.length > 36
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] flow_id Value to be assigned
+    def flow_id=(flow_id)
+      if flow_id.nil?
+        fail ArgumentError, 'flow_id cannot be nil'
+      end
+
+      if flow_id.to_s.length > 36
+        fail ArgumentError, 'invalid value for "flow_id", the character length must be smaller than or equal to 36.'
+      end
+
+      @flow_id = flow_id
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] submitted_at Value to be assigned
+    def submitted_at=(submitted_at)
+      if submitted_at.nil?
+        fail ArgumentError, 'submitted_at cannot be nil'
+      end
+
+      @submitted_at = submitted_at
     end
 
     # Custom attribute writer method with validation
@@ -254,33 +301,19 @@ module FactPulse
       @sha256 = sha256
     end
 
-    # Custom attribute writer method with validation
-    # @param [Object] flow_id Value to be assigned
-    def flow_id=(flow_id)
-      if flow_id.nil?
-        fail ArgumentError, 'flow_id cannot be nil'
-      end
-
-      if flow_id.to_s.length > 36
-        fail ArgumentError, 'invalid value for "flow_id", the character length must be smaller than or equal to 36.'
-      end
-
-      @flow_id = flow_id
-    end
-
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          flow_id == o.flow_id &&
+          submitted_at == o.submitted_at &&
           tracking_id == o.tracking_id &&
           name == o.name &&
           processing_rule == o.processing_rule &&
           flow_syntax == o.flow_syntax &&
           flow_profile == o.flow_profile &&
-          sha256 == o.sha256 &&
-          flow_id == o.flow_id &&
-          submitted_at == o.submitted_at
+          sha256 == o.sha256
     end
 
     # @see the `==` method
@@ -292,7 +325,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [tracking_id, name, processing_rule, flow_syntax, flow_profile, sha256, flow_id, submitted_at].hash
+      [flow_id, submitted_at, tracking_id, name, processing_rule, flow_syntax, flow_profile, sha256].hash
     end
 
     # Builds the object from hash

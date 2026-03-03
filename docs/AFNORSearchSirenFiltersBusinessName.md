@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **op** | [**AFNORContainsOperator**](AFNORContainsOperator.md) |  | [optional] |
+| **op** | [**AFNORContainsOrStrictOperator**](AFNORContainsOrStrictOperator.md) |  | [optional] |
 | **value** | **String** | Business name | [optional] |
 
 ## Example

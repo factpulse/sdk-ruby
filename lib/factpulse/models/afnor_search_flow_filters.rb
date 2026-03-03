@@ -16,6 +16,7 @@ require 'time'
 module FactPulse
   # Filtering criteria, at least one is required
   class AFNORSearchFlowFilters < ApiModelBase
+    # The comparison with current date is strict : updatedAt > updatedAfter
     attr_accessor :updated_after
 
     attr_accessor :updated_before

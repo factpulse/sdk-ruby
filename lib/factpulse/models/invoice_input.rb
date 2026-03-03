@@ -114,7 +114,7 @@ module FactPulse
       {
         :'invoice_id' => :'String',
         :'issue_date' => :'Date',
-        :'type_code' => :'InvoiceTypeCode',
+        :'type_code' => :'FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode',
         :'currency' => :'Currency',
         :'due_date' => :'Date',
         :'seller_id' => :'String',

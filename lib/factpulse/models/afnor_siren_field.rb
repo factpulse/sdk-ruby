@@ -19,10 +19,10 @@ module FactPulse
     BUSINESS_NAME = "businessName".freeze
     ENTITY_TYPE = "entityType".freeze
     ADMINISTRATIVE_STATUS = "administrativeStatus".freeze
-    ID_INSTANCE = "idInstance".freeze
+    INSTRUCTIONS = "instructions".freeze
 
     def self.all_vars
-      @all_vars ||= [SIREN, BUSINESS_NAME, ENTITY_TYPE, ADMINISTRATIVE_STATUS, ID_INSTANCE].freeze
+      @all_vars ||= [SIREN, BUSINESS_NAME, ENTITY_TYPE, ADMINISTRATIVE_STATUS, INSTRUCTIONS].freeze
     end
 
     # Builds the enum from string

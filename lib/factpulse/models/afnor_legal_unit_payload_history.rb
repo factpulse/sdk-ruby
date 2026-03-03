@@ -25,6 +25,8 @@ module FactPulse
 
     attr_accessor :administrative_status
 
+    attr_accessor :instructions
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -53,7 +55,8 @@ module FactPulse
         :'siren' => :'siren',
         :'business_name' => :'businessName',
         :'entity_type' => :'entityType',
-        :'administrative_status' => :'administrativeStatus'
+        :'administrative_status' => :'administrativeStatus',
+        :'instructions' => :'instructions'
       }
     end
 
@@ -73,7 +76,8 @@ module FactPulse
         :'siren' => :'String',
         :'business_name' => :'String',
         :'entity_type' => :'AFNOREntityType',
-        :'administrative_status' => :'AFNORLegalUnitAdministrativeStatus'
+        :'administrative_status' => :'AFNORLegalUnitAdministrativeStatus',
+        :'instructions' => :'AFNORSirenInstructions'
       }
     end
 
@@ -113,6 +117,10 @@ module FactPulse
 
       if attributes.key?(:'administrative_status')
         self.administrative_status = attributes[:'administrative_status']
+      end
+
+      if attributes.key?(:'instructions')
+        self.instructions = attributes[:'instructions']
       end
     end
 
@@ -188,7 +196,8 @@ module FactPulse
           siren == o.siren &&
           business_name == o.business_name &&
           entity_type == o.entity_type &&
-          administrative_status == o.administrative_status
+          administrative_status == o.administrative_status &&
+          instructions == o.instructions
     end
 
     # @see the `==` method
@@ -200,7 +209,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [siren, business_name, entity_type, administrative_status].hash
+      [siren, business_name, entity_type, administrative_status, instructions].hash
     end
 
     # Builds the object from hash

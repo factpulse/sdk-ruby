@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **updated_after** | **Time** |  | [optional] |
+| **updated_after** | **Time** | The comparison with current date is strict : updatedAt &gt; updatedAfter | [optional] |
 | **updated_before** | **Time** |  | [optional] |
 | **processing_rule** | [**Array&lt;AFNORProcessingRule&gt;**](AFNORProcessingRule.md) |  | [optional] |
 | **flow_type** | [**Array&lt;AFNORFlowType&gt;**](AFNORFlowType.md) |  | [optional] |

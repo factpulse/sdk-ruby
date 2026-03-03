@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **op** | [**AFNORContainsOperator**](AFNORContainsOperator.md) |  | [optional] |
+| **op** | [**AFNORContainsOrStrictOperator**](AFNORContainsOrStrictOperator.md) |  | [optional] |
 | **value** | **String** | Routing identifier for a routing code. | [optional] |
 
 ## Example

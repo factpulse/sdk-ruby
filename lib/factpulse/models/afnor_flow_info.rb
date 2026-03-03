@@ -14,9 +14,9 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Signaling of the flow: - The tracking id is an external identifier and is used to track the flow by the sender - The sha256 is the fingerprint of the attached file:   - if provided in the request: it should be checked once received   - if not provided in the request: it should be computed and returned in the response 
+  # Signaling of the flow
   class AFNORFlowInfo < ApiModelBase
-    # Unique identifier supporting UUID but not only, for flexibility purpose
+    # The tracking id is an external identifier and is used to track the flow by the sender
     attr_accessor :tracking_id
 
     # Name of the file
@@ -28,6 +28,7 @@ module FactPulse
 
     attr_accessor :flow_profile
 
+    # The sha256 is the fingerprint of the attached file: - if provided in the request: it should be checked once received - if not provided in the request: it may be computed and returned in the response 
     attr_accessor :sha256
 
     class EnumAttributeValidator
@@ -92,6 +93,14 @@ module FactPulse
       ])
     end
 
+    # List of class defined in allOf (OpenAPI v3)
+    def self.openapi_all_of
+      [
+      :'AFNORCoreFlowInfo',
+      :'AFNORFlowInfoExtension'
+      ]
+    end
+
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
@@ -114,6 +123,8 @@ module FactPulse
 
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      else
+        self.name = nil
       end
 
       if attributes.key?(:'processing_rule')
@@ -144,7 +155,11 @@ module FactPulse
         invalid_properties.push('invalid value for "tracking_id", the character length must be smaller than or equal to 36.')
       end
 
-      if !@name.nil? && @name.to_s.length > 255
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
+      end
+
+      if @name.to_s.length > 255
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 255.')
       end
 
@@ -165,7 +180,8 @@ module FactPulse
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if !@tracking_id.nil? && @tracking_id.to_s.length > 36
-      return false if !@name.nil? && @name.to_s.length > 255
+      return false if @name.nil?
+      return false if @name.to_s.length > 255
       return false if @flow_syntax.nil?
       return false if !@sha256.nil? && @sha256 !~ Regexp.new(/^[a-f0-9]{64}$/)
       true

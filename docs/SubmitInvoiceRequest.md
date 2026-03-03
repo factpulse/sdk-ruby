@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **credentials** | [**FactureElectroniqueRestApiSchemasChorusProChorusProCredentials**](FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md) |  | [optional] |
+| **credentials** | [**ChorusProCredentials**](ChorusProCredentials.md) |  | [optional] |
 | **invoice_number** | **String** | Invoice number |  |
 | **invoice_date** | **String** | Invoice date (ISO format: YYYY-MM-DD) |  |
 | **payment_due_date** | **String** |  | [optional] |

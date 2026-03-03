@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **op** | [**AFNORContainsOperator**](AFNORContainsOperator.md) |  | [optional] |
+| **op** | [**AFNORStrictOperator**](AFNORStrictOperator.md) |  | [optional] |
 | **value** | **String** | SIRET number to search for. | [optional] |
 
 ## Example

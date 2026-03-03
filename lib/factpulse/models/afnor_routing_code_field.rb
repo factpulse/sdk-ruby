@@ -22,10 +22,9 @@ module FactPulse
     MANAGES_LEGAL_COMMITMENT_CODE = "managesLegalCommitmentCode".freeze
     ADMINISTRATIVE_STATUS = "administrativeStatus".freeze
     ADDRESS = "address".freeze
-    ID_INSTANCE = "idInstance".freeze
 
     def self.all_vars
-      @all_vars ||= [SIRET, ROUTING_IDENTIFIER_TYPE, ROUTING_CODE_NAME, ROUTING_IDENTIFIER, MANAGES_LEGAL_COMMITMENT_CODE, ADMINISTRATIVE_STATUS, ADDRESS, ID_INSTANCE].freeze
+      @all_vars ||= [SIRET, ROUTING_IDENTIFIER_TYPE, ROUTING_CODE_NAME, ROUTING_IDENTIFIER, MANAGES_LEGAL_COMMITMENT_CODE, ADMINISTRATIVE_STATUS, ADDRESS].freeze
     end
 
     # Builds the enum from string

@@ -32,6 +32,29 @@ describe 'AFNORPDPPAFlowServiceApi' do
     end
   end
 
+  # unit tests for create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post
+  # Create a webhook
+  # Register a new webhook subscription (AFNOR XP Z12-013 v1.2.0)
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete
+  # Delete a webhook
+  # Delete a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+  # @param webhook_uid Webhook unique identifier (UUID)
+  # @param [Hash] opts the optional parameters
+  # @return [Object]
+  describe 'delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get
   # Download a flow
   # Download a file related to a given flow (AFNOR XP Z12-013 compliant): - Metadata [Default]: provides the flow metadata as JSON - Original: the document initially sent by the emitter - Converted: the document optionally converted by the system - ReadableView: the document optionally generated as readable file
@@ -51,6 +74,29 @@ describe 'AFNORPDPPAFlowServiceApi' do
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get
+  # Get a webhook
+  # Get details of a specific webhook (AFNOR XP Z12-013 v1.2.0)
+  # @param webhook_uid Webhook unique identifier (UUID)
+  # @param [Hash] opts the optional parameters
+  # @return [AFNORWebhook]
+  describe 'get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get
+  # List webhooks
+  # List all registered webhooks (AFNOR XP Z12-013 v1.2.0)
+  # @param [Hash] opts the optional parameters
+  # @return [Array<AFNORWebhook>]
+  describe 'list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
@@ -76,6 +122,18 @@ describe 'AFNORPDPPAFlowServiceApi' do
   # @param [Hash] opts the optional parameters
   # @return [Object]
   describe 'submit_flow_proxy_api_v1_afnor_flow_v1_flows_post test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch
+  # Update a webhook
+  # Partially update a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+  # @param webhook_uid Webhook unique identifier (UUID)
+  # @param [Hash] opts the optional parameters
+  # @return [AFNORWebhook]
+  describe 'update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

@@ -51,13 +51,13 @@ describe FactPulse::AFNORFacilityPayloadHistory do
     end
   end
 
-  describe 'test attribute "diffusible"' do
+  describe 'test attribute "administrative_status"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
   end
 
-  describe 'test attribute "administrative_status"' do
+  describe 'test attribute "siret_instructions"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

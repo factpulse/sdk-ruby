@@ -19,19 +19,18 @@ module FactPulse
     SIREN = "siren".freeze
     NAME = "name".freeze
     FACILITY_TYPE = "facilityType".freeze
-    ADDRESS = "address".freeze
-    DIFFUSIBLE = "diffusible".freeze
     ADMINISTRATIVE_STATUS = "administrativeStatus".freeze
+    SIRET_INSTRUCTIONS = "siretInstructions".freeze
+    ADDRESS = "address".freeze
     PM_STATUS = "pmStatus".freeze
     PM_ONLY = "pmOnly".freeze
     MANAGES_PAYMENT_STATUS = "managesPaymentStatus".freeze
     MANAGES_LEGAL_COMMITMENT = "managesLegalCommitment".freeze
     MANAGES_LEGAL_COMMITMENT_OR_SERVICE = "managesLegalCommitmentOrService".freeze
     SERVICE_CODE_STATUS = "serviceCodeStatus".freeze
-    ID_INSTANCE = "idInstance".freeze
 
     def self.all_vars
-      @all_vars ||= [SIRET, SIREN, NAME, FACILITY_TYPE, ADDRESS, DIFFUSIBLE, ADMINISTRATIVE_STATUS, PM_STATUS, PM_ONLY, MANAGES_PAYMENT_STATUS, MANAGES_LEGAL_COMMITMENT, MANAGES_LEGAL_COMMITMENT_OR_SERVICE, SERVICE_CODE_STATUS, ID_INSTANCE].freeze
+      @all_vars ||= [SIRET, SIREN, NAME, FACILITY_TYPE, ADMINISTRATIVE_STATUS, SIRET_INSTRUCTIONS, ADDRESS, PM_STATUS, PM_ONLY, MANAGES_PAYMENT_STATUS, MANAGES_LEGAL_COMMITMENT, MANAGES_LEGAL_COMMITMENT_OR_SERVICE, SERVICE_CODE_STATUS].freeze
     end
 
     # Builds the enum from string

@@ -16,30 +16,33 @@ require 'time'
 module FactPulse
   # The properties of a Flow resource
   class AFNORFlow < ApiModelBase
-    # The flow submission date and time (the date and time when the flow was created on the system) 
+    # The tracking id is an external identifier and is used to track the flow by the sender
+    attr_accessor :tracking_id
+
+    # Name of the file
+    attr_accessor :name
+
+    attr_accessor :processing_rule
+
+    attr_accessor :flow_syntax
+
+    attr_accessor :flow_profile
+
+    # Unique identifier supporting UUID but not only, for flexibility purpose
+    attr_accessor :flow_id
+
+    # The flow submission date and time (the date and time when the flow was created on the system) This property should be used by the API consumer as a time reference to avoid clock synchronization issues 
     attr_accessor :submitted_at
 
     # The last update date and time of the flow. When the flow is submitted updatedAt is equal to submittedAt. When the flow acknowledgment status is changed updatedAt date and time is updated. 
     attr_accessor :updated_at
 
-    # Unique identifier supporting UUID but not only, for flexibility purpose
-    attr_accessor :flow_id
-
-    # Unique identifier supporting UUID but not only, for flexibility purpose
-    attr_accessor :tracking_id
-
     attr_accessor :flow_type
-
-    attr_accessor :processing_rule
 
     # Says whether the processing rule has been computed or the processing rule was an input parameter
     attr_accessor :processing_rule_source
 
     attr_accessor :flow_direction
-
-    attr_accessor :flow_syntax
-
-    attr_accessor :flow_profile
 
     attr_accessor :acknowledgement
 
@@ -68,16 +71,17 @@ module FactPulse
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'submitted_at' => :'submittedAt',
-        :'updated_at' => :'updatedAt',
-        :'flow_id' => :'flowId',
         :'tracking_id' => :'trackingId',
-        :'flow_type' => :'flowType',
+        :'name' => :'name',
         :'processing_rule' => :'processingRule',
-        :'processing_rule_source' => :'processingRuleSource',
-        :'flow_direction' => :'flowDirection',
         :'flow_syntax' => :'flowSyntax',
         :'flow_profile' => :'flowProfile',
+        :'flow_id' => :'flowId',
+        :'submitted_at' => :'submittedAt',
+        :'updated_at' => :'updatedAt',
+        :'flow_type' => :'flowType',
+        :'processing_rule_source' => :'processingRuleSource',
+        :'flow_direction' => :'flowDirection',
         :'acknowledgement' => :'acknowledgement'
       }
     end
@@ -95,16 +99,17 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'submitted_at' => :'Time',
-        :'updated_at' => :'Time',
-        :'flow_id' => :'String',
         :'tracking_id' => :'String',
-        :'flow_type' => :'AFNORFlowType',
+        :'name' => :'String',
         :'processing_rule' => :'AFNORProcessingRule',
-        :'processing_rule_source' => :'String',
-        :'flow_direction' => :'AFNORFlowDirection',
         :'flow_syntax' => :'AFNORFlowSyntax',
         :'flow_profile' => :'AFNORFlowProfile',
+        :'flow_id' => :'String',
+        :'submitted_at' => :'Time',
+        :'updated_at' => :'Time',
+        :'flow_type' => :'AFNORFlowType',
+        :'processing_rule_source' => :'String',
+        :'flow_direction' => :'AFNORFlowDirection',
         :'acknowledgement' => :'AFNORAcknowledgement'
       }
     end
@@ -113,6 +118,15 @@ module FactPulse
     def self.openapi_nullable
       Set.new([
       ])
+    end
+
+    # List of class defined in allOf (OpenAPI v3)
+    def self.openapi_all_of
+      [
+      :'AFNORCoreFlowInfo',
+      :'AFNORFlowExtension',
+      :'AFNORFullFlowInfoExtension'
+      ]
     end
 
     # Initializes the object
@@ -131,48 +145,70 @@ module FactPulse
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'submitted_at')
-        self.submitted_at = attributes[:'submitted_at']
-      end
-
-      if attributes.key?(:'updated_at')
-        self.updated_at = attributes[:'updated_at']
-      end
-
-      if attributes.key?(:'flow_id')
-        self.flow_id = attributes[:'flow_id']
-      end
-
       if attributes.key?(:'tracking_id')
         self.tracking_id = attributes[:'tracking_id']
       end
 
-      if attributes.key?(:'flow_type')
-        self.flow_type = attributes[:'flow_type']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
+      else
+        self.name = nil
       end
 
       if attributes.key?(:'processing_rule')
         self.processing_rule = attributes[:'processing_rule']
       end
 
-      if attributes.key?(:'processing_rule_source')
-        self.processing_rule_source = attributes[:'processing_rule_source']
-      end
-
-      if attributes.key?(:'flow_direction')
-        self.flow_direction = attributes[:'flow_direction']
-      end
-
       if attributes.key?(:'flow_syntax')
         self.flow_syntax = attributes[:'flow_syntax']
+      else
+        self.flow_syntax = nil
       end
 
       if attributes.key?(:'flow_profile')
         self.flow_profile = attributes[:'flow_profile']
       end
 
+      if attributes.key?(:'flow_id')
+        self.flow_id = attributes[:'flow_id']
+      else
+        self.flow_id = nil
+      end
+
+      if attributes.key?(:'submitted_at')
+        self.submitted_at = attributes[:'submitted_at']
+      else
+        self.submitted_at = nil
+      end
+
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      else
+        self.updated_at = nil
+      end
+
+      if attributes.key?(:'flow_type')
+        self.flow_type = attributes[:'flow_type']
+      else
+        self.flow_type = nil
+      end
+
+      if attributes.key?(:'processing_rule_source')
+        self.processing_rule_source = attributes[:'processing_rule_source']
+      else
+        self.processing_rule_source = nil
+      end
+
+      if attributes.key?(:'flow_direction')
+        self.flow_direction = attributes[:'flow_direction']
+      else
+        self.flow_direction = nil
+      end
+
       if attributes.key?(:'acknowledgement')
         self.acknowledgement = attributes[:'acknowledgement']
+      else
+        self.acknowledgement = nil
       end
     end
 
@@ -181,12 +217,52 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if !@flow_id.nil? && @flow_id.to_s.length > 36
+      if !@tracking_id.nil? && @tracking_id.to_s.length > 36
+        invalid_properties.push('invalid value for "tracking_id", the character length must be smaller than or equal to 36.')
+      end
+
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
+      end
+
+      if @name.to_s.length > 255
+        invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 255.')
+      end
+
+      if @flow_syntax.nil?
+        invalid_properties.push('invalid value for "flow_syntax", flow_syntax cannot be nil.')
+      end
+
+      if @flow_id.nil?
+        invalid_properties.push('invalid value for "flow_id", flow_id cannot be nil.')
+      end
+
+      if @flow_id.to_s.length > 36
         invalid_properties.push('invalid value for "flow_id", the character length must be smaller than or equal to 36.')
       end
 
-      if !@tracking_id.nil? && @tracking_id.to_s.length > 36
-        invalid_properties.push('invalid value for "tracking_id", the character length must be smaller than or equal to 36.')
+      if @submitted_at.nil?
+        invalid_properties.push('invalid value for "submitted_at", submitted_at cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
+      if @flow_type.nil?
+        invalid_properties.push('invalid value for "flow_type", flow_type cannot be nil.')
+      end
+
+      if @processing_rule_source.nil?
+        invalid_properties.push('invalid value for "processing_rule_source", processing_rule_source cannot be nil.')
+      end
+
+      if @flow_direction.nil?
+        invalid_properties.push('invalid value for "flow_direction", flow_direction cannot be nil.')
+      end
+
+      if @acknowledgement.nil?
+        invalid_properties.push('invalid value for "acknowledgement", acknowledgement cannot be nil.')
       end
 
       invalid_properties
@@ -196,11 +272,59 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if !@flow_id.nil? && @flow_id.to_s.length > 36
       return false if !@tracking_id.nil? && @tracking_id.to_s.length > 36
+      return false if @name.nil?
+      return false if @name.to_s.length > 255
+      return false if @flow_syntax.nil?
+      return false if @flow_id.nil?
+      return false if @flow_id.to_s.length > 36
+      return false if @submitted_at.nil?
+      return false if @updated_at.nil?
+      return false if @flow_type.nil?
+      return false if @processing_rule_source.nil?
       processing_rule_source_validator = EnumAttributeValidator.new('String', ["Input", "Computed"])
       return false unless processing_rule_source_validator.valid?(@processing_rule_source)
+      return false if @flow_direction.nil?
+      return false if @acknowledgement.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] tracking_id Value to be assigned
+    def tracking_id=(tracking_id)
+      if tracking_id.nil?
+        fail ArgumentError, 'tracking_id cannot be nil'
+      end
+
+      if tracking_id.to_s.length > 36
+        fail ArgumentError, 'invalid value for "tracking_id", the character length must be smaller than or equal to 36.'
+      end
+
+      @tracking_id = tracking_id
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] name Value to be assigned
+    def name=(name)
+      if name.nil?
+        fail ArgumentError, 'name cannot be nil'
+      end
+
+      if name.to_s.length > 255
+        fail ArgumentError, 'invalid value for "name", the character length must be smaller than or equal to 255.'
+      end
+
+      @name = name
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] flow_syntax Value to be assigned
+    def flow_syntax=(flow_syntax)
+      if flow_syntax.nil?
+        fail ArgumentError, 'flow_syntax cannot be nil'
+      end
+
+      @flow_syntax = flow_syntax
     end
 
     # Custom attribute writer method with validation
@@ -218,17 +342,33 @@ module FactPulse
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] tracking_id Value to be assigned
-    def tracking_id=(tracking_id)
-      if tracking_id.nil?
-        fail ArgumentError, 'tracking_id cannot be nil'
+    # @param [Object] submitted_at Value to be assigned
+    def submitted_at=(submitted_at)
+      if submitted_at.nil?
+        fail ArgumentError, 'submitted_at cannot be nil'
       end
 
-      if tracking_id.to_s.length > 36
-        fail ArgumentError, 'invalid value for "tracking_id", the character length must be smaller than or equal to 36.'
+      @submitted_at = submitted_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated_at Value to be assigned
+    def updated_at=(updated_at)
+      if updated_at.nil?
+        fail ArgumentError, 'updated_at cannot be nil'
       end
 
-      @tracking_id = tracking_id
+      @updated_at = updated_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] flow_type Value to be assigned
+    def flow_type=(flow_type)
+      if flow_type.nil?
+        fail ArgumentError, 'flow_type cannot be nil'
+      end
+
+      @flow_type = flow_type
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -241,21 +381,42 @@ module FactPulse
       @processing_rule_source = processing_rule_source
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] flow_direction Value to be assigned
+    def flow_direction=(flow_direction)
+      if flow_direction.nil?
+        fail ArgumentError, 'flow_direction cannot be nil'
+      end
+
+      @flow_direction = flow_direction
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] acknowledgement Value to be assigned
+    def acknowledgement=(acknowledgement)
+      if acknowledgement.nil?
+        fail ArgumentError, 'acknowledgement cannot be nil'
+      end
+
+      @acknowledgement = acknowledgement
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          submitted_at == o.submitted_at &&
-          updated_at == o.updated_at &&
-          flow_id == o.flow_id &&
           tracking_id == o.tracking_id &&
-          flow_type == o.flow_type &&
+          name == o.name &&
           processing_rule == o.processing_rule &&
-          processing_rule_source == o.processing_rule_source &&
-          flow_direction == o.flow_direction &&
           flow_syntax == o.flow_syntax &&
           flow_profile == o.flow_profile &&
+          flow_id == o.flow_id &&
+          submitted_at == o.submitted_at &&
+          updated_at == o.updated_at &&
+          flow_type == o.flow_type &&
+          processing_rule_source == o.processing_rule_source &&
+          flow_direction == o.flow_direction &&
           acknowledgement == o.acknowledgement
     end
 
@@ -268,7 +429,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [submitted_at, updated_at, flow_id, tracking_id, flow_type, processing_rule, processing_rule_source, flow_direction, flow_syntax, flow_profile, acknowledgement].hash
+      [tracking_id, name, processing_rule, flow_syntax, flow_profile, flow_id, submitted_at, updated_at, flow_type, processing_rule_source, flow_direction, acknowledgement].hash
     end
 
     # Builds the object from hash

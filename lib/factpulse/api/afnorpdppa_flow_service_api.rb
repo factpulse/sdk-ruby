@@ -19,6 +19,126 @@ module FactPulse
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Create a webhook
+    # Register a new webhook subscription (AFNOR XP Z12-013 v1.2.0)
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post(opts = {})
+      data, _status_code, _headers = create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post_with_http_info(opts)
+      data
+    end
+
+    # Create a webhook
+    # Register a new webhook subscription (AFNOR XP Z12-013 v1.2.0)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAFlowServiceApi.create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/flow/v1/webhooks'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAFlowServiceApi.create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a webhook
+    # Delete a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+    # @param webhook_uid [String] Webhook unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [Object]
+    def delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete(webhook_uid, opts = {})
+      data, _status_code, _headers = delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete_with_http_info(webhook_uid, opts)
+      data
+    end
+
+    # Delete a webhook
+    # Delete a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+    # @param webhook_uid [String] Webhook unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
+    def delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete_with_http_info(webhook_uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAFlowServiceApi.delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete ...'
+      end
+      # verify the required parameter 'webhook_uid' is set
+      if @api_client.config.client_side_validation && webhook_uid.nil?
+        fail ArgumentError, "Missing the required parameter 'webhook_uid' when calling AFNORPDPPAFlowServiceApi.delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/flow/v1/webhooks/{webhookUid}'.sub('{' + 'webhookUid' + '}', CGI.escape(webhook_uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Object'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAFlowServiceApi.delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Download a flow
     # Download a file related to a given flow (AFNOR XP Z12-013 compliant): - Metadata [Default]: provides the flow metadata as JSON - Original: the document initially sent by the emitter - Converted: the document optionally converted by the system - ReadableView: the document optionally generated as readable file
     # @param flow_id [String] AFNOR flow identifier (UUID)
@@ -138,6 +258,126 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get a webhook
+    # Get details of a specific webhook (AFNOR XP Z12-013 v1.2.0)
+    # @param webhook_uid [String] Webhook unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [AFNORWebhook]
+    def get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get(webhook_uid, opts = {})
+      data, _status_code, _headers = get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get_with_http_info(webhook_uid, opts)
+      data
+    end
+
+    # Get a webhook
+    # Get details of a specific webhook (AFNOR XP Z12-013 v1.2.0)
+    # @param webhook_uid [String] Webhook unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AFNORWebhook, Integer, Hash)>] AFNORWebhook data, response status code and response headers
+    def get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get_with_http_info(webhook_uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAFlowServiceApi.get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get ...'
+      end
+      # verify the required parameter 'webhook_uid' is set
+      if @api_client.config.client_side_validation && webhook_uid.nil?
+        fail ArgumentError, "Missing the required parameter 'webhook_uid' when calling AFNORPDPPAFlowServiceApi.get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/flow/v1/webhooks/{webhookUid}'.sub('{' + 'webhookUid' + '}', CGI.escape(webhook_uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AFNORWebhook'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAFlowServiceApi.get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List webhooks
+    # List all registered webhooks (AFNOR XP Z12-013 v1.2.0)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<AFNORWebhook>]
+    def list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get(opts = {})
+      data, _status_code, _headers = list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get_with_http_info(opts)
+      data
+    end
+
+    # List webhooks
+    # List all registered webhooks (AFNOR XP Z12-013 v1.2.0)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Array<AFNORWebhook>, Integer, Hash)>] Array<AFNORWebhook> data, response status code and response headers
+    def list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAFlowServiceApi.list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get ...'
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/flow/v1/webhooks'
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'Array<AFNORWebhook>'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAFlowServiceApi.list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -282,6 +522,69 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#submit_flow_proxy_api_v1_afnor_flow_v1_flows_post\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Update a webhook
+    # Partially update a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+    # @param webhook_uid [String] Webhook unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [AFNORWebhook]
+    def update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch(webhook_uid, opts = {})
+      data, _status_code, _headers = update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch_with_http_info(webhook_uid, opts)
+      data
+    end
+
+    # Update a webhook
+    # Partially update a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+    # @param webhook_uid [String] Webhook unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(AFNORWebhook, Integer, Hash)>] AFNORWebhook data, response status code and response headers
+    def update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch_with_http_info(webhook_uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: AFNORPDPPAFlowServiceApi.update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch ...'
+      end
+      # verify the required parameter 'webhook_uid' is set
+      if @api_client.config.client_side_validation && webhook_uid.nil?
+        fail ArgumentError, "Missing the required parameter 'webhook_uid' when calling AFNORPDPPAFlowServiceApi.update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch"
+      end
+      # resource path
+      local_var_path = '/api/v1/afnor/flow/v1/webhooks/{webhookUid}'.sub('{' + 'webhookUid' + '}', CGI.escape(webhook_uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'AFNORWebhook'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || []
+
+      new_options = opts.merge(
+        :operation => :"AFNORPDPPAFlowServiceApi.update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: AFNORPDPPAFlowServiceApi#update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

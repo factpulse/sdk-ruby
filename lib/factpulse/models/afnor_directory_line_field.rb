@@ -20,10 +20,9 @@ module FactPulse
     SIRET = "siret".freeze
     ROUTING_IDENTIFIER = "routingIdentifier".freeze
     ADDRESSING_SUFFIX = "addressingSuffix".freeze
-    ID_INSTANCE = "idInstance".freeze
 
     def self.all_vars
-      @all_vars ||= [ADDRESSING_IDENTIFIER, SIREN, SIRET, ROUTING_IDENTIFIER, ADDRESSING_SUFFIX, ID_INSTANCE].freeze
+      @all_vars ||= [ADDRESSING_IDENTIFIER, SIREN, SIRET, ROUTING_IDENTIFIER, ADDRESSING_SUFFIX].freeze
     end
 
     # Builds the enum from string

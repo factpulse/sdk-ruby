@@ -26,9 +26,9 @@ module FactPulse
 
     attr_accessor :facility_type
 
-    attr_accessor :diffusible
-
     attr_accessor :administrative_status
+
+    attr_accessor :siret_instructions
 
     attr_accessor :address
 
@@ -65,8 +65,8 @@ module FactPulse
         :'siren' => :'siren',
         :'name' => :'name',
         :'facility_type' => :'facilityType',
-        :'diffusible' => :'diffusible',
         :'administrative_status' => :'administrativeStatus',
+        :'siret_instructions' => :'siretInstructions',
         :'address' => :'address',
         :'b2g_additional_data' => :'b2gAdditionalData',
         :'legal_unit' => :'legalUnit'
@@ -90,11 +90,11 @@ module FactPulse
         :'siren' => :'String',
         :'name' => :'String',
         :'facility_type' => :'AFNORFacilityType',
-        :'diffusible' => :'AFNORDiffusionStatus',
         :'administrative_status' => :'AFNORFacilityAdministrativeStatus',
+        :'siret_instructions' => :'AFNORSiretInstructions',
         :'address' => :'AFNORAddressRead',
         :'b2g_additional_data' => :'AFNORFacilityPayloadHistoryUleB2gAdditionalData',
-        :'legal_unit' => :'AFNORLegalUnitPayloadIncludedNoSiren'
+        :'legal_unit' => :'AFNORLegalUnitPayloadIncluded'
       }
     end
 
@@ -136,12 +136,12 @@ module FactPulse
         self.facility_type = attributes[:'facility_type']
       end
 
-      if attributes.key?(:'diffusible')
-        self.diffusible = attributes[:'diffusible']
-      end
-
       if attributes.key?(:'administrative_status')
         self.administrative_status = attributes[:'administrative_status']
+      end
+
+      if attributes.key?(:'siret_instructions')
+        self.siret_instructions = attributes[:'siret_instructions']
       end
 
       if attributes.key?(:'address')
@@ -260,8 +260,8 @@ module FactPulse
           siren == o.siren &&
           name == o.name &&
           facility_type == o.facility_type &&
-          diffusible == o.diffusible &&
           administrative_status == o.administrative_status &&
+          siret_instructions == o.siret_instructions &&
           address == o.address &&
           b2g_additional_data == o.b2g_additional_data &&
           legal_unit == o.legal_unit
@@ -276,7 +276,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [siret, siren, name, facility_type, diffusible, administrative_status, address, b2g_additional_data, legal_unit].hash
+      [siret, siren, name, facility_type, administrative_status, siret_instructions, address, b2g_additional_data, legal_unit].hash
     end
 
     # Builds the object from hash

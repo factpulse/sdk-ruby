@@ -18,7 +18,7 @@ require 'factpulse'
 instance = FactPulse::AFNORSearchSiren.new(
   filters: null,
   sorting: [{field&#x3D;siren, order&#x3D;ascending}, {field&#x3D;administrativeStatus, order&#x3D;descending}],
-  fields: [siren, businessName, entityType, administrativeStatus, idInstance],
+  fields: [siren, businessName, entityType, administrativeStatus, instructions],
   limit: 50,
   ignore: 20
 )

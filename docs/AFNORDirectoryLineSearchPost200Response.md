@@ -6,7 +6,7 @@
 | ---- | ---- | ----------- | ----- |
 | **search** | [**AFNORSearchDirectoryLine**](AFNORSearchDirectoryLine.md) |  | [optional] |
 | **total_number_of_results** | **Integer** | The total number of results | [optional] |
-| **results** | [**Array&lt;AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode&gt;**](AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode.md) |  | [optional] |
+| **results** | [**Array&lt;AFNORDirectoryLinePayloadStatusLegalUnitFacilityRoutingCode&gt;**](AFNORDirectoryLinePayloadStatusLegalUnitFacilityRoutingCode.md) |  | [optional] |
 
 ## Example
 

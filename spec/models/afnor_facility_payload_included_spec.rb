@@ -51,12 +51,6 @@ describe FactPulse::AFNORFacilityPayloadIncluded do
     end
   end
 
-  describe 'test attribute "diffusible"' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
   describe 'test attribute "administrative_status"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/

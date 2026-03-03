@@ -26,8 +26,6 @@ module FactPulse
 
     attr_accessor :facility_type
 
-    attr_accessor :diffusible
-
     attr_accessor :administrative_status
 
     attr_accessor :address
@@ -63,7 +61,6 @@ module FactPulse
         :'siren' => :'siren',
         :'name' => :'name',
         :'facility_type' => :'facilityType',
-        :'diffusible' => :'diffusible',
         :'administrative_status' => :'administrativeStatus',
         :'address' => :'address',
         :'b2g_additional_data' => :'b2gAdditionalData'
@@ -87,7 +84,6 @@ module FactPulse
         :'siren' => :'String',
         :'name' => :'String',
         :'facility_type' => :'AFNORFacilityType',
-        :'diffusible' => :'AFNORDiffusionStatus',
         :'administrative_status' => :'AFNORFacilityAdministrativeStatus',
         :'address' => :'AFNORAddressRead',
         :'b2g_additional_data' => :'AFNORFacilityPayloadHistoryUleB2gAdditionalData'
@@ -130,10 +126,6 @@ module FactPulse
 
       if attributes.key?(:'facility_type')
         self.facility_type = attributes[:'facility_type']
-      end
-
-      if attributes.key?(:'diffusible')
-        self.diffusible = attributes[:'diffusible']
       end
 
       if attributes.key?(:'administrative_status')
@@ -252,7 +244,6 @@ module FactPulse
           siren == o.siren &&
           name == o.name &&
           facility_type == o.facility_type &&
-          diffusible == o.diffusible &&
           administrative_status == o.administrative_status &&
           address == o.address &&
           b2g_additional_data == o.b2g_additional_data
@@ -267,7 +258,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [siret, siren, name, facility_type, diffusible, administrative_status, address, b2g_additional_data].hash
+      [siret, siren, name, facility_type, administrative_status, address, b2g_additional_data].hash
     end
 
     # Builds the object from hash

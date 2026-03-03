@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **op** | [**AFNORContainsOperator**](AFNORContainsOperator.md) |  | [optional] |
+| **op** | [**AFNORStrictOperator**](AFNORStrictOperator.md) |  | [optional] |
 | **value** | **String** | Subdivision of the country | [optional] |
 
 ## Example

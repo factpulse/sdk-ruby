@@ -15,14 +15,15 @@ require 'time'
 
 module FactPulse
   class AFNORAlgorithm
-    RSA = "RSA".freeze
+    RS256 = "RS256".freeze
+    HS256 = "HS256".freeze
     ECDSA = "ECDSA".freeze
-    RSA_PSS = "RSA_PSS".freeze
     EDDSA_25519 = "EDDSA_25519".freeze
+    RSA_PSS = "RSA_PSS".freeze
     EDDSA_448 = "EDDSA_448".freeze
 
     def self.all_vars
-      @all_vars ||= [RSA, ECDSA, RSA_PSS, EDDSA_25519, EDDSA_448].freeze
+      @all_vars ||= [RS256, HS256, ECDSA, EDDSA_25519, RSA_PSS, EDDSA_448].freeze
     end
 
     # Builds the enum from string

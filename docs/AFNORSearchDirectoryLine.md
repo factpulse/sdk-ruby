@@ -17,8 +17,8 @@ require 'factpulse'
 
 instance = FactPulse::AFNORSearchDirectoryLine.new(
   filters: null,
-  sorting: [{champ&#x3D;addressingIdentifier, order&#x3D;ascending}],
-  fields: [addressingIdentifier, siren, siret, addressingSuffix, idInstance],
+  sorting: [{field&#x3D;addressingIdentifier, order&#x3D;ascending}],
+  fields: [addressingIdentifier, siren, siret, addressingSuffix],
   limit: 50,
   ignore: 20
 )

@@ -46,7 +46,7 @@ module FactPulse
       {
         :'search' => :'AFNORSearchDirectoryLine',
         :'total_number_of_results' => :'Integer',
-        :'results' => :'Array<AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCode>'
+        :'results' => :'Array<AFNORDirectoryLinePayloadStatusLegalUnitFacilityRoutingCode>'
       }
     end
 
