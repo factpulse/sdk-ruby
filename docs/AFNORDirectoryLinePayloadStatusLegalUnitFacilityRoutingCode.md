@@ -9,6 +9,7 @@
 | **directory_line_status** | [**AFNORDirectoryLineStatus**](AFNORDirectoryLineStatus.md) |  | [optional] |
 | **siren** | **String** | SIREN number | [optional] |
 | **siret** | **String** | SIRET Number | [optional] |
+| **routing_identifier** | **String** | Routing identifier od a routing code. | [optional] |
 | **addressing_suffix** | **String** | suffix of the directory line which defines an address mesh not attached to a facility | [optional] |
 | **routing_code** | [**AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode**](AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode.md) |  | [optional] |
 | **legal_unit** | [**AFNORLegalUnitPayloadIncluded**](AFNORLegalUnitPayloadIncluded.md) |  | [optional] |
@@ -25,6 +26,7 @@ instance = FactPulse::AFNORDirectoryLinePayloadStatusLegalUnitFacilityRoutingCod
   directory_line_status: null,
   siren: 702042755,
   siret: 70204275500240,
+  routing_identifier: dcsc456sdcsdcs556,
   addressing_suffix: dcsc456sdcsdcs556,
   routing_code: null,
   legal_unit: null,

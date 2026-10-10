@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
+| **electronic_address** | [**ElectronicAddressInput**](ElectronicAddressInput.md) |  | [optional] |
 | **supplier_id** | **Integer** | Chorus Pro supplier structure ID (idFournisseur). Only required for B2G. | [optional][default to 0] |
 | **private_id** | **String** |  | [optional] |
 | **supplier_bank_account_code** | **Integer** |  | [optional] |
@@ -15,13 +15,14 @@
 | **siren** | **String** |  | [optional] |
 | **siret** | **String** |  | [optional] |
 | **vat_number** | **String** |  | [optional] |
+| **tax_registration_id** | **String** |  | [optional] |
 | **iban** | **String** |  | [optional] |
 | **bic** | **String** |  | [optional] |
 | **bank_account_name** | **String** |  | [optional] |
 | **proprietary_id** | **String** |  | [optional] |
-| **postal_address** | [**PostalAddress**](PostalAddress.md) |  | [optional] |
+| **postal_address** | [**PostalAddressInput**](PostalAddressInput.md) |  | [optional] |
 | **contact** | [**Contact**](Contact.md) |  | [optional] |
-| **global_ids** | [**Array&lt;ElectronicAddress&gt;**](ElectronicAddress.md) |  | [optional] |
+| **global_ids** | [**Array&lt;ElectronicAddressInput&gt;**](ElectronicAddressInput.md) |  | [optional] |
 
 ## Example
 
@@ -40,6 +41,7 @@ instance = FactPulse::Supplier.new(
   siren: null,
   siret: null,
   vat_number: null,
+  tax_registration_id: null,
   iban: null,
   bic: null,
   bank_account_name: null,

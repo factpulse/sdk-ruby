@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **is_charge** | **Boolean** | True for charge, False for allowance (ChargeIndicator). |  |
-| **amount** | [**Amount2**](Amount2.md) |  |  |
+| **amount** | [**Amount**](Amount.md) |  |  |
 | **base_amount** | [**BaseAmount**](BaseAmount.md) |  | [optional] |
 | **percentage** | [**Percentage**](Percentage.md) |  | [optional] |
 | **reason** | **String** |  | [optional] |

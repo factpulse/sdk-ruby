@@ -6,7 +6,7 @@
 | ---- | ---- | ----------- | ----- |
 | **invoice_id** | **String** | Invoice identifier |  |
 | **issue_date** | **Date** | Invoice issue date |  |
-| **type_code** | [**FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode**](FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md) | Invoice type code | [optional] |
+| **type_code** | [**InvoiceTypeCode**](InvoiceTypeCode.md) | Invoice type code | [optional] |
 | **currency** | [**Currency**](Currency.md) |  | [optional] |
 | **due_date** | **Date** |  | [optional] |
 | **seller_id** | **String** |  | [optional] |
@@ -19,6 +19,8 @@
 | **tax_exclusive_amount** | [**Taxexclusiveamount1**](Taxexclusiveamount1.md) |  |  |
 | **tax_amount** | [**Taxamount1**](Taxamount1.md) |  |  |
 | **tax_breakdown** | [**Array&lt;TaxBreakdownInput&gt;**](TaxBreakdownInput.md) | VAT breakdown |  |
+| **tax_amount_eur** | [**Taxamounteur**](Taxamounteur.md) |  | [optional] |
+| **business_process_id** | **String** |  | [optional] |
 | **referenced_invoice_id** | **String** |  | [optional] |
 | **referenced_invoice_date** | **Date** |  | [optional] |
 
@@ -43,6 +45,8 @@ instance = FactPulse::InvoiceInput.new(
   tax_exclusive_amount: null,
   tax_amount: null,
   tax_breakdown: null,
+  tax_amount_eur: null,
+  business_process_id: null,
   referenced_invoice_id: null,
   referenced_invoice_date: null
 )

@@ -158,7 +158,7 @@ No authorization required
 
 [Simplified] Get lifecycle events for invoices
 
-Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7) - `invoiceId`: Optional filter on a specific invoice reference  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
+Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7) - `invoiceId`: Optional filter on a specific invoice reference - `flowDirection`: `All` (default), `In` (statuses received from the counterparty)   or `Out` (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
 
 ### Examples
 
@@ -175,10 +175,12 @@ api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 opts = {
   days: 56, # Integer | Number of days to look back
   invoice_id: 'invoice_id_example', # String | Filter by invoice reference
+  flow_direction: 'In', # String | All (default), In (received statuses) or Out (issued statuses)
   pdp_flow_service_url: 'pdp_flow_service_url_example', # String | PDP Flow Service URL
   pdp_token_url: 'pdp_token_url_example', # String | PDP OAuth token URL
   pdp_client_id: 'pdp_client_id_example', # String | PDP Client ID
-  pdp_client_secret: 'pdp_client_secret_example' # String | PDP Client Secret
+  pdp_client_secret: 'pdp_client_secret_example', # String | PDP Client Secret
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
 }
 
 begin
@@ -214,10 +216,12 @@ end
 | ---- | ---- | ----------- | ----- |
 | **days** | **Integer** | Number of days to look back | [optional][default to 7] |
 | **invoice_id** | **String** | Filter by invoice reference | [optional] |
+| **flow_direction** | **String** | All (default), In (received statuses) or Out (issued statuses) | [optional][default to &#39;All&#39;] |
 | **pdp_flow_service_url** | **String** | PDP Flow Service URL | [optional] |
 | **pdp_token_url** | **String** | PDP OAuth token URL | [optional] |
 | **pdp_client_id** | **String** | PDP Client ID | [optional] |
 | **pdp_client_secret** | **String** | PDP Client Secret | [optional] |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 
@@ -357,7 +361,7 @@ No authorization required
 
 ## submit_cdar_api_v1_cdar_submit_post
 
-> <SubmitCDARResponse> submit_cdar_api_v1_cdar_submit_post(submit_cdar_request)
+> <SubmitCDARResponse> submit_cdar_api_v1_cdar_submit_post(submit_cdar_request, opts)
 
 Generate and submit a CDAR message
 
@@ -376,10 +380,13 @@ end
 
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 submit_cdar_request = FactPulse::SubmitCDARRequest.new({document_id: 'document_id_example', sender_siren: 'sender_siren_example', invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, status: 'status_example'}) # SubmitCDARRequest | 
+opts = {
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
+}
 
 begin
   # Generate and submit a CDAR message
-  result = api_instance.submit_cdar_api_v1_cdar_submit_post(submit_cdar_request)
+  result = api_instance.submit_cdar_api_v1_cdar_submit_post(submit_cdar_request, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_cdar_api_v1_cdar_submit_post: #{e}"
@@ -390,12 +397,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request)
+> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request, opts)
 
 ```ruby
 begin
   # Generate and submit a CDAR message
-  data, status_code, headers = api_instance.submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request)
+  data, status_code, headers = api_instance.submit_cdar_api_v1_cdar_submit_post_with_http_info(submit_cdar_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCDARResponse>
@@ -409,6 +416,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **submit_cdar_request** | [**SubmitCDARRequest**](SubmitCDARRequest.md) |  |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 
@@ -426,7 +434,7 @@ end
 
 ## submit_cdar_xml_api_v1_cdar_submit_xml_post
 
-> <SubmitCDARResponse> submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request)
+> <SubmitCDARResponse> submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request, opts)
 
 Submit a pre-generated CDAR XML
 
@@ -445,10 +453,13 @@ end
 
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 submit_cdarxml_request = FactPulse::SubmitCDARXMLRequest.new({xml: 'xml_example'}) # SubmitCDARXMLRequest | 
+opts = {
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
+}
 
 begin
   # Submit a pre-generated CDAR XML
-  result = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request)
+  result = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post(submit_cdarxml_request, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_cdar_xml_api_v1_cdar_submit_xml_post: #{e}"
@@ -459,12 +470,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request)
+> <Array(<SubmitCDARResponse>, Integer, Hash)> submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request, opts)
 
 ```ruby
 begin
   # Submit a pre-generated CDAR XML
-  data, status_code, headers = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request)
+  data, status_code, headers = api_instance.submit_cdar_xml_api_v1_cdar_submit_xml_post_with_http_info(submit_cdarxml_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitCDARResponse>
@@ -478,6 +489,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **submit_cdarxml_request** | [**SubmitCDARXMLRequest**](SubmitCDARXMLRequest.md) |  |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 
@@ -495,7 +507,7 @@ end
 
 ## submit_encaissee_api_v1_cdar_encaissee_post
 
-> <SimplifiedCDARResponse> submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request)
+> <SimplifiedCDARResponse> submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request, opts)
 
 [Simplified] Submit PAID status (212) - Issued invoice
 
@@ -513,11 +525,14 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
-encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_buyer_siren: 'invoice_buyer_siren_example', invoice_buyer_electronic_address: 'invoice_buyer_electronic_address_example', amount: FactPulse::Amount.new}) # EncaisseeRequest | 
+encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_buyer_siren: 'invoice_buyer_siren_example', invoice_buyer_electronic_address: 'invoice_buyer_electronic_address_example', amount: FactPulse::Amount1.new}) # EncaisseeRequest | 
+opts = {
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
+}
 
 begin
   # [Simplified] Submit PAID status (212) - Issued invoice
-  result = api_instance.submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request)
+  result = api_instance.submit_encaissee_api_v1_cdar_encaissee_post(encaissee_request, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_encaissee_api_v1_cdar_encaissee_post: #{e}"
@@ -528,12 +543,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SimplifiedCDARResponse>, Integer, Hash)> submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request)
+> <Array(<SimplifiedCDARResponse>, Integer, Hash)> submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request, opts)
 
 ```ruby
 begin
   # [Simplified] Submit PAID status (212) - Issued invoice
-  data, status_code, headers = api_instance.submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request)
+  data, status_code, headers = api_instance.submit_encaissee_api_v1_cdar_encaissee_post_with_http_info(encaissee_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SimplifiedCDARResponse>
@@ -547,6 +562,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **encaissee_request** | [**EncaisseeRequest**](EncaisseeRequest.md) |  |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 
@@ -564,7 +580,7 @@ end
 
 ## submit_refusee_api_v1_cdar_refusee_post
 
-> <SimplifiedCDARResponse> submit_refusee_api_v1_cdar_refusee_post(refusee_request)
+> <SimplifiedCDARResponse> submit_refusee_api_v1_cdar_refusee_post(refusee_request, opts)
 
 [Simplified] Submit REFUSED status (210) - Received invoice
 
@@ -583,10 +599,13 @@ end
 
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 refusee_request = FactPulse::RefuseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_seller_siren: 'invoice_seller_siren_example', invoice_seller_electronic_address: 'invoice_seller_electronic_address_example', reason_code: 'reason_code_example'}) # RefuseeRequest | 
+opts = {
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
+}
 
 begin
   # [Simplified] Submit REFUSED status (210) - Received invoice
-  result = api_instance.submit_refusee_api_v1_cdar_refusee_post(refusee_request)
+  result = api_instance.submit_refusee_api_v1_cdar_refusee_post(refusee_request, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling Flux6InvoiceLifecycleCDARApi->submit_refusee_api_v1_cdar_refusee_post: #{e}"
@@ -597,12 +616,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SimplifiedCDARResponse>, Integer, Hash)> submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request)
+> <Array(<SimplifiedCDARResponse>, Integer, Hash)> submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request, opts)
 
 ```ruby
 begin
   # [Simplified] Submit REFUSED status (210) - Received invoice
-  data, status_code, headers = api_instance.submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request)
+  data, status_code, headers = api_instance.submit_refusee_api_v1_cdar_refusee_post_with_http_info(refusee_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SimplifiedCDARResponse>
@@ -616,6 +635,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **refusee_request** | [**RefuseeRequest**](RefuseeRequest.md) |  |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 

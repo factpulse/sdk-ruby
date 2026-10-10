@@ -8,7 +8,8 @@
 | **invoice_issue_date** | **Date** | Date d&#39;émission de la facture (YYYY-MM-DD) |  |
 | **invoice_buyer_siren** | **String** | SIREN de l&#39;acheteur (destinataire du statut) |  |
 | **invoice_buyer_electronic_address** | **String** | Adresse électronique de l&#39;acheteur (MDT-73) |  |
-| **amount** | [**Amount**](Amount.md) |  |  |
+| **amount** | [**Amount1**](Amount1.md) |  |  |
+| **vat_rate** | **Float** | Taux de TVA du montant encaissé en % (MDT-224, requis par BR-FR-CDV-14 ; défaut 20) | [optional][default to 20] |
 | **currency** | **String** | Code devise ISO 4217 | [optional][default to &#39;EUR&#39;] |
 | **sender_siren** | **String** |  | [optional] |
 | **flow_type** | **String** | Type de flux (CustomerInvoiceLC pour facture émise) | [optional][default to &#39;CustomerInvoiceLC&#39;] |
@@ -28,6 +29,7 @@ instance = FactPulse::EncaisseeRequest.new(
   invoice_buyer_siren: null,
   invoice_buyer_electronic_address: null,
   amount: null,
+  vat_rate: null,
   currency: null,
   sender_siren: null,
   flow_type: null,

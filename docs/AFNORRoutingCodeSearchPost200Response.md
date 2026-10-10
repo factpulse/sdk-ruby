@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **search** | [**AFNORRoutingCodeSearch**](AFNORRoutingCodeSearch.md) |  | [optional] |
-| **total_number_of_results** | **Integer** | The total number of results | [optional] |
+| **total_number_of_results** | **Integer** | The total number of results, if -1 is returned then this value is not managed due to performance issue | [optional][default to -1] |
 | **results** | [**Array&lt;AFNORRoutingCodePayloadHistoryLegalUnitFacility&gt;**](AFNORRoutingCodePayloadHistoryLegalUnitFacility.md) |  | [optional] |
 
 ## Example

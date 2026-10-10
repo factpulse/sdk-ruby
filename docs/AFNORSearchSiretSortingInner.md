@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **field** | [**AFNORSiretField**](AFNORSiretField.md) |  | [optional] |
-| **sorting_order** | [**AFNORSortingOrder**](AFNORSortingOrder.md) |  | [optional] |
+| **order** | [**AFNORSortingOrder**](AFNORSortingOrder.md) |  | [optional] |
 
 ## Example
 
@@ -14,7 +14,7 @@ require 'factpulse'
 
 instance = FactPulse::AFNORSearchSiretSortingInner.new(
   field: null,
-  sorting_order: null
+  order: null
 )
 ```
 

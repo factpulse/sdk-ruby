@@ -8,11 +8,9 @@ All URIs are relative to *https://factpulse.fr*
 | [**delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete**](AFNORPDPPAFlowServiceApi.md#delete_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_delete) | **DELETE** /api/v1/afnor/flow/v1/webhooks/{webhookUid} | Delete a webhook |
 | [**download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get**](AFNORPDPPAFlowServiceApi.md#download_flow_proxy_api_v1_afnor_flow_v1_flows_flow_id_get) | **GET** /api/v1/afnor/flow/v1/flows/{flowId} | Download a flow |
 | [**flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get**](AFNORPDPPAFlowServiceApi.md#flow_healthcheck_proxy_api_v1_afnor_flow_v1_healthcheck_get) | **GET** /api/v1/afnor/flow/v1/healthcheck | Healthcheck Flow Service |
-| [**get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get**](AFNORPDPPAFlowServiceApi.md#get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get) | **GET** /api/v1/afnor/flow/v1/webhooks/{webhookUid} | Get a webhook |
 | [**list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get**](AFNORPDPPAFlowServiceApi.md#list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get) | **GET** /api/v1/afnor/flow/v1/webhooks | List webhooks |
 | [**search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post**](AFNORPDPPAFlowServiceApi.md#search_flows_proxy_api_v1_afnor_flow_v1_flows_search_post) | **POST** /api/v1/afnor/flow/v1/flows/search | Search flows |
 | [**submit_flow_proxy_api_v1_afnor_flow_v1_flows_post**](AFNORPDPPAFlowServiceApi.md#submit_flow_proxy_api_v1_afnor_flow_v1_flows_post) | **POST** /api/v1/afnor/flow/v1/flows | Submit an invoicing flow |
-| [**update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch**](AFNORPDPPAFlowServiceApi.md#update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch) | **PATCH** /api/v1/afnor/flow/v1/webhooks/{webhookUid} | Update a webhook |
 
 
 ## create_webhook_proxy_api_v1_afnor_flow_v1_webhooks_post
@@ -21,7 +19,7 @@ All URIs are relative to *https://factpulse.fr*
 
 Create a webhook
 
-Register a new webhook subscription (AFNOR XP Z12-013 v1.2.0)
+Register a new webhook subscription (AFNOR XP Z12-013 v1.3.0)
 
 ### Examples
 
@@ -82,7 +80,7 @@ No authorization required
 
 Delete a webhook
 
-Delete a webhook subscription (AFNOR XP Z12-013 v1.2.0)
+Delete a webhook subscription (AFNOR XP Z12-013 v1.3.0)
 
 ### Examples
 
@@ -269,77 +267,13 @@ No authorization required
 - **Accept**: application/json
 
 
-## get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get
-
-> <AFNORWebhook> get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get(webhook_uid)
-
-Get a webhook
-
-Get details of a specific webhook (AFNOR XP Z12-013 v1.2.0)
-
-### Examples
-
-```ruby
-require 'time'
-require 'factpulse'
-
-api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
-webhook_uid = 'webhook_uid_example' # String | Webhook unique identifier (UUID)
-
-begin
-  # Get a webhook
-  result = api_instance.get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get(webhook_uid)
-  p result
-rescue FactPulse::ApiError => e
-  puts "Error when calling AFNORPDPPAFlowServiceApi->get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get: #{e}"
-end
-```
-
-#### Using the get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get_with_http_info variant
-
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<AFNORWebhook>, Integer, Hash)> get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get_with_http_info(webhook_uid)
-
-```ruby
-begin
-  # Get a webhook
-  data, status_code, headers = api_instance.get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get_with_http_info(webhook_uid)
-  p status_code # => 2xx
-  p headers # => { ... }
-  p data # => <AFNORWebhook>
-rescue FactPulse::ApiError => e
-  puts "Error when calling AFNORPDPPAFlowServiceApi->get_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_get_with_http_info: #{e}"
-end
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **webhook_uid** | **String** | Webhook unique identifier (UUID) |  |
-
-### Return type
-
-[**AFNORWebhook**](AFNORWebhook.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
 ## list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get
 
 > <Array<AFNORWebhook>> list_webhooks_proxy_api_v1_afnor_flow_v1_webhooks_get
 
 List webhooks
 
-List all registered webhooks (AFNOR XP Z12-013 v1.2.0)
+List all registered webhooks (AFNOR XP Z12-013 v1.3.0)
 
 ### Examples
 
@@ -521,69 +455,5 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
-- **Accept**: application/json
-
-
-## update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch
-
-> <AFNORWebhook> update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch(webhook_uid)
-
-Update a webhook
-
-Partially update a webhook subscription (AFNOR XP Z12-013 v1.2.0)
-
-### Examples
-
-```ruby
-require 'time'
-require 'factpulse'
-
-api_instance = FactPulse::AFNORPDPPAFlowServiceApi.new
-webhook_uid = 'webhook_uid_example' # String | Webhook unique identifier (UUID)
-
-begin
-  # Update a webhook
-  result = api_instance.update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch(webhook_uid)
-  p result
-rescue FactPulse::ApiError => e
-  puts "Error when calling AFNORPDPPAFlowServiceApi->update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch: #{e}"
-end
-```
-
-#### Using the update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch_with_http_info variant
-
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<AFNORWebhook>, Integer, Hash)> update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch_with_http_info(webhook_uid)
-
-```ruby
-begin
-  # Update a webhook
-  data, status_code, headers = api_instance.update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch_with_http_info(webhook_uid)
-  p status_code # => 2xx
-  p headers # => { ... }
-  p data # => <AFNORWebhook>
-rescue FactPulse::ApiError => e
-  puts "Error when calling AFNORPDPPAFlowServiceApi->update_webhook_proxy_api_v1_afnor_flow_v1_webhooks_webhook_uid_patch_with_http_info: #{e}"
-end
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **webhook_uid** | **String** | Webhook unique identifier (UUID) |  |
-
-### Return type
-
-[**AFNORWebhook**](AFNORWebhook.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 

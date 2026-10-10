@@ -7,6 +7,9 @@
 | **rate** | [**Rate1**](Rate1.md) |  |  |
 | **taxable_amount** | [**Taxableamount**](Taxableamount.md) |  |  |
 | **tax_amount** | [**Taxamount2**](Taxamount2.md) |  |  |
+| **tax_category_code** | **String** |  | [optional] |
+| **exemption_reason_code** | **String** |  | [optional] |
+| **exemption_reason** | **String** |  | [optional] |
 
 ## Example
 
@@ -16,7 +19,10 @@ require 'factpulse'
 instance = FactPulse::TaxBreakdownInput.new(
   rate: null,
   taxable_amount: null,
-  tax_amount: null
+  tax_amount: null,
+  tax_category_code: null,
+  exemption_reason_code: null,
+  exemption_reason: null
 )
 ```
 

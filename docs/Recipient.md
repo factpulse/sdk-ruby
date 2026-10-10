@@ -4,15 +4,15 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
+| **electronic_address** | [**ElectronicAddressInput**](ElectronicAddressInput.md) |  | [optional] |
 | **executing_service_code** | **String** |  | [optional] |
 | **name** | **String** |  | [optional] |
 | **siren** | **String** |  | [optional] |
 | **siret** | **String** |  | [optional] |
 | **vat_number** | **String** |  | [optional] |
-| **postal_address** | [**PostalAddress**](PostalAddress.md) |  | [optional] |
+| **postal_address** | [**PostalAddressInput**](PostalAddressInput.md) |  | [optional] |
 | **contact** | [**Contact**](Contact.md) |  | [optional] |
-| **global_ids** | [**Array&lt;ElectronicAddress&gt;**](ElectronicAddress.md) |  | [optional] |
+| **global_ids** | [**Array&lt;ElectronicAddressInput&gt;**](ElectronicAddressInput.md) |  | [optional] |
 
 ## Example
 

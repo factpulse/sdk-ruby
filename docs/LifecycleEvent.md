@@ -8,6 +8,7 @@
 | **status_code** | **String** | Code statut (200-601) |  |
 | **status_description** | **String** |  | [optional] |
 | **ack_status** | **String** |  | [optional] |
+| **flow_direction** | **String** |  | [optional] |
 | **at** | **String** |  | [optional] |
 | **document_id** | **String** |  | [optional] |
 | **amount** | **String** |  | [optional] |
@@ -26,6 +27,7 @@ instance = FactPulse::LifecycleEvent.new(
   status_code: null,
   status_description: null,
   ack_status: null,
+  flow_direction: null,
   at: null,
   document_id: null,
   amount: null,

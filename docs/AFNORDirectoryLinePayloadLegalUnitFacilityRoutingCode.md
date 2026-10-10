@@ -6,8 +6,10 @@
 | ---- | ---- | ----------- | ----- |
 | **addressing_identifier** | **String** | Addressing identifier of the directory line. | [optional] |
 | **platform_type** | [**AFNORRecipientPlatformType**](AFNORRecipientPlatformType.md) |  | [optional] |
+| **directory_line_status** | [**AFNORUniqueDirectoryLineStatus**](AFNORUniqueDirectoryLineStatus.md) |  | [optional] |
 | **siren** | **String** | SIREN number | [optional] |
 | **siret** | **String** | SIRET Number | [optional] |
+| **routing_identifier** | **String** | Routing identifier od a routing code. | [optional] |
 | **addressing_suffix** | **String** | suffix of the directory line which defines an address mesh not attached to a facility | [optional] |
 | **routing_code** | [**AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode**](AFNORDirectoryLinePayloadHistoryLegalUnitFacilityRoutingCodeRoutingCode.md) |  | [optional] |
 | **legal_unit** | [**AFNORLegalUnitPayloadIncluded**](AFNORLegalUnitPayloadIncluded.md) |  | [optional] |
@@ -21,8 +23,10 @@ require 'factpulse'
 instance = FactPulse::AFNORDirectoryLinePayloadLegalUnitFacilityRoutingCode.new(
   addressing_identifier: dcsc456sdcsdcs556,
   platform_type: null,
+  directory_line_status: null,
   siren: 702042755,
   siret: 70204275500240,
+  routing_identifier: dcsc456sdcsdcs556,
   addressing_suffix: dcsc456sdcsdcs556,
   routing_code: null,
   legal_unit: null,

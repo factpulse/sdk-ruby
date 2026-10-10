@@ -18,11 +18,11 @@ require 'factpulse'
 
 instance = FactPulse::AFNORRoutingCodeSearch.new(
   filters: null,
-  sorting: [{field&#x3D;siret, order&#x3D;ascendant}, {field&#x3D;routingIdentifier, order&#x3D;ascendant}],
+  sorting: [{field&#x3D;siret, order&#x3D;ascending}, {field&#x3D;routingIdentifier, order&#x3D;ascending}],
   fields: [siret, routingIdentifierType, routingCodeName, routingIdentifier, managesLegalCommitmentCode, administrativeStatus, address],
   include: [siren, siret],
   limit: 50,
-  ignore: 20
+  ignore: 0
 )
 ```
 

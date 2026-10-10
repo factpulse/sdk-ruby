@@ -5,15 +5,15 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **number** | **String** | Unique invoice number |  |
-| **supplier** | **Hash&lt;String, Object&gt;** | Supplier information (siret, iban, ...) |  |
-| **recipient** | **Hash&lt;String, Object&gt;** | Recipient information (siret, ...) |  |
+| **supplier** | **Hash&lt;String, Object&gt;** | Supplier information (siret, iban, bic, routingAddress, ...). For a seller without an intra-community VAT number (VAT franchise, article 293 B of the CGI), provide &#x60;taxRegistrationId&#x60; (BT-32, usually the SIREN): it satisfies BR-E-02 and prevents BT-31 from being auto-calculated. |  |
+| **recipient** | **Hash&lt;String, Object&gt;** | Recipient information (siret, vatNumber for BT-48, ...) |  |
 | **lines** | **Array&lt;Hash&lt;String, Object&gt;&gt;** | Invoice lines |  |
 | **date** | **String** |  | [optional] |
 | **due_days** | **Integer** | Due date in days (default: 30) | [optional][default to 30] |
 | **comment** | **String** |  | [optional] |
 | **purchase_order_reference** | **String** |  | [optional] |
 | **contract_reference** | **String** |  | [optional] |
-| **invoice_type** | [**InvoiceTypeCode**](InvoiceTypeCode.md) | Document type (UNTDID 1001). Default: 380 (Invoice). | [optional] |
+| **invoice_type** | [**FactureElectroniqueModelsInvoiceTypeCode**](FactureElectroniqueModelsInvoiceTypeCode.md) | Document type (UNTDID 1001). Default: 380 (Invoice). | [optional] |
 | **preceding_invoice_reference** | **String** |  | [optional] |
 | **operation_nature** | [**OperationNature**](OperationNature.md) |  | [optional] |
 | **invoicing_framework** | [**InvoicingFrameworkCode**](InvoicingFrameworkCode.md) |  | [optional] |

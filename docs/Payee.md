@@ -8,10 +8,10 @@
 | **payee_id** | **String** |  | [optional] |
 | **siret** | **String** |  | [optional] |
 | **siren** | **String** |  | [optional] |
-| **electronic_address** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
+| **electronic_address** | [**ElectronicAddressInput**](ElectronicAddressInput.md) |  | [optional] |
 | **iban** | **String** |  | [optional] |
 | **bic** | **String** |  | [optional] |
-| **global_ids** | [**Array&lt;ElectronicAddress&gt;**](ElectronicAddress.md) |  | [optional] |
+| **global_ids** | [**Array&lt;ElectronicAddressInput&gt;**](ElectronicAddressInput.md) |  | [optional] |
 
 ## Example
 

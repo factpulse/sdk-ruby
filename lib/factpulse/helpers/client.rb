@@ -3,7 +3,11 @@
 # FactPulse SDK - Thin HTTP wrapper with auto-polling.
 #
 # Usage:
-#   client = FactPulseClient.new('email', 'password', 'client_uid')
+#   client = FactPulse::Client.new(email: 'email', password: 'password', client_uid: 'client_uid')
+#   # or with a pre-obtained JWT (e.g. dashboard test token):
+#   client = FactPulse::Client.new(token: 'eyJ...')
+#   # positional form (backward compatible):
+#   client = FactPulse::Client.new('email', 'password', 'client_uid')
 #
 #   # POST /api/v1/processing/invoices/submit-complete-async
 #   result = client.post('processing/invoices/submit-complete-async',
@@ -31,15 +35,38 @@ module FactPulse
   class Client
     DEFAULT_API_URL = 'https://factpulse.fr'
 
-    def initialize(email, password, client_uid, api_url: DEFAULT_API_URL, timeout: 60, polling_timeout: 120)
+    # Create a client.
+    #
+    # Keyword form (recommended):
+    #   FactPulse::Client.new(email: '...', password: '...', client_uid: '...')
+    #   FactPulse::Client.new(token: 'eyJ...')  # pre-obtained JWT (e.g. dashboard test token)
+    #
+    # Positional form (backward compatible with <= 4.3.0):
+    #   FactPulse::Client.new('email', 'password', 'client_uid')
+    def initialize(*args, email: nil, password: nil, client_uid: nil, token: nil,
+                   api_url: DEFAULT_API_URL, timeout: 60, polling_timeout: 120)
+      unless args.empty?
+        if email || password || client_uid || token
+          raise ArgumentError, 'use either positional (email, password, client_uid) or keyword arguments, not both'
+        end
+        unless (2..3).cover?(args.length)
+          raise ArgumentError, "wrong number of arguments (given #{args.length}, expected 3)"
+        end
+        email, password, client_uid = args
+      end
+
+      if token.nil? && (email.nil? || password.nil?)
+        raise ArgumentError, 'provide email: and password: (or token: with a pre-obtained JWT)'
+      end
+
       @email = email
       @password = password
       @client_uid = client_uid
       @api_url = api_url.chomp('/')
       @timeout = timeout
       @polling_timeout = polling_timeout
-      @token = nil
-      @token_expires_at = 0
+      @token = token
+      @token_expires_at = token ? Float::INFINITY : 0
       @token_mutex = Mutex.new
     end
 
@@ -243,6 +270,14 @@ module FactPulse
     end
 
     def refresh_token
+      if @email.nil? || @password.nil?
+        raise Error.new(
+          'Access token expired or rejected, and no email/password available to refresh it. ' \
+          'Provide email: and password:, or create a new client with a fresh token:.',
+          status_code: 401
+        )
+      end
+
       uri = URI("#{@api_url}/api/token/")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'
@@ -250,7 +285,9 @@ module FactPulse
 
       req = Net::HTTP::Post.new(uri)
       req['Content-Type'] = 'application/json'
-      req.body = JSON.generate(username: @email, password: @password, client_uid: @client_uid)
+      payload = { username: @email, password: @password }
+      payload[:client_uid] = @client_uid if @client_uid
+      req.body = JSON.generate(payload)
 
       response = http.request(req)
 

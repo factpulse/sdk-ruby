@@ -8,9 +8,12 @@ All URIs are relative to *https://factpulse.fr*
 | [**create_client_api_v1_clients_post**](ClientManagementApi.md#create_client_api_v1_clients_post) | **POST** /api/v1/clients | Create a client |
 | [**deactivate_client_api_v1_clients_uid_desactiver_post**](ClientManagementApi.md#deactivate_client_api_v1_clients_uid_desactiver_post) | **POST** /api/v1/clients/{uid}/desactiver | Deactivate a client |
 | [**delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete**](ClientManagementApi.md#delete_webhook_secret_api_v1_clients_uid_webhook_secret_delete) | **DELETE** /api/v1/clients/{uid}/webhook-secret | Delete webhook secret |
+| [**disconnect_superpdp_api_v1_clients_uid_superpdp_delete**](ClientManagementApi.md#disconnect_superpdp_api_v1_clients_uid_superpdp_delete) | **DELETE** /api/v1/clients/{uid}/superpdp | Disconnect SuperPDP |
 | [**generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post**](ClientManagementApi.md#generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post) | **POST** /api/v1/clients/{uid}/webhook-secret/generate | Generate webhook secret |
 | [**get_client_api_v1_clients_uid_get**](ClientManagementApi.md#get_client_api_v1_clients_uid_get) | **GET** /api/v1/clients/{uid} | Get client details |
 | [**get_pdp_config_api_v1_clients_uid_pdp_config_get**](ClientManagementApi.md#get_pdp_config_api_v1_clients_uid_pdp_config_get) | **GET** /api/v1/clients/{uid}/pdp-config | Get client PDP configuration |
+| [**get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post**](ClientManagementApi.md#get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post) | **POST** /api/v1/clients/{uid}/superpdp/connect-url | Get SuperPDP connection URL |
+| [**get_superpdp_status_api_v1_clients_uid_superpdp_status_get**](ClientManagementApi.md#get_superpdp_status_api_v1_clients_uid_superpdp_status_get) | **GET** /api/v1/clients/{uid}/superpdp/status | Get SuperPDP connection status |
 | [**get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get**](ClientManagementApi.md#get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get) | **GET** /api/v1/clients/{uid}/webhook-secret/status | Get webhook secret status |
 | [**list_clients_api_v1_clients_get**](ClientManagementApi.md#list_clients_api_v1_clients_get) | **GET** /api/v1/clients | List clients |
 | [**rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post**](ClientManagementApi.md#rotate_encryption_key_api_v1_clients_uid_rotate_encryption_key_post) | **POST** /api/v1/clients/{uid}/rotate-encryption-key | Rotate client encryption key |
@@ -314,6 +317,80 @@ end
 - **Accept**: application/json
 
 
+## disconnect_superpdp_api_v1_clients_uid_superpdp_delete
+
+> <SuperPDPDisconnectResponse> disconnect_superpdp_api_v1_clients_uid_superpdp_delete(uid)
+
+Disconnect SuperPDP
+
+Disconnect SuperPDP for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  Revokes the stored refresh token with SuperPDP (RFC 7009) and deletes the stored tokens. The client can reconnect later via the connect-url endpoint.
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::ClientManagementApi.new
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
+
+begin
+  # Disconnect SuperPDP
+  result = api_instance.disconnect_superpdp_api_v1_clients_uid_superpdp_delete(uid)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling ClientManagementApi->disconnect_superpdp_api_v1_clients_uid_superpdp_delete: #{e}"
+end
+```
+
+#### Using the disconnect_superpdp_api_v1_clients_uid_superpdp_delete_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SuperPDPDisconnectResponse>, Integer, Hash)> disconnect_superpdp_api_v1_clients_uid_superpdp_delete_with_http_info(uid)
+
+```ruby
+begin
+  # Disconnect SuperPDP
+  data, status_code, headers = api_instance.disconnect_superpdp_api_v1_clients_uid_superpdp_delete_with_http_info(uid)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SuperPDPDisconnectResponse>
+rescue FactPulse::ApiError => e
+  puts "Error when calling ClientManagementApi->disconnect_superpdp_api_v1_clients_uid_superpdp_delete_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **uid** | **String** | Client unique identifier (UUID) |  |
+
+### Return type
+
+[**SuperPDPDisconnectResponse**](SuperPDPDisconnectResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post
 
 > <WebhookSecretGenerateResponse> generate_webhook_secret_api_v1_clients_uid_webhook_secret_generate_post(uid)
@@ -525,6 +602,160 @@ end
 ### Return type
 
 [**PDPConfigResponse**](PDPConfigResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post
+
+> <SuperPDPConnectURLResponse> get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post(uid, opts)
+
+Get SuperPDP connection URL
+
+Generate the SuperPDP OAuth2 authorization URL for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  Redirect the end user to the returned `authorizeUrl` so they can connect their own SuperPDP account to FactPulse (OAuth2 Authorization Code).  **Query parameters**: - `modeSandbox` (default `true`): connect via the SuperPDP sandbox app   (fictitious data) or the production app. - `returnUrl` (optional): absolute http(s) URL of your own portal. Once the   SuperPDP authorization flow is over, the end user is redirected there with   `superpdp_connected=true|false` (and `superpdp_error=<code>` on failure)   appended to the query string. Without it, FactPulse displays its own   confirmation page. Returns `400 invalid_return_url` if the URL is not an   absolute http(s) URL.
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::ClientManagementApi.new
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
+opts = {
+  mode_sandbox: true, # Boolean | True for the SuperPDP sandbox app (default), False for production
+  return_url: 'return_url_example' # String | Absolute http(s) URL to redirect the end user to once the SuperPDP connection is done. Defaults to the FactPulse confirmation page.
+}
+
+begin
+  # Get SuperPDP connection URL
+  result = api_instance.get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post(uid, opts)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling ClientManagementApi->get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post: #{e}"
+end
+```
+
+#### Using the get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SuperPDPConnectURLResponse>, Integer, Hash)> get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post_with_http_info(uid, opts)
+
+```ruby
+begin
+  # Get SuperPDP connection URL
+  data, status_code, headers = api_instance.get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post_with_http_info(uid, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SuperPDPConnectURLResponse>
+rescue FactPulse::ApiError => e
+  puts "Error when calling ClientManagementApi->get_superpdp_connect_url_api_v1_clients_uid_superpdp_connect_url_post_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **uid** | **String** | Client unique identifier (UUID) |  |
+| **mode_sandbox** | **Boolean** | True for the SuperPDP sandbox app (default), False for production | [optional][default to true] |
+| **return_url** | **String** | Absolute http(s) URL to redirect the end user to once the SuperPDP connection is done. Defaults to the FactPulse confirmation page. | [optional] |
+
+### Return type
+
+[**SuperPDPConnectURLResponse**](SuperPDPConnectURLResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_superpdp_status_api_v1_clients_uid_superpdp_status_get
+
+> <SuperPDPStatusResponse> get_superpdp_status_api_v1_clients_uid_superpdp_status_get(uid)
+
+Get SuperPDP connection status
+
+Check whether a client has connected its SuperPDP account.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Response**: - `connected`: Whether the client has an active SuperPDP connection - `connectedAt`: When the connection was established (if any) - `expiresAt`: When the current access token expires (if any) - `modeSandbox`: True if connected via the sandbox app, False for production, null if not connected - `lastError`: Last token refresh error, if any
+
+### Examples
+
+```ruby
+require 'time'
+require 'factpulse'
+# setup authorization
+FactPulse.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['X-API-Key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['X-API-Key'] = 'Bearer'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = FactPulse::ClientManagementApi.new
+uid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | Client unique identifier (UUID)
+
+begin
+  # Get SuperPDP connection status
+  result = api_instance.get_superpdp_status_api_v1_clients_uid_superpdp_status_get(uid)
+  p result
+rescue FactPulse::ApiError => e
+  puts "Error when calling ClientManagementApi->get_superpdp_status_api_v1_clients_uid_superpdp_status_get: #{e}"
+end
+```
+
+#### Using the get_superpdp_status_api_v1_clients_uid_superpdp_status_get_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<SuperPDPStatusResponse>, Integer, Hash)> get_superpdp_status_api_v1_clients_uid_superpdp_status_get_with_http_info(uid)
+
+```ruby
+begin
+  # Get SuperPDP connection status
+  data, status_code, headers = api_instance.get_superpdp_status_api_v1_clients_uid_superpdp_status_get_with_http_info(uid)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <SuperPDPStatusResponse>
+rescue FactPulse::ApiError => e
+  puts "Error when calling ClientManagementApi->get_superpdp_status_api_v1_clients_uid_superpdp_status_get_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **uid** | **String** | Client unique identifier (UUID) |  |
+
+### Return type
+
+[**SuperPDPStatusResponse**](SuperPDPStatusResponse.md)
 
 ### Authorization
 

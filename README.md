@@ -28,12 +28,18 @@ gem 'factpulse'
 require 'factpulse'
 require 'base64'
 
-# Create the client
+# Create the client (requires SDK >= 4.3.1; on 4.3.0 use positional arguments:
+# FactPulse::Client.new('email', 'password', 'client_uid'))
 client = FactPulse::Client.new(
   email: 'your_email@example.com',
   password: 'your_password',
   client_uid: 'your-client-uuid'  # From dashboard: Configuration > Clients
 )
+
+# Alternative: use a pre-obtained JWT (e.g. a test token from the dashboard).
+# There is no separate sandbox URL: test vs production is determined by the
+# token and by the client configuration (client_uid) in the dashboard.
+# client = FactPulse::Client.new(token: 'eyJ...')
 
 # Read your source PDF
 pdf_b64 = Base64.strict_encode64(File.binread('source_invoice.pdf'))

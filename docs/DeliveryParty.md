@@ -5,9 +5,9 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **id** | **String** |  | [optional] |
-| **global_id** | [**ElectronicAddress**](ElectronicAddress.md) |  | [optional] |
+| **global_id** | [**ElectronicAddressInput**](ElectronicAddressInput.md) |  | [optional] |
 | **name** | **String** |  | [optional] |
-| **postal_address** | [**PostalAddress**](PostalAddress.md) |  | [optional] |
+| **postal_address** | [**PostalAddressInput**](PostalAddressInput.md) |  | [optional] |
 
 ## Example
 

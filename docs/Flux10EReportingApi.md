@@ -366,7 +366,7 @@ No authorization required
 
 ## submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post
 
-> <SubmitEReportingResponse> submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post(submit_aggregated_report_request)
+> <SubmitEReportingResponse> submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post(submit_aggregated_report_request, opts)
 
 Submit aggregated e-reporting to PA/PDP
 
@@ -385,10 +385,13 @@ end
 
 api_instance = FactPulse::Flux10EReportingApi.new
 submit_aggregated_report_request = FactPulse::SubmitAggregatedReportRequest.new({data: FactPulse::CreateAggregatedReportRequest.new({report_id: 'EREPORT-2025-001', sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitAggregatedReportRequest | 
+opts = {
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
+}
 
 begin
   # Submit aggregated e-reporting to PA/PDP
-  result = api_instance.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post(submit_aggregated_report_request)
+  result = api_instance.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post(submit_aggregated_report_request, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling Flux10EReportingApi->submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post: #{e}"
@@ -399,12 +402,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SubmitEReportingResponse>, Integer, Hash)> submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info(submit_aggregated_report_request)
+> <Array(<SubmitEReportingResponse>, Integer, Hash)> submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info(submit_aggregated_report_request, opts)
 
 ```ruby
 begin
   # Submit aggregated e-reporting to PA/PDP
-  data, status_code, headers = api_instance.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info(submit_aggregated_report_request)
+  data, status_code, headers = api_instance.submit_aggregated_ereporting_api_v1_ereporting_submit_aggregated_post_with_http_info(submit_aggregated_report_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
@@ -418,6 +421,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **submit_aggregated_report_request** | [**SubmitAggregatedReportRequest**](SubmitAggregatedReportRequest.md) |  |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 
@@ -435,7 +439,7 @@ end
 
 ## submit_ereporting_api_v1_ereporting_submit_post
 
-> <SubmitEReportingResponse> submit_ereporting_api_v1_ereporting_submit_post(submit_e_reporting_request)
+> <SubmitEReportingResponse> submit_ereporting_api_v1_ereporting_submit_post(submit_e_reporting_request, opts)
 
 Submit e-reporting to PA/PDP
 
@@ -454,10 +458,13 @@ end
 
 api_instance = FactPulse::Flux10EReportingApi.new
 submit_e_reporting_request = FactPulse::SubmitEReportingRequest.new({data: FactPulse::CreateEReportingRequest.new({report_id: 'EREPORT-2025-001', flow_type: FactPulse::EReportingFlowType::N10_1, sender: FactPulse::ReportSender.new({siren: '123456789', name: 'Ma Société SARL'}), period: FactPulse::ReportPeriod.new({start_date: Date.parse('2025-01-01'), end_date: Date.parse('2025-01-31')})})}) # SubmitEReportingRequest | 
+opts = {
+  organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
+}
 
 begin
   # Submit e-reporting to PA/PDP
-  result = api_instance.submit_ereporting_api_v1_ereporting_submit_post(submit_e_reporting_request)
+  result = api_instance.submit_ereporting_api_v1_ereporting_submit_post(submit_e_reporting_request, opts)
   p result
 rescue FactPulse::ApiError => e
   puts "Error when calling Flux10EReportingApi->submit_ereporting_api_v1_ereporting_submit_post: #{e}"
@@ -468,12 +475,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<SubmitEReportingResponse>, Integer, Hash)> submit_ereporting_api_v1_ereporting_submit_post_with_http_info(submit_e_reporting_request)
+> <Array(<SubmitEReportingResponse>, Integer, Hash)> submit_ereporting_api_v1_ereporting_submit_post_with_http_info(submit_e_reporting_request, opts)
 
 ```ruby
 begin
   # Submit e-reporting to PA/PDP
-  data, status_code, headers = api_instance.submit_ereporting_api_v1_ereporting_submit_post_with_http_info(submit_e_reporting_request)
+  data, status_code, headers = api_instance.submit_ereporting_api_v1_ereporting_submit_post_with_http_info(submit_e_reporting_request, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <SubmitEReportingResponse>
@@ -487,6 +494,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **submit_e_reporting_request** | [**SubmitEReportingRequest**](SubmitEReportingRequest.md) |  |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 
 ### Return type
 
@@ -524,6 +532,7 @@ end
 api_instance = FactPulse::Flux10EReportingApi.new
 xml_file = File.new('/path/to/some/file') # File | E-reporting XML file
 opts = {
+  organization_id: 'organization_id_example', # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
   tracking_id: 'tracking_id_example', # String | 
   skip_validation: true, # Boolean | Skip XSD validation
   pdp_flow_service_url: 'pdp_flow_service_url_example', # String | 
@@ -564,6 +573,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **xml_file** | **File** | E-reporting XML file |  |
+| **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 | **tracking_id** | **String** |  | [optional] |
 | **skip_validation** | **Boolean** | Skip XSD validation | [optional][default to false] |
 | **pdp_flow_service_url** | **String** |  | [optional] |
