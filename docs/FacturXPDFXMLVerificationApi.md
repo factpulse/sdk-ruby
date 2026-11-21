@@ -183,7 +183,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::FacturXPDFXMLVerificationApi.new
-pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to verify
+pdf_file = 'pdf_file_example' # String | Factur-X PDF file to verify
 opts = {
   force_ocr: true, # Boolean | Force OCR usage even if PDF contains native text
   callback_url: 'callback_url_example', # String | 
@@ -221,7 +221,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | Factur-X PDF file to verify |  |
+| **pdf_file** | **String** | Factur-X PDF file to verify |  |
 | **force_ocr** | **Boolean** | Force OCR usage even if PDF contains native text | [optional][default to false] |
 | **callback_url** | **String** |  | [optional] |
 | **webhook_mode** | **String** | Webhook content delivery: &#39;inline&#39; (base64 in payload) or &#39;download_url&#39; (temporary URL, 1h TTL) | [optional][default to &#39;inline&#39;] |
@@ -265,7 +265,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::FacturXPDFXMLVerificationApi.new
-pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to verify
+pdf_file = 'pdf_file_example' # String | Factur-X PDF file to verify
 
 begin
   # Verify PDF/XML Factur-X compliance (synchronous)
@@ -298,7 +298,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | Factur-X PDF file to verify |  |
+| **pdf_file** | **String** | Factur-X PDF file to verify |  |
 
 ### Return type
 

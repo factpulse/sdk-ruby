@@ -530,7 +530,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::Flux10EReportingApi.new
-xml_file = File.new('/path/to/some/file') # File | E-reporting XML file
+xml_file = 'xml_file_example' # String | E-reporting XML file
 opts = {
   organization_id: 'organization_id_example', # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
   tracking_id: 'tracking_id_example', # String | 
@@ -572,7 +572,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **xml_file** | **File** | E-reporting XML file |  |
+| **xml_file** | **String** | E-reporting XML file |  |
 | **organization_id** | **String** | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space. | [optional] |
 | **tracking_id** | **String** |  | [optional] |
 | **skip_validation** | **Boolean** | Skip XSD validation | [optional][default to false] |
@@ -768,7 +768,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::Flux10EReportingApi.new
-xml_file = File.new('/path/to/some/file') # File | E-reporting XML file to validate
+xml_file = 'xml_file_example' # String | E-reporting XML file to validate
 opts = {
   validate_coherence: true, # Boolean | Validate data coherence (REJ_COH)
   validate_period: true # Boolean | Validate period coherence (REJ_PER)
@@ -805,7 +805,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **xml_file** | **File** | E-reporting XML file to validate |  |
+| **xml_file** | **String** | E-reporting XML file to validate |  |
 | **validate_coherence** | **Boolean** | Validate data coherence (REJ_COH) | [optional][default to true] |
 | **validate_period** | **Boolean** | Validate period coherence (REJ_PER) | [optional][default to true] |
 

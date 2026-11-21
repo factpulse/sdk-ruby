@@ -89,7 +89,7 @@ module FactPulse
 
     # Sign a PDF with client's certificate (PAdES-B-LT)
     # Signs an uploaded PDF with the electronic certificate configured for the client (via client_uid from JWT).      **Supported standards**: PAdES-B-B, PAdES-B-T (timestamping), PAdES-B-LT (long-term archiving).      **eIDAS levels**: SES (self-signed), AdES (commercial CA), QES (PSCO - out of scope).      **Security**: Double authentication X-Internal-Secret + JWT Bearer to retrieve the certificate.      **⚠️ Legal disclaimer**: Generated signatures are electronic seals as defined by     the eIDAS regulation. The level of legal validity depends on the certificate used (SES/AdES/QES).     FactPulse does not provide QES qualified certificates - you must obtain a certificate from     a PSCO (qualified Trust Service Provider) for maximum legal validity.
-    # @param pdf_file [File] PDF file to sign (will be processed and returned signed in base64)
+    # @param pdf_file [String] PDF file to sign (will be processed and returned signed in base64)
     # @param [Hash] opts the optional parameters
     # @option opts [String] :reason 
     # @option opts [String] :location 
@@ -105,7 +105,7 @@ module FactPulse
 
     # Sign a PDF with client&#39;s certificate (PAdES-B-LT)
     # Signs an uploaded PDF with the electronic certificate configured for the client (via client_uid from JWT).      **Supported standards**: PAdES-B-B, PAdES-B-T (timestamping), PAdES-B-LT (long-term archiving).      **eIDAS levels**: SES (self-signed), AdES (commercial CA), QES (PSCO - out of scope).      **Security**: Double authentication X-Internal-Secret + JWT Bearer to retrieve the certificate.      **⚠️ Legal disclaimer**: Generated signatures are electronic seals as defined by     the eIDAS regulation. The level of legal validity depends on the certificate used (SES/AdES/QES).     FactPulse does not provide QES qualified certificates - you must obtain a certificate from     a PSCO (qualified Trust Service Provider) for maximum legal validity.
-    # @param pdf_file [File] PDF file to sign (will be processed and returned signed in base64)
+    # @param pdf_file [String] PDF file to sign (will be processed and returned signed in base64)
     # @param [Hash] opts the optional parameters
     # @option opts [String] :reason 
     # @option opts [String] :location 
@@ -176,7 +176,7 @@ module FactPulse
 
     # Sign a PDF asynchronously (Celery)
     # Signs an uploaded PDF asynchronously via a Celery task.      **Difference with /sign-pdf**:     - `/sign-pdf`: Synchronous signature (blocking until completion)     - `/sign-pdf-async`: Asynchronous signature (returns immediately with task_id)      **Async advantages**:     - No timeout for large files     - No blocking of FastAPI worker     - Progress tracking via task_id     - Ideal for batch processing      **Supported standards**: PAdES-B-B, PAdES-B-T (timestamping), PAdES-B-LT (long-term archiving).      **⚠️ Legal disclaimer**: Same as /sign-pdf (see that endpoint's documentation).
-    # @param pdf_file [File] PDF file to sign (processed asynchronously)
+    # @param pdf_file [String] PDF file to sign (processed asynchronously)
     # @param [Hash] opts the optional parameters
     # @option opts [String] :callback_url 
     # @option opts [String] :webhook_mode Webhook content delivery: &#39;inline&#39; (base64 in payload) or &#39;download_url&#39; (temporary URL, 1h TTL) (default to 'inline')
@@ -194,7 +194,7 @@ module FactPulse
 
     # Sign a PDF asynchronously (Celery)
     # Signs an uploaded PDF asynchronously via a Celery task.      **Difference with /sign-pdf**:     - &#x60;/sign-pdf&#x60;: Synchronous signature (blocking until completion)     - &#x60;/sign-pdf-async&#x60;: Asynchronous signature (returns immediately with task_id)      **Async advantages**:     - No timeout for large files     - No blocking of FastAPI worker     - Progress tracking via task_id     - Ideal for batch processing      **Supported standards**: PAdES-B-B, PAdES-B-T (timestamping), PAdES-B-LT (long-term archiving).      **⚠️ Legal disclaimer**: Same as /sign-pdf (see that endpoint&#39;s documentation).
-    # @param pdf_file [File] PDF file to sign (processed asynchronously)
+    # @param pdf_file [String] PDF file to sign (processed asynchronously)
     # @param [Hash] opts the optional parameters
     # @option opts [String] :callback_url 
     # @option opts [String] :webhook_mode Webhook content delivery: &#39;inline&#39; (base64 in payload) or &#39;download_url&#39; (temporary URL, 1h TTL) (default to 'inline')
@@ -269,7 +269,7 @@ module FactPulse
 
     # Validate electronic signatures of a PDF
     # Validates electronic signatures present in an uploaded PDF.      **Verifications performed**:     - Presence of signatures     - Document integrity (not modified since signing)     - Certificate validity     - Chain of trust (if available)     - Presence of timestamp (PAdES-B-T)     - Validation data (PAdES-B-LT)      **Supported standards**: PAdES-B-B, PAdES-B-T, PAdES-B-LT, ISO 32000-2.      **⚠️ Note**: This validation is technical (cryptographic integrity). Legal validity     depends on the eIDAS level of the certificate (SES/AdES/QES) and the context of use.
-    # @param pdf_file [File] PDF file to validate (will be analyzed to detect and validate signatures)
+    # @param pdf_file [String] PDF file to validate (will be analyzed to detect and validate signatures)
     # @param [Hash] opts the optional parameters
     # @return [Object]
     def validate_pdf_signature_endpoint_api_v1_processing_validate_pdf_signature_post(pdf_file, opts = {})
@@ -279,7 +279,7 @@ module FactPulse
 
     # Validate electronic signatures of a PDF
     # Validates electronic signatures present in an uploaded PDF.      **Verifications performed**:     - Presence of signatures     - Document integrity (not modified since signing)     - Certificate validity     - Chain of trust (if available)     - Presence of timestamp (PAdES-B-T)     - Validation data (PAdES-B-LT)      **Supported standards**: PAdES-B-B, PAdES-B-T, PAdES-B-LT, ISO 32000-2.      **⚠️ Note**: This validation is technical (cryptographic integrity). Legal validity     depends on the eIDAS level of the certificate (SES/AdES/QES) and the context of use.
-    # @param pdf_file [File] PDF file to validate (will be analyzed to detect and validate signatures)
+    # @param pdf_file [String] PDF file to validate (will be analyzed to detect and validate signatures)
     # @param [Hash] opts the optional parameters
     # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def validate_pdf_signature_endpoint_api_v1_processing_validate_pdf_signature_post_with_http_info(pdf_file, opts = {})

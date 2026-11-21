@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Montant encaissé en EUR (obligatoire, BR-FR-CDV-14)
+  # Montant TTC encaissé pour ce taux, en EUR (MDT-215). Négatif pour un décaissement (remboursement, P1.15)
   module Amount1
     class << self
       # List of class defined in anyOf (OpenAPI v3)

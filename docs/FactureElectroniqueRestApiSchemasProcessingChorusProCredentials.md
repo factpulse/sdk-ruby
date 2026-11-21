@@ -1,4 +1,4 @@
-# FactPulse::ChorusProCredentials
+# FactPulse::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials
 
 ## Properties
 
@@ -15,7 +15,7 @@
 ```ruby
 require 'factpulse'
 
-instance = FactPulse::ChorusProCredentials.new(
+instance = FactPulse::FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.new(
   piste_client_id: null,
   piste_client_secret: null,
   chorus_login: null,

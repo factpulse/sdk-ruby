@@ -21,7 +21,7 @@ module FactPulse
     end
     # Convert a document to Factur-X (async mode)
     # Launch an asynchronous conversion via Celery.  ## Workflow  1. **Upload**: Document is sent as multipart/form-data 2. **Celery Task**: Task is queued for processing 3. **Callback**: Webhook notification on completion  ## Possible responses  - **202**: Task accepted, processing - **400**: Invalid file
-    # @param file [File] Document to convert (PDF, DOCX, XLSX, JPG, PNG)
+    # @param file [String] Document to convert (PDF, DOCX, XLSX, JPG, PNG)
     # @param [Hash] opts the optional parameters
     # @option opts [String] :output Output format: pdf, xml, both (default to 'pdf')
     # @option opts [String] :callback_url 
@@ -34,7 +34,7 @@ module FactPulse
 
     # Convert a document to Factur-X (async mode)
     # Launch an asynchronous conversion via Celery.  ## Workflow  1. **Upload**: Document is sent as multipart/form-data 2. **Celery Task**: Task is queued for processing 3. **Callback**: Webhook notification on completion  ## Possible responses  - **202**: Task accepted, processing - **400**: Invalid file
-    # @param file [File] Document to convert (PDF, DOCX, XLSX, JPG, PNG)
+    # @param file [String] Document to convert (PDF, DOCX, XLSX, JPG, PNG)
     # @param [Hash] opts the optional parameters
     # @option opts [String] :output Output format: pdf, xml, both (default to 'pdf')
     # @option opts [String] :callback_url 

@@ -32,6 +32,8 @@ module FactPulse
 
     attr_accessor :encaisse_amount
 
+    attr_accessor :encaisse_amounts_by_rate
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -42,7 +44,8 @@ module FactPulse
         :'invoice_issue_date' => :'invoiceIssueDate',
         :'status' => :'status',
         :'reason_code' => :'reasonCode',
-        :'encaisse_amount' => :'encaisseAmount'
+        :'encaisse_amount' => :'encaisseAmount',
+        :'encaisse_amounts_by_rate' => :'encaisseAmountsByRate'
       }
     end
 
@@ -66,7 +69,8 @@ module FactPulse
         :'invoice_issue_date' => :'Date',
         :'status' => :'String',
         :'reason_code' => :'String',
-        :'encaisse_amount' => :'Encaisseamount1'
+        :'encaisse_amount' => :'Encaisseamount1',
+        :'encaisse_amounts_by_rate' => :'Array<EncaisseAmountByRate>'
       }
     end
 
@@ -80,7 +84,8 @@ module FactPulse
         :'invoice_issue_date',
         :'status',
         :'reason_code',
-        :'encaisse_amount'
+        :'encaisse_amount',
+        :'encaisse_amounts_by_rate'
       ])
     end
 
@@ -131,6 +136,12 @@ module FactPulse
       if attributes.key?(:'encaisse_amount')
         self.encaisse_amount = attributes[:'encaisse_amount']
       end
+
+      if attributes.key?(:'encaisse_amounts_by_rate')
+        if (value = attributes[:'encaisse_amounts_by_rate']).is_a?(Array)
+          self.encaisse_amounts_by_rate = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -160,7 +171,8 @@ module FactPulse
           invoice_issue_date == o.invoice_issue_date &&
           status == o.status &&
           reason_code == o.reason_code &&
-          encaisse_amount == o.encaisse_amount
+          encaisse_amount == o.encaisse_amount &&
+          encaisse_amounts_by_rate == o.encaisse_amounts_by_rate
     end
 
     # @see the `==` method
@@ -172,7 +184,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [document_id, sender_siren, sender_role, invoice_id, invoice_issue_date, status, reason_code, encaisse_amount].hash
+      [document_id, sender_siren, sender_role, invoice_id, invoice_issue_date, status, reason_code, encaisse_amount, encaisse_amounts_by_rate].hash
     end
 
     # Builds the object from hash

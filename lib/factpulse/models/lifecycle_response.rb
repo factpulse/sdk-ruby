@@ -25,12 +25,26 @@ module FactPulse
     # Nombre de jours de la fenetre de recherche
     attr_accessor :cutoff_days
 
+    # Nombre de flux de statut (CDAR) lus sur la PA
+    attr_accessor :total_flows
+
+    # True si la limite de flux lus par appel a ete atteinte : la reponse est incomplete, reduire la fenetre (dateFrom/dateTo ou days)
+    attr_accessor :truncated
+
+    attr_accessor :date_from
+
+    attr_accessor :date_to
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'invoices' => :'invoices',
         :'total_invoices' => :'totalInvoices',
-        :'cutoff_days' => :'cutoffDays'
+        :'cutoff_days' => :'cutoffDays',
+        :'total_flows' => :'totalFlows',
+        :'truncated' => :'truncated',
+        :'date_from' => :'dateFrom',
+        :'date_to' => :'dateTo'
       }
     end
 
@@ -49,13 +63,19 @@ module FactPulse
       {
         :'invoices' => :'Array<InvoiceLifecycle>',
         :'total_invoices' => :'Integer',
-        :'cutoff_days' => :'Integer'
+        :'cutoff_days' => :'Integer',
+        :'total_flows' => :'Integer',
+        :'truncated' => :'Boolean',
+        :'date_from' => :'String',
+        :'date_to' => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'date_from',
+        :'date_to'
       ])
     end
 
@@ -91,6 +111,26 @@ module FactPulse
         self.cutoff_days = attributes[:'cutoff_days']
       else
         self.cutoff_days = nil
+      end
+
+      if attributes.key?(:'total_flows')
+        self.total_flows = attributes[:'total_flows']
+      else
+        self.total_flows = 0
+      end
+
+      if attributes.key?(:'truncated')
+        self.truncated = attributes[:'truncated']
+      else
+        self.truncated = false
+      end
+
+      if attributes.key?(:'date_from')
+        self.date_from = attributes[:'date_from']
+      end
+
+      if attributes.key?(:'date_to')
+        self.date_to = attributes[:'date_to']
       end
     end
 
@@ -146,7 +186,11 @@ module FactPulse
       self.class == o.class &&
           invoices == o.invoices &&
           total_invoices == o.total_invoices &&
-          cutoff_days == o.cutoff_days
+          cutoff_days == o.cutoff_days &&
+          total_flows == o.total_flows &&
+          truncated == o.truncated &&
+          date_from == o.date_from &&
+          date_to == o.date_to
     end
 
     # @see the `==` method
@@ -158,7 +202,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [invoices, total_invoices, cutoff_days].hash
+      [invoices, total_invoices, cutoff_days, total_flows, truncated, date_from, date_to].hash
     end
 
     # Builds the object from hash

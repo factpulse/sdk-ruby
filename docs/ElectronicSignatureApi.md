@@ -109,7 +109,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ElectronicSignatureApi.new
-pdf_file = File.new('/path/to/some/file') # File | PDF file to sign (will be processed and returned signed in base64)
+pdf_file = 'pdf_file_example' # String | PDF file to sign (will be processed and returned signed in base64)
 opts = {
   reason: 'reason_example', # String | 
   location: 'location_example', # String | 
@@ -150,7 +150,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | PDF file to sign (will be processed and returned signed in base64) |  |
+| **pdf_file** | **String** | PDF file to sign (will be processed and returned signed in base64) |  |
 | **reason** | **String** |  | [optional] |
 | **location** | **String** |  | [optional] |
 | **contact** | **String** |  | [optional] |
@@ -197,7 +197,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ElectronicSignatureApi.new
-pdf_file = File.new('/path/to/some/file') # File | PDF file to sign (processed asynchronously)
+pdf_file = 'pdf_file_example' # String | PDF file to sign (processed asynchronously)
 opts = {
   callback_url: 'callback_url_example', # String | 
   webhook_mode: 'webhook_mode_example', # String | Webhook content delivery: 'inline' (base64 in payload) or 'download_url' (temporary URL, 1h TTL)
@@ -240,7 +240,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | PDF file to sign (processed asynchronously) |  |
+| **pdf_file** | **String** | PDF file to sign (processed asynchronously) |  |
 | **callback_url** | **String** |  | [optional] |
 | **webhook_mode** | **String** | Webhook content delivery: &#39;inline&#39; (base64 in payload) or &#39;download_url&#39; (temporary URL, 1h TTL) | [optional][default to &#39;inline&#39;] |
 | **reason** | **String** |  | [optional] |
@@ -289,7 +289,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ElectronicSignatureApi.new
-pdf_file = File.new('/path/to/some/file') # File | PDF file to validate (will be analyzed to detect and validate signatures)
+pdf_file = 'pdf_file_example' # String | PDF file to validate (will be analyzed to detect and validate signatures)
 
 begin
   # Validate electronic signatures of a PDF
@@ -322,7 +322,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | PDF file to validate (will be analyzed to detect and validate signatures) |  |
+| **pdf_file** | **String** | PDF file to validate (will be analyzed to detect and validate signatures) |  |
 
 ### Return type
 

@@ -660,6 +660,69 @@ module FactPulse
       return data, status_code, headers
     end
 
+    # Get the SuperPDP VAT regime
+    # Read the VAT regime of the client's company at SuperPDP (`vatRegime` is null when not set).  SuperPDP refuses e-reporting (\"The VAT regime needs to be setup at the company level\") until the VAT regime of the company is set: it defines the e-reporting transmission periods, and the Flux 10 file does not carry it. This setting is not part of the AFNOR API; FactPulse sets it with the client's SuperPDP connection.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Errors**: - `404 not_connected`: the client has not connected its SuperPDP account - `400 superpdp_error`: SuperPDP refused the request (`superpdp_status`, `message`) - `502`: SuperPDP unreachable, or the SuperPDP connection must be redone
+    # @param uid [String] Client unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [SuperPDPVatRegimeResponse]
+    def get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get(uid, opts = {})
+      data, _status_code, _headers = get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get_with_http_info(uid, opts)
+      data
+    end
+
+    # Get the SuperPDP VAT regime
+    # Read the VAT regime of the client&#39;s company at SuperPDP (&#x60;vatRegime&#x60; is null when not set).  SuperPDP refuses e-reporting (\&quot;The VAT regime needs to be setup at the company level\&quot;) until the VAT regime of the company is set: it defines the e-reporting transmission periods, and the Flux 10 file does not carry it. This setting is not part of the AFNOR API; FactPulse sets it with the client&#39;s SuperPDP connection.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Errors**: - &#x60;404 not_connected&#x60;: the client has not connected its SuperPDP account - &#x60;400 superpdp_error&#x60;: SuperPDP refused the request (&#x60;superpdp_status&#x60;, &#x60;message&#x60;) - &#x60;502&#x60;: SuperPDP unreachable, or the SuperPDP connection must be redone
+    # @param uid [String] Client unique identifier (UUID)
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SuperPDPVatRegimeResponse, Integer, Hash)>] SuperPDPVatRegimeResponse data, response status code and response headers
+    def get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get_with_http_info(uid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ClientManagementApi.get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get ...'
+      end
+      # verify the required parameter 'uid' is set
+      if @api_client.config.client_side_validation && uid.nil?
+        fail ArgumentError, "Missing the required parameter 'uid' when calling ClientManagementApi.get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get"
+      end
+      # resource path
+      local_var_path = '/api/v1/clients/{uid}/superpdp/vat-regime'.sub('{' + 'uid' + '}', CGI.escape(uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SuperPDPVatRegimeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"ClientManagementApi.get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ClientManagementApi#get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get webhook secret status
     # Check if a webhook secret is configured for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Response**: - `hasSecret`: Whether a webhook secret is configured - `createdAt`: When the secret was created (if exists)  **Note**: The secret value is never returned, only its status.
     # @param uid [String] Client unique identifier (UUID)
@@ -1019,6 +1082,80 @@ module FactPulse
       data, status_code, headers = @api_client.call_api(:PUT, local_var_path, new_options)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ClientManagementApi#update_pdp_config_api_v1_clients_uid_pdp_config_put\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Set the SuperPDP VAT regime
+    # Set the VAT regime of the client's company at SuperPDP. When `hasVatOnDebits` is omitted, its current value is kept.  SuperPDP refuses e-reporting (\"The VAT regime needs to be setup at the company level\") until the VAT regime of the company is set: it defines the e-reporting transmission periods, and the Flux 10 file does not carry it. This setting is not part of the AFNOR API; FactPulse sets it with the client's SuperPDP connection.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Errors**: - `404 not_connected`: the client has not connected its SuperPDP account - `400 superpdp_error`: SuperPDP refused the request (`superpdp_status`, `message`) - `502`: SuperPDP unreachable, or the SuperPDP connection must be redone
+    # @param uid [String] Client unique identifier (UUID)
+    # @param super_pdp_vat_regime_update_request [SuperPDPVatRegimeUpdateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [SuperPDPVatRegimeResponse]
+    def update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch(uid, super_pdp_vat_regime_update_request, opts = {})
+      data, _status_code, _headers = update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch_with_http_info(uid, super_pdp_vat_regime_update_request, opts)
+      data
+    end
+
+    # Set the SuperPDP VAT regime
+    # Set the VAT regime of the client&#39;s company at SuperPDP. When &#x60;hasVatOnDebits&#x60; is omitted, its current value is kept.  SuperPDP refuses e-reporting (\&quot;The VAT regime needs to be setup at the company level\&quot;) until the VAT regime of the company is set: it defines the e-reporting transmission periods, and the Flux 10 file does not carry it. This setting is not part of the AFNOR API; FactPulse sets it with the client&#39;s SuperPDP connection.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Errors**: - &#x60;404 not_connected&#x60;: the client has not connected its SuperPDP account - &#x60;400 superpdp_error&#x60;: SuperPDP refused the request (&#x60;superpdp_status&#x60;, &#x60;message&#x60;) - &#x60;502&#x60;: SuperPDP unreachable, or the SuperPDP connection must be redone
+    # @param uid [String] Client unique identifier (UUID)
+    # @param super_pdp_vat_regime_update_request [SuperPDPVatRegimeUpdateRequest] 
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(SuperPDPVatRegimeResponse, Integer, Hash)>] SuperPDPVatRegimeResponse data, response status code and response headers
+    def update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch_with_http_info(uid, super_pdp_vat_regime_update_request, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ClientManagementApi.update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch ...'
+      end
+      # verify the required parameter 'uid' is set
+      if @api_client.config.client_side_validation && uid.nil?
+        fail ArgumentError, "Missing the required parameter 'uid' when calling ClientManagementApi.update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch"
+      end
+      # verify the required parameter 'super_pdp_vat_regime_update_request' is set
+      if @api_client.config.client_side_validation && super_pdp_vat_regime_update_request.nil?
+        fail ArgumentError, "Missing the required parameter 'super_pdp_vat_regime_update_request' when calling ClientManagementApi.update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch"
+      end
+      # resource path
+      local_var_path = '/api/v1/clients/{uid}/superpdp/vat-regime'.sub('{' + 'uid' + '}', CGI.escape(uid.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+      # HTTP header 'Content-Type'
+      content_type = @api_client.select_header_content_type(['application/json'])
+      if !content_type.nil?
+          header_params['Content-Type'] = content_type
+      end
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(super_pdp_vat_regime_update_request)
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'SuperPDPVatRegimeResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['APIKeyHeader', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"ClientManagementApi.update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:PATCH, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ClientManagementApi#update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

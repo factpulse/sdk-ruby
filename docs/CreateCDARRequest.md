@@ -23,6 +23,8 @@
 | **action_code** | **String** |  | [optional] |
 | **encaisse_amount** | [**Encaisseamount**](Encaisseamount.md) |  | [optional] |
 | **encaisse_vat_rate** | **Float** | Taux de TVA du montant encaissé en % (MDT-224, requis par BR-FR-CDV-14 pour le statut 212 ; défaut 20) | [optional][default to 20] |
+| **encaisse_amounts_by_rate** | [**Array&lt;EncaisseAmountByRate&gt;**](EncaisseAmountByRate.md) |  | [optional] |
+| **comment** | **String** |  | [optional] |
 
 ## Example
 
@@ -48,7 +50,9 @@ instance = FactPulse::CreateCDARRequest.new(
   reason_text: null,
   action_code: null,
   encaisse_amount: null,
-  encaisse_vat_rate: null
+  encaisse_vat_rate: null,
+  encaisse_amounts_by_rate: null,
+  comment: null
 )
 ```
 

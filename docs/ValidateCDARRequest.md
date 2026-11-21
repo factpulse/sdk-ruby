@@ -12,6 +12,7 @@
 | **status** | **String** |  | [optional] |
 | **reason_code** | **String** |  | [optional] |
 | **encaisse_amount** | [**Encaisseamount1**](Encaisseamount1.md) |  | [optional] |
+| **encaisse_amounts_by_rate** | [**Array&lt;EncaisseAmountByRate&gt;**](EncaisseAmountByRate.md) |  | [optional] |
 
 ## Example
 
@@ -26,7 +27,8 @@ instance = FactPulse::ValidateCDARRequest.new(
   invoice_issue_date: null,
   status: null,
   reason_code: null,
-  encaisse_amount: null
+  encaisse_amount: null,
+  encaisse_amounts_by_rate: null
 )
 ```
 

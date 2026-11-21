@@ -21,12 +21,18 @@ module FactPulse
 
     attr_accessor :type
 
+    attr_accessor :input
+
+    attr_accessor :ctx
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'loc' => :'loc',
         :'msg' => :'msg',
-        :'type' => :'type'
+        :'type' => :'type',
+        :'input' => :'input',
+        :'ctx' => :'ctx'
       }
     end
 
@@ -45,13 +51,16 @@ module FactPulse
       {
         :'loc' => :'Array<LocationInner>',
         :'msg' => :'String',
-        :'type' => :'String'
+        :'type' => :'String',
+        :'input' => :'Object',
+        :'ctx' => :'Object'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'input',
       ])
     end
 
@@ -89,6 +98,14 @@ module FactPulse
         self.type = attributes[:'type']
       else
         self.type = nil
+      end
+
+      if attributes.key?(:'input')
+        self.input = attributes[:'input']
+      end
+
+      if attributes.key?(:'ctx')
+        self.ctx = attributes[:'ctx']
       end
     end
 
@@ -159,7 +176,9 @@ module FactPulse
       self.class == o.class &&
           loc == o.loc &&
           msg == o.msg &&
-          type == o.type
+          type == o.type &&
+          input == o.input &&
+          ctx == o.ctx
     end
 
     # @see the `==` method
@@ -171,7 +190,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [loc, msg, type].hash
+      [loc, msg, type, input, ctx].hash
     end
 
     # Builds the object from hash

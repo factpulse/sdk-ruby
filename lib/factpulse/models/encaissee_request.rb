@@ -25,13 +25,16 @@ module FactPulse
     # SIREN de l'acheteur (destinataire du statut)
     attr_accessor :invoice_buyer_siren
 
-    # Adresse électronique de l'acheteur (MDT-73)
     attr_accessor :invoice_buyer_electronic_address
 
     attr_accessor :amount
 
-    # Taux de TVA du montant encaissé en % (MDT-224, requis par BR-FR-CDV-14 ; défaut 20)
+    # Taux de TVA du montant encaissé en % (MDT-224, requis par BR-FR-CDV-14 ; défaut 20). Ignoré avec amountsByRate
     attr_accessor :vat_rate
+
+    attr_accessor :amounts_by_rate
+
+    attr_accessor :comment
 
     # Code devise ISO 4217
     attr_accessor :currency
@@ -58,6 +61,8 @@ module FactPulse
         :'invoice_buyer_electronic_address' => :'invoiceBuyerElectronicAddress',
         :'amount' => :'amount',
         :'vat_rate' => :'vatRate',
+        :'amounts_by_rate' => :'amountsByRate',
+        :'comment' => :'comment',
         :'currency' => :'currency',
         :'sender_siren' => :'senderSiren',
         :'flow_type' => :'flowType',
@@ -85,8 +90,10 @@ module FactPulse
         :'invoice_issue_date' => :'Date',
         :'invoice_buyer_siren' => :'String',
         :'invoice_buyer_electronic_address' => :'String',
-        :'amount' => :'Amount1',
+        :'amount' => :'Amount2',
         :'vat_rate' => :'Float',
+        :'amounts_by_rate' => :'Array<EncaisseAmountByRate>',
+        :'comment' => :'String',
         :'currency' => :'String',
         :'sender_siren' => :'String',
         :'flow_type' => :'String',
@@ -100,6 +107,10 @@ module FactPulse
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'invoice_buyer_electronic_address',
+        :'amount',
+        :'amounts_by_rate',
+        :'comment',
         :'sender_siren',
         :'pdp_flow_service_url',
         :'pdp_token_url',
@@ -144,20 +155,26 @@ module FactPulse
 
       if attributes.key?(:'invoice_buyer_electronic_address')
         self.invoice_buyer_electronic_address = attributes[:'invoice_buyer_electronic_address']
-      else
-        self.invoice_buyer_electronic_address = nil
       end
 
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
-      else
-        self.amount = nil
       end
 
       if attributes.key?(:'vat_rate')
         self.vat_rate = attributes[:'vat_rate']
       else
         self.vat_rate = 20
+      end
+
+      if attributes.key?(:'amounts_by_rate')
+        if (value = attributes[:'amounts_by_rate']).is_a?(Array)
+          self.amounts_by_rate = value
+        end
+      end
+
+      if attributes.key?(:'comment')
+        self.comment = attributes[:'comment']
       end
 
       if attributes.key?(:'currency')
@@ -210,12 +227,12 @@ module FactPulse
         invalid_properties.push('invalid value for "invoice_buyer_siren", invoice_buyer_siren cannot be nil.')
       end
 
-      if @invoice_buyer_electronic_address.nil?
-        invalid_properties.push('invalid value for "invoice_buyer_electronic_address", invoice_buyer_electronic_address cannot be nil.')
+      if !@amounts_by_rate.nil? && @amounts_by_rate.length < 1
+        invalid_properties.push('invalid value for "amounts_by_rate", number of items must be greater than or equal to 1.')
       end
 
-      if @amount.nil?
-        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
+      if !@comment.nil? && @comment.to_s.length > 2000
+        invalid_properties.push('invalid value for "comment", the character length must be smaller than or equal to 2000.')
       end
 
       invalid_properties
@@ -228,8 +245,8 @@ module FactPulse
       return false if @invoice_id.nil?
       return false if @invoice_issue_date.nil?
       return false if @invoice_buyer_siren.nil?
-      return false if @invoice_buyer_electronic_address.nil?
-      return false if @amount.nil?
+      return false if !@amounts_by_rate.nil? && @amounts_by_rate.length < 1
+      return false if !@comment.nil? && @comment.to_s.length > 2000
       true
     end
 
@@ -264,23 +281,23 @@ module FactPulse
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] invoice_buyer_electronic_address Value to be assigned
-    def invoice_buyer_electronic_address=(invoice_buyer_electronic_address)
-      if invoice_buyer_electronic_address.nil?
-        fail ArgumentError, 'invoice_buyer_electronic_address cannot be nil'
+    # @param [Object] amounts_by_rate Value to be assigned
+    def amounts_by_rate=(amounts_by_rate)
+      if !amounts_by_rate.nil? && amounts_by_rate.length < 1
+        fail ArgumentError, 'invalid value for "amounts_by_rate", number of items must be greater than or equal to 1.'
       end
 
-      @invoice_buyer_electronic_address = invoice_buyer_electronic_address
+      @amounts_by_rate = amounts_by_rate
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] amount Value to be assigned
-    def amount=(amount)
-      if amount.nil?
-        fail ArgumentError, 'amount cannot be nil'
+    # @param [Object] comment Value to be assigned
+    def comment=(comment)
+      if !comment.nil? && comment.to_s.length > 2000
+        fail ArgumentError, 'invalid value for "comment", the character length must be smaller than or equal to 2000.'
       end
 
-      @amount = amount
+      @comment = comment
     end
 
     # Checks equality by comparing each attribute.
@@ -294,6 +311,8 @@ module FactPulse
           invoice_buyer_electronic_address == o.invoice_buyer_electronic_address &&
           amount == o.amount &&
           vat_rate == o.vat_rate &&
+          amounts_by_rate == o.amounts_by_rate &&
+          comment == o.comment &&
           currency == o.currency &&
           sender_siren == o.sender_siren &&
           flow_type == o.flow_type &&
@@ -312,7 +331,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [invoice_id, invoice_issue_date, invoice_buyer_siren, invoice_buyer_electronic_address, amount, vat_rate, currency, sender_siren, flow_type, pdp_flow_service_url, pdp_token_url, pdp_client_id, pdp_client_secret].hash
+      [invoice_id, invoice_issue_date, invoice_buyer_siren, invoice_buyer_electronic_address, amount, vat_rate, amounts_by_rate, comment, currency, sender_siren, flow_type, pdp_flow_service_url, pdp_token_url, pdp_client_id, pdp_client_secret].hash
     end
 
     # Builds the object from hash

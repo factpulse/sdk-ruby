@@ -33,7 +33,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ParseApi.new
-file = File.new('/path/to/some/file') # File | Factur-X PDF or XML file to parse
+file = 'file_example' # String | Factur-X PDF or XML file to parse
 opts = {
   callback_url: 'callback_url_example' # String | 
 }
@@ -69,7 +69,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **file** | **File** | Factur-X PDF or XML file to parse |  |
+| **file** | **String** | Factur-X PDF or XML file to parse |  |
 | **callback_url** | **String** |  | [optional] |
 
 ### Return type
@@ -111,7 +111,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::ParseApi.new
-file = File.new('/path/to/some/file') # File | Factur-X PDF or XML file to parse
+file = 'file_example' # String | Factur-X PDF or XML file to parse
 
 begin
   # Parse CII, UBL or Factur-X PDF (sync)
@@ -144,7 +144,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **file** | **File** | Factur-X PDF or XML file to parse |  |
+| **file** | **String** | Factur-X PDF or XML file to parse |  |
 
 ### Return type
 

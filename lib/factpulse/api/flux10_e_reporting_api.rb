@@ -484,7 +484,7 @@ module FactPulse
 
     # Submit pre-generated e-reporting XML
     # Submit a pre-generated e-reporting XML file directly to a PA/PDP.  This endpoint is designed for clients who generate their own PPF-compliant XML and only need FactPulse for the PDP submission.  **Process:** 1. Validates the XML against PPF XSD schemas 2. Determines the appropriate AFNOR FlowType 3. Submits to the configured PDP/PA 4. Returns the flowId for tracking  **Authentication:** Same strategies as /submit endpoint (JWT or zero-storage credentials).
-    # @param xml_file [File] E-reporting XML file
+    # @param xml_file [String] E-reporting XML file
     # @param [Hash] opts the optional parameters
     # @option opts [String] :organization_id Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
     # @option opts [String] :tracking_id 
@@ -501,7 +501,7 @@ module FactPulse
 
     # Submit pre-generated e-reporting XML
     # Submit a pre-generated e-reporting XML file directly to a PA/PDP.  This endpoint is designed for clients who generate their own PPF-compliant XML and only need FactPulse for the PDP submission.  **Process:** 1. Validates the XML against PPF XSD schemas 2. Determines the appropriate AFNOR FlowType 3. Submits to the configured PDP/PA 4. Returns the flowId for tracking  **Authentication:** Same strategies as /submit endpoint (JWT or zero-storage credentials).
-    # @param xml_file [File] E-reporting XML file
+    # @param xml_file [String] E-reporting XML file
     # @param [Hash] opts the optional parameters
     # @option opts [String] :organization_id Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
     # @option opts [String] :tracking_id 
@@ -710,7 +710,7 @@ module FactPulse
 
     # Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
     # Validates an e-reporting XML file against PPF specifications (Annexe 6 v1.9):  **Validation levels:** 1. **XSD (REJ_SEMAN)**: Structure, types, cardinality 2. **Semantic (REJ_SEMAN)**: Authorized values from codelists 3. **Coherence (REJ_COH)**: Data consistency (totals = sum of breakdowns) 4. **Period (REJ_PER)**: Transaction dates within declared period  **Validated codes:** - SchemeID (ISO 6523): 0002=SIREN, 0009=SIRET, 0224=RoutingCode, etc. - RoleCode (UNCL 3035): SE=Seller, BY=Buyer, WK=Working party - CategoryCode (TT-81): TLB1, TPS1, TNT1, TMA1 - TaxCategoryCode (UNTDID 5305): S, Z, E, AE, K, G, O - Currency (ISO 4217), Country (ISO 3166-1)  Returns structured validation errors with PPF rejection codes.
-    # @param xml_file [File] E-reporting XML file to validate
+    # @param xml_file [String] E-reporting XML file to validate
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :validate_coherence Validate data coherence (REJ_COH) (default to true)
     # @option opts [Boolean] :validate_period Validate period coherence (REJ_PER) (default to true)
@@ -722,7 +722,7 @@ module FactPulse
 
     # Validate e-reporting XML (PPF Annexe 6 v1.9 compliant)
     # Validates an e-reporting XML file against PPF specifications (Annexe 6 v1.9):  **Validation levels:** 1. **XSD (REJ_SEMAN)**: Structure, types, cardinality 2. **Semantic (REJ_SEMAN)**: Authorized values from codelists 3. **Coherence (REJ_COH)**: Data consistency (totals &#x3D; sum of breakdowns) 4. **Period (REJ_PER)**: Transaction dates within declared period  **Validated codes:** - SchemeID (ISO 6523): 0002&#x3D;SIREN, 0009&#x3D;SIRET, 0224&#x3D;RoutingCode, etc. - RoleCode (UNCL 3035): SE&#x3D;Seller, BY&#x3D;Buyer, WK&#x3D;Working party - CategoryCode (TT-81): TLB1, TPS1, TNT1, TMA1 - TaxCategoryCode (UNTDID 5305): S, Z, E, AE, K, G, O - Currency (ISO 4217), Country (ISO 3166-1)  Returns structured validation errors with PPF rejection codes.
-    # @param xml_file [File] E-reporting XML file to validate
+    # @param xml_file [String] E-reporting XML file to validate
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :validate_coherence Validate data coherence (REJ_COH) (default to true)
     # @option opts [Boolean] :validate_period Validate period coherence (REJ_PER) (default to true)

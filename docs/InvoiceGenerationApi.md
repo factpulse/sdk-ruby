@@ -39,7 +39,7 @@ opts = {
   profile: FactPulse::APIProfile::MINIMUM, # APIProfile | Factur-X/CII profile: MINIMUM, BASIC, EN16931 or EXTENDED. Ignored when output_format='ubl' (always EN16931).
   output_format: FactPulse::OutputFormat::XML, # OutputFormat | Output format: 'xml' or 'cii' (CII/Factur-X XML), 'ubl' (UBL 2.1 XML), 'pdf' (Factur-X PDF/A-3).
   auto_enrich: true, # Boolean | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only)
-  source_pdf: File.new('/path/to/some/file'), # File | 
+  source_pdf: 'source_pdf_example', # String | 
   callback_url: 'callback_url_example', # String | 
   webhook_mode: 'webhook_mode_example', # String | Webhook content delivery: 'inline' (base64 in payload) or 'download_url' (temporary URL, 1h TTL)
   skip_br_fr: true # Boolean | 
@@ -80,7 +80,7 @@ end
 | **profile** | [**APIProfile**](APIProfile.md) | Factur-X/CII profile: MINIMUM, BASIC, EN16931 or EXTENDED. Ignored when output_format&#x3D;&#39;ubl&#39; (always EN16931). | [optional] |
 | **output_format** | [**OutputFormat**](OutputFormat.md) | Output format: &#39;xml&#39; or &#39;cii&#39; (CII/Factur-X XML), &#39;ubl&#39; (UBL 2.1 XML), &#39;pdf&#39; (Factur-X PDF/A-3). | [optional] |
 | **auto_enrich** | **Boolean** | 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only) | [optional][default to true] |
-| **source_pdf** | **File** |  | [optional] |
+| **source_pdf** | **String** |  | [optional] |
 | **callback_url** | **String** |  | [optional] |
 | **webhook_mode** | **String** | Webhook content delivery: &#39;inline&#39; (base64 in payload) or &#39;download_url&#39; (temporary URL, 1h TTL) | [optional][default to &#39;inline&#39;] |
 | **skip_br_fr** | **Boolean** |  | [optional] |
@@ -124,7 +124,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::InvoiceGenerationApi.new
-submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::FacturXInvoice.new({invoice_number: 'invoice_number_example', payment_due_date: 'payment_due_date_example', recipient: FactPulse::Recipient.new, supplier: FactPulse::Supplier.new, references: FactPulse::InvoiceReferences.new({payment_means: FactPulse::PaymentMeans::CHEQUE, invoice_type: FactPulse::InvoiceTypeCode::N380, vat_accounting_code: FactPulse::VATAccountingCode::TVA_SUR_DEBIT}), totals: FactPulse::InvoiceTotals.new({total_net_amount: FactPulse::TotalNetAmount.new, vat_amount: FactPulse::TotalVATAmount.new, total_gross_amount: FactPulse::TotalGrossAmount.new, amount_due: FactPulse::AmountDue.new})}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
+submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::FacturXInvoice.new({invoice_number: 'invoice_number_example', payment_due_date: 'payment_due_date_example', recipient: FactPulse::Recipient.new, supplier: FactPulse::Supplier.new, references: FactPulse::InvoiceReferences.new({payment_means: FactPulse::PaymentMeans::CHEQUE, invoice_type: FactPulse::InvoiceTypeCode::INVOICE, vat_accounting_code: FactPulse::VATAccountingCode::TVA_SUR_DEBIT}), totals: FactPulse::InvoiceTotals.new({total_net_amount: FactPulse::TotalNetAmount.new, vat_amount: FactPulse::TotalVATAmount.new, total_gross_amount: FactPulse::TotalGrossAmount.new, amount_due: FactPulse::AmountDue.new})}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
 opts = {
   organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
 }
@@ -202,7 +202,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::InvoiceGenerationApi.new
-submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::FacturXInvoice.new({invoice_number: 'invoice_number_example', payment_due_date: 'payment_due_date_example', recipient: FactPulse::Recipient.new, supplier: FactPulse::Supplier.new, references: FactPulse::InvoiceReferences.new({payment_means: FactPulse::PaymentMeans::CHEQUE, invoice_type: FactPulse::InvoiceTypeCode::N380, vat_accounting_code: FactPulse::VATAccountingCode::TVA_SUR_DEBIT}), totals: FactPulse::InvoiceTotals.new({total_net_amount: FactPulse::TotalNetAmount.new, vat_amount: FactPulse::TotalVATAmount.new, total_gross_amount: FactPulse::TotalGrossAmount.new, amount_due: FactPulse::AmountDue.new})}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
+submit_complete_invoice_request = FactPulse::SubmitCompleteInvoiceRequest.new({invoice_data: FactPulse::FacturXInvoice.new({invoice_number: 'invoice_number_example', payment_due_date: 'payment_due_date_example', recipient: FactPulse::Recipient.new, supplier: FactPulse::Supplier.new, references: FactPulse::InvoiceReferences.new({payment_means: FactPulse::PaymentMeans::CHEQUE, invoice_type: FactPulse::InvoiceTypeCode::INVOICE, vat_accounting_code: FactPulse::VATAccountingCode::TVA_SUR_DEBIT}), totals: FactPulse::InvoiceTotals.new({total_net_amount: FactPulse::TotalNetAmount.new, vat_amount: FactPulse::TotalVATAmount.new, total_gross_amount: FactPulse::TotalGrossAmount.new, amount_due: FactPulse::AmountDue.new})}), source_pdf: 'source_pdf_example', destination: FactPulse::AFNORDestination.new}) # SubmitCompleteInvoiceRequest | 
 opts = {
   callback_url: 'callback_url_example', # String | Webhook URL for async notification when submission completes.
   webhook_mode: 'webhook_mode_example', # String | Webhook content delivery: 'inline' (base64 in payload) or 'download_url' (temporary URL, 1h TTL)

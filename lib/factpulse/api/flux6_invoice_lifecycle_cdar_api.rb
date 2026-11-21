@@ -145,9 +145,11 @@ module FactPulse
     end
 
     # [Simplified] Get lifecycle events for invoices
-    # Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7) - `invoiceId`: Optional filter on a specific invoice reference - `flowDirection`: `All` (default), `In` (statuses received from the counterparty)   or `Out` (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
+    # Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range,    following the cursor pagination (all pages are read) 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7). Ignored when `dateFrom` is set. - `dateFrom` / `dateTo`: Explicit time window (ISO 8601, UTC if no offset).   `dateTo` defaults to now. - `invoiceId`: Optional filter on a specific invoice reference. The filter is applied   after reading the window: prefer one call per synchronisation over one call per invoice.  **Limits:** at most 1000 status flows are read per call. When the limit is reached, `truncated` is `true` and the response is incomplete: split the window with `dateFrom` / `dateTo`. For incremental synchronisation, request the period since your last successful sync (plus a small margin). - `flowDirection`: `All` (default), `In` (statuses received from the counterparty)   or `Out` (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :days Number of days to look back (default to 7)
+    # @option opts [Time] :date_from Window start (ISO 8601, UTC if no offset). Overrides days.
+    # @option opts [Time] :date_to Window end (ISO 8601, UTC if no offset). Default: now
     # @option opts [String] :invoice_id Filter by invoice reference
     # @option opts [String] :flow_direction All (default), In (received statuses) or Out (issued statuses) (default to 'All')
     # @option opts [String] :pdp_flow_service_url PDP Flow Service URL
@@ -162,9 +164,11 @@ module FactPulse
     end
 
     # [Simplified] Get lifecycle events for invoices
-    # Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - &#x60;days&#x60;: Number of days to look back (default: 7) - &#x60;invoiceId&#x60;: Optional filter on a specific invoice reference - &#x60;flowDirection&#x60;: &#x60;All&#x60; (default), &#x60;In&#x60; (statuses received from the counterparty)   or &#x60;Out&#x60; (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
+    # Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range,    following the cursor pagination (all pages are read) 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - &#x60;days&#x60;: Number of days to look back (default: 7). Ignored when &#x60;dateFrom&#x60; is set. - &#x60;dateFrom&#x60; / &#x60;dateTo&#x60;: Explicit time window (ISO 8601, UTC if no offset).   &#x60;dateTo&#x60; defaults to now. - &#x60;invoiceId&#x60;: Optional filter on a specific invoice reference. The filter is applied   after reading the window: prefer one call per synchronisation over one call per invoice.  **Limits:** at most 1000 status flows are read per call. When the limit is reached, &#x60;truncated&#x60; is &#x60;true&#x60; and the response is incomplete: split the window with &#x60;dateFrom&#x60; / &#x60;dateTo&#x60;. For incremental synchronisation, request the period since your last successful sync (plus a small margin). - &#x60;flowDirection&#x60;: &#x60;All&#x60; (default), &#x60;In&#x60; (statuses received from the counterparty)   or &#x60;Out&#x60; (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :days Number of days to look back (default to 7)
+    # @option opts [Time] :date_from Window start (ISO 8601, UTC if no offset). Overrides days.
+    # @option opts [Time] :date_to Window end (ISO 8601, UTC if no offset). Default: now
     # @option opts [String] :invoice_id Filter by invoice reference
     # @option opts [String] :flow_direction All (default), In (received statuses) or Out (issued statuses) (default to 'All')
     # @option opts [String] :pdp_flow_service_url PDP Flow Service URL
@@ -195,6 +199,8 @@ module FactPulse
       # query parameters
       query_params = opts[:query_params] || {}
       query_params[:'days'] = opts[:'days'] if !opts[:'days'].nil?
+      query_params[:'dateFrom'] = opts[:'date_from'] if !opts[:'date_from'].nil?
+      query_params[:'dateTo'] = opts[:'date_to'] if !opts[:'date_to'].nil?
       query_params[:'invoiceId'] = opts[:'invoice_id'] if !opts[:'invoice_id'].nil?
       query_params[:'flowDirection'] = opts[:'flow_direction'] if !opts[:'flow_direction'].nil?
       query_params[:'pdpFlowServiceUrl'] = opts[:'pdp_flow_service_url'] if !opts[:'pdp_flow_service_url'].nil?
@@ -705,7 +711,7 @@ module FactPulse
 
     # Validate CDAR XML against XSD and Schematron BR-FR-CDV
     # Validates a CDAR XML file against:  1. **XSD schema**: UN/CEFACT D22B CrossDomainAcknowledgementAndResponse 2. **Schematron BR-FR-CDV**: French business rules for invoice lifecycle  Returns validation status and detailed error messages if invalid.  **Note:** Use `/validate` to validate structured data fields (JSON).
-    # @param xml_file [File] CDAR XML file to validate
+    # @param xml_file [String] CDAR XML file to validate
     # @param [Hash] opts the optional parameters
     # @return [Hash<String, Object>]
     def validate_xml_cdar_api_v1_cdar_validate_xml_post(xml_file, opts = {})
@@ -715,7 +721,7 @@ module FactPulse
 
     # Validate CDAR XML against XSD and Schematron BR-FR-CDV
     # Validates a CDAR XML file against:  1. **XSD schema**: UN/CEFACT D22B CrossDomainAcknowledgementAndResponse 2. **Schematron BR-FR-CDV**: French business rules for invoice lifecycle  Returns validation status and detailed error messages if invalid.  **Note:** Use &#x60;/validate&#x60; to validate structured data fields (JSON).
-    # @param xml_file [File] CDAR XML file to validate
+    # @param xml_file [String] CDAR XML file to validate
     # @param [Hash] opts the optional parameters
     # @return [Array<(Hash<String, Object>, Integer, Hash)>] Hash<String, Object> data, response status code and response headers
     def validate_xml_cdar_api_v1_cdar_validate_xml_post_with_http_info(xml_file, opts = {})

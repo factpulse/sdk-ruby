@@ -21,7 +21,7 @@ module FactPulse
     end
     # Parse Factur-X XML or PDF (async)
     # Parse a Factur-X file asynchronously using a Celery task.  **Use case:** For large files or when you want non-blocking processing.  **Workflow:** 1. Submit file with this endpoint -> receive `task_id` 2. Poll `/tasks/{task_id}/status` for result 3. Result contains `invoice` and `detected_profile`  **Optional:** Provide `callback_url` to receive a webhook when parsing completes.
-    # @param file [File] Factur-X PDF or XML file to parse
+    # @param file [String] Factur-X PDF or XML file to parse
     # @param [Hash] opts the optional parameters
     # @option opts [String] :callback_url 
     # @return [TaskResponse]
@@ -32,7 +32,7 @@ module FactPulse
 
     # Parse Factur-X XML or PDF (async)
     # Parse a Factur-X file asynchronously using a Celery task.  **Use case:** For large files or when you want non-blocking processing.  **Workflow:** 1. Submit file with this endpoint -&gt; receive &#x60;task_id&#x60; 2. Poll &#x60;/tasks/{task_id}/status&#x60; for result 3. Result contains &#x60;invoice&#x60; and &#x60;detected_profile&#x60;  **Optional:** Provide &#x60;callback_url&#x60; to receive a webhook when parsing completes.
-    # @param file [File] Factur-X PDF or XML file to parse
+    # @param file [String] Factur-X PDF or XML file to parse
     # @param [Hash] opts the optional parameters
     # @option opts [String] :callback_url 
     # @return [Array<(TaskResponse, Integer, Hash)>] TaskResponse data, response status code and response headers
@@ -93,7 +93,7 @@ module FactPulse
 
     # Parse CII, UBL or Factur-X PDF (sync)
     # Parse a CII XML, UBL XML, or Factur-X PDF and extract the invoice data as a FacturXInvoice model.  **Use cases:** - Extract invoice data from received invoices (any format) - Round-trip: parse an existing invoice, modify it, and regenerate in another format - Convert between CII and UBL via the FacturXInvoice pivot model  **Supported formats:** - Factur-X PDF (PDF/A-3 with embedded CII XML) - CII XML (UN/CEFACT Cross-Industry Invoice) - UBL 2.1 XML (OASIS Invoice or CreditNote)  **Returns:** - `invoice`: Complete FacturXInvoice data (can be used with /generate-invoice) - `detected_profile`: Factur-X profile (MINIMUM, BASIC, EN16931, EXTENDED)
-    # @param file [File] Factur-X PDF or XML file to parse
+    # @param file [String] Factur-X PDF or XML file to parse
     # @param [Hash] opts the optional parameters
     # @return [ParseFacturXResponse]
     def parse_facturx_sync_api_v1_processing_parse_facturx_post(file, opts = {})
@@ -103,7 +103,7 @@ module FactPulse
 
     # Parse CII, UBL or Factur-X PDF (sync)
     # Parse a CII XML, UBL XML, or Factur-X PDF and extract the invoice data as a FacturXInvoice model.  **Use cases:** - Extract invoice data from received invoices (any format) - Round-trip: parse an existing invoice, modify it, and regenerate in another format - Convert between CII and UBL via the FacturXInvoice pivot model  **Supported formats:** - Factur-X PDF (PDF/A-3 with embedded CII XML) - CII XML (UN/CEFACT Cross-Industry Invoice) - UBL 2.1 XML (OASIS Invoice or CreditNote)  **Returns:** - &#x60;invoice&#x60;: Complete FacturXInvoice data (can be used with /generate-invoice) - &#x60;detected_profile&#x60;: Factur-X profile (MINIMUM, BASIC, EN16931, EXTENDED)
-    # @param file [File] Factur-X PDF or XML file to parse
+    # @param file [String] Factur-X PDF or XML file to parse
     # @param [Hash] opts the optional parameters
     # @return [Array<(ParseFacturXResponse, Integer, Hash)>] ParseFacturXResponse data, response status code and response headers
     def parse_facturx_sync_api_v1_processing_parse_facturx_post_with_http_info(file, opts = {})

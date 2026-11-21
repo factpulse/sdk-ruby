@@ -14,27 +14,15 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Optional Chorus Pro credentials.  **MODE 1 - JWT retrieval (recommended):** Do not provide this `credentials` field in the payload. Credentials will be automatically retrieved via client_uid from JWT (0-trust).  **MODE 2 - Credentials in payload:** Provide all required fields below. Useful for tests or third-party integrations.
-  class ChorusProCredentials < ApiModelBase
-    attr_accessor :piste_client_id
-
-    attr_accessor :piste_client_secret
-
-    attr_accessor :chorus_login
-
-    attr_accessor :chorus_password
-
-    # [MODE 2] Use sandbox mode (default: True)
-    attr_accessor :sandbox_mode
+  # Response for validation errors.
+  class FactureElectroniqueRestApiSchemasValidationValidationErrorResponse < ApiModelBase
+    # List of detected validation errors.
+    attr_accessor :detail
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'piste_client_id' => :'pisteClientId',
-        :'piste_client_secret' => :'pisteClientSecret',
-        :'chorus_login' => :'chorusLogin',
-        :'chorus_password' => :'chorusPassword',
-        :'sandbox_mode' => :'sandboxMode'
+        :'detail' => :'detail'
       }
     end
 
@@ -51,21 +39,13 @@ module FactPulse
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'piste_client_id' => :'String',
-        :'piste_client_secret' => :'String',
-        :'chorus_login' => :'String',
-        :'chorus_password' => :'String',
-        :'sandbox_mode' => :'Boolean'
+        :'detail' => :'Array<String>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :'piste_client_id',
-        :'piste_client_secret',
-        :'chorus_login',
-        :'chorus_password',
       ])
     end
 
@@ -73,38 +53,24 @@ module FactPulse
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::ChorusProCredentials` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `FactPulse::FactureElectroniqueRestApiSchemasValidationValidationErrorResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::ChorusProCredentials`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `FactPulse::FactureElectroniqueRestApiSchemasValidationValidationErrorResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'piste_client_id')
-        self.piste_client_id = attributes[:'piste_client_id']
-      end
-
-      if attributes.key?(:'piste_client_secret')
-        self.piste_client_secret = attributes[:'piste_client_secret']
-      end
-
-      if attributes.key?(:'chorus_login')
-        self.chorus_login = attributes[:'chorus_login']
-      end
-
-      if attributes.key?(:'chorus_password')
-        self.chorus_password = attributes[:'chorus_password']
-      end
-
-      if attributes.key?(:'sandbox_mode')
-        self.sandbox_mode = attributes[:'sandbox_mode']
+      if attributes.key?(:'detail')
+        if (value = attributes[:'detail']).is_a?(Array)
+          self.detail = value
+        end
       else
-        self.sandbox_mode = true
+        self.detail = nil
       end
     end
 
@@ -113,6 +79,10 @@ module FactPulse
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @detail.nil?
+        invalid_properties.push('invalid value for "detail", detail cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -120,7 +90,18 @@ module FactPulse
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @detail.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] detail Value to be assigned
+    def detail=(detail)
+      if detail.nil?
+        fail ArgumentError, 'detail cannot be nil'
+      end
+
+      @detail = detail
     end
 
     # Checks equality by comparing each attribute.
@@ -128,11 +109,7 @@ module FactPulse
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          piste_client_id == o.piste_client_id &&
-          piste_client_secret == o.piste_client_secret &&
-          chorus_login == o.chorus_login &&
-          chorus_password == o.chorus_password &&
-          sandbox_mode == o.sandbox_mode
+          detail == o.detail
     end
 
     # @see the `==` method
@@ -144,7 +121,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [piste_client_id, piste_client_secret, chorus_login, chorus_password, sandbox_mode].hash
+      [detail].hash
     end
 
     # Builds the object from hash

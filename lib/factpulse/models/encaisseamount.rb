@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Montant encaissé (requis pour statut 212)
+  # Montant TTC encaissé à un seul taux (statut 212). Négatif pour un décaissement. Pour plusieurs taux, utiliser encaisseAmountsByRate
   module Encaisseamount
     class << self
       # List of class defined in anyOf (OpenAPI v3)

@@ -45,7 +45,7 @@ module FactPulse
     def self.openapi_types
       {
         :'rate' => :'Rate',
-        :'amount' => :'Amount2',
+        :'amount' => :'Amount3',
         :'amount_eur' => :'Amounteur'
       }
     end

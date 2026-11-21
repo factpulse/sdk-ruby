@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **type** | **String** |  | [optional][default to &#39;chorus_pro&#39;] |
-| **credentials** | [**ChorusProCredentials**](ChorusProCredentials.md) |  | [optional] |
+| **credentials** | [**FactureElectroniqueRestApiSchemasProcessingChorusProCredentials**](FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.md) |  | [optional] |
 
 ## Example
 

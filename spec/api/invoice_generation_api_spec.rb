@@ -40,7 +40,7 @@ describe 'InvoiceGenerationApi' do
   # @option opts [APIProfile] :profile Factur-X/CII profile: MINIMUM, BASIC, EN16931 or EXTENDED. Ignored when output_format&#x3D;&#39;ubl&#39; (always EN16931).
   # @option opts [OutputFormat] :output_format Output format: &#39;xml&#39; or &#39;cii&#39; (CII/Factur-X XML), &#39;ubl&#39; (UBL 2.1 XML), &#39;pdf&#39; (Factur-X PDF/A-3).
   # @option opts [Boolean] :auto_enrich 🆕 Enable auto-enrichment from SIRET/SIREN (simplified format only)
-  # @option opts [File] :source_pdf 
+  # @option opts [String] :source_pdf 
   # @option opts [String] :callback_url 
   # @option opts [String] :webhook_mode Webhook content delivery: &#39;inline&#39; (base64 in payload) or &#39;download_url&#39; (temporary URL, 1h TTL)
   # @option opts [Boolean] :skip_br_fr 

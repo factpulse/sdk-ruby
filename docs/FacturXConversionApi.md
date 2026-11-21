@@ -37,7 +37,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::FacturXConversionApi.new
-file = File.new('/path/to/some/file') # File | Document to convert (PDF, DOCX, XLSX, JPG, PNG)
+file = 'file_example' # String | Document to convert (PDF, DOCX, XLSX, JPG, PNG)
 opts = {
   output: 'output_example', # String | Output format: pdf, xml, both
   callback_url: 'callback_url_example', # String | 
@@ -75,7 +75,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **file** | **File** | Document to convert (PDF, DOCX, XLSX, JPG, PNG) |  |
+| **file** | **String** | Document to convert (PDF, DOCX, XLSX, JPG, PNG) |  |
 | **output** | **String** | Output format: pdf, xml, both | [optional][default to &#39;pdf&#39;] |
 | **callback_url** | **String** |  | [optional] |
 | **webhook_mode** | **String** | Content delivery mode: &#39;inline&#39; (base64 in webhook) or &#39;download_url&#39; (temporary URL, 1h TTL) | [optional][default to &#39;inline&#39;] |

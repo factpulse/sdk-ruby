@@ -7,6 +7,8 @@
 | **loc** | [**Array&lt;LocationInner&gt;**](LocationInner.md) |  |  |
 | **msg** | **String** |  |  |
 | **type** | **String** |  |  |
+| **input** | **Object** |  | [optional] |
+| **ctx** | **Object** |  | [optional] |
 
 ## Example
 
@@ -16,7 +18,9 @@ require 'factpulse'
 instance = FactPulse::ValidationError.new(
   loc: null,
   msg: null,
-  type: null
+  type: null,
+  input: null,
+  ctx: null
 )
 ```
 

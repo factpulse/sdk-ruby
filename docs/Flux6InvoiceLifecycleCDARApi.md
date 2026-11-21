@@ -158,7 +158,7 @@ No authorization required
 
 [Simplified] Get lifecycle events for invoices
 
-Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7) - `invoiceId`: Optional filter on a specific invoice reference - `flowDirection`: `All` (default), `In` (statuses received from the counterparty)   or `Out` (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
+Returns lifecycle events (CDAR) grouped by invoice reference.  **How it works (AFNOR XP Z12-013 compliant):** 1. Searches lifecycle flows on the PDP by flowType + flowDirection + date range,    following the cursor pagination (all pages are read) 2. Downloads and parses each CDAR XML to extract the invoice reference 3. Groups events by invoice, sorted chronologically  **Parameters:** - `days`: Number of days to look back (default: 7). Ignored when `dateFrom` is set. - `dateFrom` / `dateTo`: Explicit time window (ISO 8601, UTC if no offset).   `dateTo` defaults to now. - `invoiceId`: Optional filter on a specific invoice reference. The filter is applied   after reading the window: prefer one call per synchronisation over one call per invoice.  **Limits:** at most 1000 status flows are read per call. When the limit is reached, `truncated` is `true` and the response is incomplete: split the window with `dateFrom` / `dateTo`. For incremental synchronisation, request the period since your last successful sync (plus a small margin). - `flowDirection`: `All` (default), `In` (statuses received from the counterparty)   or `Out` (statuses issued by you or your PA, e.g. 202/203)  **Authentication:** JWT Bearer (recommended) or PDP credentials as query parameters.
 
 ### Examples
 
@@ -174,6 +174,8 @@ end
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
 opts = {
   days: 56, # Integer | Number of days to look back
+  date_from: Time.parse('2013-10-20T19:20:30+01:00'), # Time | Window start (ISO 8601, UTC if no offset). Overrides days.
+  date_to: Time.parse('2013-10-20T19:20:30+01:00'), # Time | Window end (ISO 8601, UTC if no offset). Default: now
   invoice_id: 'invoice_id_example', # String | Filter by invoice reference
   flow_direction: 'In', # String | All (default), In (received statuses) or Out (issued statuses)
   pdp_flow_service_url: 'pdp_flow_service_url_example', # String | PDP Flow Service URL
@@ -215,6 +217,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **days** | **Integer** | Number of days to look back | [optional][default to 7] |
+| **date_from** | **Time** | Window start (ISO 8601, UTC if no offset). Overrides days. | [optional] |
+| **date_to** | **Time** | Window end (ISO 8601, UTC if no offset). Default: now | [optional] |
 | **invoice_id** | **String** | Filter by invoice reference | [optional] |
 | **flow_direction** | **String** | All (default), In (received statuses) or Out (issued statuses) | [optional][default to &#39;All&#39;] |
 | **pdp_flow_service_url** | **String** | PDP Flow Service URL | [optional] |
@@ -525,7 +529,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
-encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_buyer_siren: 'invoice_buyer_siren_example', invoice_buyer_electronic_address: 'invoice_buyer_electronic_address_example', amount: FactPulse::Amount1.new}) # EncaisseeRequest | 
+encaissee_request = FactPulse::EncaisseeRequest.new({invoice_id: 'invoice_id_example', invoice_issue_date: Date.today, invoice_buyer_siren: 'invoice_buyer_siren_example'}) # EncaisseeRequest | 
 opts = {
   organization_id: 'organization_id_example' # String | Organization ID relayed to the PDP (AFNOR XP Z12-013 delegation / multi-tenancy). Required by some PDPs to select the client space.
 }
@@ -750,7 +754,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::Flux6InvoiceLifecycleCDARApi.new
-xml_file = File.new('/path/to/some/file') # File | CDAR XML file to validate
+xml_file = 'xml_file_example' # String | CDAR XML file to validate
 
 begin
   # Validate CDAR XML against XSD and Schematron BR-FR-CDV
@@ -783,7 +787,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **xml_file** | **File** | CDAR XML file to validate |  |
+| **xml_file** | **String** | CDAR XML file to validate |  |
 
 ### Return type
 

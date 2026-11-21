@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **rate** | [**Rate**](Rate.md) |  |  |
-| **amount** | [**Amount2**](Amount2.md) |  |  |
+| **amount** | [**Amount3**](Amount3.md) |  |  |
 | **amount_eur** | [**Amounteur**](Amounteur.md) |  | [optional] |
 
 ## Example

@@ -117,6 +117,7 @@ docs/AllowanceTotalAmount.md
 docs/Amount.md
 docs/Amount1.md
 docs/Amount2.md
+docs/Amount3.md
 docs/AmountDue.md
 docs/Amounteur.md
 docs/AsyncTaskStatus.md
@@ -128,7 +129,6 @@ docs/CeleryStatus.md
 docs/CertificateInfoResponse.md
 docs/ChargeTotalAmount.md
 docs/ChorusProApi.md
-docs/ChorusProCredentials.md
 docs/ChorusProDestination.md
 docs/ChorusProResult.md
 docs/ClientActivateResponse.md
@@ -166,6 +166,7 @@ docs/ElectronicAddress.md
 docs/ElectronicAddressInput.md
 docs/ElectronicAddressOutput.md
 docs/ElectronicSignatureApi.md
+docs/EncaisseAmountByRate.md
 docs/Encaisseamount.md
 docs/Encaisseamount1.md
 docs/EncaisseeRequest.md
@@ -181,6 +182,9 @@ docs/FacturXValidationApi.md
 docs/FactureElectroniqueModelsInvoiceTypeCode.md
 docs/FactureElectroniqueRestApiSchemasCdarValidationErrorResponse.md
 docs/FactureElectroniqueRestApiSchemasChorusProChorusProCredentials.md
+docs/FactureElectroniqueRestApiSchemasEreportingInvoiceTypeCode.md
+docs/FactureElectroniqueRestApiSchemasProcessingChorusProCredentials.md
+docs/FactureElectroniqueRestApiSchemasValidationValidationErrorResponse.md
 docs/FieldStatus.md
 docs/FileInfo.md
 docs/FilesInfo.md
@@ -318,6 +322,8 @@ docs/SubmitVatAmount.md
 docs/SuperPDPConnectURLResponse.md
 docs/SuperPDPDisconnectResponse.md
 docs/SuperPDPStatusResponse.md
+docs/SuperPDPVatRegimeResponse.md
+docs/SuperPDPVatRegimeUpdateRequest.md
 docs/SupplementaryAttachment.md
 docs/Supplier.md
 docs/TaskErrorResult.md
@@ -354,7 +360,6 @@ docs/ValidateEReportingResponse.md
 docs/ValidationApi.md
 docs/ValidationError.md
 docs/ValidationErrorDetail.md
-docs/ValidationErrorResponse.md
 docs/ValidationInfo.md
 docs/ValidationSuccessResponse.md
 docs/ValidationSuccessTaskResult.md
@@ -499,6 +504,7 @@ lib/factpulse/models/allowance_total_amount.rb
 lib/factpulse/models/amount.rb
 lib/factpulse/models/amount1.rb
 lib/factpulse/models/amount2.rb
+lib/factpulse/models/amount3.rb
 lib/factpulse/models/amount_due.rb
 lib/factpulse/models/amounteur.rb
 lib/factpulse/models/api_error.rb
@@ -510,7 +516,6 @@ lib/factpulse/models/buyercountry.rb
 lib/factpulse/models/celery_status.rb
 lib/factpulse/models/certificate_info_response.rb
 lib/factpulse/models/charge_total_amount.rb
-lib/factpulse/models/chorus_pro_credentials.rb
 lib/factpulse/models/chorus_pro_destination.rb
 lib/factpulse/models/chorus_pro_result.rb
 lib/factpulse/models/client_activate_response.rb
@@ -545,6 +550,7 @@ lib/factpulse/models/e_reporting_validation_error.rb
 lib/factpulse/models/electronic_address.rb
 lib/factpulse/models/electronic_address_input.rb
 lib/factpulse/models/electronic_address_output.rb
+lib/factpulse/models/encaisse_amount_by_rate.rb
 lib/factpulse/models/encaisseamount.rb
 lib/factpulse/models/encaisseamount1.rb
 lib/factpulse/models/encaissee_request.rb
@@ -557,6 +563,9 @@ lib/factpulse/models/factur_xpdf_info.rb
 lib/factpulse/models/facture_electronique_models_invoice_type_code.rb
 lib/factpulse/models/facture_electronique_rest_api_schemas_cdar_validation_error_response.rb
 lib/factpulse/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials.rb
+lib/factpulse/models/facture_electronique_rest_api_schemas_validation_validation_error_response.rb
 lib/factpulse/models/field_status.rb
 lib/factpulse/models/file_info.rb
 lib/factpulse/models/files_info.rb
@@ -688,6 +697,8 @@ lib/factpulse/models/submit_vat_amount.rb
 lib/factpulse/models/super_pdp_connect_url_response.rb
 lib/factpulse/models/super_pdp_disconnect_response.rb
 lib/factpulse/models/super_pdp_status_response.rb
+lib/factpulse/models/super_pdp_vat_regime_response.rb
+lib/factpulse/models/super_pdp_vat_regime_update_request.rb
 lib/factpulse/models/supplementary_attachment.rb
 lib/factpulse/models/supplier.rb
 lib/factpulse/models/task_error_result.rb
@@ -716,7 +727,6 @@ lib/factpulse/models/validate_e_reporting_request.rb
 lib/factpulse/models/validate_e_reporting_response.rb
 lib/factpulse/models/validation_error.rb
 lib/factpulse/models/validation_error_detail.rb
-lib/factpulse/models/validation_error_response.rb
 lib/factpulse/models/validation_info.rb
 lib/factpulse/models/validation_success_response.rb
 lib/factpulse/models/validation_success_task_result.rb
@@ -861,6 +871,7 @@ spec/models/allowance_reason_code_spec.rb
 spec/models/allowance_total_amount_spec.rb
 spec/models/amount1_spec.rb
 spec/models/amount2_spec.rb
+spec/models/amount3_spec.rb
 spec/models/amount_due_spec.rb
 spec/models/amount_spec.rb
 spec/models/amounteur_spec.rb
@@ -873,7 +884,6 @@ spec/models/buyercountry_spec.rb
 spec/models/celery_status_spec.rb
 spec/models/certificate_info_response_spec.rb
 spec/models/charge_total_amount_spec.rb
-spec/models/chorus_pro_credentials_spec.rb
 spec/models/chorus_pro_destination_spec.rb
 spec/models/chorus_pro_result_spec.rb
 spec/models/client_activate_response_spec.rb
@@ -908,6 +918,7 @@ spec/models/e_reporting_validation_error_spec.rb
 spec/models/electronic_address_input_spec.rb
 spec/models/electronic_address_output_spec.rb
 spec/models/electronic_address_spec.rb
+spec/models/encaisse_amount_by_rate_spec.rb
 spec/models/encaisseamount1_spec.rb
 spec/models/encaisseamount_spec.rb
 spec/models/encaissee_request_spec.rb
@@ -920,6 +931,9 @@ spec/models/factur_xpdf_info_spec.rb
 spec/models/facture_electronique_models_invoice_type_code_spec.rb
 spec/models/facture_electronique_rest_api_schemas_cdar_validation_error_response_spec.rb
 spec/models/facture_electronique_rest_api_schemas_chorus_pro_chorus_pro_credentials_spec.rb
+spec/models/facture_electronique_rest_api_schemas_ereporting_invoice_type_code_spec.rb
+spec/models/facture_electronique_rest_api_schemas_processing_chorus_pro_credentials_spec.rb
+spec/models/facture_electronique_rest_api_schemas_validation_validation_error_response_spec.rb
 spec/models/field_status_spec.rb
 spec/models/file_info_spec.rb
 spec/models/files_info_spec.rb
@@ -1051,6 +1065,8 @@ spec/models/submit_vat_amount_spec.rb
 spec/models/super_pdp_connect_url_response_spec.rb
 spec/models/super_pdp_disconnect_response_spec.rb
 spec/models/super_pdp_status_response_spec.rb
+spec/models/super_pdp_vat_regime_response_spec.rb
+spec/models/super_pdp_vat_regime_update_request_spec.rb
 spec/models/supplementary_attachment_spec.rb
 spec/models/supplier_spec.rb
 spec/models/task_error_result_spec.rb
@@ -1078,7 +1094,6 @@ spec/models/validate_cdar_response_spec.rb
 spec/models/validate_e_reporting_request_spec.rb
 spec/models/validate_e_reporting_response_spec.rb
 spec/models/validation_error_detail_spec.rb
-spec/models/validation_error_response_spec.rb
 spec/models/validation_error_spec.rb
 spec/models/validation_info_spec.rb
 spec/models/validation_success_response_spec.rb

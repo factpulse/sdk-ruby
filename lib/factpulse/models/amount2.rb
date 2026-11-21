@@ -14,7 +14,7 @@ require 'date'
 require 'time'
 
 module FactPulse
-  # Payment amount
+  # Montant TTC encaissé en EUR, à un seul taux (vatRate). Négatif pour un décaissement (remboursement). Pour plusieurs taux, utiliser amountsByRate. Requis si amountsByRate est absent (BR-FR-CDV-14)
   module Amount2
     class << self
       # List of class defined in anyOf (OpenAPI v3)

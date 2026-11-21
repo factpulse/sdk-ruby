@@ -154,6 +154,18 @@ describe 'ClientManagementApi' do
     end
   end
 
+  # unit tests for get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get
+  # Get the SuperPDP VAT regime
+  # Read the VAT regime of the client&#39;s company at SuperPDP (&#x60;vatRegime&#x60; is null when not set).  SuperPDP refuses e-reporting (\&quot;The VAT regime needs to be setup at the company level\&quot;) until the VAT regime of the company is set: it defines the e-reporting transmission periods, and the Flux 10 file does not carry it. This setting is not part of the AFNOR API; FactPulse sets it with the client&#39;s SuperPDP connection.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Errors**: - &#x60;404 not_connected&#x60;: the client has not connected its SuperPDP account - &#x60;400 superpdp_error&#x60;: SuperPDP refused the request (&#x60;superpdp_status&#x60;, &#x60;message&#x60;) - &#x60;502&#x60;: SuperPDP unreachable, or the SuperPDP connection must be redone
+  # @param uid Client unique identifier (UUID)
+  # @param [Hash] opts the optional parameters
+  # @return [SuperPDPVatRegimeResponse]
+  describe 'get_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_get test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for get_webhook_secret_status_api_v1_clients_uid_webhook_secret_status_get
   # Get webhook secret status
   # Check if a webhook secret is configured for a client.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Response**: - &#x60;hasSecret&#x60;: Whether a webhook secret is configured - &#x60;createdAt&#x60;: When the secret was created (if exists)  **Note**: The secret value is never returned, only its status.
@@ -214,6 +226,19 @@ describe 'ClientManagementApi' do
   # @option opts [String] :x_encryption_key Client encryption key for double encryption mode. Must be a base64-encoded AES-256 key (32 bytes). Required only when accessing resources encrypted with encryption_mode&#x3D;&#39;double&#39;.
   # @return [PDPConfigResponse]
   describe 'update_pdp_config_api_v1_clients_uid_pdp_config_put test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  # unit tests for update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch
+  # Set the SuperPDP VAT regime
+  # Set the VAT regime of the client&#39;s company at SuperPDP. When &#x60;hasVatOnDebits&#x60; is omitted, its current value is kept.  SuperPDP refuses e-reporting (\&quot;The VAT regime needs to be setup at the company level\&quot;) until the VAT regime of the company is set: it defines the e-reporting transmission periods, and the Flux 10 file does not carry it. This setting is not part of the AFNOR API; FactPulse sets it with the client&#39;s SuperPDP connection.  **Scope**: Client level (JWT with client_uid that must match {uid})  **Errors**: - &#x60;404 not_connected&#x60;: the client has not connected its SuperPDP account - &#x60;400 superpdp_error&#x60;: SuperPDP refused the request (&#x60;superpdp_status&#x60;, &#x60;message&#x60;) - &#x60;502&#x60;: SuperPDP unreachable, or the SuperPDP connection must be redone
+  # @param uid Client unique identifier (UUID)
+  # @param super_pdp_vat_regime_update_request 
+  # @param [Hash] opts the optional parameters
+  # @return [SuperPDPVatRegimeResponse]
+  describe 'update_superpdp_vat_regime_api_v1_clients_uid_superpdp_vat_regime_patch test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

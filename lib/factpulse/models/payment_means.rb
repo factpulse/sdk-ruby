@@ -21,9 +21,10 @@ module FactPulse
     ESPECE = "ESPECE".freeze
     AUTRE = "AUTRE".freeze
     REPORT = "REPORT".freeze
+    CARTE = "CARTE".freeze
 
     def self.all_vars
-      @all_vars ||= [CHEQUE, PRELEVEMENT, VIREMENT, ESPECE, AUTRE, REPORT].freeze
+      @all_vars ||= [CHEQUE, PRELEVEMENT, VIREMENT, ESPECE, AUTRE, REPORT, CARTE].freeze
     end
 
     # Builds the enum from string

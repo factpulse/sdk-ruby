@@ -65,6 +65,10 @@ module FactPulse
     # Taux de TVA du montant encaissé en % (MDT-224, requis par BR-FR-CDV-14 pour le statut 212 ; défaut 20)
     attr_accessor :encaisse_vat_rate
 
+    attr_accessor :encaisse_amounts_by_rate
+
+    attr_accessor :comment
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -86,7 +90,9 @@ module FactPulse
         :'reason_text' => :'reasonText',
         :'action_code' => :'actionCode',
         :'encaisse_amount' => :'encaisseAmount',
-        :'encaisse_vat_rate' => :'encaisseVatRate'
+        :'encaisse_vat_rate' => :'encaisseVatRate',
+        :'encaisse_amounts_by_rate' => :'encaisseAmountsByRate',
+        :'comment' => :'comment'
       }
     end
 
@@ -121,7 +127,9 @@ module FactPulse
         :'reason_text' => :'String',
         :'action_code' => :'String',
         :'encaisse_amount' => :'Encaisseamount',
-        :'encaisse_vat_rate' => :'Float'
+        :'encaisse_vat_rate' => :'Float',
+        :'encaisse_amounts_by_rate' => :'Array<EncaisseAmountByRate>',
+        :'comment' => :'String'
       }
     end
 
@@ -136,6 +144,8 @@ module FactPulse
         :'reason_text',
         :'action_code',
         :'encaisse_amount',
+        :'encaisse_amounts_by_rate',
+        :'comment'
       ])
     end
 
@@ -252,6 +262,16 @@ module FactPulse
       else
         self.encaisse_vat_rate = 20
       end
+
+      if attributes.key?(:'encaisse_amounts_by_rate')
+        if (value = attributes[:'encaisse_amounts_by_rate']).is_a?(Array)
+          self.encaisse_amounts_by_rate = value
+        end
+      end
+
+      if attributes.key?(:'comment')
+        self.comment = attributes[:'comment']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -279,6 +299,14 @@ module FactPulse
         invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
+      if !@encaisse_amounts_by_rate.nil? && @encaisse_amounts_by_rate.length < 1
+        invalid_properties.push('invalid value for "encaisse_amounts_by_rate", number of items must be greater than or equal to 1.')
+      end
+
+      if !@comment.nil? && @comment.to_s.length > 2000
+        invalid_properties.push('invalid value for "comment", the character length must be smaller than or equal to 2000.')
+      end
+
       invalid_properties
     end
 
@@ -291,6 +319,8 @@ module FactPulse
       return false if @invoice_id.nil?
       return false if @invoice_issue_date.nil?
       return false if @status.nil?
+      return false if !@encaisse_amounts_by_rate.nil? && @encaisse_amounts_by_rate.length < 1
+      return false if !@comment.nil? && @comment.to_s.length > 2000
       true
     end
 
@@ -344,6 +374,26 @@ module FactPulse
       @status = status
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] encaisse_amounts_by_rate Value to be assigned
+    def encaisse_amounts_by_rate=(encaisse_amounts_by_rate)
+      if !encaisse_amounts_by_rate.nil? && encaisse_amounts_by_rate.length < 1
+        fail ArgumentError, 'invalid value for "encaisse_amounts_by_rate", number of items must be greater than or equal to 1.'
+      end
+
+      @encaisse_amounts_by_rate = encaisse_amounts_by_rate
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] comment Value to be assigned
+    def comment=(comment)
+      if !comment.nil? && comment.to_s.length > 2000
+        fail ArgumentError, 'invalid value for "comment", the character length must be smaller than or equal to 2000.'
+      end
+
+      @comment = comment
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -367,7 +417,9 @@ module FactPulse
           reason_text == o.reason_text &&
           action_code == o.action_code &&
           encaisse_amount == o.encaisse_amount &&
-          encaisse_vat_rate == o.encaisse_vat_rate
+          encaisse_vat_rate == o.encaisse_vat_rate &&
+          encaisse_amounts_by_rate == o.encaisse_amounts_by_rate &&
+          comment == o.comment
     end
 
     # @see the `==` method
@@ -379,7 +431,7 @@ module FactPulse
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [document_id, business_process, type_code, sender_siren, sender_role, sender_name, sender_email, recipients, invoice_id, invoice_issue_date, invoice_type_code, invoice_seller_siren, invoice_buyer_siren, status, reason_code, reason_text, action_code, encaisse_amount, encaisse_vat_rate].hash
+      [document_id, business_process, type_code, sender_siren, sender_role, sender_name, sender_email, recipients, invoice_id, invoice_issue_date, invoice_type_code, invoice_seller_siren, invoice_buyer_siren, status, reason_code, reason_text, action_code, encaisse_amount, encaisse_vat_rate, encaisse_amounts_by_rate, comment].hash
     end
 
     # Builds the object from hash

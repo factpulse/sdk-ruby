@@ -33,7 +33,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::FacturXValidationApi.new
-pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to validate (.pdf format).
+pdf_file = 'pdf_file_example' # String | Factur-X PDF file to validate (.pdf format).
 opts = {
   profile: FactPulse::APIProfile::MINIMUM, # APIProfile | 
   use_verapdf: true, # Boolean | Enable strict PDF/A validation with VeraPDF (recommended for production). If False, uses basic metadata validation.
@@ -71,7 +71,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | Factur-X PDF file to validate (.pdf format). |  |
+| **pdf_file** | **String** | Factur-X PDF file to validate (.pdf format). |  |
 | **profile** | [**APIProfile**](APIProfile.md) |  | [optional] |
 | **use_verapdf** | **Boolean** | Enable strict PDF/A validation with VeraPDF (recommended for production). If False, uses basic metadata validation. | [optional][default to false] |
 | **skip_br_fr** | **Boolean** |  | [optional] |
@@ -115,7 +115,7 @@ FactPulse.configure do |config|
 end
 
 api_instance = FactPulse::FacturXValidationApi.new
-pdf_file = File.new('/path/to/some/file') # File | Factur-X PDF file to validate (.pdf format).
+pdf_file = 'pdf_file_example' # String | Factur-X PDF file to validate (.pdf format).
 opts = {
   profile: FactPulse::APIProfile::MINIMUM, # APIProfile | 
   use_verapdf: true, # Boolean | Enable strict PDF/A validation with VeraPDF (recommended for production). May take several seconds.
@@ -154,7 +154,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **pdf_file** | **File** | Factur-X PDF file to validate (.pdf format). |  |
+| **pdf_file** | **String** | Factur-X PDF file to validate (.pdf format). |  |
 | **profile** | [**APIProfile**](APIProfile.md) |  | [optional] |
 | **use_verapdf** | **Boolean** | Enable strict PDF/A validation with VeraPDF (recommended for production). May take several seconds. | [optional][default to false] |
 | **callback_url** | **String** |  | [optional] |
